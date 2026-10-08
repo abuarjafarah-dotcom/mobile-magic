@@ -10,14 +10,33 @@ const DOTLESS_BA = "ٮ"; // ٮ
 const DOTLESS_FA = "ڡ"; // ڡ
 const DOTLESS_QAF = "ٯ"; // ٯ
 const DOTLESS_NUN = "ں"; // ں
-const DOTLESS_YA = "ى"; // ى
 
-const B = (base: string, dots: BuildSpec["dots"], place: BuildSpec["place"]): BuildSpec => ({ base, dots, place });
+type DotsSpec = Extract<BuildSpec, { place: unknown }>;
+const B = (base: string, dots: DotsSpec["dots"], place: DotsSpec["place"]): BuildSpec => ({
+  base,
+  dots,
+  place,
+});
 
 // id, glyph, spoken name, parent label, build spec, look/sound-alike ids
-const L = (id: string, glyph: string, say: string, en: string, build: BuildSpec | undefined, confusable: string[]): NooraniItem => {
+const L = (
+  id: string,
+  glyph: string,
+  say: string,
+  en: string,
+  build: BuildSpec | undefined,
+  confusable: string[],
+): NooraniItem => {
   const clip = curriculumAudio[`letters-${id === "ya2" ? "ya" : id}`];
-  return { id, glyph, say, en, confusable, ...(build ? { build } : {}), ...(clip ? { audio: { target: clip } } : {}) };
+  return {
+    id,
+    glyph,
+    say,
+    en,
+    confusable,
+    ...(build ? { build } : {}),
+    ...(clip ? { audio: { target: clip } } : {}),
+  };
 };
 
 export const unit1Items: NooraniItem[] = [

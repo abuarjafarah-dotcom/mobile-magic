@@ -3,11 +3,16 @@
 import type { NooraniItem } from "@/data/noorani";
 
 type Rec = {
-  lang: string; interimResults: boolean; maxAlternatives: number; continuous: boolean;
+  lang: string;
+  interimResults: boolean;
+  maxAlternatives: number;
+  continuous: boolean;
   onresult: ((e: { results: ArrayLike<ArrayLike<{ transcript: string }>> }) => void) | null;
   onerror: ((e: { error: string }) => void) | null;
   onend: (() => void) | null;
-  start: () => void; stop: () => void; abort: () => void;
+  start: () => void;
+  stop: () => void;
+  abort: () => void;
 };
 type RecCtor = new () => Rec;
 
@@ -19,10 +24,20 @@ const ctor = (): RecCtor | undefined => {
 
 export const canListen = () => Boolean(ctor());
 
-export type Heard = { transcripts: string[]; error?: "denied" | "unsupported" | "silent" | "other" };
+export type Heard = {
+  transcripts: string[];
+  error?: "denied" | "unsupported" | "silent" | "other";
+};
 
 let active: Rec | null = null;
-export function stopListening() { try { active?.abort(); } catch { /* already stopped */ } active = null; }
+export function stopListening() {
+  try {
+    active?.abort();
+  } catch {
+    /* already stopped */
+  }
+  active = null;
+}
 
 export function listenArabic(maxMs = 5000): Promise<Heard> {
   const C = ctor();
@@ -31,19 +46,49 @@ export function listenArabic(maxMs = 5000): Promise<Heard> {
   return new Promise((resolve) => {
     const rec = new C();
     active = rec;
-    rec.lang = "ar-SA"; rec.interimResults = false; rec.maxAlternatives = 5; rec.continuous = false;
+    rec.lang = "ar-SA";
+    rec.interimResults = false;
+    rec.maxAlternatives = 5;
+    rec.continuous = false;
     let out: string[] = [];
     let err: Heard["error"];
     let done = false;
-    const finish = () => { if (done) return; done = true; if (active === rec) active = null; resolve(out.length ? { transcripts: out } : { transcripts: [], error: err ?? "silent" }); };
+    const finish = () => {
+      if (done) return;
+      done = true;
+      if (active === rec) active = null;
+      resolve(out.length ? { transcripts: out } : { transcripts: [], error: err ?? "silent" });
+    };
     rec.onresult = (e) => {
       out = [];
-      for (let i = 0; i < e.results.length; i++) { const alts = e.results[i]!; for (let j = 0; j < alts.length; j++) out.push(alts[j]!.transcript); }
+      for (let i = 0; i < e.results.length; i++) {
+        const alts = e.results[i]!;
+        for (let j = 0; j < alts.length; j++) out.push(alts[j]!.transcript);
+      }
     };
-    rec.onerror = (e) => { err = e.error === "not-allowed" || e.error === "service-not-allowed" ? "denied" : e.error === "no-speech" ? "silent" : "other"; };
+    rec.onerror = (e) => {
+      err =
+        e.error === "not-allowed" || e.error === "service-not-allowed"
+          ? "denied"
+          : e.error === "no-speech"
+            ? "silent"
+            : "other";
+    };
     rec.onend = finish;
-    try { rec.start(); } catch { err = "other"; finish(); }
-    setTimeout(() => { try { rec.stop(); } catch { /* ended */ } setTimeout(finish, 800); }, maxMs);
+    try {
+      rec.start();
+    } catch {
+      err = "other";
+      finish();
+    }
+    setTimeout(() => {
+      try {
+        rec.stop();
+      } catch {
+        /* ended */
+      }
+      setTimeout(finish, 800);
+    }, maxMs);
   });
 }
 
@@ -64,7 +109,11 @@ export function judge(heard: Heard, item: NooraniItem): "match" | "close" | "non
   const said = heard.transcripts.map(foldArabic).filter(Boolean);
   if (!said.length) return "none";
   const name = foldArabic(item.say);
-  const keys = new Set([name, name.replace(/[ءا]$/, ""), name.replace(/ء$/, ""), foldArabic(item.glyph)].filter((k) => k.length > 0));
+  const keys = new Set(
+    [name, name.replace(/[ءا]$/, ""), name.replace(/ء$/, ""), foldArabic(item.glyph)].filter(
+      (k) => k.length > 0,
+    ),
+  );
   const hit = said.some((t) => {
     const words = t.split(" ");
     return [...keys].some((k) => t === k || words.includes(k) || (k.length >= 2 && t.includes(k)));

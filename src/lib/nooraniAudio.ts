@@ -31,7 +31,10 @@ let praiseTurn = 0;
 export function saySuccess(item?: NooraniItem): Promise<void> {
   if (!isVoiceOn()) return Promise.resolve();
   const own = item && (nooraniClips[`${item.id}:success`] ?? item.audio?.success);
-  if (own && item) { seq++; return speakArabic(item.say, own); }
+  if (own && item) {
+    seq++;
+    return speakArabic(item.say, own);
+  }
   return sayPhrase(praise[praiseTurn++ % praise.length]!);
 }
 
@@ -46,12 +49,16 @@ export async function sayEncourage(item?: NooraniItem): Promise<void> {
 }
 
 /** Play several items one after another; stops if anything else starts speaking. */
-export async function sayInOrder(items: NooraniItem[], onEach?: (index: number) => void): Promise<void> {
+export async function sayInOrder(
+  items: NooraniItem[],
+  onEach?: (index: number) => void,
+): Promise<void> {
   const mine = ++seq;
   for (let i = 0; i < items.length; i++) {
     if (mine !== seq) return;
     onEach?.(i);
-    if (isVoiceOn()) await speakArabic(items[i]!.say, nooraniClips[items[i]!.id] ?? items[i]!.audio?.target);
+    if (isVoiceOn())
+      await speakArabic(items[i]!.say, nooraniClips[items[i]!.id] ?? items[i]!.audio?.target);
     else await new Promise((r) => setTimeout(r, 500));
     await new Promise((r) => setTimeout(r, 350));
     if (mine !== seq) return;

@@ -55,4 +55,7 @@
 - [x] Noorani Qaida foundation: data model, per-child mastery + spaced review, 7 reusable activity engines, Unit 1 (single letters, 6 groups)
 - [x] Noorani: Unit 1 checked against the PDF (order, rows, names, both ya forms)
 - [ ] Noorani: record Qaida-style letter names (بَا not بَاء) into nooraniClips
-- [ ] Noorani Levels 2–12 from the PDF, one level at a time (data only)
+- [x] Noorani Level 2: letters with harakat (Meet, Same letter/different sound, Listen & choose, Add the harakah, Read it, Harakah challenge)
+- [x] Noorani Level 3: blending (Read together, order cards ×3, Read without audio, Find the correct reading)
+- [ ] Noorani: recordings for syllables beyond ب ت م and for every Level 3 blend
+- [ ] Noorani Levels 4–12 from the PDF, one level at a time (data only)
