@@ -51,3 +51,7 @@
 - [x] Montessori Bead Garden L3: division by sharing apples into groups, chain verify, wooden ÷/= equations, reverse relationship
 - [x] Montessori Bead Garden L4: squares + cubes 2–10 (6–10 use layer stacking + exploded cube art)
 - [ ] Montessori Bead Garden audit: drag/snap/reset, chain proportions & colors, equations reject wrong, browser test
+
+- [x] Noorani Qaida foundation: data model, per-child mastery + spaced review, 7 reusable activity engines, Unit 1 (single letters, 6 groups)
+- [ ] Noorani: confirm letter order/names against the family's PDF edition; record Noorani-style letter audio
+- [ ] Noorani Levels 2–12 from the supplied PDF (data only)

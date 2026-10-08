@@ -32,6 +32,7 @@ const InteractiveQuran = lazy(() => import("@/components/iq/InteractiveQuran").t
 const ScienceWorld = lazy(() => import("@/components/science/ScienceWorld").then((m) => ({ default: m.ScienceWorld })));
 const BuildingWorld = lazy(() => import("@/components/building/BuildingWorld").then((m) => ({ default: m.BuildingWorld })));
 const ChessWorld = lazy(() => import("@/components/chess/ChessWorld").then((m) => ({ default: m.ChessWorld })));
+const NooraniWorld = lazy(() => import("@/components/noorani/NooraniWorld").then((m) => ({ default: m.NooraniWorld })));
 const SeekAndFind = lazy(() => import("@/components/arabic/SeekAndFind").then((m) => ({ default: m.SeekAndFind })));
 const PalestinianKitchen = lazy(() => import("@/components/kitchen/PalestinianKitchen").then((m) => ({ default: m.PalestinianKitchen })));
 const MathQuest = lazy(() => import("@/components/math/MathQuest").then((m) => ({ default: m.MathQuest })));
@@ -77,7 +78,7 @@ export const Route = createFileRoute("/")({
   component: MathAdventure,
 });
 
-type Screen = "picker" | "home" | "game" | "reward" | "parent" | "surah" | "ayah" | "arabic" | "geo" | "iq" | "aw" | "g1" | "ie" | "bowling" | "quest" | "build" | "lw" | "sci" | "kitchen" | "chess" | "memorize" | "seek" | "beads";
+type Screen = "picker" | "home" | "game" | "reward" | "parent" | "surah" | "ayah" | "arabic" | "geo" | "iq" | "aw" | "g1" | "ie" | "bowling" | "quest" | "build" | "lw" | "sci" | "kitchen" | "chess" | "memorize" | "seek" | "beads" | "noorani";
 type GameMode = "multiplication" | "addition";
 type ActivityTab = GameMode | "grade1" | "bowling" | "surah" | "arabic" | "geo" | "iq" | "more";
 type Level = 1 | 2 | 3 | 4 | 5;
@@ -327,7 +328,7 @@ function MathAdventure() {
       {screen === "chess" && <Suspense fallback={null}><ChessWorld onExit={() => setScreen("picker")} /></Suspense>}
       {screen === "kitchen" && <Suspense fallback={null}><PalestinianKitchen onExit={() => setScreen("picker")} /></Suspense>}
       {screen === "sci" && <Suspense fallback={null}><ScienceWorld onExit={() => setScreen("picker")} /></Suspense>}
-      {screen === "home" && <HomeScreen stats={stats} learning={learning} tab={homeTab} onBack={() => setScreen("picker")} onTab={setHomeTab} onStartBowling={() => setScreen("bowling")} onStartQuest={() => setScreen("quest")} onStartBeads={() => setScreen("beads")} onStartMultiplication={startMultiplication} onStartAddition={startAddition} onStartSurah={(surah) => { setSelectedSurah(surah); setScreen("surah"); }} onStartAyah={(surah) => { setSelectedSurah(surah); setScreen("ayah"); }} onStartMemorize={(surah) => { setSelectedSurah(surah); setScreen("memorize"); }} onStartArabic={(lesson) => { setArabicLesson(lesson); setScreen("arabic"); }} onProgress={updateLearning} onStartGeo={(lesson) => { setGeoLesson(lesson); setScreen("geo"); }} onStartIq={() => setScreen("iq")} onStartIe={() => setScreen("ie")} onOpenArabicWorld={(v) => { if (v === "lw") { setScreen("lw"); return; } if (v === "seek") { setScreen("seek"); return; } setAwView(v); setScreen("aw"); }} onStartG1={(l) => { setG1Lesson(l); setScreen("g1"); }} />}
+      {screen === "home" && <HomeScreen stats={stats} learning={learning} tab={homeTab} onBack={() => setScreen("picker")} onTab={setHomeTab} onStartBowling={() => setScreen("bowling")} onStartQuest={() => setScreen("quest")} onStartBeads={() => setScreen("beads")} onStartMultiplication={startMultiplication} onStartAddition={startAddition} onStartSurah={(surah) => { setSelectedSurah(surah); setScreen("surah"); }} onStartAyah={(surah) => { setSelectedSurah(surah); setScreen("ayah"); }} onStartMemorize={(surah) => { setSelectedSurah(surah); setScreen("memorize"); }} onStartArabic={(lesson) => { setArabicLesson(lesson); setScreen("arabic"); }} onProgress={updateLearning} onStartGeo={(lesson) => { setGeoLesson(lesson); setScreen("geo"); }} onStartIq={() => setScreen("iq")} onStartIe={() => setScreen("ie")} onOpenArabicWorld={(v) => { if (v === "lw") { setScreen("lw"); return; } if (v === "seek") { setScreen("seek"); return; } if (v === "noorani") { setScreen("noorani"); return; } setAwView(v); setScreen("aw"); }} onStartG1={(l) => { setG1Lesson(l); setScreen("g1"); }} />}
       {screen === "build" && <Suspense fallback={null}><BuildingWorld onExit={() => setScreen("picker")} /></Suspense>}
       {screen === "beads" && <Suspense fallback={null}><MontessoriBeadChains onExit={goHome} /></Suspense>}
       {screen === "bowling" && <Suspense fallback={null}><MathBowling onExit={goHome} /></Suspense>}
@@ -340,6 +341,7 @@ function MathAdventure() {
       {screen === "ie" && <Suspense fallback={null}><IslamicExplorer onExit={() => setScreen("picker")} /></Suspense>}
       {screen === "iq" && <Suspense fallback={null}><InteractiveQuran progress={learning} update={updateLearning} onExit={() => setScreen("picker")} /></Suspense>}
       {screen === "seek" && <Suspense fallback={null}><SeekAndFind onExit={goHome} /></Suspense>}
+      {screen === "noorani" && <Suspense fallback={null}><NooraniWorld onExit={goHome} /></Suspense>}
       {screen === "lw" && <LearningWorld onExit={goHome} onOpenWorld={(v) => { setAwView(v); setScreen("aw"); }} />}
       {screen === "aw" && <ArabicWorld key={awView} view={awView} progress={learning} onProgress={updateLearning} onExit={goHome} onStartLesson={(lesson) => { setArabicLesson(lesson); setScreen("arabic"); }} />}
       {screen === "arabic" && <ArabicLesson key={arabicLesson.id} lesson={arabicLesson} progress={learning} onProgress={updateLearning} onExit={goHome} />}
@@ -462,6 +464,11 @@ function HomeScreen({ onStartQuest, onStartBeads, onBack, stats, learning, tab, 
         </div>
       ) : tab === "arabic" ? (
         <div className="mt-6" role="tabpanel">
+          <GameButton tone="mint" className="mb-4 flex min-h-28 w-full flex-col items-center justify-center gap-1 rounded-3xl p-4" onClick={() => onOpenArabicWorld("noorani")}>
+            <span className="text-4xl">🌳 ✨ 📖</span>
+            <span lang="ar" dir="rtl" className="font-arabic text-3xl font-black">حَدِيقَةُ النُّور</span>
+            <span className="text-sm font-bold opacity-80">Noorani Qaida • القاعدة النورانية</span>
+          </GameButton>
           <GameButton tone="berry" className="mb-4 flex min-h-32 w-full flex-col items-center justify-center gap-1 rounded-3xl p-5" onClick={() => onOpenArabicWorld("lw")}>
             <span className="text-4xl">🗺️ 📚 🔤</span>
             <span lang="ar" dir="rtl" className="font-arabic text-3xl font-black">عالم العربية</span>
