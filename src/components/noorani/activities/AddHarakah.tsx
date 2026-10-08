@@ -149,6 +149,7 @@ export function AddHarakah({ targets, spec, player, onResult, onDone }: Activity
               shown && "animate-pop-in",
               shown && !done && "text-foreground/60",
             )}
+            centerOn={b.base}
           >
             {shown ? shown.glyph : b.base}
           </Glyph>

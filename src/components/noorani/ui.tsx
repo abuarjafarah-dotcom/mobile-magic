@@ -89,11 +89,76 @@ export const Ar = ({ children, className }: { children: ReactNode; className?: s
 );
 
 /** Large, harakah-friendly Arabic glyph. Amiri Quran first for Qaida-style shapes. */
-export function Glyph({ children, className }: { children: ReactNode; className?: string }) {
+// Amiri Quran's ascent/descent are lopsided, so a letter's ink sits well below the middle
+// of its line box (tailed letters like ح ج ع most of all). We measure the real ink with a
+// canvas and nudge it so the visible letter is centred. Offsets are in em, cached per text.
+const inkCache = new Map<string, number>();
+let measureCtx: CanvasRenderingContext2D | null = null;
+
+function inkOffsetEm(text: string, family: string, weight: string): number | null {
+  const key = `${family}|${weight}|${text}`;
+  const hit = inkCache.get(key);
+  if (hit !== undefined) return hit;
+  if (typeof document === "undefined") return null;
+  measureCtx ??= document.createElement("canvas").getContext("2d");
+  if (!measureCtx) return null;
+  measureCtx.font = `${weight} 100px ${family}`;
+  measureCtx.direction = "rtl";
+  const m = measureCtx.measureText(text);
+  if (!m.fontBoundingBoxAscent && !m.fontBoundingBoxDescent) return null;
+  const contentMid = (m.fontBoundingBoxAscent - m.fontBoundingBoxDescent) / 2;
+  const inkMid = (m.actualBoundingBoxAscent - m.actualBoundingBoxDescent) / 2;
+  const em = (inkMid - contentMid) / 100;
+  return em;
+}
+
+/**
+ * Big Arabic glyph, optically centred in whatever box holds it.
+ * `centerOn` pins the centring to another text so stacked layers (letter + harakah)
+ * and letters that gain a mark stay put; pass `false` to turn centring off.
+ */
+export function Glyph({
+  children,
+  className,
+  centerOn,
+}: {
+  children: ReactNode;
+  className?: string;
+  centerOn?: string | false;
+}) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [dy, setDy] = useState(0);
+  const text = centerOn === false ? null : (centerOn ?? (typeof children === "string" ? children : null));
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || !text) {
+      setDy(0);
+      return;
+    }
+    let live = true;
+    const measure = (final: boolean) => {
+      if (!live) return;
+      const cs = getComputedStyle(el);
+      const em = inkOffsetEm(text, cs.fontFamily, cs.fontWeight);
+      if (em === null) return;
+      // Only cache once the web font is in, so fallback-font numbers never stick.
+      if (final) inkCache.set(`${cs.fontFamily}|${cs.fontWeight}|${text}`, em);
+      setDy(em);
+    };
+    measure(false);
+    void document.fonts?.ready.then(() => measure(true));
+    return () => {
+      live = false;
+    };
+  }, [text]);
+
   return (
     <span
+      ref={ref}
       dir="rtl"
       lang="ar"
+      style={dy ? { translate: `0 ${dy.toFixed(3)}em` } : undefined}
       className={cn(
         "font-quran inline-block leading-[1.5] [font-feature-settings:'kern'] select-none",
         className,
@@ -354,10 +419,11 @@ export function MarkedGlyph({
           "col-start-1 row-start-1 text-accent [text-shadow:0_0_0.08em_var(--accent)]",
           pulse && "animate-[mark-pulse_1.6s_ease-in-out_infinite]",
         )}
+        centerOn={bare}
       >
         {item.glyph}
       </Glyph>
-      <Glyph className="col-start-1 row-start-1 text-foreground">{bare}</Glyph>
+      <Glyph className="col-start-1 row-start-1 text-foreground" centerOn={bare}>{bare}</Glyph>
     </span>
   );
 }
@@ -367,8 +433,8 @@ export function MarkedGlyph({
 export function MarkOnly({ mark, className }: { mark: string; className?: string }) {
   return (
     <span className={cn("relative inline-grid", className)} aria-hidden>
-      <Glyph className="col-start-1 row-start-1 text-accent">{`\u0640${mark}`}</Glyph>
-      <Glyph className="col-start-1 row-start-1 text-[color:var(--border)]">{"\u0640"}</Glyph>
+      <Glyph className="col-start-1 row-start-1 text-accent" centerOn={"\u0640"}>{`\u0640${mark}`}</Glyph>
+      <Glyph className="col-start-1 row-start-1 text-[color:var(--border)]" centerOn={"\u0640"}>{"\u0640"}</Glyph>
     </span>
   );
 }
