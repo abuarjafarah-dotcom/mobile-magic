@@ -1,0 +1,7428 @@
+[
+{
+"word": "أبطأ",
+"vowelled": "أَبْطَأُ",
+"letter": "ا",
+"sources": [
+"science-book p.18"
+],
+"category": "science",
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-alif-001",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "أتوقع",
+"vowelled": "أَتَوَقَّعُ",
+"letter": "ا",
+"sources": [
+"arabic-book p.59",
+"arabic-book p.79",
+"arabic-book p.119"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-alif-002",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "أثا",
+"vowelled": "أَثَا",
+"letter": "ا",
+"sources": [
+"arabic-book p.33"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-alif-003",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "أثاث",
+"vowelled": "أَثاثٌ",
+"letter": "ا",
+"sources": [
+"arabic-book p.29",
+"arabic-book p.31"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-alif-004",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "أختي",
+"vowelled": "أُخْتِي",
+"letter": "ا",
+"sources": [
+"arabic-book p.46"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-alif-005",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "أذن",
+"vowelled": "أُذُنٌ",
+"letter": "ا",
+"sources": [
+"arabic-book p.44",
+"arabic-book p.46"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-alif-006",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "أرجوحة",
+"vowelled": "أُرْجُوحَةٌ",
+"letter": "ا",
+"sources": [
+"arabic-book p.47"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-alif-007",
+"difficulty": 3,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "أرنب",
+"vowelled": "أَرْنَبٌ",
+"letter": "ا",
+"sources": [
+"arabic-book p.44",
+"arabic-book p.46"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-alif-008",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "أسرع",
+"vowelled": "أَسْرَعُ",
+"letter": "ا",
+"sources": [
+"science-book p.18"
+],
+"category": "science",
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-alif-009",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "أشركتنا",
+"vowelled": "أَشْرَكْتَنَا",
+"letter": "ا",
+"sources": [
+"arabic-book p.123"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-alif-010",
+"difficulty": 3,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "أصعد",
+"vowelled": "أَصْعَدُ",
+"letter": "ا",
+"sources": [
+"arabic-book p.83"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-alif-011",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "أظافر",
+"vowelled": "أَظَافِرُ",
+"letter": "ا",
+"sources": [
+"arabic-book p.39",
+"arabic-book p.41"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-alif-012",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "أغمض",
+"vowelled": "أُغْمِضُ",
+"letter": "ا",
+"sources": [
+"arabic-book p.83"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-alif-013",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "أفتح",
+"vowelled": "أَفْتَحُ",
+"letter": "ا",
+"sources": [
+"arabic-book p.83"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-alif-014",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "أقصى",
+"vowelled": "أَقْصَى",
+"letter": "ا",
+"sources": [
+"arabic-book p.45"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-alif-015",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "أكل",
+"vowelled": "أَكَلَ",
+"letter": "ا",
+"sources": [
+"arabic-book p.46",
+"arabic-book p.69"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-alif-016",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "أكلت",
+"vowelled": "أَكَلَتْ",
+"letter": "ا",
+"sources": [
+"arabic-book p.68"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-alif-017",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "أمي",
+"vowelled": "أُمِّي",
+"letter": "ا",
+"sources": [
+"arabic-book p.45"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-alif-018",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "أنت",
+"vowelled": "أَنْتَ",
+"letter": "ا",
+"sources": [
+"arabic-book p.108"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-alif-019",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "أهبط",
+"vowelled": "أَهْبِطُ",
+"letter": "ا",
+"sources": [
+"arabic-book p.83"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-alif-020",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "إجاص",
+"vowelled": "إِجَاصٌ",
+"letter": "ا",
+"sources": [
+"arabic-book p.46",
+"asset sheet 3075"
+],
+"category": "food",
+"en": "pear",
+"definition": null,
+"example": null,
+"image": {
+"sheet": "sheet-3075",
+"cell": 12,
+"transparent": false
+},
+"audio": null,
+"id": "dict-alif-021",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"picture-match",
+"letter-hunt"
+],
+"reviewed": false
+},
+{
+"word": "إسعاف",
+"vowelled": "إِسْعَافٌ",
+"letter": "ا",
+"sources": [
+"arabic-book p.47"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-alif-022",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "إسلام",
+"vowelled": "إِسْلَامٌ",
+"letter": "ا",
+"sources": [
+"arabic-book p.45"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-alif-023",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "إنترنت",
+"vowelled": "إِنْتَرْنِت",
+"letter": "ا",
+"sources": [
+"arabic-book p.44",
+"arabic-book p.46"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-alif-024",
+"difficulty": 3,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "إنها",
+"vowelled": "إِنَّها",
+"letter": "ا",
+"sources": [
+"arabic-book p.122"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-alif-025",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "اتجاه",
+"vowelled": "اتِّجاهٌ",
+"letter": "ا",
+"sources": [
+"science-book p.18"
+],
+"category": "science",
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-alif-026",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "اثنان",
+"vowelled": "اثْنانِ",
+"letter": "ا",
+"sources": [
+"arabic-book p.29",
+"arabic-book p.31"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-alif-027",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "استيقظت",
+"vowelled": "اسْتَيْقَظَتْ",
+"letter": "ا",
+"sources": [
+"arabic-book p.68"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-alif-028",
+"difficulty": 3,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "اكتظا",
+"vowelled": "اكْتِظَا",
+"letter": "ا",
+"sources": [
+"arabic-book p.43"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-alif-029",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "الأب",
+"vowelled": "الْأَبُ",
+"letter": "ا",
+"sources": [
+"arabic-book p.84",
+"arabic-book p.123"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-alif-030",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "الأردن",
+"vowelled": "الْأُرْدُنُّ",
+"letter": "ا",
+"sources": [
+"arabic-book p.67"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-alif-031",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "الأرض",
+"vowelled": "الْأَرْضُ",
+"letter": "ا",
+"sources": [
+"science-book p.30",
+"science-book p.32"
+],
+"category": "science",
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-alif-032",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "الأم",
+"vowelled": "الْأُمُّ",
+"letter": "ا",
+"sources": [
+"arabic-book p.123"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-alif-033",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "البيت",
+"vowelled": "الْبَيْتُ",
+"letter": "ب",
+"sources": [
+"arabic-book p.84"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ba-001",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "باب",
+"vowelled": "بَاب",
+"letter": "ب",
+"sources": [
+"asset sheet 3075"
+],
+"category": "home",
+"en": "door",
+"definition": null,
+"example": null,
+"image": {
+"sheet": "sheet-3075",
+"cell": 2,
+"transparent": false
+},
+"audio": null,
+"id": "dict-ba-002",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"picture-match",
+"letter-hunt"
+],
+"reviewed": false
+},
+{
+"word": "باحث",
+"vowelled": "بَاحِثٌ",
+"letter": "ب",
+"sources": [
+"arabic-book p.31"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ba-003",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "بارع",
+"vowelled": "بَارِعٌ",
+"letter": "ب",
+"sources": [
+"arabic-book p.103"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ba-004",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "بالون",
+"vowelled": "بَالُون",
+"letter": "ب",
+"sources": [
+"asset sheet 3075"
+],
+"category": "toys",
+"en": "balloon",
+"definition": null,
+"example": null,
+"image": {
+"sheet": "sheet-3075",
+"cell": 8,
+"transparent": false
+},
+"audio": null,
+"id": "dict-ba-005",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"picture-match",
+"letter-hunt"
+],
+"reviewed": false
+},
+{
+"word": "ببغاء",
+"vowelled": "بَبَّغَاءُ",
+"letter": "ب",
+"sources": [
+"arabic-book p.24",
+"arabic-book p.25"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ba-006",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "بحث",
+"vowelled": "بَحْثٌ",
+"letter": "ب",
+"sources": [
+"arabic-book p.30"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ba-007",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "بحثي",
+"vowelled": "بَحْثِي",
+"letter": "ب",
+"sources": [
+"arabic-book p.31"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ba-008",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "بخل",
+"vowelled": "بُخْلٌ",
+"letter": "ب",
+"sources": [
+"arabic-book p.14"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ba-009",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "بخور",
+"vowelled": "بَخُورٌ",
+"letter": "ب",
+"sources": [
+"arabic-book p.13",
+"arabic-book p.15"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ba-010",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "بخيل",
+"vowelled": "بَخِيلٌ",
+"letter": "ب",
+"sources": [
+"arabic-book p.15"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ba-011",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "بذور",
+"vowelled": "بُذورٌ",
+"letter": "ب",
+"sources": [
+"arabic-book p.18",
+"arabic-book p.20"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ba-012",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "براغي",
+"vowelled": "بَرَاغِي",
+"letter": "ب",
+"sources": [
+"arabic-book p.25"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ba-013",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "برة",
+"vowelled": "بْرَةٌ",
+"letter": "ب",
+"sources": [
+"arabic-book p.48"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ba-014",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "بستان",
+"vowelled": "بُسْتَانٌ",
+"letter": "ب",
+"sources": [
+"arabic-book p.45"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ba-015",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "بطة",
+"vowelled": "بَطَّة",
+"letter": "ب",
+"sources": [
+"asset sheet 3075"
+],
+"category": "animals",
+"en": "duck",
+"definition": null,
+"example": null,
+"image": {
+"sheet": "sheet-3075",
+"cell": 0,
+"transparent": false
+},
+"audio": null,
+"id": "dict-ba-016",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"picture-match",
+"letter-hunt"
+],
+"reviewed": false
+},
+{
+"word": "بطيخ",
+"vowelled": "بِطِّيخٌ",
+"letter": "ب",
+"sources": [
+"arabic-book p.13",
+"arabic-book p.57",
+"asset sheet 3075"
+],
+"category": "food",
+"en": "watermelon",
+"definition": null,
+"example": null,
+"image": {
+"sheet": "sheet-3075",
+"cell": 1,
+"transparent": false
+},
+"audio": null,
+"id": "dict-ba-017",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"picture-match",
+"letter-hunt"
+],
+"reviewed": false
+},
+{
+"word": "بعيد",
+"vowelled": "بَعِيدٌ",
+"letter": "ب",
+"sources": [
+"arabic-book p.35"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ba-018",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "بعيدة",
+"vowelled": "بَعيدَةٌ",
+"letter": "ب",
+"sources": [
+"arabic-book p.83"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ba-019",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "بقرة",
+"vowelled": "بَقَرَة",
+"letter": "ب",
+"sources": [
+"asset sheet 3075"
+],
+"category": "animals",
+"en": "cow",
+"definition": null,
+"example": null,
+"image": {
+"sheet": "sheet-3075",
+"cell": 4,
+"transparent": false
+},
+"audio": null,
+"id": "dict-ba-020",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"picture-match",
+"letter-hunt"
+],
+"reviewed": false
+},
+{
+"word": "بلادي",
+"vowelled": "بِلَادِي",
+"letter": "ب",
+"sources": [
+"arabic-book p.62"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ba-021",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "بوظة",
+"vowelled": "بُوظَة",
+"letter": "ب",
+"sources": [
+"asset sheet 3075"
+],
+"category": "food",
+"en": "ice cream",
+"definition": null,
+"example": null,
+"image": {
+"sheet": "sheet-3075",
+"cell": 7,
+"transparent": false
+},
+"audio": null,
+"id": "dict-ba-022",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"picture-match",
+"letter-hunt"
+],
+"reviewed": false
+},
+{
+"word": "بيت",
+"vowelled": "بَيْت",
+"letter": "ب",
+"sources": [
+"asset sheet 3075"
+],
+"category": "home",
+"en": "house",
+"definition": null,
+"example": null,
+"image": {
+"sheet": "sheet-3075",
+"cell": 3,
+"transparent": false
+},
+"audio": null,
+"id": "dict-ba-023",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"picture-match",
+"letter-hunt"
+],
+"reviewed": false
+},
+{
+"word": "بيضة",
+"vowelled": "بَيْضَة",
+"letter": "ب",
+"sources": [
+"asset sheet 3075"
+],
+"category": "food",
+"en": "egg",
+"definition": null,
+"example": null,
+"image": {
+"sheet": "sheet-3075",
+"cell": 11,
+"transparent": false
+},
+"audio": null,
+"id": "dict-ba-024",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"picture-match",
+"letter-hunt"
+],
+"reviewed": false
+},
+{
+"word": "التنزه",
+"vowelled": "التَّنَزُّهُ",
+"letter": "ت",
+"sources": [
+"arabic-book p.106"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ta-001",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "تاج",
+"vowelled": "تَاج",
+"letter": "ت",
+"sources": [
+"asset sheet 3075"
+],
+"category": "objects",
+"en": "crown",
+"definition": null,
+"example": null,
+"image": {
+"sheet": "sheet-3075",
+"cell": 18,
+"transparent": false
+},
+"audio": null,
+"id": "dict-ta-002",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"picture-match",
+"letter-hunt"
+],
+"reviewed": false
+},
+{
+"word": "تجاذب",
+"vowelled": "تَجاذُبٌ",
+"letter": "ت",
+"sources": [
+"science-book p.22"
+],
+"category": "science",
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ta-003",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "تحرك",
+"vowelled": "تَحَرَّكْ",
+"letter": "ت",
+"sources": [
+"arabic-book p.63"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ta-004",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "تسر",
+"vowelled": "تَسُرُّ",
+"letter": "ت",
+"sources": [
+"arabic-book p.58"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ta-005",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "تصنيف",
+"vowelled": "تَصْنِيفٌ",
+"letter": "ت",
+"sources": [
+"science-book p.8"
+],
+"category": "science",
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ta-006",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "تطرز",
+"vowelled": "تُطَرِّزُ",
+"letter": "ت",
+"sources": [
+"arabic-book p.57",
+"arabic-book p.63"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ta-007",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "تقوي",
+"vowelled": "تُقَوِّي",
+"letter": "ت",
+"sources": [
+"arabic-book p.123"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ta-008",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "تميم",
+"vowelled": "تَمِيمٌ",
+"letter": "ت",
+"sources": [
+"arabic-book p.30"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ta-009",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "تنافر",
+"vowelled": "تَنافُرٌ",
+"letter": "ت",
+"sources": [
+"science-book p.22"
+],
+"category": "science",
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ta-010",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "توقف",
+"vowelled": "تَوَقُّفٌ",
+"letter": "ت",
+"sources": [
+"science-book p.18"
+],
+"category": "science",
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ta-011",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ثالث",
+"vowelled": "ثالِثٌ",
+"letter": "ث",
+"sources": [
+"arabic-book p.32"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-tha-001",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ثعبان",
+"vowelled": "ثُعْبانٌ",
+"letter": "ث",
+"sources": [
+"arabic-book p.29",
+"arabic-book p.31"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-tha-002",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ثعلب",
+"vowelled": "ثَعْلَبٌ",
+"letter": "ث",
+"sources": [
+"arabic-book p.29",
+"arabic-book p.31"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-tha-003",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ثلاث",
+"vowelled": "ثَلاثٍ",
+"letter": "ث",
+"sources": [
+"arabic-book p.87"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-tha-004",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ثلج",
+"vowelled": "ثَلْجٌ",
+"letter": "ث",
+"sources": [
+"arabic-book p.32"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-tha-005",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ثمار",
+"vowelled": "ثمَارٌ",
+"letter": "ث",
+"sources": [
+"arabic-book p.31"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-tha-006",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ثمر",
+"vowelled": "ثَمَرٌ",
+"letter": "ث",
+"sources": [
+"arabic-book p.31"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-tha-007",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ثمن",
+"vowelled": "ثَمَنٌ",
+"letter": "ث",
+"sources": [
+"arabic-book p.31"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-tha-008",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ثوب",
+"vowelled": "ثَوْبٌ",
+"letter": "ث",
+"sources": [
+"arabic-book p.29",
+"arabic-book p.63"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-tha-009",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ثور",
+"vowelled": "ثَوْرٌ",
+"letter": "ث",
+"sources": [
+"arabic-book p.30"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-tha-010",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ثوم",
+"vowelled": "ثُومٌ",
+"letter": "ث",
+"sources": [
+"arabic-book p.29",
+"arabic-book p.31"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-tha-011",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ثياب",
+"vowelled": "ثِيابٌ",
+"letter": "ث",
+"sources": [
+"arabic-book p.29",
+"arabic-book p.31"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-tha-012",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ثيران",
+"vowelled": "ثِيرانٌ",
+"letter": "ث",
+"sources": [
+"arabic-book p.29",
+"arabic-book p.31"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-tha-013",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "الجديد",
+"vowelled": "الْجَدِيدُ",
+"letter": "ج",
+"sources": [
+"arabic-book p.107"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-jim-001",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "الجديدة",
+"vowelled": "الْجَدِيدَةِ",
+"letter": "ج",
+"sources": [
+"arabic-book p.123"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-jim-002",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "جدتي",
+"vowelled": "جَدَّتي",
+"letter": "ج",
+"sources": [
+"arabic-book p.57"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-jim-003",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "جذر",
+"vowelled": "جَذْرٌ",
+"letter": "ج",
+"sources": [
+"arabic-book p.18",
+"arabic-book p.20",
+"arabic-book p.21"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-jim-004",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "جذع",
+"vowelled": "جِذْعٌ",
+"letter": "ج",
+"sources": [
+"arabic-book p.19"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-jim-005",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "جراثيم",
+"vowelled": "جَراثيمُ",
+"letter": "ج",
+"sources": [
+"arabic-book p.32"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-jim-006",
+"difficulty": 3,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "جرس",
+"vowelled": "جَرَس",
+"letter": "ج",
+"sources": [
+"asset sheet 3075"
+],
+"category": "objects",
+"en": "bell",
+"definition": null,
+"example": null,
+"image": {
+"sheet": "sheet-3075",
+"cell": 15,
+"transparent": false
+},
+"audio": null,
+"id": "dict-jim-007",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"picture-match",
+"letter-hunt"
+],
+"reviewed": false
+},
+{
+"word": "جميلا",
+"vowelled": "جَمِيلًا",
+"letter": "ج",
+"sources": [
+"arabic-book p.103"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-jim-008",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "الحديقة",
+"vowelled": "الْحَدِيقَةُ",
+"letter": "ح",
+"sources": [
+"arabic-book p.107"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-hha-001",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "حافظ",
+"vowelled": "حافِظٌ",
+"letter": "ح",
+"sources": [
+"arabic-book p.42"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-hha-002",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "حديد",
+"vowelled": "حَدِيدٌ",
+"letter": "ح",
+"sources": [
+"arabic-book p.19"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-hha-003",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "حذا",
+"vowelled": "حِذَا",
+"letter": "ح",
+"sources": [
+"arabic-book p.48"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-hha-004",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "حذاء",
+"vowelled": "حِذاءٌ",
+"letter": "ح",
+"sources": [
+"arabic-book p.18",
+"arabic-book p.20"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-hha-005",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "حركة",
+"vowelled": "حَرَكَةٌ",
+"letter": "ح",
+"sources": [
+"science-book p.18"
+],
+"category": "science",
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-hha-006",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "حروف",
+"vowelled": "حُرُوفٌ",
+"letter": "ح",
+"sources": [
+"arabic-book p.14"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-hha-007",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "حزين",
+"vowelled": "حَزِينٌ",
+"letter": "ح",
+"sources": [
+"arabic-book p.123"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-hha-008",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "حضرت",
+"vowelled": "حَضَرَتْ",
+"letter": "ح",
+"sources": [
+"arabic-book p.68"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-hha-009",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "حظيرة",
+"vowelled": "حَظِيرَةٌ",
+"letter": "ح",
+"sources": [
+"arabic-book p.39",
+"arabic-book p.41",
+"arabic-book p.42"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-hha-010",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "حفظي",
+"vowelled": "حِفْظِي",
+"letter": "ح",
+"sources": [
+"arabic-book p.41"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-hha-011",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "حليب",
+"vowelled": "حَلِيب",
+"letter": "ح",
+"sources": [
+"asset sheet 3075"
+],
+"category": "food",
+"en": "milk",
+"definition": null,
+"example": null,
+"image": {
+"sheet": "sheet-3075",
+"cell": 10,
+"transparent": false
+},
+"audio": null,
+"id": "dict-hha-012",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"picture-match",
+"letter-hunt"
+],
+"reviewed": false
+},
+{
+"word": "حملت",
+"vowelled": "حَمَلَتْ",
+"letter": "ح",
+"sources": [
+"arabic-book p.69"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-hha-013",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "حنين",
+"vowelled": "حَنِينٌ",
+"letter": "ح",
+"sources": [
+"arabic-book p.84"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-hha-014",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "خاتم",
+"vowelled": "خاتَمٌ",
+"letter": "خ",
+"sources": [
+"arabic-book p.13",
+"arabic-book p.15"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-kha-001",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "خالد",
+"vowelled": "خَالِدٌ",
+"letter": "خ",
+"sources": [
+"arabic-book p.15"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-kha-002",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "خبز",
+"vowelled": "خُبْزٌ",
+"letter": "خ",
+"sources": [
+"arabic-book p.13",
+"arabic-book p.15",
+"asset sheet 3075"
+],
+"category": "food",
+"en": "bread",
+"definition": null,
+"example": null,
+"image": {
+"sheet": "sheet-3075",
+"cell": 9,
+"transparent": false
+},
+"audio": null,
+"id": "dict-kha-003",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"picture-match",
+"letter-hunt"
+],
+"reviewed": false
+},
+{
+"word": "خروف",
+"vowelled": "خَرُوفٌ",
+"letter": "خ",
+"sources": [
+"arabic-book p.13",
+"arabic-book p.14"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-kha-004",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "خزانة",
+"vowelled": "خِزانَةٌ",
+"letter": "خ",
+"sources": [
+"arabic-book p.13",
+"arabic-book p.15"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-kha-005",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "خشب",
+"vowelled": "خَشَبٌ",
+"letter": "خ",
+"sources": [
+"arabic-book p.13",
+"arabic-book p.15"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-kha-006",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "خليل",
+"vowelled": "خَلِيلٌ",
+"letter": "خ",
+"sources": [
+"arabic-book p.16"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-kha-007",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "الدفع",
+"vowelled": "الدَّفْعُ",
+"letter": "د",
+"sources": [
+"science-book p.16"
+],
+"category": "science",
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-dal-001",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "درست",
+"vowelled": "دَرَسَتْ",
+"letter": "د",
+"sources": [
+"arabic-book p.68"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-dal-002",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "دفع",
+"vowelled": "دَفْعٌ",
+"letter": "د",
+"sources": [
+"science-book p.22"
+],
+"category": "science",
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-dal-003",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "دما",
+"vowelled": "دِمَا",
+"letter": "د",
+"sources": [
+"arabic-book p.27"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-dal-004",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "دهد",
+"vowelled": "دْهُدٌ",
+"letter": "د",
+"sources": [
+"arabic-book p.38"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-dal-005",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ديك",
+"vowelled": "دِيكٌ",
+"letter": "د",
+"sources": [
+"arabic-book p.19"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-dal-006",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ذئب",
+"vowelled": "ذِئْبٌ",
+"letter": "ذ",
+"sources": [
+"arabic-book p.18",
+"arabic-book p.20"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-dhal-001",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ذابل",
+"vowelled": "ذَابِلٌ",
+"letter": "ذ",
+"sources": [
+"arabic-book p.21"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-dhal-002",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ذباب",
+"vowelled": "ذُبَابٌ",
+"letter": "ذ",
+"sources": [
+"arabic-book p.19"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-dhal-003",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ذراع",
+"vowelled": "ذِرَاعٌ",
+"letter": "ذ",
+"sources": [
+"arabic-book p.20"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-dhal-004",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ذرة",
+"vowelled": "ذُرَةٌ",
+"letter": "ذ",
+"sources": [
+"arabic-book p.18",
+"arabic-book p.20"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-dhal-005",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ذكي",
+"vowelled": "ذَكِيٌّ",
+"letter": "ذ",
+"sources": [
+"arabic-book p.108"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-dhal-006",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ذهب",
+"vowelled": "ذَهَبٌ",
+"letter": "ذ",
+"sources": [
+"arabic-book p.18",
+"arabic-book p.20"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-dhal-007",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ذيل",
+"vowelled": "ذَيْلٌ",
+"letter": "ذ",
+"sources": [
+"arabic-book p.18"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-dhal-008",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "راشد",
+"vowelled": "رَاشِدٌ",
+"letter": "ر",
+"sources": [
+"arabic-book p.104"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ra-001",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "راع",
+"vowelled": "رَاعٌ",
+"letter": "ر",
+"sources": [
+"arabic-book p.22"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ra-002",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "رجوحة",
+"vowelled": "رْجُوحَةٌ",
+"letter": "ر",
+"sources": [
+"arabic-book p.46"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ra-003",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "رذاذ",
+"vowelled": "رَذَاذٌ",
+"letter": "ر",
+"sources": [
+"arabic-book p.20"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ra-004",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "رغد",
+"vowelled": "رَغَدُ",
+"letter": "ر",
+"sources": [
+"arabic-book p.25"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ra-005",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "رغيف",
+"vowelled": "رَغِيفٌ",
+"letter": "ر",
+"sources": [
+"arabic-book p.25"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ra-006",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "رفرف",
+"vowelled": "رَفْرَفَ",
+"letter": "ر",
+"sources": [
+"arabic-book p.62"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ra-007",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "رمان",
+"vowelled": "رُمانٌ",
+"letter": "ر",
+"sources": [
+"arabic-book p.57"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ra-008",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "رياضة",
+"vowelled": "رِياضَةٌ",
+"letter": "ر",
+"sources": [
+"arabic-book p.122"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ra-009",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "زاهي",
+"vowelled": "زَاهِي",
+"letter": "ز",
+"sources": [
+"arabic-book p.36"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-zay-001",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "السحب",
+"vowelled": "السَّحْبُ",
+"letter": "س",
+"sources": [
+"science-book p.16"
+],
+"category": "science",
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sin-001",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "السلم",
+"vowelled": "السُّلَّمُ",
+"letter": "س",
+"sources": [
+"arabic-book p.83"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sin-002",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "السماء",
+"vowelled": "السَّماءُ",
+"letter": "س",
+"sources": [
+"arabic-book p.83"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sin-003",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "سأغمض",
+"vowelled": "سَأُغْمِضُ",
+"letter": "س",
+"sources": [
+"arabic-book p.82"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sin-004",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "سأل",
+"vowelled": "سَأَلَ",
+"letter": "س",
+"sources": [
+"arabic-book p.47"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sin-005",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ساحرا",
+"vowelled": "سَاحِرًا",
+"letter": "س",
+"sources": [
+"arabic-book p.102"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sin-006",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ساخن",
+"vowelled": "سَاخِنٌ",
+"letter": "س",
+"sources": [
+"arabic-book p.15"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sin-007",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "سبورة",
+"vowelled": "سَبُّورَةٌ",
+"letter": "س",
+"sources": [
+"arabic-book p.57"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sin-008",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "سحب",
+"vowelled": "سَحْبٌ",
+"letter": "س",
+"sources": [
+"science-book p.22"
+],
+"category": "science",
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sin-009",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "سرة",
+"vowelled": "سْرَةٌ",
+"letter": "س",
+"sources": [
+"arabic-book p.48"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sin-010",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "سريع",
+"vowelled": "سَريعٌ",
+"letter": "س",
+"sources": [
+"arabic-book p.108"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sin-011",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "سعيدة",
+"vowelled": "سَعيدَةٌ",
+"letter": "س",
+"sources": [
+"arabic-book p.108"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sin-012",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "سلما",
+"vowelled": "سُلَّمًا",
+"letter": "س",
+"sources": [
+"arabic-book p.87"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sin-013",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "سما",
+"vowelled": "سَمَا",
+"letter": "س",
+"sources": [
+"arabic-book p.46"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sin-014",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "سماء",
+"vowelled": "سَمَاءٌ",
+"letter": "س",
+"sources": [
+"arabic-book p.45",
+"arabic-book p.86",
+"arabic-book p.87"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sin-015",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "سمك",
+"vowelled": "سَمَكٌ",
+"letter": "س",
+"sources": [
+"arabic-book p.45"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sin-016",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "سنان",
+"vowelled": "سْنَانٌ",
+"letter": "س",
+"sources": [
+"arabic-book p.48"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sin-017",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "سهل",
+"vowelled": "سَهْلٌ",
+"letter": "س",
+"sources": [
+"arabic-book p.83",
+"arabic-book p.87"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sin-018",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "سهول",
+"vowelled": "سُهُولٌ",
+"letter": "س",
+"sources": [
+"arabic-book p.34",
+"arabic-book p.36",
+"arabic-book p.37"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sin-019",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "سياح",
+"vowelled": "سِيَاحٌ",
+"letter": "س",
+"sources": [
+"arabic-book p.14"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sin-020",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "سيارة",
+"vowelled": "سَيَارَةٌ",
+"letter": "س",
+"sources": [
+"arabic-book p.66"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sin-021",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "الشارع",
+"vowelled": "الشَّارِعُ",
+"letter": "ش",
+"sources": [
+"arabic-book p.107"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-shin-001",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "الشمس",
+"vowelled": "الشَّمْسُ",
+"letter": "ش",
+"sources": [
+"science-book p.30"
+],
+"category": "science",
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-shin-002",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "شارع",
+"vowelled": "شَارِعٌ",
+"letter": "ش",
+"sources": [
+"arabic-book p.24"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-shin-003",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "شريف",
+"vowelled": "شَرِيفٌ",
+"letter": "ش",
+"sources": [
+"arabic-book p.84"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-shin-004",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "شفاه",
+"vowelled": "شِفَاهٌ",
+"letter": "ش",
+"sources": [
+"arabic-book p.35",
+"arabic-book p.36"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-shin-005",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "الصديق",
+"vowelled": "الصَّدِيقُ",
+"letter": "ص",
+"sources": [
+"arabic-book p.107"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sad-001",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "صارو",
+"vowelled": "صَارُو",
+"letter": "ص",
+"sources": [
+"arabic-book p.17"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sad-002",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "صاروخ",
+"vowelled": "صَارُوخٌ",
+"letter": "ص",
+"sources": [
+"arabic-book p.16"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sad-003",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "صامت",
+"vowelled": "صَامَتْ",
+"letter": "ص",
+"sources": [
+"arabic-book p.68"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sad-004",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "صباحا",
+"vowelled": "صَبَاحًا",
+"letter": "ص",
+"sources": [
+"arabic-book p.123",
+"arabic-book p.128"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sad-005",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "صبار",
+"vowelled": "صَبَارٌ",
+"letter": "ص",
+"sources": [
+"arabic-book p.66"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sad-006",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "صحفية",
+"vowelled": "صَحَفِيَّةٌ",
+"letter": "ص",
+"sources": [
+"arabic-book p.67"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sad-007",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "صخرة",
+"vowelled": "صَخْرَةٌ",
+"letter": "ص",
+"sources": [
+"arabic-book p.13",
+"arabic-book p.15"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sad-008",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "صخور",
+"vowelled": "صُخُورٌ",
+"letter": "ص",
+"sources": [
+"arabic-book p.15",
+"science-book p.26"
+],
+"category": "science",
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sad-009",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "صديق",
+"vowelled": "صَدِيقٌ",
+"letter": "ص",
+"sources": [
+"arabic-book p.103"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sad-010",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "صعب",
+"vowelled": "صَعْبٌ",
+"letter": "ص",
+"sources": [
+"arabic-book p.83"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sad-011",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "صغير",
+"vowelled": "صَغِيرٌ",
+"letter": "ص",
+"sources": [
+"arabic-book p.25"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sad-012",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "صلى",
+"vowelled": "صَلّى",
+"letter": "ص",
+"sources": [
+"arabic-book p.69"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sad-013",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "صمغ",
+"vowelled": "صَمْغٌ",
+"letter": "ص",
+"sources": [
+"arabic-book p.24",
+"arabic-book p.25"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-sad-014",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ضارة",
+"vowelled": "ضَارَّةٌ",
+"letter": "ض",
+"sources": [
+"arabic-book p.123"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-dad-001",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "الطاهي",
+"vowelled": "الطّاهِي",
+"letter": "ط",
+"sources": [
+"arabic-book p.34",
+"arabic-book p.36"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-tta-001",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "طائرة ورقية",
+"vowelled": "طَائِرَة وَرَقِيَّة",
+"letter": "ط",
+"sources": [
+"asset sheet 3075"
+],
+"category": "toys",
+"en": "kite",
+"definition": null,
+"example": null,
+"image": {
+"sheet": "sheet-3075",
+"cell": 17,
+"transparent": false
+},
+"audio": null,
+"id": "dict-tta-002",
+"difficulty": 3,
+"relatedWords": [],
+"games": [
+"picture-match",
+"letter-hunt"
+],
+"reviewed": false
+},
+{
+"word": "طارق",
+"vowelled": "طَارِقٌ",
+"letter": "ط",
+"sources": [
+"arabic-book p.104"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-tta-003",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "طباخ",
+"vowelled": "طَبَّاخٌ",
+"letter": "ط",
+"sources": [
+"arabic-book p.67"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-tta-004",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "طبل",
+"vowelled": "طَبْلٌ",
+"letter": "ط",
+"sources": [
+"arabic-book p.40"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-tta-005",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ظافر",
+"vowelled": "ظَافِرٌ",
+"letter": "ظ",
+"sources": [
+"arabic-book p.41"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-zza-001",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ظرف",
+"vowelled": "ظَرْفٌ",
+"letter": "ظ",
+"sources": [
+"arabic-book p.39",
+"arabic-book p.41"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-zza-002",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ظروف",
+"vowelled": "ظُرُوفٌ",
+"letter": "ظ",
+"sources": [
+"arabic-book p.40"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-zza-003",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ظريف",
+"vowelled": "ظَريفٌ",
+"letter": "ظ",
+"sources": [
+"arabic-book p.42"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-zza-004",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ظفر",
+"vowelled": "ظُفْرٌ",
+"letter": "ظ",
+"sources": [
+"arabic-book p.39",
+"arabic-book p.41"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-zza-005",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ظلال",
+"vowelled": "ظِلَالٌ",
+"letter": "ظ",
+"sources": [
+"arabic-book p.39",
+"arabic-book p.41"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-zza-006",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ظلام",
+"vowelled": "ظَلَامٌ",
+"letter": "ظ",
+"sources": [
+"arabic-book p.39",
+"arabic-book p.41"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-zza-007",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ظهور",
+"vowelled": "ظُهُورٌ",
+"letter": "ظ",
+"sources": [
+"arabic-book p.41"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-zza-008",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "العود",
+"vowelled": "الْعُودُ",
+"letter": "ع",
+"sources": [
+"arabic-book p.106"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ayn-001",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "عبير",
+"vowelled": "عَبِيرُ",
+"letter": "ع",
+"sources": [
+"arabic-book p.123"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ayn-002",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "عزنا",
+"vowelled": "عِزِّنا",
+"letter": "ع",
+"sources": [
+"arabic-book p.63"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ayn-003",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "عسل",
+"vowelled": "عَسَلٍ",
+"letter": "ع",
+"sources": [
+"arabic-book p.86"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ayn-004",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "عظم",
+"vowelled": "عَظْمٌ",
+"letter": "ع",
+"sources": [
+"arabic-book p.39",
+"arabic-book p.41"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ayn-005",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "علم",
+"vowelled": "عَلَمُ",
+"letter": "ع",
+"sources": [
+"arabic-book p.62",
+"arabic-book p.63",
+"asset sheet 3075"
+],
+"category": "objects",
+"en": "flag",
+"definition": null,
+"example": null,
+"image": {
+"sheet": "sheet-3075",
+"cell": 5,
+"transparent": false
+},
+"audio": null,
+"id": "dict-ayn-006",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"picture-match",
+"letter-hunt"
+],
+"reviewed": false
+},
+{
+"word": "عمرنا",
+"vowelled": "عُمْرِنا",
+"letter": "ع",
+"sources": [
+"arabic-book p.63"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ayn-007",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "عود",
+"vowelled": "عُودٌ",
+"letter": "ع",
+"sources": [
+"arabic-book p.24",
+"arabic-book p.103"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ayn-008",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "عيني",
+"vowelled": "عَيْنَيَّ",
+"letter": "ع",
+"sources": [
+"arabic-book p.82"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ayn-009",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "غابة",
+"vowelled": "غَابَةٌ",
+"letter": "غ",
+"sources": [
+"arabic-book p.25"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ghayn-001",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "غالب",
+"vowelled": "غَالِبٌ",
+"letter": "غ",
+"sources": [
+"arabic-book p.25"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ghayn-002",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "غراب",
+"vowelled": "غُرابٌ",
+"letter": "غ",
+"sources": [
+"arabic-book p.25"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ghayn-003",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "غزال",
+"vowelled": "غَزالٌ",
+"letter": "غ",
+"sources": [
+"arabic-book p.25"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ghayn-004",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "غصن",
+"vowelled": "غُصْنٌ",
+"letter": "غ",
+"sources": [
+"arabic-book p.24",
+"arabic-book p.25"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ghayn-005",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "غصون",
+"vowelled": "غُصُونٌ",
+"letter": "غ",
+"sources": [
+"arabic-book p.26"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ghayn-006",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "غطاء",
+"vowelled": "غِطاءٌ",
+"letter": "غ",
+"sources": [
+"arabic-book p.25"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ghayn-007",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "غليظ",
+"vowelled": "غَلِيظٌ",
+"letter": "غ",
+"sources": [
+"arabic-book p.41"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ghayn-008",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "غوريلا",
+"vowelled": "غُورِيلّا",
+"letter": "غ",
+"sources": [
+"arabic-book p.25"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ghayn-009",
+"difficulty": 3,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "غيمة",
+"vowelled": "غَيْمَةٌ",
+"letter": "غ",
+"sources": [
+"arabic-book p.25"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ghayn-010",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "فأر",
+"vowelled": "فَأْرٌ",
+"letter": "ف",
+"sources": [
+"arabic-book p.44",
+"arabic-book p.46"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-fa-001",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "فارغ",
+"vowelled": "فَارِغٌ",
+"letter": "ف",
+"sources": [
+"arabic-book p.25"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-fa-002",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "فتحت",
+"vowelled": "فَتَحَتْ",
+"letter": "ف",
+"sources": [
+"arabic-book p.68"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-fa-003",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "فخذ",
+"vowelled": "فَخْذٌ",
+"letter": "ف",
+"sources": [
+"arabic-book p.20"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-fa-004",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "فخر",
+"vowelled": "فَخْرٌ",
+"letter": "ف",
+"sources": [
+"arabic-book p.14"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-fa-005",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "فخرنا",
+"vowelled": "فَخْرُنا",
+"letter": "ف",
+"sources": [
+"arabic-book p.63"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-fa-006",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "فراغ",
+"vowelled": "فَرَاغٌ",
+"letter": "ف",
+"sources": [
+"arabic-book p.24"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-fa-007",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "فرشاة",
+"vowelled": "فُرْشَاة",
+"letter": "ف",
+"sources": [
+"asset sheet 3075"
+],
+"category": "objects",
+"en": "brush",
+"definition": null,
+"example": null,
+"image": {
+"sheet": "sheet-3075",
+"cell": 19,
+"transparent": false
+},
+"audio": null,
+"id": "dict-fa-008",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"picture-match",
+"letter-hunt"
+],
+"reviewed": false
+},
+{
+"word": "فلاح",
+"vowelled": "فَلَّاحٌ",
+"letter": "ف",
+"sources": [
+"arabic-book p.58"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-fa-009",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "فهد",
+"vowelled": "فَهْدٌ",
+"letter": "ف",
+"sources": [
+"arabic-book p.34",
+"arabic-book p.36"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-fa-010",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "فهود",
+"vowelled": "فُهُودٌ",
+"letter": "ف",
+"sources": [
+"arabic-book p.36"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-fa-011",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "فواكه",
+"vowelled": "فَوَاكِهُ",
+"letter": "ف",
+"sources": [
+"arabic-book p.35"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-fa-012",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "القديمة",
+"vowelled": "الْقَدِيمَةِ",
+"letter": "ق",
+"sources": [
+"arabic-book p.123"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-qaf-001",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "القوة",
+"vowelled": "الْقُوَّةُ",
+"letter": "ق",
+"sources": [
+"science-book p.16"
+],
+"category": "science",
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-qaf-002",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "قال",
+"vowelled": "قالَ",
+"letter": "ق",
+"sources": [
+"arabic-book p.57"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-qaf-003",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "قالت",
+"vowelled": "قالَتْ",
+"letter": "ق",
+"sources": [
+"arabic-book p.69"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-qaf-004",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "قامت",
+"vowelled": "قَامَتْ",
+"letter": "ق",
+"sources": [
+"arabic-book p.68"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-qaf-005",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "قرأت",
+"vowelled": "قَرَأَتْ",
+"letter": "ق",
+"sources": [
+"arabic-book p.69"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-qaf-006",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "قريبة",
+"vowelled": "قَريبَةٌ",
+"letter": "ق",
+"sources": [
+"arabic-book p.83"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-qaf-007",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "قطب",
+"vowelled": "قُطْبٌ",
+"letter": "ق",
+"sources": [
+"science-book p.22"
+],
+"category": "science",
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-qaf-008",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "قطة",
+"vowelled": "قِطَّةٌ",
+"letter": "ق",
+"sources": [
+"arabic-book p.57"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-qaf-009",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "قطي",
+"vowelled": "قِطِّي",
+"letter": "ق",
+"sources": [
+"arabic-book p.67"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-qaf-010",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "قلما",
+"vowelled": "قَلَمًا",
+"letter": "ق",
+"sources": [
+"arabic-book p.86"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-qaf-011",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "قنفذ",
+"vowelled": "قُنْفُذٌ",
+"letter": "ق",
+"sources": [
+"arabic-book p.18",
+"arabic-book p.19",
+"arabic-book p.20",
+"arabic-book p.21"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-qaf-012",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "قوة",
+"vowelled": "قُوَّةٌ",
+"letter": "ق",
+"sources": [
+"science-book p.22"
+],
+"category": "science",
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-qaf-013",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "قيثارة",
+"vowelled": "قِيثَارَة",
+"letter": "ق",
+"sources": [
+"asset sheet 3075"
+],
+"category": "objects",
+"en": "guitar",
+"definition": null,
+"example": null,
+"image": {
+"sheet": "sheet-3075",
+"cell": 13,
+"transparent": false
+},
+"audio": null,
+"id": "dict-qaf-014",
+"difficulty": 3,
+"relatedWords": [],
+"games": [
+"picture-match",
+"letter-hunt"
+],
+"reviewed": false
+},
+{
+"word": "الكرسي",
+"vowelled": "الْكُرْسِيُّ",
+"letter": "ك",
+"sources": [
+"arabic-book p.57"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-kaf-001",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "كاميرا",
+"vowelled": "كَامِيرَا",
+"letter": "ك",
+"sources": [
+"asset sheet 3075"
+],
+"category": "objects",
+"en": "camera",
+"definition": null,
+"example": null,
+"image": {
+"sheet": "sheet-3075",
+"cell": 14,
+"transparent": false
+},
+"audio": null,
+"id": "dict-kaf-002",
+"difficulty": 3,
+"relatedWords": [],
+"games": [
+"picture-match",
+"letter-hunt"
+],
+"reviewed": false
+},
+{
+"word": "كتاب",
+"vowelled": "كِتَاب",
+"letter": "ك",
+"sources": [
+"asset sheet 3075"
+],
+"category": "school",
+"en": "book",
+"definition": null,
+"example": null,
+"image": {
+"sheet": "sheet-3075",
+"cell": 6,
+"transparent": false
+},
+"audio": null,
+"id": "dict-kaf-003",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"picture-match",
+"letter-hunt"
+],
+"reviewed": false
+},
+{
+"word": "كثير",
+"vowelled": "كَثِيرٌ",
+"letter": "ك",
+"sources": [
+"arabic-book p.31"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-kaf-004",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "كرة",
+"vowelled": "كُرَةٌ",
+"letter": "ك",
+"sources": [
+"arabic-book p.57",
+"arabic-book p.86"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-kaf-005",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "كنان",
+"vowelled": "كِنَانٌ",
+"letter": "ك",
+"sources": [
+"arabic-book p.123"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-kaf-006",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "كهف",
+"vowelled": "كَهْفٌ",
+"letter": "ك",
+"sources": [
+"arabic-book p.35"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-kaf-007",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "كوخ",
+"vowelled": "كُوخٌ",
+"letter": "ك",
+"sources": [
+"arabic-book p.14",
+"arabic-book p.16"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-kaf-008",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "اللحن",
+"vowelled": "اللَّحْنُ",
+"letter": "ل",
+"sources": [
+"arabic-book p.107"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-lam-001",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "الليل",
+"vowelled": "اللَّيْلُ",
+"letter": "ل",
+"sources": [
+"science-book p.30"
+],
+"category": "science",
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-lam-002",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "لاثة",
+"vowelled": "لَاثَةٌ",
+"letter": "ل",
+"sources": [
+"arabic-book p.33"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-lam-003",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "لامعة",
+"vowelled": "لامِعَةً",
+"letter": "ل",
+"sources": [
+"arabic-book p.87"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-lam-004",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "لجات",
+"vowelled": "لَّجَاتٌ",
+"letter": "ل",
+"sources": [
+"arabic-book p.33"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-lam-005",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "لحنا",
+"vowelled": "لَحْنًا",
+"letter": "ل",
+"sources": [
+"arabic-book p.102"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-lam-006",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "لطيفة",
+"vowelled": "لَطيفَةٌ",
+"letter": "ل",
+"sources": [
+"arabic-book p.122"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-lam-007",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "لعبة",
+"vowelled": "لُعْبَةٌ",
+"letter": "ل",
+"sources": [
+"arabic-book p.86"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-lam-008",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "لعبت",
+"vowelled": "لَعِبَتْ",
+"letter": "ل",
+"sources": [
+"arabic-book p.68"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-lam-009",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "لهيب",
+"vowelled": "لَهِيبٌ",
+"letter": "ل",
+"sources": [
+"arabic-book p.36"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-lam-010",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "المادة",
+"vowelled": "الْمَادَّةُ",
+"letter": "م",
+"sources": [
+"science-book p.2"
+],
+"category": "science",
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-001",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "المدرسة",
+"vowelled": "الْمَدْرَسَةُ",
+"letter": "م",
+"sources": [
+"arabic-book p.84"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-002",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "المعلمة",
+"vowelled": "الْمُعَلِّمَةُ",
+"letter": "م",
+"sources": [
+"arabic-book p.84",
+"arabic-book p.123"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-003",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "المقص",
+"vowelled": "الْمِقَص",
+"letter": "م",
+"sources": [
+"arabic-book p.57"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-004",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "الملعب",
+"vowelled": "الْمَلْعَبُ",
+"letter": "م",
+"sources": [
+"arabic-book p.84",
+"arabic-book p.123"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-005",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "المنان",
+"vowelled": "الْمَنَانُ",
+"letter": "م",
+"sources": [
+"arabic-book p.107"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-006",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "الموسيقا",
+"vowelled": "الْمُوسِيقا",
+"letter": "م",
+"sources": [
+"arabic-book p.106"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-007",
+"difficulty": 3,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ماء",
+"vowelled": "ماءٌ",
+"letter": "م",
+"sources": [
+"arabic-book p.44",
+"arabic-book p.47"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-008",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "مثال",
+"vowelled": "مِثَالٌ",
+"letter": "م",
+"sources": [
+"arabic-book p.31"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-009",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "مثقب",
+"vowelled": "مِثْقَبٌ",
+"letter": "م",
+"sources": [
+"arabic-book p.31"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-010",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "مثلث",
+"vowelled": "مُثَلَّثٌ",
+"letter": "م",
+"sources": [
+"arabic-book p.30"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-011",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "مجموعات",
+"vowelled": "مَجْمُوعَاتٌ",
+"letter": "م",
+"sources": [
+"science-book p.8"
+],
+"category": "science",
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-012",
+"difficulty": 3,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "مجموعة",
+"vowelled": "مَجْموعَةٌ",
+"letter": "م",
+"sources": [
+"arabic-book p.83"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-013",
+"difficulty": 3,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "محافظ",
+"vowelled": "مَحَافِظُ",
+"letter": "م",
+"sources": [
+"arabic-book p.39"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-014",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "محراث",
+"vowelled": "مِحْراثٌ",
+"letter": "م",
+"sources": [
+"arabic-book p.29",
+"arabic-book p.31"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-015",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "محظوظ",
+"vowelled": "مَحْظُوظٌ",
+"letter": "م",
+"sources": [
+"arabic-book p.41"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-016",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "محفوظ",
+"vowelled": "مَحْفُوظٌ",
+"letter": "م",
+"sources": [
+"arabic-book p.40"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-017",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "محمد",
+"vowelled": "مُحَمَّدٌ",
+"letter": "م",
+"sources": [
+"arabic-book p.58"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-018",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "مخلب",
+"vowelled": "مِخْلَبٌ",
+"letter": "م",
+"sources": [
+"arabic-book p.14"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-019",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "مذيع",
+"vowelled": "مُذِيعٌ",
+"letter": "م",
+"sources": [
+"arabic-book p.18",
+"arabic-book p.20"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-020",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "مزمار",
+"vowelled": "مِزْمَارٌ",
+"letter": "م",
+"sources": [
+"arabic-book p.103"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-021",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "مسألة",
+"vowelled": "مَسْأَلَةٌ",
+"letter": "م",
+"sources": [
+"arabic-book p.46"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-022",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "مساء",
+"vowelled": "مَسَاءً",
+"letter": "م",
+"sources": [
+"arabic-book p.123",
+"arabic-book p.128"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-023",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "مستشفى",
+"vowelled": "مُسْتَشْفًى",
+"letter": "م",
+"sources": [
+"arabic-book p.30"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-024",
+"difficulty": 3,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "مسرور",
+"vowelled": "مَسْرُورٌ",
+"letter": "م",
+"sources": [
+"arabic-book p.123"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-025",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "مشغول",
+"vowelled": "مَشْغُولٌ",
+"letter": "م",
+"sources": [
+"arabic-book p.25"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-026",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "مصباح",
+"vowelled": "مِصْبَاحٌ",
+"letter": "م",
+"sources": [
+"arabic-book p.35"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-027",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "مطبخي",
+"vowelled": "مَطْبَخِي",
+"letter": "م",
+"sources": [
+"arabic-book p.15"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-028",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "مطرز",
+"vowelled": "مُطَرِّزٌ",
+"letter": "م",
+"sources": [
+"arabic-book p.67"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-029",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "معاذ",
+"vowelled": "مُعَاذٌ",
+"letter": "م",
+"sources": [
+"arabic-book p.20"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-030",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "معلمة",
+"vowelled": "مُعَلِمَةٌ",
+"letter": "م",
+"sources": [
+"arabic-book p.66"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-031",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "معلمتي",
+"vowelled": "مُعَلِّمَتي",
+"letter": "م",
+"sources": [
+"arabic-book p.57"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-032",
+"difficulty": 3,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "مغرب",
+"vowelled": "مَغْرِبٌ",
+"letter": "م",
+"sources": [
+"arabic-book p.26"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-033",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "مغرفة",
+"vowelled": "مِغْرَفَةٌ",
+"letter": "م",
+"sources": [
+"arabic-book p.25"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-034",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "مغناطيس",
+"vowelled": "مِغْناطِيسٌ",
+"letter": "م",
+"sources": [
+"arabic-book p.26",
+"science-book p.20"
+],
+"category": "science",
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-035",
+"difficulty": 3,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "مفيدة",
+"vowelled": "مُفِيدَةٌ",
+"letter": "م",
+"sources": [
+"arabic-book p.123"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-036",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "منبه",
+"vowelled": "مُنَبِّهٌ",
+"letter": "م",
+"sources": [
+"arabic-book p.36"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-037",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "منثور",
+"vowelled": "مَنْثُورٌ",
+"letter": "م",
+"sources": [
+"arabic-book p.31"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-038",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "منصة",
+"vowelled": "مِنَصَّةٌ",
+"letter": "م",
+"sources": [
+"arabic-book p.67"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-039",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "منطاد",
+"vowelled": "مِنْطَادٌ",
+"letter": "م",
+"sources": [
+"arabic-book p.40"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-040",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "منظر",
+"vowelled": "مَنْظَرٌ",
+"letter": "م",
+"sources": [
+"arabic-book p.40"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-041",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "منفاخ",
+"vowelled": "مِنْفَاخٌ",
+"letter": "م",
+"sources": [
+"arabic-book p.15"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-042",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "مهار",
+"vowelled": "مَهارَ",
+"letter": "م",
+"sources": [
+"arabic-book p.126"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-043",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "مهذبة",
+"vowelled": "مُهَذَّبَةٌ",
+"letter": "م",
+"sources": [
+"arabic-book p.108"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-044",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ميا",
+"vowelled": "مِيا",
+"letter": "م",
+"sources": [
+"arabic-book p.38"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-mim-045",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "النادي",
+"vowelled": "النَّادِي",
+"letter": "ن",
+"sources": [
+"arabic-book p.123"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-nun-001",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "الناي",
+"vowelled": "النّايُ",
+"letter": "ن",
+"sources": [
+"arabic-book p.106"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-nun-002",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "النظافة",
+"vowelled": "النَّظَافَةُ",
+"letter": "ن",
+"sources": [
+"arabic-book p.107"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-nun-003",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "النهار",
+"vowelled": "النَّهارُ",
+"letter": "ن",
+"sources": [
+"science-book p.30"
+],
+"category": "science",
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-nun-004",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "ناظور",
+"vowelled": "نَاظُورٌ",
+"letter": "ن",
+"sources": [
+"arabic-book p.39",
+"arabic-book p.41"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-nun-005",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "نامت",
+"vowelled": "نَامَتْ",
+"letter": "ن",
+"sources": [
+"arabic-book p.68"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-nun-006",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "نبيه",
+"vowelled": "نَبِيهٌ",
+"letter": "ن",
+"sources": [
+"arabic-book p.37"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-nun-007",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "نجمات",
+"vowelled": "نَجْمَاتٍ",
+"letter": "ن",
+"sources": [
+"arabic-book p.87"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-nun-008",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "نجمة",
+"vowelled": "نَجْمَةٌ",
+"letter": "ن",
+"sources": [
+"arabic-book p.83",
+"arabic-book p.86",
+"arabic-book p.87"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-nun-009",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "نحيل",
+"vowelled": "نَحِيلٌ",
+"letter": "ن",
+"sources": [
+"arabic-book p.14"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-nun-010",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "نخل",
+"vowelled": "نَخْلٌ",
+"letter": "ن",
+"sources": [
+"arabic-book p.15"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-nun-011",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "نخيل",
+"vowelled": "نَخِيلٌ",
+"letter": "ن",
+"sources": [
+"arabic-book p.13",
+"arabic-book p.14",
+"arabic-book p.15"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-nun-012",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "نظام",
+"vowelled": "نِظَامٌ",
+"letter": "ن",
+"sources": [
+"arabic-book p.41"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-nun-013",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "نظفت",
+"vowelled": "نَظَّفَتْ",
+"letter": "ن",
+"sources": [
+"arabic-book p.68"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-nun-014",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "نظيف",
+"vowelled": "نَظيفٌ",
+"letter": "ن",
+"sources": [
+"arabic-book p.41"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-nun-015",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "نغني",
+"vowelled": "نُغَني",
+"letter": "ن",
+"sources": [
+"arabic-book p.57",
+"arabic-book p.67"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-nun-016",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "نفوذي",
+"vowelled": "نُفُوذِي",
+"letter": "ن",
+"sources": [
+"arabic-book p.20"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-nun-017",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "نهر",
+"vowelled": "نَهْرٌ",
+"letter": "ن",
+"sources": [
+"arabic-book p.36"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-nun-018",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "نهض",
+"vowelled": "نَهَضَ",
+"letter": "ن",
+"sources": [
+"arabic-book p.37"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-nun-019",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "هاتف",
+"vowelled": "هاتِفٌ",
+"letter": "ه",
+"sources": [
+"arabic-book p.34",
+"arabic-book p.36"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ha-001",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "هاجر",
+"vowelled": "هَاجَرُ",
+"letter": "ه",
+"sources": [
+"arabic-book p.36"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ha-002",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "هدايا",
+"vowelled": "هَدايا",
+"letter": "ه",
+"sources": [
+"arabic-book p.34",
+"arabic-book p.36"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ha-003",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "هدهد",
+"vowelled": "هُدْهُدٌ",
+"letter": "ه",
+"sources": [
+"arabic-book p.34",
+"arabic-book p.36"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ha-004",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "هدية",
+"vowelled": "هَدِيَّة",
+"letter": "ه",
+"sources": [
+"asset sheet 3075"
+],
+"category": "objects",
+"en": "gift",
+"definition": null,
+"example": null,
+"image": {
+"sheet": "sheet-3075",
+"cell": 16,
+"transparent": false
+},
+"audio": null,
+"id": "dict-ha-005",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"picture-match",
+"letter-hunt"
+],
+"reviewed": false
+},
+{
+"word": "هديل",
+"vowelled": "هَدِيلٌ",
+"letter": "ه",
+"sources": [
+"arabic-book p.36"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ha-006",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "هرم",
+"vowelled": "هَرَمٌ",
+"letter": "ه",
+"sources": [
+"arabic-book p.34",
+"arabic-book p.35",
+"arabic-book p.36"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ha-007",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "هلال",
+"vowelled": "هِلالٌ",
+"letter": "ه",
+"sources": [
+"arabic-book p.34",
+"arabic-book p.36"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ha-008",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "هواء",
+"vowelled": "هَوَاءٌ",
+"letter": "ه",
+"sources": [
+"arabic-book p.46"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ha-009",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "هيا",
+"vowelled": "هَيّا",
+"letter": "ه",
+"sources": [
+"arabic-book p.57"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ha-010",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "وجه",
+"vowelled": "وَجْهٌ",
+"letter": "و",
+"sources": [
+"arabic-book p.34",
+"arabic-book p.36"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-waw-001",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "يابسة",
+"vowelled": "يابِسَةٌ",
+"letter": "ي",
+"sources": [
+"science-book p.26"
+],
+"category": "science",
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ya-001",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "يزين",
+"vowelled": "يُزَيِّنُ",
+"letter": "ي",
+"sources": [
+"arabic-book p.58"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ya-002",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "يعزف",
+"vowelled": "يَعْزِفُ",
+"letter": "ي",
+"sources": [
+"arabic-book p.102"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ya-003",
+"difficulty": 2,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+},
+{
+"word": "يمة",
+"vowelled": "يْمَةٌ",
+"letter": "ي",
+"sources": [
+"arabic-book p.17",
+"arabic-book p.27"
+],
+"category": null,
+"en": null,
+"definition": null,
+"example": null,
+"image": null,
+"audio": null,
+"id": "dict-ya-004",
+"difficulty": 1,
+"relatedWords": [],
+"games": [
+"letter-hunt",
+"listen-pick"
+],
+"reviewed": false
+}
+]

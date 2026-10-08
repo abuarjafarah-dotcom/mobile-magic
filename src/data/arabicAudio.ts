@@ -1,0 +1,27 @@
+// Generated AI voice clips (Lovable AI), stored as CDN assets.
+export const arabicAudio: Record<string, string> = {
+  "h-ba": "/__l5e/assets-v1/432ee7c3-42e5-4232-ab7d-5f4a8fe74413/ar-h-ba.mp3",
+  "h-bi": "/__l5e/assets-v1/6077abd8-f508-4e93-84f0-ecbca0881f5b/ar-h-bi.mp3",
+  "h-bu": "/__l5e/assets-v1/3b778fa3-ec68-487f-851c-5cf78ff674ce/ar-h-bu.mp3",
+  "h-ma": "/__l5e/assets-v1/88792f3e-9acd-4862-8199-168c85783b27/ar-h-ma.mp3",
+  "h-mi": "/__l5e/assets-v1/eb92dd73-c409-44aa-aa44-9ffeeb538c73/ar-h-mi.mp3",
+  "h-mu": "/__l5e/assets-v1/3859b021-3eb7-4083-a885-6e31f6bf5a84/ar-h-mu.mp3",
+  "l-alif": "/__l5e/assets-v1/c167103c-a423-4b3c-9dcf-a02a67d47d8a/ar-l-alif.mp3",
+  "l-ba": "/__l5e/assets-v1/313d40c7-5217-40b9-b402-e797b7ebc279/ar-l-ba.mp3",
+  "l-dal": "/__l5e/assets-v1/5502fd91-15b9-482b-9d8a-8344a1f2f14c/ar-l-dal.mp3",
+  "l-lam": "/__l5e/assets-v1/5c9d11c5-2a40-4844-aacb-f0db6d57fa9d/ar-l-lam.mp3",
+  "l-mim": "/__l5e/assets-v1/eab93e62-0f34-494e-8433-cfdc3ef94007/ar-l-mim.mp3",
+  "l-nun": "/__l5e/assets-v1/c15743f3-6382-4cf7-af31-d976350d3816/ar-l-nun.mp3",
+  "l-qaf": "/__l5e/assets-v1/7649418f-9259-47df-9b5b-c4828d439ca0/ar-l-qaf.mp3",
+  "l-ta": "/__l5e/assets-v1/25239941-302e-42ad-86fa-d93e388644c2/ar-l-ta.mp3",
+  "l-waw": "/__l5e/assets-v1/e4309bf3-b78b-4b0a-a3fe-d0eb7198acbe/ar-l-waw.mp3",
+  "l-ya": "/__l5e/assets-v1/21619ec2-8fa4-4378-9dde-d97a1082e9ef/ar-l-ya.mp3",
+  "w-ab": "/__l5e/assets-v1/fed9810a-b6a5-4da4-88de-75d79ec36412/ar-w-ab.mp3",
+  "w-bab": "/__l5e/assets-v1/c806c0f6-1815-46f6-a198-11c0fdc3871a/ar-w-bab.mp3",
+  "w-bayt": "/__l5e/assets-v1/2bec0205-50c2-44e5-b794-4f688ca82097/ar-w-bayt.mp3",
+  "w-bint": "/__l5e/assets-v1/7ca06bed-849f-4508-b413-d979586f4837/ar-w-bint.mp3",
+  "w-qalam": "/__l5e/assets-v1/3dadd763-f5cb-4a1a-953e-cec4b11e02ba/ar-w-qalam.mp3",
+  "w-umm": "/__l5e/assets-v1/89ccf939-8171-4e21-a62c-67fa1f0b3dac/ar-w-umm.mp3",
+  "w-walad": "/__l5e/assets-v1/7ee6424e-09fd-4035-838b-f81fe97da71c/ar-w-walad.mp3",
+  "w-yad": "/__l5e/assets-v1/f7470085-e3bc-4687-aba0-b1ebb11a6de3/ar-w-yad.mp3"
+};

@@ -1,0 +1,3431 @@
+{
+"source": "كتاب العلوم — الصف الأول، الجزء الثاني (كتاب الطالب), NCCD Jordan / Collins",
+"frontMatter": [
+{
+"page": -6,
+"kind": "cover",
+"blocks": [
+{
+"id": "sci-p-6-b1",
+"kind": "other",
+"skill": null,
+"number": null,
+"text": "المركز الوطني لتطوير المناهج\nNational Center\nfor Curriculum Development",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p-6-b2",
+"kind": "other",
+"skill": null,
+"number": null,
+"text": "المملكة الأردنية الهاشمية\nوزارة التربية والتعليم",
+"items": [],
+"picture": "Jordanian coat of arms."
+},
+{
+"id": "sci-p-6-b3",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "كِتابُ الْعُلومِ 1",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p-6-b4",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "الْجُزْءُ الثّاني",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p-6-b5",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "كِتابُ الطّالِبِ",
+"items": [],
+"picture": "Pink bird perched on a branch."
+},
+{
+"id": "sci-p-6-b6",
+"kind": "other",
+"skill": null,
+"number": null,
+"text": "Collins",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p-6-b7",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "سِلْسِلَةُ كولينز في الْعُلومِ: جاءَتْ كُتُبُ سِلْسِلَةِ كولينز في الْعُلومِ\nلِلصُّفوفِ مِنْ (1-6) مُنْسَجِمَةً مَعَ فَلْسَفَةِ الْإِطارِ الْعامِّ لِلْمَناهِجِ\nالْأُرْدُنِّيَّةِ وَرُؤْيَتِهِ وَرِسالاتِهِ.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p-6-b8",
+"kind": "other",
+"skill": null,
+"number": null,
+"text": "ISBN 978-0-00-797926-4\n9 780007 979264",
+"items": [],
+"picture": "Barcode."
+},
+{
+"id": "sci-p-6-b9",
+"kind": "other",
+"skill": null,
+"number": null,
+"text": "المطبعة الوطنية",
+"items": [],
+"picture": null
+}
+],
+"unclear": null
+},
+{
+"page": -5,
+"kind": "cover",
+"blocks": [
+{
+"id": "sci-p-5-b1",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "المملكة الأردنية الهاشمية\nوزارة التربية والتعليم",
+"items": [],
+"picture": "Jordanian coat of arms."
+},
+{
+"id": "sci-p-5-b2",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "المركز الوطني لتطوير المناهج\nNational Center\nfor Curriculum Development",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p-5-b3",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "كِتابُ الْعُلومِ 1",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p-5-b4",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "الْجُزْءُ الثّاني",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p-5-b5",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "كِتابُ الطّالِبِ",
+"items": [],
+"picture": "Red bird perched on a branch."
+}
+],
+"unclear": null
+},
+{
+"page": -4,
+"kind": "front_matter",
+"blocks": [
+{
+"id": "sci-p-4-b1",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "قرّرت وزارة التربية والتعليم تدريس هذا الكتاب في مدارس المملكة الأردنية الهاشمية جميعها، بناءً على قرار المجلس الأعلى للمركز الوطني لتطوير المناهج في جلسته رقم (10) تاريخ 2019/11/27م، قرار رقم (3)، وقرار مجلس التربية والتعليم رقم (2019/126) تاريخ 2019/12/2م بدءًا من العام الدراسي 2019 /2020م.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p-4-b2",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "Published by Collins\nAn imprint of HarperCollinsPublishers\nThe News Building\n1 London Bridge Street\nLondon\nSE1 9GF",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p-4-b3",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "Browse the complete Collins catalogue at\nwww.collins.co.uk",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p-4-b4",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "© HarperCollinsPublishers Limited 2019",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p-4-b5",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "10 9 8 7 6 5 4 3 2 1",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p-4-b6",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "ISBN: 978-0-00-797926-4",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p-4-b7",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "All rights reserved. No part of this publication may be reproduced, stored in a retrieval system,\nor transmitted in any form by any means, electronic, mechanical, photocopying, recording\nor otherwise, without the prior written permission of the Publisher or a licence permitting\nrestricted copying in the United Kingdom issued by the Copyright Licensing Agency Ltd,\nBarnard’s Inn, 86 Fetter Lane, London, EC4A 1EN.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p-4-b8",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "British Library Cataloguing-in-Publication Data\nA catalogue record for this publication is available from the British Library.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p-4-b9",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "Prepared for the National Centre for Curriculum Development\nAmman - Jordan",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p-4-b10",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "The publishers gratefully acknowledge the permission granted to reproduce the copyright\nmaterial in this book. Every effort has been made to trace copyright holders and to obtain their\npermission for the use of copyright material. The publishers will gladly receive any information\nenabling them to rectify any error or omission at the first opportunity.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p-4-b11",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "الطَّبْعَةُ الأولى (التَّجْرِيبِيَّةُ)\n1440هـ / 2019م",
+"items": [],
+"picture": null
+}
+],
+"unclear": null
+},
+{
+"page": -3,
+"kind": "front_matter",
+"blocks": [
+{
+"id": "sci-p-3-b1",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "« عَلَى الْمُؤَسَّسَاتِ التَّعْلِيمِيَّةِ أَنْ تُؤْمِنَ بِما يَتَمَتَّعُ بِهِ أَبْناءُ هَذا الشَّعْبِ وَبَناتُهُ مِنْ طاقاتٍ هائِلَةٍ، وَقُدُراتٍ كَبِيرَةٍ، وَمَواهِبَ مُتَنَوِّعَةٍ، وَتَسْعى لِاكْتِشافِ هذِهِ الطّاقاتِ، وَتَنْمِيَةِ تِلْكَ الْقُدُراتِ، وَصَقْلِ تِلْكَ الْمَواهِبِ، وَتَحْفِيزِها إِلى أَقْصى حُدودِها، عَبْرَ أَحْدَثِ الْأَسالِيبِ التَّعْلِيمِيَّةِ الَّتي تُشَجِّعُ عَلَى الْفَهْمِ وَالتَّفْكِيرِ، وَالْفَهْمِ لا التَّلْقِينِ، وَتَجْمَعُ بَيْنَ الْعِلْمِ وَالْعَمَلِ، وَالنَّظَرِيَّةِ وَالتَّطْبِيقِ، وَالتَّحْلِيلِ وَالتَّخْطِيطِ، وَتَفْتَحُ آفاقًا رَحْبَةً أَمامَ أَبْنائِها؛ لِيَتَفَوَّقوا في كُلِّ مادَّةٍ، وَيَنْبُغوا في كُلِّ فَنٍّ أَوْ مِهْنَةٍ أَوْ حِرْفَةٍ ».",
+"items": [],
+"picture": "Jordanian royal crown above quotation."
+},
+{
+"id": "sci-p-3-b2",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "عَبْدُاللهِ الثّاني ابْنُ الْحُسَيْنِ\nالْوَرَقَةُ النِّقاشِيَّةُ السّابِعَةُ\n«بِناءُ قُدُراتِنا الْبَشَرِيَّةِ وَتَطْوِيرُ\nالْعَمَلِيَّةِ التَّعْلِيمِيَّةِ جَوْهَرُ نَهْضَةِ الْأُمَّةِ»\n15 نيسان 2017",
+"items": [],
+"picture": null
+}
+],
+"unclear": null
+},
+{
+"page": -2,
+"kind": "front_matter",
+"blocks": [
+{
+"id": "sci-p-2-b1",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p-2-b2",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "المُقدِّمة",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p-2-b3",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "الحمدُ لله الذي وهبنا العلم وجعله نورًا نَهتدي به، والصلاة والسلام على أشرف الأنبياء والمرسلين، وعلى آله وصحبه أجمعين، وبعد:\nيحظى تعليمُ العلوم بمكانةٍ خاصّةٍ في الأنظمة التربوية، فتُحشَدُ الإمكاناتُ لتحسين طرائق تدريسها، وتطوير مضامينها، وتنظيمها وَفق أحدث التوجُّهات التربوية. وتستمر عملية تطوير المواد التعليمية وتوفيرها للمعلّمين والطَّلبة؛ لتساعدهم على تحقيق معايير التعلُّم على الوجه الأمثل.\nوقد جاء كتابُ العلوم للصفّ الأول، بجزأيه الأول والثاني، لإحداث تطوّر نوعيّ في تدريس مبحث العلوم؛ بحيث يكونُ الطالبُ محورَ العملية التعليمية التعلُّمية. فالبنية الجديدة وتنظيم المحتوى يستندان إلى المعايير الخاصّة بهذا الصفّ، وَفْقَ أحدث نظريّات التعلُّم والممارسات الفاعلة. ويكتسب الطالب المعارفَ والمهارات في هذا الكتاب من خلال البحث والاستقصاء بوسائلهما المختلفة. وهذا يقتضي أن يتغيَّر دور المعلم إلى مُوجِّه ومُيسِّر لتعلُّم الطالب. من هنا، فقد تضمّن الكتابُ أنشطةً وتمارينَ تُشجِّع الطلبة على طرح الأسئلة لفهم الظواهر الطبيعية المحيطة به، وتفسيرها، وتزويده بالمعارف والمهارات والاتجاهات الإيجابية. وتعزيزًا للمشاركة الفاعلة، فإنّ كثيرًا من الأنشطة تتضمّن توزيع الطلبة إلى مجموعات، علمًا بأنّ معظم الأنشطة يستندُ إلى توظيف موادّ بسيطة من بيئة الطالب. وروعي في بناء الأنشطة تدريب الطلبة على المنهجيّات العلميّة والمهارات الذهنيّة وعادات العقل، وتُبصِّره بطبيعة العلم وأساليبه؛ فكأنّه «عالِمٌ صغير».\nوالحقّ أنّ هذا الكتاب كتابان: كتاب الطالب، وكتاب التمارين؛ يُكمِل أحدهما الآخر. والمُحصِّلة تحقيق المنحى التكامليّ بين النظرية والتجربة. وجاء كتاب الطالب مشوِّقًا، يشجع الطلبة على التعلُّم الواعي النَّشط، وتسهل عليه بناء أفكاره وتنظيمها، وممارسة العلم كما يمارسه العلماء. وتبدأ كلّ وحدة من وحدات هذا الكتاب بافتتاحية تساعد المعلم على التمهيد لموضوع الوحدة من خلال مناقشة مضمون الصورة وربطها بمحتوى الوحدة. يلي ذلك الدروس التي تتضمن مقدمة؛ ثم صورًا تليها أسئلة تسهم في استثارة تفكير الطلبة وتركيز تفكيرهم في تعلّم نشط للمفاهيم؛ ثم الشرح والتفسير المبني على تفاعل الطلبة في أنشطة جماعية، وقراءة الأشكال والصور. ثم مراجعة الدرس من خلال التركيز على المفهوم العلمي وربطه بمهارات التعبير. وتُختَم كلّ وحدة بإغناء لغويّ.\nوالله نسأل أن يُحقّق الكتاب المعايير والنتاجات المنشودة، وأن يُوفّقنا جميعًا لما فيه خيرُ وطننا الغالي وتقدّمه وازدهاره.",
+"items": [],
+"picture": null
+}
+],
+"unclear": null
+},
+{
+"page": -1,
+"kind": "contents",
+"blocks": [
+{
+"id": "sci-p-1-b1",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "قائِمَةُ الْمُحْتَوَياتِ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p-1-b2",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "الْمَوْضوعُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p-1-b3",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "الصَّفْحَةُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p-1-b4",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "الْوَحْدَةُ الثّالِثَةُ: الْمادَّةُ في حَياتِنا",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p-1-b5",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "",
+"items": [
+"1-3 الْمادَّةُ 2",
+"2-3 الْمَوادُّ الطَّبيعِيَّةُ وَالْمَوادُّ الْمَصْنوعَةُ 4",
+"3-3 خَواصُّ الْمَوادِّ 6",
+"4-3 تَصْنيفُ الْمَوادِّ 8",
+"5-3 تَصْميمُ الْحُلولِ 10",
+"الْإِغْناءُ اللُّغَوِيُّ 12"
+],
+"picture": null
+},
+{
+"id": "sci-p-1-b6",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "الْوَحْدَةُ الرّابِعَةُ: الْقُوَّةُ وَالْحَرَكَةُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p-1-b7",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "",
+"items": [
+"1-4 الْحَرَكَةُ 14",
+"2-4 الْقُوَّةُ 16",
+"3-4 تَأْثيرُ الْقُوَّةِ 18",
+"4-4 الْمِغْناطيسُ 20",
+"5-4 قُوَّةُ الْمِغْناطيسِ 22",
+"الْإِغْناءُ اللُّغَوِيُّ 24"
+],
+"picture": null
+}
+],
+"unclear": null
+},
+{
+"page": 0,
+"kind": "contents",
+"blocks": [
+{
+"id": "sci-p0-b1",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "قائِمَةُ الْمُحْتَوَياتِ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p0-b2",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "الْمَوْضوعُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p0-b3",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "الصَّفْحَةُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p0-b4",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "الْوَحْدَةُ الْخامِسَةُ: الْأَرْضُ وَالشَّمْسُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p0-b5",
+"kind": "text",
+"skill": null,
+"number": "1-5",
+"text": "صُخورُ الْأَرْضِ",
+"items": [
+"26"
+],
+"picture": null
+},
+{
+"id": "sci-p0-b6",
+"kind": "text",
+"skill": null,
+"number": "2-5",
+"text": "الْماءُ",
+"items": [
+"28"
+],
+"picture": null
+},
+{
+"id": "sci-p0-b7",
+"kind": "text",
+"skill": null,
+"number": "3-5",
+"text": "اللَّيْلُ وَالنَّهارُ",
+"items": [
+"30"
+],
+"picture": null
+},
+{
+"id": "sci-p0-b8",
+"kind": "text",
+"skill": null,
+"number": "4-5",
+"text": "الْفُصولُ الْأَرْبَعَةُ",
+"items": [
+"32"
+],
+"picture": null
+},
+{
+"id": "sci-p0-b9",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "الْإِغْناءُ اللُّغَوِيُّ",
+"items": [
+"34"
+],
+"picture": null
+}
+],
+"unclear": null
+}
+],
+"backMatter": [
+{
+"page": 35,
+"kind": "other",
+"blocks": [],
+"unclear": null
+},
+{
+"page": 36,
+"kind": "other",
+"blocks": [
+{
+"id": "sci-p36-b1",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "تَمَّ بِحَمْدِ اللَّهِ تَعالى",
+"items": [],
+"picture": null
+}
+],
+"unclear": null
+}
+],
+"units": [
+{
+"id": "sci-u3",
+"number": 3,
+"title": "الْوَحْدَةُ الثّالِثَةُ: الْمادَّةُ في حَياتِنا",
+"en": "Matter in our lives",
+"opener": [
+{
+"page": 1,
+"kind": "unit_opener",
+"blocks": [
+{
+"id": "sci-p1-b1",
+"kind": "heading",
+"skill": null,
+"number": "3",
+"text": "الْوَحْدَةُ الثّالِثَةُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p1-b2",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "الْمَادَّةُ في حَياتِنا",
+"items": [],
+"picture": "Books, wooden blocks, pencils, scissors, and an apple."
+}
+],
+"unclear": null
+}
+],
+"lessons": [
+{
+"id": "sci-3-1",
+"code": "3-1",
+"title": "الْمادَّةُ",
+"type": "lesson",
+"pages": [
+{
+"page": 2,
+"kind": "lesson",
+"blocks": [
+{
+"id": "sci-p2-b1",
+"kind": "heading",
+"skill": null,
+"number": "1-3",
+"text": "الْمَادَّةُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p2-b2",
+"kind": "vocabulary",
+"skill": null,
+"number": null,
+"text": "الْمُصْطَلَحاتُ الرَّئيسَةُ",
+"items": [
+"الْمَادَّةُ"
+],
+"picture": null
+},
+{
+"id": "sci-p2-b3",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "نَسْتَخْدِمُ مَوادَّ كَثيرَةً في حَياتِنا، مِثْلَ: الْخَشَبِ، وَالْبِلاسْتيكِ، وَالزُّجاجِ.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p2-b4",
+"kind": "caption",
+"skill": null,
+"number": null,
+"text": "كُرْسِيٌّ خَشَبِيٌّ",
+"items": [],
+"picture": "Wooden chair."
+},
+{
+"id": "sci-p2-b5",
+"kind": "caption",
+"skill": null,
+"number": null,
+"text": "وِعاءٌ بِلاسْتيكِيٌّ",
+"items": [],
+"picture": "Blue plastic basin."
+},
+{
+"id": "sci-p2-b6",
+"kind": "caption",
+"skill": null,
+"number": null,
+"text": "مَزْهَرِيَّةٌ زُجاجِيَّةٌ",
+"items": [],
+"picture": "Glass vase."
+},
+{
+"id": "sci-p2-b7",
+"kind": "instruction",
+"skill": "observe",
+"number": null,
+"text": "أَتَأَمَّلُ الشَّكْلَ الْآتِيَ؛ ثُمَّ أُجيبُ:",
+"items": [],
+"picture": "Bedroom with bed, table, chair, cabinet, window, basketball hoop, ball and toys."
+}
+],
+"unclear": null
+},
+{
+"page": 3,
+"kind": "review",
+"blocks": [
+{
+"id": "sci-p3-b1",
+"kind": "heading",
+"skill": null,
+"number": "3",
+"text": "الْوَحْدَةُ الثّالِثَةُ الْمَادَّةُ في حَياتِنا",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p3-b2",
+"kind": "question",
+"skill": null,
+"number": "1.",
+"text": "أُعَدِّدُ اسْتِخْداماتِ كُلٍّ مِنْ:",
+"items": [
+"الْخَشَبِ.",
+"الْبِلاسْتيكِ.",
+"الْقُماشِ."
+],
+"picture": null
+},
+{
+"id": "sci-p3-b3",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "التَّمارينُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p3-b4",
+"kind": "exercise",
+"skill": null,
+"number": "1",
+"text": "أُكَوِّنُ أَسْماءَ الْأَشْياءِ الْمَصْنوعَةِ مِنَ الْخَشَبِ، أَوِ الْقُماشِ، أَوِ الْبِلاسْتيكِ، في كِتابِ التَّمارينِ، في الصَّفْحَةِ (1).",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p3-b5",
+"kind": "exercise",
+"skill": "classify",
+"number": "2",
+"text": "أَضَعُ إِشارَةَ (✔) في الْمُرَبَّعِ بِجانِبِ الْمادَّةِ الَّتي تُصْنَعُ مِنْها الْأَشْياءُ، في كِتابِ التَّمارينِ، في الصَّفْحَةِ (2).",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p3-b6",
+"kind": "activity",
+"skill": "design",
+"number": "3",
+"text": "أُصَمِّمُ لُعْبَةً مِنْ أَسْلاكٍ وَعيدانِ خَشَبٍ وَأَغْطِيَةٍ بِلاسْتيكِيَّةٍ.\nأَتَحَدَّثُ إِلى زُمَلائي كَيْفَ اسْتَخْدَمْتُ هذِهِ الْمَوادَّ لِتَصْميمِ اللُّعْبَةِ.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p3-b7",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "ماذا تَعَلَّمْتُ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p3-b8",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "",
+"items": [
+"توجَدُ حَوْلَنا مَوادُّ مُخْتَلِفَةٌ.",
+"نَسْتَخْدِمُ كَثيرًا مِنَ الْمَوادِّ في حَياتِنا."
+],
+"picture": null
+}
+],
+"unclear": null
+}
+]
+},
+{
+"id": "sci-3-2",
+"code": "3-2",
+"title": "الْمَوادُّ الطَّبيعِيَّةُ وَالْمَوادُّ الْمَصْنوعَةُ",
+"type": "lesson",
+"pages": [
+{
+"page": 4,
+"kind": "lesson",
+"blocks": [
+{
+"id": "sci-p4-b1",
+"kind": "heading",
+"skill": null,
+"number": "2-3",
+"text": "الْمَوادُّ الطَّبيعِيَّةُ وَالْمَوادُّ الْمَصْنوعَةُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p4-b2",
+"kind": "vocabulary",
+"skill": null,
+"number": null,
+"text": "الْمُصْطَلَحاتُ الرَّئيسَةُ",
+"items": [
+"الْمادَّةُ الطَّبيعِيَّةُ",
+"الْمادَّةُ الْمَصْنوعَةُ"
+],
+"picture": null
+},
+{
+"id": "sci-p4-b3",
+"kind": "text",
+"skill": "observe",
+"number": null,
+"text": "نَسْتَخْدِمُ كَثيرًا مِنَ الْمَوادِّ في حَياتِنا. بَعْضُ هذِهِ الْمَوادِّ نَحْصُلُ عَلَيْها مِنَ الْبيئَةِ الَّتي خَلَقَها اللهُ تَعالى، فَمَثَلًا نَحْصُلُ عَلى حَجَرِ الْبِناءِ مِنَ الصَّخْرِ، وَعَلى الْخَشَبِ مِنَ الشَّجَرِ، وَعَلى الصّوفِ وَالْجِلْدِ وَالرّيشِ مِنَ الْحَيَوانِ. أُلاحِظُ الصُّوَرَ الْآتِيَةَ:",
+"items": [],
+"picture": "Stone quarry, logs, sheep and wool, cow and leather, goose and feathers."
+},
+{
+"id": "sci-p4-b4",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "نُسَمّي الْمَوادَّ الَّتي نَحْصُلُ عَلَيْها مِنَ الْبيئَةِ مَوادَّ طَبيعِيَّةً.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p4-b5",
+"kind": "exercise",
+"skill": null,
+"number": "1.",
+"text": "أَتَعاوَنُ مَعَ زُمَلائي في اخْتِيارِ مَوادَّ مُفيدَةٍ نَحْصُلُ عَلَيْها مِنَ النَّباتاتِ، وَأُخْرى مِنَ الْحَيَواناتِ، في كِتابِ التَّمارينِ، في الصَّفْحَةِ (3).",
+"items": [],
+"picture": null
+}
+],
+"unclear": null
+},
+{
+"page": 5,
+"kind": "lesson",
+"blocks": [
+{
+"id": "sci-p5-b1",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "يَصْنَعُ الْإِنْسانُ مَوادَّ جَديدَةً مِنْ مَوادَّ طَبيعِيَّةٍ. تُسَمّى هذِهِ الْمَوادُّ مَوادَّ مَصْنوعَةً.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p5-b2",
+"kind": "caption",
+"skill": null,
+"number": null,
+"text": "",
+"items": [
+"الزُّجاجُ",
+"الْوَرَقُ",
+"الْبَلاسْتيكُ"
+],
+"picture": "Glass vase, stack of books, and plastic basin."
+},
+{
+"id": "sci-p5-b3",
+"kind": "question",
+"skill": null,
+"number": "2.",
+"text": "أَعُدُّ الْمَوادَّ الْمَصْنوعَةَ الَّتي أَجِدُها في غُرْفَةِ الصَّفِّ. أَسْتَنْتِجُ: أَيُّها الْأَكْثَرُ اسْتِخْدامًا؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p5-b4",
+"kind": "question",
+"skill": null,
+"number": "3.",
+"text": "يُصْنَعُ الْوَرَقُ مِنَ الْخَشَبِ. ما الْاخْتِلافُ بَيْنَهُما؟ أُعَدِّدُ ثَلاثَةَ اسْتِخْداماتٍ لِلْوَرَقِ.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p5-b5",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "التَّمارينُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p5-b6",
+"kind": "exercise",
+"skill": null,
+"number": "1",
+"text": "أُحَدِّدُ مَصْدَرَ الْأَشْياءِ في كِتابِ التَّمارينِ في الصَّفْحَةِ (4).",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p5-b7",
+"kind": "exercise",
+"skill": "investigate",
+"number": "2",
+"text": "أَبْحَثُ عَنْ مَوادَّ مَصْنوعَةٍ في بَيْتي وَأُسَجِّلُها في كِتابِ التَّمارينِ في الصَّفْحَةِ (5).",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p5-b8",
+"kind": "exercise",
+"skill": "design",
+"number": "3",
+"text": "أُصَمِّمُ نَموذَجًا لِجِسْرٍ وَأَخْتَبِرُهُ، وَأُحَدِّدُ اسْمَ كُلِّ مادَّةٍ تَدْخُلُ في تَرْكيبِ الْجِسْرِ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p5-b9",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "ماذا تَعَلَّمْتُ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p5-b10",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "",
+"items": [
+"بَعْضُ الْمَوادِّ مَوْجودٌ طَبيعِيًّا في الْبيئَةِ حَوْلَنا.",
+"مِنَ الْمَوادِّ الطَّبيعِيَّةِ: حِجارَةُ الْبِناءِ، وَالْخَشَبُ، وَالصّوفُ، وَالرّيشُ، وَالْجِلْدُ.",
+"بَعْضُ الْمَوادِّ يُصْنَعُ مِنْ مَوادَّ طَبيعِيَّةٍ.",
+"مِنَ الْمَوادِّ الْمَصْنوعَةِ: الْبَلاسْتيكُ، وَالزُّجاجُ، وَالْوَرَقُ."
+],
+"picture": null
+}
+],
+"unclear": null
+}
+]
+},
+{
+"id": "sci-3-3",
+"code": "3-3",
+"title": "خَواصُّ الْمَوادِّ",
+"type": "lesson",
+"pages": [
+{
+"page": 6,
+"kind": "lesson",
+"blocks": [
+{
+"id": "sci-p6-b1",
+"kind": "heading",
+"skill": null,
+"number": "3-3",
+"text": "خَوَاصُّ الْمَوَادِّ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p6-b2",
+"kind": "vocabulary",
+"skill": null,
+"number": null,
+"text": "الْمُصْطَلَحَاتُ الرَّئِيسَةُ",
+"items": [
+"مَادَّةٌ وَاقِيَةٌ مِنَ الْمَاءِ",
+"مَادَّةٌ مُمْتَصَّةٌ لِلْمَاءِ"
+],
+"picture": null
+},
+{
+"id": "sci-p6-b3",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "نَسْتَخْدِمُ الْمَوَادَّ بِحَسَبِ خَوَاصِّهَا؛ فَمَثَلًا:\nتُوجَدُ مَوَادُّ لا تَسْمَحُ لِلْمَاءِ بِالْمُرُورِ مِنْ خِلالِهَا. وَتُسَمَّى هذِهِ الْمَوَادُّ مَوَادَّ وَاقِيَةً مِنَ الْمَاءِ، مِثْلَ الْمِظَلَّاتِ.",
+"items": [],
+"picture": "Yellow umbrella in rain."
+},
+{
+"id": "sci-p6-b4",
+"kind": "question",
+"skill": null,
+"number": "1.",
+"text": "أَذْكُرُ أَسْمَاءَ أَشْيَاءَ مَصْنُوعَةٍ مِنْ مَوَادَّ وَاقِيَةٍ مِنَ الْمَاءِ، وَأُبَيِّنُ اسْتِخْدَامَاتِهَا.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p6-b5",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "بَعْضُ الْمَوَادِّ تَمْتَصُّ الْمَاءَ بِسُهُولَةٍ. وَتُسَمَّى هذِهِ الْمَوَادُّ مَوَادَّ مُمْتَصَّةً لِلْمَاءِ، مِثْلُ:\nالْمَنَاشِفِ الْوَرَقِيَّةِ وَالْإِسْفَنْجِ.",
+"items": [],
+"picture": "Sponge and paper towel roll."
+}
+],
+"unclear": null
+},
+{
+"page": 7,
+"kind": "review",
+"blocks": [
+{
+"id": "sci-p7-b1",
+"kind": "heading",
+"skill": null,
+"number": "3",
+"text": "الْوَحْدَةُ الثّالِثَةُ الْمَادَّةُ في حَياتِنا",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p7-b2",
+"kind": "question",
+"skill": null,
+"number": "2",
+"text": "إِذا انْسَكَبَ الْعَصيرُ عَلى أَرْضِيَّةِ الْغُرْفَةِ، فَماذا نَسْتَخْدِمُ لِتَجْفيفِهِ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p7-b3",
+"kind": "question",
+"skill": null,
+"number": "3",
+"text": "ما الْفَرْقُ بَيْنَ الْمَوادِّ الْمُمْتَصَّةِ لِلْماءِ وَالْمَوادِّ الْواقِيَةِ مِنَ الْماءِ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p7-b4",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "التَّمارينُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p7-b5",
+"kind": "exercise",
+"skill": "observe",
+"number": "1",
+"text": "أَنْظُرُ إِلى الصُّوَرِ في كِتابِ التَّمارينِ، في الصَّفْحَةِ (6).\nما خَواصُّ كُلِّ مادَّةٍ في الصُّورَةِ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p7-b6",
+"kind": "exercise",
+"skill": null,
+"number": "2",
+"text": "أَذْكُرُ ثَلاثَ مَوادَّ مُمْتَصَّةٍ لِلْماءِ، وَأُبَيِّنُ كَيْفَ أَسْتَخْدِمُ كُلًّا مِنْها\nفي كِتابِ التَّمارينِ، في الصَّفْحَةِ (7).",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p7-b7",
+"kind": "exercise",
+"skill": "classify",
+"number": "3",
+"text": "أُشارِكُ زُمَلائي في اخْتِبارِ مَلْمَسِ أَشْياءَ حَوْلَنا، ثُمَّ أُصَنِّفُ\nهذِهِ الْأَشْياءَ إِلى مَوادَّ ناعِمَةٍ وَمَوادَّ خَشِنَةٍ، في كِتابِ التَّمارينِ\nفي الصَّفْحَةِ (8).",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p7-b8",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "ماذا تَعَلَّمْتُ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p7-b9",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "",
+"items": [
+"لِكُلِّ مادَّةٍ خَواصُّ تُمَيِّزُها عَنْ غَيْرِها.",
+"تُحَدِّدُ خَواصُّ الْمَوادِّ الْمُخْتَلِفَةُ كَيْفِيَّةَ اسْتِخْدامِها."
+],
+"picture": null
+}
+],
+"unclear": null
+}
+]
+},
+{
+"id": "sci-3-4",
+"code": "3-4",
+"title": "تَصْنيفُ الْمَوادِّ",
+"type": "lesson",
+"pages": [
+{
+"page": 8,
+"kind": "lesson",
+"blocks": [
+{
+"id": "sci-p8-b1",
+"kind": "heading",
+"skill": null,
+"number": "4-3",
+"text": "تَصْنِيفُ الْمَوَادِّ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p8-b2",
+"kind": "vocabulary",
+"skill": null,
+"number": null,
+"text": "الْمُصْطَلَحَاتُ الرَّئِيسَةُ",
+"items": [
+"خَوَاصُّ الْمَادَّةِ",
+"تَصْنِيفٌ",
+"مَجْمُوعَاتٌ"
+],
+"picture": null
+},
+{
+"id": "sci-p8-b3",
+"kind": "text",
+"skill": "classify",
+"number": null,
+"text": "يُمْكِنُ تَصْنِيفُ الْمَوَادِّ في مَجْمُوعَاتٍ بِحَسَبِ اسْتِخْدَامِها، فَمَثَلًا: الصُّوفُ، وَالْقُطْنُ، وَالنَّايْلُونُ، مَوَادُّ تُسْتَخْدَمُ لِصِنَاعَةِ الْمَلَابِسِ.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p8-b4",
+"kind": "caption",
+"skill": null,
+"number": null,
+"text": "بَطَّانِيَّةٌ",
+"items": [],
+"picture": "Folded blanket."
+},
+{
+"id": "sci-p8-b5",
+"kind": "caption",
+"skill": null,
+"number": null,
+"text": "وِشَاحٌ",
+"items": [],
+"picture": "Patterned scarf."
+},
+{
+"id": "sci-p8-b6",
+"kind": "caption",
+"skill": null,
+"number": null,
+"text": "بُلُوزَةٌ",
+"items": [],
+"picture": "Blue shirt."
+},
+{
+"id": "sci-p8-b7",
+"kind": "activity",
+"skill": "observe",
+"number": "1.",
+"text": "أُحْضِرُ قِطَعًا مِنَ: الصُّوفِ، وَالْقُطْنِ، وَالنَّايْلُونِ؛ ثُمَّ أَخْتَبِرُ مَلْمَسَ كُلٍّ مِنْها.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p8-b8",
+"kind": "instruction",
+"skill": "observe",
+"number": "2.",
+"text": "أَصِفُ مَلْمَسَ كُلٍّ مِنْها مُسْتَخْدِمًا الْكَلِمَتَيْنِ: ناعِمٌ، خَشِنٌ.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p8-b9",
+"kind": "text",
+"skill": "classify",
+"number": null,
+"text": "يُمْكِنُ تَصْنِيفُ الْمَوَادِّ في مَجْمُوعَاتٍ بِحَسَبِ خَوَاصِّها، فَمَثَلًا: يُوجَدُ كَثِيرٌ مِنَ الْأَشْيَاءِ الْمَصْنُوعَةِ مِنْ مَادَّةِ الْبِلَاسْتِيكِ، بَعْضُها لَيِّنٌ، وَبَعْضُها قاسٍ.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p8-b10",
+"kind": "caption",
+"skill": null,
+"number": null,
+"text": "حَبْلٌ",
+"items": [],
+"picture": "Coiled blue rope."
+},
+{
+"id": "sci-p8-b11",
+"kind": "caption",
+"skill": null,
+"number": null,
+"text": "دَلْوٌ",
+"items": [],
+"picture": "Blue plastic bucket."
+}
+],
+"unclear": null
+},
+{
+"page": 9,
+"kind": "lesson",
+"blocks": [
+{
+"id": "sci-p9-b1",
+"kind": "heading",
+"skill": null,
+"number": "3",
+"text": "الْوَحْدَةُ الثّالِثَةُ الْمَادَّةُ في حَياتِنا",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p9-b2",
+"kind": "question",
+"skill": null,
+"number": "3.",
+"text": "أَذْكُرُ خَواصَّ أُخْرى لِلْمَوادِّ الْبِلاسْتِيكِيَّةِ.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p9-b3",
+"kind": "text",
+"skill": "classify",
+"number": null,
+"text": "يُمْكِنُ أَيْضًا تَصْنيفُ الْمَوادِّ في مَجْموعاتٍ بِحَسَبِ نَوْعِها.",
+"items": [],
+"picture": "Glass jug and glasses grouped together; wooden chairs and table grouped together."
+},
+{
+"id": "sci-p9-b4",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "التَّمارينُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p9-b5",
+"kind": "exercise",
+"skill": "classify",
+"number": "1",
+"text": "أُحْضِرُ صُوَرًا لِأَشْياءَ مَصْنوعَةٍ مِنَ الْخَشَبِ، وَالْحَديدِ، وَالْبِلاسْتيكِ، وَالْقُماشِ؛ وَأُصَنِّفُها في مَجْموعاتٍ في كِتابِ التَّمارينِ، في الصَّفْحَتَيْنِ (9 وَ10).",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p9-b6",
+"kind": "exercise",
+"skill": null,
+"number": "2",
+"text": "أُحْضِرُ ثَلاثَةَ أَنْواعٍ مِنَ الْوَرَقِ، وَأَخْتارُ خَواصَّ كُلٍّ مِنْها في كِتابِ التَّمارينِ، في الصَّفْحَةِ (11) وَأُلْصِقُها في الصَّفْحَةِ (12).",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p9-b7",
+"kind": "exercise",
+"skill": "observe",
+"number": "3",
+"text": "أَنْظُرُ إِلى أَنْواعٍ مُخْتَلِفَةٍ مِنَ الْبِلاسْتيكِ، وَأُحَدِّدُ أَيًّا مِنْها تَسْهُلُ الرُّؤْيَةُ مِنْ خِلالِهِ، وَأَيًّا مِنْها يَسْهُلُ مَدُّهُ وَقَطْعُهُ، وَأَيًّا مِنْها يَسْهُلُ كَسْرُهُ، ثُمَّ أُلْصِقُ صُوَرًا لِهذِهِ الْأَنْواعِ في كِتابِ التَّمارينِ، في الصَّفْحَةِ (13).",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p9-b8",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "ماذا تَعَلَّمْتُ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p9-b9",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "",
+"items": [
+"نَجِدُ أَشْياءَ مُخْتَلِفَةً مِنَ الْمَادَّةِ نَفْسِها.",
+"يُمْكِنُ تَرْتيبُ الْمَوادِّ في مَجْموعاتٍ أَصْغَرَ بِحَسَبِ خَواصِّها أَوْ صِفاتِها."
+],
+"picture": null
+}
+],
+"unclear": null
+}
+]
+},
+{
+"id": "sci-3-5",
+"code": "3-5",
+"title": "تَصْميمُ الْحُلولِ",
+"type": "lesson",
+"pages": [
+{
+"page": 10,
+"kind": "lesson",
+"blocks": [
+{
+"id": "sci-p10-b1",
+"kind": "heading",
+"skill": null,
+"number": "5-3",
+"text": "تَصْميمُ الْحُلولِ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p10-b2",
+"kind": "vocabulary",
+"skill": null,
+"number": null,
+"text": "الْمُصْطَلَحاتُ الرَّئيسَةُ",
+"items": [
+"خَواصُّ الْمادَّةِ"
+],
+"picture": null
+},
+{
+"id": "sci-p10-b3",
+"kind": "story",
+"skill": null,
+"number": null,
+"text": "أَرادَتْ فَرَحُ الْخُروجَ في نُزْهَةٍ، فَتَفاجَأَتْ بِأَنَّ الْجَوَّ ماطِرٌ. فَدَخَلَتْ غُرْفَتَها لِتُحْضِرَ مِظَلَّتَها وَما إِنْ فَتَحَتْها حَتّى وَجَدَتْها مَثْقوبَةً. قَرَّرَتْ أَنْ تَضَعَ قِطْعَةً مِنْ مادَّةٍ عَلى مَكانِ الثَّقْبِ. تَحَيَّرَتْ فَرَحُ في أَيِّ الْمَوادِّ يَجِبُ أَنْ تَخْتارَ.\nأُساعِدُ فَرَحَ عَلى حَلِّ مُشْكِلَتِها.",
+"items": [],
+"picture": "Purple umbrella with a hole."
+},
+{
+"id": "sci-p10-b4",
+"kind": "question",
+"skill": "predict",
+"number": "1",
+"text": "أَتَوَقَّعُ ماذا يَحْدُثُ إِذا خَرَجَتْ فَرَحُ مُسْتَخْدِمَةً الْمِظَلَّةَ الْمَثْقوبَةَ.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p10-b5",
+"kind": "question",
+"skill": null,
+"number": "2",
+"text": "ما أَهَمُّ خَواصِّ الْمادَّةِ الَّتي تُصْنَعُ مِنْها الْمِظَلَّةُ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p10-b6",
+"kind": "question",
+"skill": "design",
+"number": "3",
+"text": "ما الْمَوادُّ الَّتي أَحْتاجُ إِلَيْها لِمُساعَدَةِ فَرَحَ عَلى حَلِّ الْمُشْكِلَةِ؟",
+"items": [],
+"picture": null
+}
+],
+"unclear": null
+},
+{
+"page": 11,
+"kind": "lesson",
+"blocks": [
+{
+"id": "sci-p11-b1",
+"kind": "heading",
+"skill": null,
+"number": "3",
+"text": "الْوَحْدَةُ الثّالِثَةُ",
+"items": [
+"الْمادَّةُ في حَياتِنا"
+],
+"picture": null
+},
+{
+"id": "sci-p11-b2",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "التَّمارينُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p11-b3",
+"kind": "exercise",
+"skill": null,
+"number": "1",
+"text": "أَصِفُ الْمُشْكِلَةَ أَمامَ زُمَلائي.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p11-b4",
+"kind": "exercise",
+"skill": "predict",
+"number": "2",
+"text": "أَتَوَقَّعُ أَيَّ الْمَوادِّ الْأَفْضَلَ لِإِصْلاحِ الْمِظَلَّةِ.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p11-b5",
+"kind": "exercise",
+"skill": "investigate",
+"number": "3",
+"text": "أَبْحَثُ عَنْ أَفْضَلِ الْمَوادِّ لِإِصْلاحِ الْمِظَلَّةِ، وَأَخْتَبِرُها. أُنَفِّذُ النَّشاطَ في كِتابِ التَّمارينِ، في الصَّفْحَةِ (15).",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p11-b6",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "ماذا تَعَلَّمْتُ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p11-b7",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "",
+"items": [
+"أَحْتاجُ لِحَلِّ الْمُشْكِلَةِ إِلى تَحْديدِها، ثُمَّ أَتَوَقَّعُ حُلولًا لَها.",
+"أَخْتَبِرُ التَّوَقُّعاتِ الَّتي تَوَصَّلْتُ إِلَيْها؛ لِلْحُصولِ عَلى نَتائِجَ تُساعِدُني عَلى اتِّخاذِ قَرارٍ لِحَلِّ الْمُشْكِلَةِ."
+],
+"picture": null
+}
+],
+"unclear": null
+}
+]
+},
+{
+"id": "sci-3-enrich",
+"code": "3-enrich",
+"title": "الْإِغْناءُ اللُّغَوِيُّ",
+"type": "enrichment",
+"pages": [
+{
+"page": 12,
+"kind": "glossary",
+"blocks": [
+{
+"id": "sci-p12-b1",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "الْإِغْناءُ اللُّغَوِيُّ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p12-b2",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "Language focus",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p12-b3",
+"kind": "vocabulary",
+"skill": null,
+"number": null,
+"text": "Fabric",
+"items": [],
+"picture": "Colorful scarf."
+},
+{
+"id": "sci-p12-b4",
+"kind": "vocabulary",
+"skill": null,
+"number": null,
+"text": "Glass",
+"items": [],
+"picture": "Drinking glasses."
+},
+{
+"id": "sci-p12-b5",
+"kind": "vocabulary",
+"skill": null,
+"number": null,
+"text": "Plastic",
+"items": [],
+"picture": "Colorful plastic containers."
+},
+{
+"id": "sci-p12-b6",
+"kind": "vocabulary",
+"skill": null,
+"number": null,
+"text": "Wood",
+"items": [],
+"picture": "Wooden chair."
+},
+{
+"id": "sci-p12-b7",
+"kind": "vocabulary",
+"skill": null,
+"number": null,
+"text": "Leather",
+"items": [],
+"picture": "Brown leather belt."
+},
+{
+"id": "sci-p12-b8",
+"kind": "vocabulary",
+"skill": null,
+"number": null,
+"text": "Paper",
+"items": [],
+"picture": "Stack of white paper."
+}
+],
+"unclear": null
+}
+]
+}
+]
+},
+{
+"id": "sci-u4",
+"number": 4,
+"title": "الْوَحْدَةُ الرّابِعَةُ: الْقُوَّةُ وَالْحَرَكَةُ",
+"en": "Force and motion",
+"opener": [
+{
+"page": 13,
+"kind": "unit_opener",
+"blocks": [
+{
+"id": "sci-p13-b1",
+"kind": "heading",
+"skill": null,
+"number": "4",
+"text": "الْوَحْدَةُ الرّابِعَةُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p13-b2",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "الْقُوَّةُ وَالْحَرَكَةُ",
+"items": [],
+"picture": "Boy on a scooter and girl on a bicycle."
+}
+],
+"unclear": null
+}
+],
+"lessons": [
+{
+"id": "sci-4-1",
+"code": "4-1",
+"title": "الْحَرَكَةُ",
+"type": "lesson",
+"pages": [
+{
+"page": 14,
+"kind": "lesson",
+"blocks": [
+{
+"id": "sci-p14-b1",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "الْمُصْطَلَحاتُ الرَّئيسَةُ",
+"items": [
+"الْحَرَكَةُ",
+"السُّكونُ"
+],
+"picture": null
+},
+{
+"id": "sci-p14-b2",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "1-4 الْحَرَكَةُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p14-b3",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "الْأَشْياءُ حَوْلَنا إِمّا ساكِنَةٌ أَوْ مُتَحَرِّكَةٌ. تَتَحَرَّكُ الْأَشْياءُ بِطَرائِقَ مُخْتَلِفَةٍ.\nوَيَتَحَرَّكُ الْإِنْسانُ بِطَرائِقَ مُخْتَلِفَةٍ، مِثْلَ: الرَّكْضِ، وَالسِّباحَةِ، وَالْقَفْزِ، وَالتَّأَرْجُحِ، وَالدَّوَرانِ.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p14-b4",
+"kind": "question",
+"skill": "observe",
+"number": "1.",
+"text": "ما طَرائِقُ الْحَرَكَةِ الَّتي أَراها في الْأَشْكالِ الْآتِيَةِ؟",
+"items": [
+"أ",
+"ب",
+"ج",
+"د",
+"هـ"
+],
+"picture": "Boy in wheelchair throwing basketball, girl tossing ball, swimmer, runner, and girl on swing."
+},
+{
+"id": "sci-p14-b5",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "تَتَحَرَّكُ الْحَيَواناتُ بِطَرائِقَ مُخْتَلِفَةٍ.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p14-b6",
+"kind": "question",
+"skill": "observe",
+"number": "2.",
+"text": "أَصِفُ كَيْفَ تَتَحَرَّكُ الْحَيَواناتُ الَّتي تَظْهَرُ في الصُّوَرِ الْآتِيَةِ:",
+"items": [
+"أ",
+"ب",
+"ج",
+"د"
+],
+"picture": "Running horse, swimming orcas, flying birds, and hanging orangutan."
+}
+],
+"unclear": null
+},
+{
+"page": 15,
+"kind": "lesson",
+"blocks": [
+{
+"id": "sci-p15-b1",
+"kind": "question",
+"skill": "observe",
+"number": "3",
+"text": "أَنْظُرُ إِلى الشَّكْلِ الْآتِي، ثُمَّ أُبَيِّنُ طَرائِقَ الْحَرَكَةِ فِيهِ.",
+"items": [],
+"picture": "Children playing on slide, bouncy castle, seesaw, toy cars and playground games."
+},
+{
+"id": "sci-p15-b2",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "التَّمارينُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p15-b3",
+"kind": "exercise",
+"skill": "design",
+"number": "1",
+"text": "أُصَمِّمُ مُلْصَقًا يُظْهِرُ كَيْفَ تَتَحَرَّكُ الْحَيَواناتُ.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p15-b4",
+"kind": "exercise",
+"skill": "investigate",
+"number": "2",
+"text": "أُسَجِّلُ أَسْماءَ الْحَيَواناتِ في الْبِيئَةِ الْمُحيطَةِ. وَأُحَدِّدُ الطَّرائِقَ الْمُخْتَلِفَةَ الَّتي تَتَحَرَّكُ بِها هذِهِ الْحَيَواناتُ في كِتابِ التَّمارينِ، في الصَّفْحَةِ (17). مُبَيِّنًا الْحَرَكَةَ الْأَكْثَرَ شُيوعًا.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p15-b5",
+"kind": "exercise",
+"skill": null,
+"number": "3",
+"text": "أُفَكِّرُ في أَشْياءَ حَوْلي تَكونُ ساكِنَةً ثُمَّ تَتَحَرَّكُ؛ أَوْ بِعَكْسِ ذلِكَ.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p15-b6",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "ماذا تَعَلَّمْتُ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p15-b7",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "",
+"items": [
+"الْأَشْياءُ حَوْلَنا إِمّا ساكِنَةٌ أَوْ مُتَحَرِّكَةٌ.",
+"تَتَحَرَّكُ الْأَشْياءُ بِطَرائِقَ مُخْتَلِفَةٍ."
+],
+"picture": null
+}
+],
+"unclear": null
+}
+]
+},
+{
+"id": "sci-4-2",
+"code": "4-2",
+"title": "الْقُوَّةُ",
+"type": "lesson",
+"pages": [
+{
+"page": 16,
+"kind": "lesson",
+"blocks": [
+{
+"id": "sci-p16-b1",
+"kind": "heading",
+"skill": null,
+"number": "2-4",
+"text": "الْقُوَّةُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p16-b2",
+"kind": "vocabulary",
+"skill": null,
+"number": null,
+"text": "الْمُصْطَلَحاتُ الرَّئيسَةُ",
+"items": [
+"الْقُوَّةُ",
+"الدَّفْعُ",
+"السَّحْبُ"
+],
+"picture": null
+},
+{
+"id": "sci-p16-b3",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "لِتَحْريكِ الْأَشْياءِ السّاكِنَةِ نَحْتاجُ إِلى قُوَّةٍ،\nفَالْقُوَّةُ تَجْعَلُ الشَّيْءَ السّاكِنَ يَتَحَرَّكُ.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p16-b4",
+"kind": "instruction",
+"skill": "observe",
+"number": null,
+"text": "أَنْظُرُ إِلى الشَّكْلَيْنِ الْآتِيَيْنِ، ثُمَّ أُجيبُ:",
+"items": [],
+"picture": "Boy pushes a loaded cart; girl pulls a loaded cart."
+},
+{
+"id": "sci-p16-b5",
+"kind": "question",
+"skill": "cause_effect",
+"number": "1.",
+"text": "ماذا يَفْعَلُ الْفَتى؛ لِيَجْعَلَ الْعَرَبَةَ تَتَحَرَّكُ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p16-b6",
+"kind": "question",
+"skill": "cause_effect",
+"number": "2.",
+"text": "ماذا تَفْعَلُ الْفَتاةُ؛ لِتَجْعَلَ الْعَرَبَةَ تَتَحَرَّكُ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p16-b7",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "الدَّفْعُ وَالسَّحْبُ مِنْ أَنْواعِ الْقُوى.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p16-b8",
+"kind": "question",
+"skill": "observe",
+"number": null,
+"text": "بِمَ يُساعِدُ أَحْمَدُ والِدَهُ عَلى تَنْظيفِ الْحَديقَةِ؟",
+"items": [],
+"picture": "Boy with wheelbarrow in garden."
+},
+{
+"id": "sci-p16-b9",
+"kind": "question",
+"skill": "cause_effect",
+"number": null,
+"text": "ماذا يَفْعَلُ الْمُسافِرُ؛ لِيَجْعَلَ الْحَقيبَةَ تَتَحَرَّكُ؟",
+"items": [],
+"picture": "Traveler pulling wheeled suitcase."
+}
+],
+"unclear": null
+},
+{
+"page": 17,
+"kind": "lesson",
+"blocks": [
+{
+"id": "sci-p17-b1",
+"kind": "instruction",
+"skill": "observe",
+"number": null,
+"text": "أَنْظُرُ إِلى الْأَشْكالِ الْآتِيَةِ، ثُمَّ أُجِيبُ:",
+"items": [
+"أ",
+"ب",
+"ج"
+],
+"picture": "A push tricycle, a pull-along giraffe, and a wheeled block trolley."
+},
+{
+"id": "sci-p17-b2",
+"kind": "question",
+"skill": null,
+"number": "3.",
+"text": "ما الْأَلْعابُ الَّتي أَدْفَعُها؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p17-b3",
+"kind": "question",
+"skill": null,
+"number": "4.",
+"text": "ما الْأَلْعابُ الَّتي أَسْحَبُها؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p17-b4",
+"kind": "question",
+"skill": "cause_effect",
+"number": "5.",
+"text": "أَصِفُ ما يَحْدُثُ لِلْأَلْعابِ، حينَ أَدْفَعُها، أَوْ حينَ أَسْحَبُها.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p17-b5",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "ماذا تَعَلَّمْتُ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p17-b6",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "",
+"items": [
+"الْقُوَّةُ تُحَرِّكُ الْأَشْياءَ.",
+"الدَّفْعُ وَالسَّحْبُ مِنْ أَنْواعِ الْقُوى."
+],
+"picture": null
+},
+{
+"id": "sci-p17-b7",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "التَّمارينُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p17-b8",
+"kind": "exercise",
+"skill": "observe",
+"number": "1",
+"text": "أَنْظُرُ إِلى الصّورَةِ في كِتابِ التَّمارينِ، في الصَّفْحَةِ (18) وَأُلَوِّنُ الْأَشْياءَ فيها.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p17-b9",
+"kind": "exercise",
+"skill": null,
+"number": "2",
+"text": "أَخْتارُ أَشْياءَ تَتَحَرَّكُ بِالدَّفْعِ، وَأُخْرى بِالسَّحْبِ، ثُمَّ أُمَثِّلُ بِصَمْتٍ لِوَصْفِ كُلٍّ مِنْ هذِهِ الْأَشْياءِ، أَدَعُ زُمَلائي يَتَوَقَّعونَ ما هِيَ.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p17-b10",
+"kind": "exercise",
+"skill": "experiment",
+"number": "3",
+"text": "أَخْتارُ ثَلاثَ كُراتٍ مُخْتَلِفَةٍ. أَتَوَقَّعُ أَيَّ هذِهِ الْكُراتِ يَسْهُلُ تَحْريكُها بِالنَّفْخِ عَلَيْها وَأَيًّا مِنْها يَصْعُبُ تَحْريكُها. أَتَحَقَّقُ عَمَلِيًّا مِنْ ذلِكَ. وَأَرْسُمُ تَوَقُّعاتي وَنَتائِجي في كِتابِ التَّمارينِ، في الصَّفْحَةِ (19).",
+"items": [],
+"picture": null
+}
+],
+"unclear": null
+}
+]
+},
+{
+"id": "sci-4-3",
+"code": "4-3",
+"title": "تَأْثيرُ الْقُوَّةِ",
+"type": "lesson",
+"pages": [
+{
+"page": 18,
+"kind": "lesson",
+"blocks": [
+{
+"id": "sci-p18-b1",
+"kind": "heading",
+"skill": null,
+"number": "3-4",
+"text": "تَأْثِيرُ الْقُوَّةِ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p18-b2",
+"kind": "vocabulary",
+"skill": null,
+"number": null,
+"text": "الْمُصْطَلَحاتُ الرَّئِيسَةُ",
+"items": [
+"حَرَكَةٌ",
+"تَوَقُّفٌ",
+"أَسْرَعُ",
+"أَبْطَأُ",
+"اتِّجاهٌ"
+],
+"picture": null
+},
+{
+"id": "sci-p18-b3",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "يُحِبُّ مُعْظَمُ النّاسِ رِياضَةَ كُرَةِ الْقَدَمِ.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p18-b4",
+"kind": "question",
+"skill": null,
+"number": null,
+"text": "ماذا يَفْعَلُ اللّاعِبُونَ في الْمُباراةِ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p18-b5",
+"kind": "instruction",
+"skill": "observe",
+"number": null,
+"text": "أَنْظُرُ إِلى الشَّكْلَيْنِ الْآتِيَيْنِ، ثُمَّ أُجِيبُ:",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p18-b6",
+"kind": "question",
+"skill": "cause_effect",
+"number": "1.",
+"text": "أَيُّ لاعِبٍ يَجْعَلُ الْكُرَةَ تَبْدَأُ بِالْحَرَكَةِ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p18-b7",
+"kind": "question",
+"skill": "cause_effect",
+"number": "2.",
+"text": "أَيُّ لاعِبٍ يَجْعَلُ الْكُرَةَ تَتَوَقَّفُ عَنِ الْحَرَكَةِ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p18-b8",
+"kind": "question",
+"skill": "cause_effect",
+"number": "3.",
+"text": "لِماذا تَتَوَقَّفُ الْكُرَةُ عَنِ الْحَرَكَةِ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p18-b9",
+"kind": "caption",
+"skill": null,
+"number": null,
+"text": "أ",
+"items": [],
+"picture": "Goalkeeper holding a football."
+},
+{
+"id": "sci-p18-b10",
+"kind": "caption",
+"skill": null,
+"number": null,
+"text": "ب",
+"items": [],
+"picture": "Player kicking a football."
+},
+{
+"id": "sci-p18-b11",
+"kind": "text",
+"skill": "cause_effect",
+"number": null,
+"text": "يُمْكِنُ لِلْقُوَّةِ أَنْ تَجْعَلَ الشَّيْءَ يَبْدَأُ بِالْحَرَكَةِ.\nوَيُمْكِنُ لِلْقُوَّةِ أَنْ تَجْعَلَ الشَّيْءَ الْمُتَحَرِّكَ يَتَوَقَّفُ عَنِ الْحَرَكَةِ.",
+"items": [],
+"picture": null
+}
+],
+"unclear": null
+},
+{
+"page": 19,
+"kind": "lesson",
+"blocks": [
+{
+"id": "sci-p19-b1",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "وَيُمْكِنُ لِلْقُوَّةِ أَيْضًا أَنْ تُحَرِّكَ الشَّيْءَ بِحَرَكَةٍ أَسْرَعَ أَوْ أَبْطَأَ.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p19-b2",
+"kind": "instruction",
+"skill": "observe",
+"number": null,
+"text": "أَنْظُرُ إِلى الشَّكْلَيْنِ الْمُجاوِرَيْنِ، ثُمَّ أُجيبُ:",
+"items": [],
+"picture": "Children pushing toy cars on a table."
+},
+{
+"id": "sci-p19-b3",
+"kind": "question",
+"skill": "observe",
+"number": "4",
+"text": "ماذا يَفْعَلُ الْأَطْفالُ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p19-b4",
+"kind": "question",
+"skill": "cause_effect",
+"number": "5",
+"text": "أَيُّ السَّيّاراتِ أَسْرَعُ؟ ما سَبَبُ ذلِكَ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p19-b5",
+"kind": "caption",
+"skill": null,
+"number": null,
+"text": "أَلُفُّ مِقْوَدَ الدَّرّاجَةِ حينَ أُقَرِّرُ أَنْ أُغَيِّرَ اتِّجاهي.",
+"items": [],
+"picture": "Child steering a bicycle."
+},
+{
+"id": "sci-p19-b6",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "ماذا تَعَلَّمْتُ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p19-b7",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "",
+"items": [
+"الْقُوَّةُ يُمْكِنُ أَنْ تَجْعَلَ الشَّيْءَ يَبْدَأُ بِالْحَرَكَةِ.",
+"الْقُوَّةُ يُمْكِنُ أَنْ تُوقِفَ الشَّيْءَ الْمُتَحَرِّكَ.",
+"الْقُوَّةُ يُمْكِنُ أَنْ تَجْعَلَ الشَّيْءَ يَتَحَرَّكُ حَرَكَةً أَسْرَعَ أَوْ أَبْطَأَ.",
+"الْقُوَّةُ يُمْكِنُ أَنْ تُغَيِّرَ اتِّجاهَ الشَّيْءِ الْمُتَحَرِّكِ."
+],
+"picture": null
+},
+{
+"id": "sci-p19-b8",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "التَّمارينُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p19-b9",
+"kind": "exercise",
+"skill": "experiment",
+"number": "1",
+"text": "أَدْفَعُ كُرَةً بِقُوَّةٍ صَغيرَةٍ؛ ثُمَّ أَدْفَعُها بِقُوَّةٍ أَكْبَرَ. هَلِ النَّتيجَةُ هِيَ نَفْسُها؟ لِماذا؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p19-b10",
+"kind": "exercise",
+"skill": "predict",
+"number": "2",
+"text": "إِذا دَفَعْتُ ثَلاثَ سَيّاراتِ أَلْعابٍ صَغيرَةٍ مُتَماثِلَةٍ: الْأُولى بِقُوَّةٍ قَليلَةٍ، وَالثّانِيَةَ بِقُوَّةٍ مُتَوَسِّطَةٍ، وَالثّالِثَةَ بِقُوَّةٍ كَبيرَةٍ. أَتَوَقَّعُ: أَيُّ سَيّارَةٍ سَتَتَحَرَّكُ أَسْرَعَ مِنْ غَيْرِها؟ أُنَفِّذُ النَّشاطَ في كِتابِ التَّمارينِ، في الصَّفَحاتِ: (20 وَ 21 وَ 22)؛ لِأَتَحَقَّقَ مِنْ تَوَقُّعي.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p19-b11",
+"kind": "exercise",
+"skill": "predict",
+"number": "3",
+"text": "أَخْتارُ كُرَتَيْنِ مُخْتَلِفَتَيْنِ. ثُمَّ أَتَوَقَّعُ ماذا سَيَحْدُثُ إِذا دَحْرَجْتُ إِحْدى الْكُرَتَيْنِ نَحْوَ الْأُخْرى. أُنَفِّذُ النَّشاطَ في كِتابِ التَّمارينِ، في الصَّفْحَتَيْنِ (23 وَ 24)؛ لِأَتَحَقَّقَ مِنْ تَوَقُّعي.",
+"items": [],
+"picture": null
+}
+],
+"unclear": null
+}
+]
+},
+{
+"id": "sci-4-4",
+"code": "4-4",
+"title": "الْمِغْناطيسُ",
+"type": "lesson",
+"pages": [
+{
+"page": 20,
+"kind": "lesson",
+"blocks": [
+{
+"id": "sci-p20-b1",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "4-4 الْمِغْناطيسُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p20-b2",
+"kind": "vocabulary",
+"skill": null,
+"number": null,
+"text": "الْمُصْطَلَحاتُ الرَّئيسَةُ",
+"items": [
+"مِغْناطيسٌ",
+"قُوَّةُ جَذْبٍ مِغْناطيسِيَّةٍ"
+],
+"picture": null
+},
+{
+"id": "sci-p20-b3",
+"kind": "question",
+"skill": null,
+"number": null,
+"text": "هَلِ اسْتَخْدَمْتَ الْمِغْناطيسَ مِنْ قَبْلُ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p20-b4",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "الْمِغْناطيسُ قِطْعَةٌ تُصْنَعُ غالِبًا مِنَ الْحَديدِ. يَتَمَيَّزُ الْمِغْناطيسُ بِأَنَّهُ يَجْذِبُ إِلَيْهِ بَعْضَ الْمَوادِّ.\nيوجَدُ الْمِغْناطيسُ بِأَشْكالٍ مُخْتَلِفَةٍ. وَمِنْ هذِهِ الْأَشْكالِ: الْمُسْتَقيمُ، وَشَكْلُ حَدْوَةِ الْفَرَسِ.",
+"items": [],
+"picture": "Bar magnet attracting metal objects and horseshoe magnet."
+},
+{
+"id": "sci-p20-b5",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "نُسَمِّي الْمادَّةَ الَّتي تَنْجَذِبُ إِلى الْمِغْناطيسِ مادَّةً مِغْناطيسِيَّةً.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p20-b6",
+"kind": "question",
+"skill": null,
+"number": "1",
+"text": "هَلْ جَميعُ الْمَوادِّ مِغْناطيسِيَّةٌ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p20-b7",
+"kind": "instruction",
+"skill": "observe",
+"number": null,
+"text": "أَنْظُرُ إِلى الشَّكْلِ الْآتِي، ثُمَّ أُجيبُ:",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p20-b8",
+"kind": "caption",
+"skill": null,
+"number": null,
+"text": "",
+"items": [
+"حافِظَةٌ زُجاجِيَّةٌ",
+"رَقائِقُ أَلَمِنْيومٍ",
+"مِسْطَرَةٌ بِلاسْتيكِيَّةٌ",
+"سِلْكُ نُحاسٍ",
+"مِسْطَرَةٌ حَديدِيَّةٌ",
+"دَبّوسٌ",
+"وَرَقَةٌ",
+"مِمْحاةٌ",
+"قِطْعَةُ خَشَبٍ",
+"مِسْمارٌ"
+],
+"picture": "Labeled glass container, foil, plastic and iron rulers, copper wire, pins, paper, eraser, wood and nails."
+}
+],
+"unclear": null
+},
+{
+"page": 21,
+"kind": "lesson",
+"blocks": [
+{
+"id": "sci-p21-b1",
+"kind": "question",
+"skill": "predict",
+"number": "2",
+"text": "ما الْمَوادُّ الَّتي أَعْتَقِدُ أَنَّها مِغْناطيسِيَّةٌ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p21-b2",
+"kind": "question",
+"skill": "investigate",
+"number": "3",
+"text": "ماذا يُمْكِنُني أَنْ أَفْعَلَ لِاخْتِبارِ ذلِكَ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p21-b3",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "التَّمارينُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p21-b4",
+"kind": "exercise",
+"skill": "experiment",
+"number": "1",
+"text": "أَسْتَخْدِمُ مِغْناطيسًا لِاخْتِبارِ مَجْموعَةٍ مِنَ الْأَشْياءِ؛ لِأَعْرِفَ: أَهِيَ مَوادُّ مِغْناطيسِيَّةٌ أَمْ لا؟ أُسَجِّلُ نَتائِجي في كِتابِ التَّمارينِ، في الصَّفْحَةِ (25).",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p21-b5",
+"kind": "exercise",
+"skill": "investigate",
+"number": "2",
+"text": "أَسْتَخْدِمُ مِغْناطيسًا لِلْعُثورِ عَلى ثَلاثِ مَوادَّ مِغْناطيسِيَّةٍ، وَأُخْرى غَيْرِ مِغْناطيسِيَّةٍ في غُرْفَةِ الصَّفِّ. أُسَجِّلُ نَتائِجي في كِتابِ التَّمارينِ، في الصَّفْحَةِ (26).",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p21-b6",
+"kind": "exercise",
+"skill": "experiment",
+"number": "3",
+"text": "أَسْتَخْدِمُ مِغْناطيسًا لِفَصْلِ الْحَديدِ عَنِ الْأَلَمْنيومِ.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p21-b7",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "ماذا تَعَلَّمْتُ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p21-b8",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "",
+"items": [
+"مِنْ أَشْكالِ الْمِغْناطيسِ: الْمُسْتَقيمُ، وَشَكْلُ حَدْوَةِ الْفَرَسِ.",
+"بَعْضُ الْمَوادِّ مِغْناطيسِيَّةٌ، يَجْذِبُها الْمِغْناطيسُ، وَمِنْ هذِهِ الْمَوادِّ: الْحَديدُ."
+],
+"picture": null
+}
+],
+"unclear": null
+}
+]
+},
+{
+"id": "sci-4-5",
+"code": "4-5",
+"title": "قُوَّةُ الْمِغْناطيسِ",
+"type": "lesson",
+"pages": [
+{
+"page": 22,
+"kind": "lesson",
+"blocks": [
+{
+"id": "sci-p22-b1",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "5-4 قُوَّةُ الْمِغْناطيسِ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p22-b2",
+"kind": "vocabulary",
+"skill": null,
+"number": null,
+"text": "الْمُصْطَلَحاتُ الرَّئيسَةُ",
+"items": [
+"قُطْبٌ",
+"قُوَّةٌ",
+"سَحْبٌ",
+"دَفْعٌ",
+"تَنافُرٌ",
+"تَجاذُبٌ"
+],
+"picture": null
+},
+{
+"id": "sci-p22-b3",
+"kind": "text",
+"skill": "observe",
+"number": null,
+"text": "أَنْظُرُ إِلى الْمِغْناطيسِ في الشَّكْلِ الْآتِي، وَأُلاحِظُ أَنَّ لِلْمِغْناطيسِ طَرَفَيْنِ، كُلُّ طَرَفٍ مِنْهُما يُسَمّى قُطْبًا، وَهُما:\nالْقُطْبُ الشَّمالِيُّ (N)؛ وَالْقُطْبُ الْجَنوبِيُّ(S).",
+"items": [],
+"picture": "Bar magnet with red N and blue S poles."
+},
+{
+"id": "sci-p22-b4",
+"kind": "instruction",
+"skill": "observe",
+"number": null,
+"text": "أَنْظُرُ إِلى الشَّكْلِ الْمُجاوِرِ، ثُمَّ أُجيبُ:",
+"items": [],
+"picture": "Two magnets numbered 1 and 2, opposite poles facing with arrows toward each other."
+},
+{
+"id": "sci-p22-b5",
+"kind": "caption",
+"skill": null,
+"number": null,
+"text": "تَجاذُبٌ",
+"items": [
+"1",
+"2",
+"N",
+"S",
+"N",
+"S"
+],
+"picture": null
+},
+{
+"id": "sci-p22-b6",
+"kind": "question",
+"skill": "predict",
+"number": "1.",
+"text": "ماذا يَحْدُثُ إِذا وَضَعْنا الْقُطْبَ الشَّمالِيَّ لِمِغْناطيسٍ قُرْبَ الْقُطْبِ الْجَنوبِيِّ لِمِغْناطيسٍ آخَرَ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p22-b7",
+"kind": "question",
+"skill": "predict",
+"number": "2.",
+"text": "ماذا أَتَوَقَّعُ أَنْ يَحْدُثَ إِذا أَدَرْنا الْمِغْناطيسَ رَقْمَ (1) في الشَّكْلِ؛ بِحَيْثُ يُقابِلُ الْقُطْبُ الشَّمالِيُّ (N) في الْمِغْناطيسِ الْأَوَّلِ الْقُطْبَ الشَّمالِيَّ (N) في الثّانِي؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p22-b8",
+"kind": "question",
+"skill": "predict",
+"number": "3.",
+"text": "ماذا أَتَوَقَّعُ أَنْ يَحْدُثَ إِذا أَصْبَحَ الْقُطْبُ الْجَنوبِيُّ (S) في الْمِغْناطيسِ الْأَوَّلِ يُقابِلُ الْقُطْبَ الْجَنوبِيَّ (S) في الثّانِي؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p22-b9",
+"kind": "question",
+"skill": null,
+"number": "4.",
+"text": "ماذا أَسْتَنْتِجُ؟",
+"items": [],
+"picture": null
+}
+],
+"unclear": null
+},
+{
+"page": 23,
+"kind": "lesson",
+"blocks": [
+{
+"id": "sci-p23-b1",
+"kind": "heading",
+"skill": null,
+"number": "4",
+"text": "الْوَحْدَةُ الرَّابِعَةُ الْقُوَّةُ وَالْحَرَكَةُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p23-b2",
+"kind": "caption",
+"skill": "observe",
+"number": null,
+"text": "تَنَافُرٌ",
+"items": [
+"1",
+"2",
+"N",
+"S",
+"S",
+"N"
+],
+"picture": "Two magnets with south poles facing repel."
+},
+{
+"id": "sci-p23-b3",
+"kind": "caption",
+"skill": "observe",
+"number": null,
+"text": "تَنَافُرٌ",
+"items": [
+"1",
+"2",
+"S",
+"N",
+"N",
+"S"
+],
+"picture": "Two magnets with north poles facing repel."
+},
+{
+"id": "sci-p23-b4",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "أَسْتَنْتِجُ أَنَّ الْقُطْبَيْنِ الْمُتَمَاثِلَيْنِ في مِغْناطيسَيْنِ مُتَقابِلَيْنِ يَتَنافَرانِ، وَأَنَّ الْقُطْبَيْنِ الْمُتَقابِلَيْنِ الْمُخْتَلِفَيْنِ يَتَجاذَبانِ.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p23-b5",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "التَّمارينُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p23-b6",
+"kind": "exercise",
+"skill": "experiment",
+"number": "1",
+"text": "أُنَفِّذُ نَشاطًا أُبَيِّنُ فيهِ قُوَّةَ التَّجاذُبِ وَقُوَّةَ التَّنافُرِ الْمِغْناطيسِيَّةِ.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p23-b7",
+"kind": "exercise",
+"skill": "experiment",
+"number": "2",
+"text": "أَتَّبِعُ التَّعْليماتِ الْوارِدَةَ في كِتابِ التَّمارينِ، في الصَّفْحَةِ (27)، وَأُسَجِّلُ النَّتائِجَ.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p23-b8",
+"kind": "exercise",
+"skill": "design",
+"number": "3",
+"text": "أُفَكِّرُ بِتَحْريكِ لُعْبَةِ سَيّارَةٍ بِتَأْثيرِ قُوَّةٍ مِغْناطيسِيَّةٍ وَأُجَرِّبُ ذلِكَ، وَأُشارِكُ زُمَلائي أَفْكاري.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p23-b9",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "ماذا تَعَلَّمْتُ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p23-b10",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "",
+"items": [
+"لِلْمِغْناطيسِ قُطْبانِ: قُطْبٌ شَمالِيٌّ وَقُطْبٌ جَنوبِيٌّ.",
+"تَنْشَأُ قُوَّةُ تَنافُرٍ بَيْنَ قُطْبَيْنِ مُتَماثِلَيْنِ إِذا اقْتَرَبَ أَحَدُهُما مِنَ الْآخَرِ.",
+"تَنْشَأُ قُوَّةُ تَجاذُبٍ بَيْنَ قُطْبَيْنِ مُخْتَلِفَيْنِ إِذا اقْتَرَبَ أَحَدُهُما مِنَ الْآخَرِ."
+],
+"picture": null
+}
+],
+"unclear": null
+}
+]
+},
+{
+"id": "sci-4-enrich",
+"code": "4-enrich",
+"title": "الْإِغْناءُ اللُّغَوِيُّ",
+"type": "enrichment",
+"pages": [
+{
+"page": 24,
+"kind": "glossary",
+"blocks": [
+{
+"id": "sci-p24-b1",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "الْإِغْناءُ اللُّغَوِيُّ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p24-b2",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "Language focus",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p24-b3",
+"kind": "vocabulary",
+"skill": null,
+"number": null,
+"text": "Magnet",
+"items": [
+"N",
+"S"
+],
+"picture": "Horseshoe magnet."
+},
+{
+"id": "sci-p24-b4",
+"kind": "vocabulary",
+"skill": null,
+"number": null,
+"text": "Pole",
+"items": [
+"S"
+],
+"picture": "South pole of a bar magnet."
+},
+{
+"id": "sci-p24-b5",
+"kind": "vocabulary",
+"skill": null,
+"number": null,
+"text": "Pull",
+"items": [],
+"picture": "Girl pulling a wagon with a crate."
+},
+{
+"id": "sci-p24-b6",
+"kind": "vocabulary",
+"skill": null,
+"number": null,
+"text": "Push",
+"items": [],
+"picture": "Boy pushing a wagon with a crate."
+},
+{
+"id": "sci-p24-b7",
+"kind": "vocabulary",
+"skill": null,
+"number": null,
+"text": "Repulsion",
+"items": [
+"S",
+"N",
+"N",
+"S"
+],
+"picture": "Two magnets with like poles facing and arrows pointing apart."
+},
+{
+"id": "sci-p24-b8",
+"kind": "vocabulary",
+"skill": null,
+"number": null,
+"text": "Attraction",
+"items": [
+"N",
+"S",
+"N",
+"S"
+],
+"picture": "Two magnets with unlike poles facing and arrows pointing together."
+}
+],
+"unclear": null
+}
+]
+}
+]
+},
+{
+"id": "sci-u5",
+"number": 5,
+"title": "الْوَحْدَةُ الْخامِسَةُ: الْأَرْضُ وَالشَّمْسُ",
+"en": "The Earth and the Sun",
+"opener": [
+{
+"page": 25,
+"kind": "unit_opener",
+"blocks": [
+{
+"id": "sci-p25-b1",
+"kind": "heading",
+"skill": null,
+"number": "5",
+"text": "الْوَحْدَةُ الْخامِسَةُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p25-b2",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "الْأَرْضُ وَالشَّمْسُ",
+"items": [],
+"picture": "Earth, Sun, and Moon in space."
+}
+],
+"unclear": null
+}
+],
+"lessons": [
+{
+"id": "sci-5-1",
+"code": "5-1",
+"title": "صُخورُ الْأَرْضِ",
+"type": "lesson",
+"pages": [
+{
+"page": 26,
+"kind": "lesson",
+"blocks": [
+{
+"id": "sci-p26-b1",
+"kind": "heading",
+"skill": null,
+"number": "1-5",
+"text": "صُخُورُ الْأَرْضِ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p26-b2",
+"kind": "vocabulary",
+"skill": null,
+"number": null,
+"text": "الْمُصْطَلَحاتُ الرَّئيسَةُ",
+"items": [
+"يابِسَةٌ",
+"صُخورٌ"
+],
+"picture": null
+},
+{
+"id": "sci-p26-b3",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "نَعيشُ عَلى سَطْحِ الْأَرْضِ الَّذي يَتَكَوَّنُ مِنْ يابِسَةٍ وَماءٍ.\nتُعَدُّ الصُّخورُ مِنْ أَهَمِّ مُكَوِّناتِ الْيابِسَةِ.\nحينَ أَنْظُرُ حَوْلي، أُلاحِظُ أَنَّ الصُّخورَ تُسْتَخْدَمُ في الْبِناءِ.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p26-b4",
+"kind": "exercise",
+"skill": "observe",
+"number": "1.",
+"text": "أَتَعَرَّفُ ثَلاثَةَ اسْتِخْداماتٍ لِلصُّخورِ في مَدْرَسَتي أَوْ حَوْلَها.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p26-b5",
+"kind": "caption",
+"skill": null,
+"number": null,
+"text": "يُسْتَخْدَمُ الصَّخْرُ في تَزْيينِ الْأَبْنِيَةِ، مِنْها: الْمَساجِدُ، وَصُروحُ الشُّهَداءِ، وَغَيْرُ ذلِكَ.",
+"items": [],
+"picture": "Stone mosque with blue domes and two minarets."
+}
+],
+"unclear": null
+},
+{
+"page": 27,
+"kind": "lesson",
+"blocks": [
+{
+"id": "sci-p27-b1",
+"kind": "heading",
+"skill": null,
+"number": "5",
+"text": "الْوَحْدَةُ الْخامِسَةُ الْأَرْضُ وَالشَّمْسُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p27-b2",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "التَّمارينُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p27-b3",
+"kind": "exercise",
+"skill": "investigate",
+"number": "1",
+"text": "أَبْحَثُ حَوْلي عَنْ بَعْضِ الْأَشْياءِ الْمَصْنوعَةِ مِنَ الصُّخورِ، ثُمَّ أُكْمِلُ الْجَدْوَلَ في كِتابِ التَّمارينِ، في الصَّفْحَةِ (30).",
+"items": [],
+"picture": "Photograph of an ancient stone arch."
+},
+{
+"id": "sci-p27-b4",
+"kind": "exercise",
+"skill": null,
+"number": "2",
+"text": "أُسَمّي صَخْرَيْنِ مِنَ الصُّخورِ في الْبَيْتِ، وَأَذْكُرُ اسْتِخْدامَهُما.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p27-b5",
+"kind": "exercise",
+"skill": "investigate",
+"number": "3",
+"text": "تُؤَثِّرُ الرِّياحُ في تَكْوينِ الرِّمالِ مِنَ الصُّخورِ، فَتَتَشَكَّلُ كُثْبانٌ رَمْلِيَّةٌ في الصَّحْراءِ.\nأَبْحَثُ في ذلِكَ وَأَعْرِضُ الْمَعْلوماتِ الَّتي أَتَوَصَّلُ إِلَيْها أَمامَ زُمَلائي.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p27-b6",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "ماذا تَعَلَّمْتُ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p27-b7",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "",
+"items": [
+"يَتَكَوَّنُ سَطْحُ الْأَرْضِ مِنْ يابِسَةٍ وَماءٍ.",
+"تَتَعَدَّدُ اسْتِخْداماتُ الصُّخورِ.",
+"الصُّخورُ أَهَمُّ مُكَوِّناتِ الْيابِسَةِ."
+],
+"picture": null
+}
+],
+"unclear": null
+}
+]
+},
+{
+"id": "sci-5-2",
+"code": "5-2",
+"title": "الْماءُ",
+"type": "lesson",
+"pages": [
+{
+"page": 28,
+"kind": "lesson",
+"blocks": [
+{
+"id": "sci-p28-b1",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "2-5 الْمَاءُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p28-b2",
+"kind": "vocabulary",
+"skill": null,
+"number": null,
+"text": "الْمُصْطَلَحاتُ الرَّئيسَةُ",
+"items": [
+"تَوْفيرُ الْماءِ",
+"هَدْرُ الْماءِ"
+],
+"picture": null
+},
+{
+"id": "sci-p28-b3",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "الْمَاءُ مُهِمٌّ في حَياتِنا.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p28-b4",
+"kind": "question",
+"skill": null,
+"number": "1.",
+"text": "أَتَحَدَّثُ عَنِ اسْتِخْداماتِ الْماءِ في بَيْتي وَمَدْرَسَتي.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p28-b5",
+"kind": "activity",
+"skill": "investigate",
+"number": "2.",
+"text": "أَبْحَثُ بِمُساعَدَةِ مُعَلِّمي في سورَةِ الْأَنْبِياءِ عَنِ الْآيَةِ الْكَريمَةِ الَّتي تُبَيِّنُ أَهَمِّيَّةَ الْماءِ، وَأَتْلوها أَمامَ زُمَلائي، ثُمَّ أُناقِشُ مَعَهُمْ ما تَدُلُّ عَلَيْهِ.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p28-b6",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "يُعاني الْأُرْدُنُّ نَقْصًا في الْماءِ، وَيَزْدادُ اسْتِهْلاكُ الْماءِ مَعَ زِيادَةِ عَدَدِ السُّكّانِ. فَماذا عَلَيَّ أَنْ أَفْعَلَ؛ لِكَيْ أُسْهِمَ في الْمُحافَظَةِ عَلَى الْماءِ في بَلَدي الْأُرْدُنِّ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p28-b7",
+"kind": "instruction",
+"skill": "observe",
+"number": null,
+"text": "أَتَأَمَّلُ ما يَأْتي، ثُمَّ أُجيبُ:",
+"items": [],
+"picture": "Rainwater collected from a house roof into a tank for garden irrigation; hand closing a tap; girl holding a watering can."
+}
+],
+"unclear": null
+},
+{
+"page": 29,
+"kind": "lesson",
+"blocks": [
+{
+"id": "sci-p29-b1",
+"kind": "question",
+"skill": null,
+"number": "3",
+"text": "أَصِفُ طَرائِقَ يُمْكِنُ اسْتِخْدامُها لِتَوْفيرِ الْماءِ في الْبَيْتِ.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p29-b2",
+"kind": "question",
+"skill": null,
+"number": "4",
+"text": "أَشْرَحُ أَهَمِّيَّةَ تَوْفيرِ الْماءِ.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p29-b3",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "التَّمارينُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p29-b4",
+"kind": "exercise",
+"skill": null,
+"number": "1",
+"text": "بِمُساعَدَةِ مُعَلِّمي أَتَعَرَّفُ ماذا فَعَلَتْ إِحْدى الْمَدارِسِ الْأُرْدُنِّيَّةِ لِتَوْفيرِ الْماءِ، في كِتابِ التَّمارينِ، في الصَّفْحَةِ (31).",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p29-b5",
+"kind": "exercise",
+"skill": null,
+"number": "2",
+"text": "أُمَثِّلُ دَوْرَ قَطْرَةِ ماءٍ، وَأَتَحَدَّثُ عَنْ أَشْكالِ الاسْتِخْدامِ السَّيِّئِ لِلْماءِ، وَأَشْكو ذلِكَ إِلى زُمَلائي في الصَّفِّ وَأَسْأَلُهُمْ: ماذا أَفْعَلُ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p29-b6",
+"kind": "exercise",
+"skill": "investigate",
+"number": "3",
+"text": "أُشارِكُ زُمَلائي في تَفَقُّدِ صَلاحِيَّةِ صَنابيرِ الْماءِ في الْمَدْرَسَةِ، وَأُخْبِرُ مُعَلِّمي إِذا وَجَدْتُها تُسَرِّبُ الْماءَ.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p29-b7",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "ماذا تَعَلَّمْتُ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p29-b8",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "",
+"items": [
+"نُوَفِّرُ الْماءَ لِلْمُحافَظَةِ عَلَيْهِ.",
+"الْإِجْراءاتُ الصَّغيرَةُ قَدْ تُحْدِثُ فَرْقًا كَبيرًا في حَياتِنا."
+],
+"picture": null
+}
+],
+"unclear": null
+}
+]
+},
+{
+"id": "sci-5-3",
+"code": "5-3",
+"title": "اللَّيْلُ وَالنَّهارُ",
+"type": "lesson",
+"pages": [
+{
+"page": 30,
+"kind": "lesson",
+"blocks": [
+{
+"id": "sci-p30-b1",
+"kind": "heading",
+"skill": null,
+"number": "3-5",
+"text": "اللَّيْلُ وَالنَّهارُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p30-b2",
+"kind": "vocabulary",
+"skill": null,
+"number": null,
+"text": "الْمُصْطَلَحاتُ الرَّئيسَةُ",
+"items": [
+"الْأَرْضُ",
+"الشَّمْسُ",
+"اللَّيْلُ",
+"النَّهارُ",
+"دَرَجَةُ الْحَرارَةِ"
+],
+"picture": null
+},
+{
+"id": "sci-p30-b3",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "قالَ اللهُ تَعالى: «إِنَّ فِي خَلْقِ السَّمَاوَاتِ وَالْأَرْضِ وَاخْتِلَافِ اللَّيْلِ وَالنَّهَارِ لَآيَاتٍ لِأُولِي الْأَلْبَابِ ۝١٩٠»\n(سُورَةُ آلِ عِمْرانَ، الْآيَةُ 190)",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p30-b4",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "الشَّمْسُ نَجْمٌ مُضيءٌ، وَهِيَ أَقْرَبُ نُجومِ السَّماءِ إِلَيْنا، وَتُعَدُّ الْمَصْدَرَ الرَّئيسَ لِلْحَرارَةِ وَالضَّوْءِ. أَمّا شَكْلُها فَكُرَوِيٌّ تَقْريبًا.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p30-b5",
+"kind": "instruction",
+"skill": "observe",
+"number": null,
+"text": "أَتَأَمَّلُ الصّورَتَيْنِ الْآتِيَتَيْنِ، ثُمَّ أُجيبُ:",
+"items": [],
+"picture": "Two photos of Amman's Roman theatre, by day and at night."
+},
+{
+"id": "sci-p30-b6",
+"kind": "caption",
+"skill": null,
+"number": null,
+"text": "الصّورَةُ (أ)",
+"items": [],
+"picture": "Roman theatre in daylight."
+},
+{
+"id": "sci-p30-b7",
+"kind": "caption",
+"skill": null,
+"number": null,
+"text": "الصّورَةُ (ب)",
+"items": [],
+"picture": "Roman theatre illuminated at night."
+}
+],
+"unclear": null
+},
+{
+"page": 31,
+"kind": "lesson",
+"blocks": [
+{
+"id": "sci-p31-b1",
+"kind": "heading",
+"skill": null,
+"number": "5",
+"text": "الْوَحْدَةُ الْخامِسَةُ الْأَرْضُ وَالشَّمْسُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p31-b2",
+"kind": "question",
+"skill": "observe",
+"number": "1",
+"text": "في أَيِّ الصُّورَتَيْنِ يَبْدو الْوَقْتُ لَيْلًا؟ كَيْفَ عَرَفْتَ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p31-b3",
+"kind": "question",
+"skill": "observe",
+"number": "2",
+"text": "في أَيِّ الصُّورَتَيْنِ يَبْدو الْوَقْتُ نَهارًا؟ كَيْفَ عَرَفْتَ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p31-b4",
+"kind": "question",
+"skill": "cause_effect",
+"number": "3",
+"text": "في أَيِّ الصُّورَتَيْنِ دَرَجَةُ حَرارَةِ الْجَوِّ أَعْلى؟ لِماذا؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p31-b5",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "التَّمارينُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p31-b6",
+"kind": "exercise",
+"skill": null,
+"number": "1",
+"text": "أُناقِشُ زُمَلائي في أَهَمِّيَّةِ الشَّمْسِ لِلْإِنْسانِ وَالْحَيَوانِ وَالنَّباتِ.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p31-b7",
+"kind": "exercise",
+"skill": "observe",
+"number": "2",
+"text": "أُراقِبُ السَّماءَ لَيْلًا. ماذا أَرى؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p31-b8",
+"kind": "activity",
+"skill": "investigate",
+"number": "3",
+"text": "أَتَعاوَنُ مَعَ زُمَلائي في الْمَجْموعَةِ؛ لِلْبَحْثِ في حَرَكَةِ الْأَرْضِ، وَأَثَرِها في تَعاقُبِ اللَّيْلِ وَالنَّهارِ. أُنَفِّذُ النَّشاطَ في كِتابِ التَّمارينِ، في الصَّفْحَةِ (32).",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p31-b9",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "ماذا تَعَلَّمْتُ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p31-b10",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "",
+"items": [
+"الشَّمْسُ نَجْمٌ مُضيءٌ، وَشَكْلُها كُرَوِيٌّ تَقْريبًا.",
+"الشَّمْسُ الْمَصْدَرُ الرَّئيسُ لِلْحَرارَةِ وَالضَّوْءِ.",
+"يَتَعاقَبُ اللَّيْلُ وَالنَّهارُ في الْيَوْمِ الْواحِدِ."
+],
+"picture": null
+}
+],
+"unclear": null
+}
+]
+},
+{
+"id": "sci-5-4",
+"code": "5-4",
+"title": "الْفُصولُ الْأَرْبَعَةُ",
+"type": "lesson",
+"pages": [
+{
+"page": 32,
+"kind": "lesson",
+"blocks": [
+{
+"id": "sci-p32-b1",
+"kind": "heading",
+"skill": null,
+"number": "4-5",
+"text": "الْفُصولُ الْأَرْبَعَةُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p32-b2",
+"kind": "vocabulary",
+"skill": null,
+"number": null,
+"text": "الْمُصْطَلَحاتُ الرَّئيسَةُ",
+"items": [
+"الْفُصولُ الْأَرْبَعَةُ",
+"فَصْلُ الشِّتاءِ",
+"فَصْلُ الرَّبيعِ",
+"فَصْلُ الصَّيْفِ",
+"فَصْلُ الْخَريفِ",
+"الْأَرْضُ",
+"دَرَجَةُ الْحَرارَةِ"
+],
+"picture": null
+},
+{
+"id": "sci-p32-b3",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "تَتَكَوَّنُ السَّنَةُ مِنْ أَرْبَعَةِ فُصولٍ مُتَعاقِبَةٍ: فَصْلِ الشِّتاءِ، وَفَصْلِ الرَّبيعِ، وَفَصْلِ الصَّيْفِ، وَفَصْلِ الْخَريفِ.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p32-b4",
+"kind": "instruction",
+"skill": "observe",
+"number": null,
+"text": "أَتَأَمَّلُ الصُّوَرَ الْآتِيَةَ، ثُمَّ أُجيبُ:",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p32-b5",
+"kind": "caption",
+"skill": null,
+"number": null,
+"text": "الصّورَةُ (أ): فَصْلُ الصَّيْفِ",
+"items": [],
+"picture": "Sun shining over a field."
+},
+{
+"id": "sci-p32-b6",
+"kind": "caption",
+"skill": null,
+"number": null,
+"text": "الصّورَةُ (ب): فَصْلُ الْخَريفِ",
+"items": [],
+"picture": "Trees with orange leaves and fallen leaves."
+},
+{
+"id": "sci-p32-b7",
+"kind": "caption",
+"skill": null,
+"number": null,
+"text": "الصّورَةُ (ج): فَصْلُ الشِّتاءِ",
+"items": [],
+"picture": "Umbrella and hand in rain."
+},
+{
+"id": "sci-p32-b8",
+"kind": "caption",
+"skill": null,
+"number": null,
+"text": "الصّورَةُ (د): فَصْلُ الرَّبيعِ",
+"items": [],
+"picture": "Blooming daisies."
+},
+{
+"id": "sci-p32-b9",
+"kind": "question",
+"skill": null,
+"number": "1.",
+"text": "في أَيِّ فَصْلٍ تَرْتَفِعُ دَرَجَةُ الْحَرارَةِ كَثيرًا؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p32-b10",
+"kind": "question",
+"skill": null,
+"number": "2.",
+"text": "في أَيِّ فَصْلٍ تَنْخَفِضُ دَرَجَةُ الْحَرارَةِ كَثيرًا؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p32-b11",
+"kind": "question",
+"skill": null,
+"number": "3.",
+"text": "في أَيِّ فُصولِ السَّنَةِ تَتَساقَطُ أَوْراقُ بَعْضِ الْأَشْجارِ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p32-b12",
+"kind": "question",
+"skill": null,
+"number": "4.",
+"text": "في أَيِّ فُصولِ السَّنَةِ تَتَفَتَّحُ الْأَزْهارُ؟",
+"items": [],
+"picture": null
+}
+],
+"unclear": null
+},
+{
+"page": 33,
+"kind": "lesson",
+"blocks": [
+{
+"id": "sci-p33-b1",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "تَتَغَيَّرُ دَرَجاتُ الْحَرارَةِ مِنْ فَصْلٍ إِلى آخَرَ:\nفَفي فَصْلِ الشِّتاءِ تَنْخَفِضُ دَرَجاتُ الْحَرارَةِ، وَتَظْهَرُ الْغُيومُ.\nوَفي فَصْلِ الرَّبيعِ تَكونُ دَرَجَةُ الْحَرارَةِ مُعْتَدِلَةً، وَتَتَفَتَّحُ الْأَزْهارُ.\nوَفي فَصْلِ الصَّيْفِ تَرْتَفِعُ دَرَجاتُ الْحَرارَةِ كَثيرًا في بِلادِنا مُقارَنَةً بِدَرَجاتِ الْحَرارَةِ في الْفُصولِ الْأُخْرى، وَتَنْضَجُ مُعْظَمُ الثِّمارِ.\nوَفي فَصْلِ الْخَريفِ تَبْدَأُ دَرَجاتُ الْحَرارَةِ بِالْاِنْخِفاضِ، وَتَنْشَطُ حَرَكَةُ الرِّياحِ؛ إِيذانًا بِقُرْبِ حُلولِ فَصْلِ الشِّتاءِ، وَتَتَساقَطُ أَوْراقُ بَعْضِ الْأَشْجارِ.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p33-b2",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "التَّمارينُ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p33-b3",
+"kind": "exercise",
+"skill": null,
+"number": "1",
+"text": "أَصِلُ الْأَشْكالَ بِالْفُصولِ الْأَرْبَعَةِ، في كِتابِ التَّمارينِ، في الصَّفْحَةِ (33).",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p33-b4",
+"kind": "exercise",
+"skill": null,
+"number": "2",
+"text": "أَعْمَلُ وَزُمَلائي في أَرْبَعِ مَجْموعاتٍ؛ بِحَيْثُ تُمَثِّلُ كُلُّ مَجْموعَةٍ فَصْلًا مِنَ الْفُصولِ الْأَرْبَعَةِ، وَأَتَحَدَّثُ وَزُمَلائي عَنْ ميزاتِ كُلِّ فَصْلٍ وَتَغَيُّراتِهِ.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p33-b5",
+"kind": "exercise",
+"skill": "design",
+"number": "3",
+"text": "أَتَعاوَنُ مَعَ زُمَلائي في تَصْميمِ مَجَلَّةِ حائِطٍ نُوَضِّحُ فيها تَعاقُبَ الْفُصولِ الْأَرْبَعَةِ، بِاسْتِخْدامِ مَوادَّ مِنَ الْبيئَةِ الْمَحَلِّيَّةِ.",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p33-b6",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "ماذا تَعَلَّمْتُ؟",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p33-b7",
+"kind": "text",
+"skill": null,
+"number": null,
+"text": "",
+"items": [
+"تَتَكَوَّنُ السَّنَةُ مِنْ أَرْبَعَةِ فُصولٍ مُتَعاقِبَةٍ، هِيَ: فَصْلُ الشِّتاءِ، وَفَصْلُ الرَّبيعِ، وَفَصْلُ الصَّيْفِ، وَفَصْلُ الْخَريفِ.",
+"تَتَغَيَّرُ دَرَجاتُ الْحَرارَةِ مِنْ فَصْلٍ إِلى آخَرَ."
+],
+"picture": null
+}
+],
+"unclear": null
+}
+]
+},
+{
+"id": "sci-5-enrich",
+"code": "5-enrich",
+"title": "الْإِغْناءُ اللُّغَوِيُّ",
+"type": "enrichment",
+"pages": [
+{
+"page": 34,
+"kind": "glossary",
+"blocks": [
+{
+"id": "sci-p34-b1",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "الْإِغْناءُ اللُّغَوِيُّ",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p34-b2",
+"kind": "heading",
+"skill": null,
+"number": null,
+"text": "Language focus",
+"items": [],
+"picture": null
+},
+{
+"id": "sci-p34-b3",
+"kind": "vocabulary",
+"skill": null,
+"number": null,
+"text": "Earth",
+"items": [],
+"picture": "Earth globe."
+},
+{
+"id": "sci-p34-b4",
+"kind": "vocabulary",
+"skill": null,
+"number": null,
+"text": "Sun",
+"items": [],
+"picture": "Yellow sun."
+},
+{
+"id": "sci-p34-b5",
+"kind": "vocabulary",
+"skill": null,
+"number": null,
+"text": "Night",
+"items": [],
+"picture": "Campsite under moon and stars."
+},
+{
+"id": "sci-p34-b6",
+"kind": "vocabulary",
+"skill": null,
+"number": null,
+"text": "Day",
+"items": [],
+"picture": "Campsite in sunlight."
+},
+{
+"id": "sci-p34-b7",
+"kind": "vocabulary",
+"skill": null,
+"number": null,
+"text": "Rock",
+"items": [],
+"picture": "Gray rocks."
+},
+{
+"id": "sci-p34-b8",
+"kind": "vocabulary",
+"skill": null,
+"number": null,
+"text": "Water",
+"items": [],
+"picture": "Water bottle and drops."
+}
+],
+"unclear": null
+}
+]
+}
+]
+}
+]
+}
