@@ -1,6 +1,6 @@
 // Noorani world registry: levels, units and the spoken phrases the engines use.
-// Levels 2–12 stay empty until their content is extracted from the family's Qaida PDF —
-// nothing is invented here.
+// Levels follow the family's Qaida PDF (Nour Muhammad Haqqani, 13th ed.). Levels 2–12 are
+// mapped to their lessons but stay empty until each unit is built from those pages.
 import { curriculumAudio } from "@/data/arabicCurriculumAudio";
 import type { NooraniItem, NooraniLevel, NooraniUnit, Phrase } from "./types";
 import { unit1Letters } from "./unit1Letters";
@@ -9,19 +9,20 @@ export * from "./types";
 
 export const nooraniUnits: NooraniUnit[] = [unit1Letters];
 
+/** The PDF's 17 lessons grouped into 12 levels, in the book's own order (pp. 6–28). */
 export const nooraniLevels: NooraniLevel[] = [
-  { level: 1, ar: "الْحُرُوف", en: "Letters & sounds", unitIds: ["u1-letters"] },
-  { level: 2, ar: "الْحُرُوف", en: "Letters & sounds", unitIds: [] },
-  { level: 3, ar: "الْحَرَكَات", en: "Harakat", unitIds: [] },
-  { level: 4, ar: "الْحَرَكَات", en: "Harakat", unitIds: [] },
-  { level: 5, ar: "قَوَاعِد", en: "Rules", unitIds: [] },
-  { level: 6, ar: "قَوَاعِد", en: "Rules", unitIds: [] },
-  { level: 7, ar: "قَوَاعِد", en: "Rules", unitIds: [] },
-  { level: 8, ar: "الْمَدّ", en: "Madd", unitIds: [] },
-  { level: 9, ar: "", en: "Next rules", unitIds: [] },
-  { level: 10, ar: "", en: "Advanced", unitIds: [] },
-  { level: 11, ar: "", en: "Advanced", unitIds: [] },
-  { level: 12, ar: "الطَّلَاقَة", en: "Fluency", unitIds: [] },
+  { level: 1, ar: "حُرُوفُ الْهِجَاءِ الْمُفْرَدَة", en: "Single letters", lessons: [1], unitIds: ["u1-letters"] },
+  { level: 2, ar: "الْحُرُوفُ الْمُرَكَّبَة وَالْمُقَطَّعَة", en: "Joined letters · Muqattaʿat", lessons: [2, 3], unitIds: [] },
+  { level: 3, ar: "الْحُرُوفُ الْمُتَحَرِّكَة", en: "Harakat", lessons: [4], unitIds: [] },
+  { level: 4, ar: "الْحُرُوفُ الْمُنَوَّنَة", en: "Tanween + drills", lessons: [5, 6], unitIds: [] },
+  { level: 5, ar: "الْأَلِفُ وَالْيَاءُ وَالْوَاوُ الصَّغِيرَة", en: "Small alif, ya, waw", lessons: [7], unitIds: [] },
+  { level: 6, ar: "حُرُوفُ الْمَدِّ وَاللِّين", en: "Madd & leen", lessons: [8], unitIds: [] },
+  { level: 7, ar: "تَدْرِيبَاتٌ عَلَى التَّنْوِينِ وَالْمَدّ", en: "Tanween, madd & leen drills", lessons: [9], unitIds: [] },
+  { level: 8, ar: "السُّكُون", en: "Sukoon + drills", lessons: [10, 11], unitIds: [] },
+  { level: 9, ar: "الشَّدَّة", en: "Shadda + drills", lessons: [12, 13], unitIds: [] },
+  { level: 10, ar: "الشَّدَّةُ وَالسُّكُون", en: "Shadda & sukoon, two shaddas", lessons: [14, 15], unitIds: [] },
+  { level: 11, ar: "الشَّدَّةُ وَالسُّكُونُ مَعَ الْمَدّ", en: "Shadda & sukoon with madd", lessons: [16], unitIds: [] },
+  { level: 12, ar: "تَدْرِيبَاتٌ عَلَى مَا سَبَق", en: "Review of everything", lessons: [17], unitIds: [] },
 ];
 
 export const nooraniItems: Record<string, NooraniItem> = Object.fromEntries(nooraniUnits.flatMap((u) => u.items.map((i) => [i.id, i])));

@@ -101,7 +101,8 @@ export type ActivityProps = {
 
 /** Distractors: look/sound-alikes the child has met first, then anything else from the pool. */
 export function choicesFor(target: NooraniItem, pool: NooraniItem[], n: number): NooraniItem[] {
-  const others = pool.filter((p) => p.id !== target.id);
+  // Never offer a second item that sounds the same (e.g. the two forms of ya).
+  const others = pool.filter((p) => p.id !== target.id && p.say !== target.say);
   const alike = others.filter((p) => target.confusable?.includes(p.id)).sort(() => Math.random() - 0.5);
   const rest = others.filter((p) => !alike.includes(p)).sort(() => Math.random() - 0.5);
   return [target, ...[...alike, ...rest].slice(0, n - 1)].sort(() => Math.random() - 0.5);

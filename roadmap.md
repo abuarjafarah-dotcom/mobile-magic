@@ -53,5 +53,6 @@
 - [ ] Montessori Bead Garden audit: drag/snap/reset, chain proportions & colors, equations reject wrong, browser test
 
 - [x] Noorani Qaida foundation: data model, per-child mastery + spaced review, 7 reusable activity engines, Unit 1 (single letters, 6 groups)
-- [ ] Noorani: confirm letter order/names against the family's PDF edition; record Noorani-style letter audio
-- [ ] Noorani Levels 2–12 from the supplied PDF (data only)
+- [x] Noorani: Unit 1 checked against the PDF (order, rows, names, both ya forms)
+- [ ] Noorani: record Qaida-style letter names (بَا not بَاء) into nooraniClips
+- [ ] Noorani Levels 2–12 from the PDF, one level at a time (data only)

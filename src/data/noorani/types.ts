@@ -75,7 +75,8 @@ export type NooraniLevel = {
   level: number;
   ar: string;
   en: string;
-  unitIds: string[]; // empty = waiting for source content
+  lessons: number[]; // Qaida lesson numbers this level covers
+  unitIds: string[]; // empty = not built yet
 };
 
 export type Phrase = { ar: string; say: string; clip?: string };

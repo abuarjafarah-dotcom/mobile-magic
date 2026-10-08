@@ -88,12 +88,12 @@ export function NooraniWorld({ onExit }: { onExit: () => void }) {
             <Ar className="text-lg font-black text-muted-foreground">الْمُسْتَوَيَاتُ الْقَادِمَة</Ar>
             <div className="mt-2 flex flex-wrap gap-2">
               {nooraniLevels.filter((l) => !l.unitIds.length).map((l) => (
-                <span key={l.level} className="rounded-full bg-card/70 px-3 py-1.5 text-sm font-bold text-muted-foreground shadow-sm">
-                  {l.level} {l.ar ? <Ar>· {l.ar}</Ar> : null}
+                <span key={l.level} title={`Qaida lesson ${l.lessons.join("–")} · ${l.en}`} className="rounded-full bg-card/70 px-3 py-1.5 text-sm font-bold text-muted-foreground shadow-sm">
+                  {l.level} <Ar>· {l.ar}</Ar>
                 </span>
               ))}
             </div>
-            <p dir="ltr" className="mt-2 text-xs font-bold text-muted-foreground">Levels 2–12 will be added from the family’s Qaida PDF — nothing is invented.</p>
+            <p dir="ltr" className="mt-2 text-xs font-bold text-muted-foreground">Levels 2–12 follow the Qaida’s 17 lessons in order and open as each one is built.</p>
           </div>
         </div>
 
