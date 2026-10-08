@@ -88,7 +88,13 @@ type Problem = { first: number; second: number; answer: number };
 const STORAGE_KEY = "math-adventure-progress";
 const DEFAULT_STATS: Stats = { games: 0, correct: 0, stars: 0 };
 const QUESTIONS = 10;
-const characterImages = { hamad: hamadAsset.url, talal: talalAsset.url, yousef: yousefAsset.url };
+// Fallback SVG placeholders for character avatars (images not available in self-hosted version)
+const characterSvgs = {
+  hamad: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23FFD966'/%3E%3Ccircle cx='50' cy='35' r='15' fill='%23F4A460'/%3E%3Crect x='35' y='50' width='30' height='25' fill='%234169E1'/%3E%3C/svg%3E",
+  talal: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%2390EE90'/%3E%3Ccircle cx='50' cy='35' r='15' fill='%23DEB887'/%3E%3Crect x='35' y='50' width='30' height='25' fill='%23FF6347'/%3E%3C/svg%3E",
+  yousef: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23FFB6C1'/%3E%3Ccircle cx='50' cy='35' r='12' fill='%23FDBCB4'/%3E%3Crect x='38' y='50' width='24' height='20' fill='%238A2BE2'/%3E%3C/svg%3E",
+};
+const characterImages = { hamad: characterSvgs.hamad, talal: characterSvgs.talal, yousef: characterSvgs.yousef };
 
 const levels: Array<{ id: Level; title: string; detail: string; tone: "sun" | "mint" | "sky" | "berry" }> = [
   { id: 1, title: "Little Numbers", detail: "Add up to 5 · Ages 3–4", tone: "sun" },
