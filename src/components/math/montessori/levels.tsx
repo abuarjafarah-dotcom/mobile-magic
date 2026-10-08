@@ -80,7 +80,7 @@ function ChainWork({ c, stage, lang, grow, onNext }: LevelProps & { c: number; s
         <div dir="ltr" className="flex flex-wrap items-end justify-center gap-x-1 gap-y-3">
           {marks.slice(0, laid).map((v, i) => (
             <div key={v} className={cn("flex items-end gap-1", stage === 4 && i >= m && "opacity-40")}>
-              <span className="mb-4"><Chain n={c} bead={c > 6 ? 14 : 18} /></span>
+              <span className="mb-4"><Chain n={c} bead={18} /></span>
               <Zone mat={mat} id={`stop-${v}`} className="grid h-[58px] w-11 place-items-center rounded-lg" onTap={stage === 4 ? () => { setM(i + 1); setBuilt(false); sayNum(v, lang); } : undefined}>
                 {placed.has(v)
                   ? stage === 4 ? <span className={cn("rounded-lg", i + 1 === m && "ring-4 ring-success")}><WoodNum n={v} size={42} /></span>
@@ -94,7 +94,7 @@ function ChainWork({ c, stage, lang, grow, onNext }: LevelProps & { c: number; s
       </Zone>
       {stage < 4 && !complete && (
         <Zone mat={mat} id="tray" className="flex min-h-20 flex-wrap items-end justify-center gap-2 rounded-2xl bg-card/75 p-2">
-          {stage === 3 && laid < 10 && <Draggable mat={mat} piece={{ id: "chain", kind: "chain", value: c }}><span className="p-2"><Chain n={c} bead={c > 6 ? 14 : 18} /></span></Draggable>}
+          {stage === 3 && laid < 10 && <Draggable mat={mat} piece={{ id: "chain", kind: "chain", value: c }}><span className="p-2"><Chain n={c} bead={18} /></span></Draggable>}
           {order.filter((v) => !placed.has(v) && (stage !== 3 || v <= c * laid)).map((v) => (
             <Draggable key={v} mat={mat} piece={{ id: `t${v}`, kind: "mark", value: v }}><WoodNum n={v} size={44} /></Draggable>
           ))}

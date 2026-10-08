@@ -77,12 +77,15 @@ export function WoodToken({ token, size = 52 }: { token: Token; size?: number })
 
 const beadImgs = import.meta.glob("@/assets/beads/bead-*.png", { eager: true, import: "default" }) as Record<string, string>;
 const beadFile = (i: number) => Object.entries(beadImgs).find(([k]) => k.endsWith(`/bead-${i}.png`))?.[1] ?? "";
-// Montessori chain colours: 2 red, 3 light blue, 4 pink, 5 yellow, 6 purple, 7 white, 8 brown, 9 dark blue, 10 gold.
-const CHAIN_FILE: Record<number, number> = { 1: 1, 2: 1, 3: 5, 4: 3, 5: 4, 6: 6, 7: 7, 8: 8, 9: 9, 10: 10 };
+// Montessori chain colours: 2=red, 3=pink, 4=blue, 5=light-blue, 6=purple, 7=white, 8=brown, 9=dark-blue, 10=gold.
+// Each chain uses its own numbered bead file for proper Montessori color sequence
+const CHAIN_FILE: Record<number, number> = { 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9, 10: 10 };
 export const chainBeadSrc = (n: number) => beadFile(CHAIN_FILE[n] ?? 1);
 
-/** A bead chain: bead size is constant so a 10-chain is 5× a 2-chain. */
+/** A bead chain: bead size is constant so a 10-chain is 5× longer (more beads) than a 2-chain, maintaining Montessori visual hierarchy. */
 export function Chain({ n, reps = 1, bead = 18, dim }: { n: number; reps?: number; bead?: number; dim?: number }) {
+  // IMPORTANT: Do NOT vary bead size based on chain number. Constant bead size is pedagogically critical.
+  // Visual difference comes from number of beads, not bead size. A 10-chain is 5× LONGER because it has 5× the beads.
   return (
     <span dir="ltr" className="relative inline-flex shrink-0 items-center" style={{ height: bead }}>
       <span className="absolute inset-x-0 top-1/2 h-[2px] -translate-y-1/2 rounded bg-amber-800/60" aria-hidden />
