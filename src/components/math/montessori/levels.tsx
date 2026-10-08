@@ -338,8 +338,10 @@ export function SquaresCubes({ lang, grow }: LevelProps) {
   const [stacked, setStacked] = useState(1);
   const drag = useRef<{ x: number; y: number } | null>(null);
   const cubeN = Math.min(10, Math.max(2, n));
-  const layered = cubeN >= 6;
-  const cubeReady = !layered || stacked >= cubeN;
+  // Chains 6-10 have layer assets; chains 2-5 show individual layers as chains for now
+  // All chains follow same flow: build layers → show whole cube → explode to see composition
+  const hasLayerAssets = cubeN >= 6;
+  const cubeReady = stacked >= cubeN;
   const reset = (nn = n, s = step) => { setN(nn); setStep(s); setRows(0); setEqDone({}); setLayers(false); setStacked(1); setK((x) => x + 1); };
   const mat = useWorkMat((p, z) => {
     if (p.kind === "layer") {
@@ -354,7 +356,8 @@ export function SquaresCubes({ lang, grow }: LevelProps) {
     return true;
   });
   const markDone = (key: string) => { setEqDone((d) => ({ ...d, [key]: true })); grow(); };
-  const bead = n > 6 ? 16 : 22;
+  // Constant bead size across all chains 2-10 (pedagogy: visual difference comes from chain LENGTH, not bead size)
+  const bead = 18;
   const onCubeMove = (e: RPointerEvent) => { if (!drag.current) return; const dx = e.clientX - drag.current.x, dy = e.clientY - drag.current.y; drag.current = { x: e.clientX, y: e.clientY }; setRot((r) => ({ x: Math.max(-35, Math.min(35, r.x - dy * 0.4)), y: Math.max(-40, Math.min(40, r.y + dx * 0.4)) })); };
 
   return (
@@ -389,20 +392,31 @@ export function SquaresCubes({ lang, grow }: LevelProps) {
         </>
       )}
 
-      {step >= 2 && layered && !cubeReady && (
+      {step >= 2 && !cubeReady && (
         <>
           <Note lang={lang}>{t(lang, `طبقة واحدة: ${cubeN} × ${cubeN} = ${cubeN * cubeN}. ضع الطبقات فوق بعضها حتى تصير ${cubeN}`, `One layer: ${cubeN} × ${cubeN} = ${cubeN * cubeN}. Stack layers until there are ${cubeN}`)}</Note>
           <Zone mat={mat} id="stack" className="grid min-h-60 place-items-center rounded-3xl border-4 border-amber-900/25 bg-amber-100/70 p-4 shadow-inner">
             <div className="relative h-52 w-48">
-              {Array.from({ length: stacked }, (_, l) => (
-                <img key={l} src={mImg("layer", cubeN)} alt="" draggable={false} className="absolute left-1/2 w-40 -translate-x-1/2 select-none drop-shadow-md transition-all duration-700 animate-pop-in"
-                  style={{ bottom: l * (120 / cubeN), transform: `translateX(-50%) perspective(400px) rotateX(55deg)` }} />
-              ))}
+              {hasLayerAssets ? (
+                // Chains 6-10: Use pre-rendered layer images for visual impact
+                Array.from({ length: stacked }, (_, l) => (
+                  <img key={l} src={mImg("layer", cubeN)} alt="" draggable={false} className="absolute left-1/2 w-40 -translate-x-1/2 select-none drop-shadow-md transition-all duration-700 animate-pop-in"
+                    style={{ bottom: l * (120 / cubeN), transform: `translateX(-50%) perspective(400px) rotateX(55deg)` }} />
+                ))
+              ) : (
+                // Chains 2-5: Show stacked chains to build visual understanding
+                Array.from({ length: stacked }, (_, l) => (
+                  <div key={l} className="absolute left-1/2 w-56 -translate-x-1/2 select-none drop-shadow-md transition-all duration-700 animate-pop-in"
+                    style={{ bottom: l * (100 / cubeN), transform: `translateX(-50%) perspective(400px) rotateX(55deg) scaleY(${0.6 - (cubeN * 0.05)})` }}>
+                    <div className="grid gap-0.5 rounded-lg bg-background/40 p-1">{Array.from({ length: cubeN }, (_, r) => <Chain key={r} n={cubeN} bead={14} />)}</div>
+                  </div>
+                ))
+              )}
             </div>
             <div dir="ltr" className="flex items-center gap-2"><WoodNum n={stacked} size={34} /><span className={cn("text-sm font-black", lang === "ar" && "font-arabic")}>{t(lang, `طبقات × ${cubeN * cubeN} =`, `layers × ${cubeN * cubeN} =`)}</span><WoodNum n={stacked * cubeN * cubeN} size={34} /></div>
           </Zone>
           <div className="flex justify-center">
-            <Draggable mat={mat} piece={{ id: `layer${stacked}`, kind: "layer", value: cubeN * cubeN }}><span className="grid justify-items-center rounded-2xl bg-card/80 p-2"><img src={mImg("square", cubeN)} alt={`${cubeN}×${cubeN}`} draggable={false} className="h-24 w-auto select-none" /></span></Draggable>
+            <Draggable mat={mat} piece={{ id: `layer${stacked}`, kind: "layer", value: cubeN * cubeN }}><span className="grid justify-items-center rounded-2xl bg-card/80 p-2">{hasLayerAssets ? <img src={mImg("square", cubeN)} alt={`${cubeN}×${cubeN}`} draggable={false} className="h-24 w-auto select-none" /> : <div className="grid gap-0.5 rounded-lg bg-background/60 p-2">{Array.from({ length: cubeN }, (_, r) => <Chain key={r} n={cubeN} bead={14} />)}</div>}</span></Draggable>
           </div>
         </>
       )}
@@ -426,6 +440,7 @@ export function SquaresCubes({ lang, grow }: LevelProps) {
                 {Array.from({ length: cubeN }, (_, l) => (
                   <div key={l} className="grid justify-items-center gap-1 animate-pop-in" style={{ animationDelay: `${l * 120}ms` }}>
                     <div className="grid gap-0.5 rounded-lg bg-background/60 p-1">{Array.from({ length: cubeN }, (_, r) => <Chain key={r} n={cubeN} bead={12} />)}</div>
+                    {/* Display running total of cubes in exploded view */}
                     <WoodNum n={cubeN * cubeN * (l + 1)} size={28} />
                   </div>
                 ))}
