@@ -339,7 +339,6 @@ export function SquaresCubes({ lang, grow }: LevelProps) {
   const cubeN = Math.min(10, Math.max(2, n));
   // Chains 6-10 have layer assets; chains 2-5 show individual layers as chains for now
   // All chains follow same flow: show whole cube → button to explode/lift layers
-  const hasLayerAssets = cubeN >= 6;
   const reset = (nn = n, s = step) => { setN(nn); setStep(s); setRows(0); setEqDone({}); setLayers(false); setK((x) => x + 1); };
   const mat = useWorkMat((p, z) => {
     if (p.kind !== "chain" || z !== "square" || rows >= n) return false;
@@ -394,11 +393,6 @@ export function SquaresCubes({ lang, grow }: LevelProps) {
                 style={{ transform: `rotateX(${rot.x}deg) rotateY(${rot.y}deg)` }}
                 onPointerDown={(e) => { e.currentTarget.setPointerCapture(e.pointerId); drag.current = { x: e.clientX, y: e.clientY }; }}
                 onPointerMove={onCubeMove} onPointerUp={() => { drag.current = null; }} />
-            ) : hasLayerAssets ? (
-              <div className="grid justify-items-center gap-2 animate-pop-in">
-                <img src={mImg("exploded", cubeN)} alt="" draggable={false} className="h-48 w-auto select-none drop-shadow-xl" />
-                <div dir="ltr" className="flex items-center gap-1.5"><WoodNum n={cubeN} size={30} /><span className={cn("text-sm font-black", lang === "ar" && "font-arabic")}>{t(lang, `طبقات من`, `layers of`)}</span><WoodNum n={cubeN * cubeN} size={30} /></div>
-              </div>
             ) : (
               <div dir="ltr" className="flex flex-wrap items-center justify-center gap-3">
                 {Array.from({ length: cubeN }, (_, l) => (
