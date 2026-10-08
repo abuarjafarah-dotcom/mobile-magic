@@ -14,11 +14,13 @@ export type ActivityType =
   | "readChoose" // tap-to-hear strip, then read with audio off and pick the matching sound
   | "challenge" // alternating text → sound and sound → text rounds
   | "blend" // watch/hear syllables move together into one continuous reading
-  | "order"; // tap syllable cards in reading order (variants: together / first / listen)
+  | "order" // tap syllable cards in reading order (variants: together / first / listen)
+  | "spot" // find the form carrying a given mark ("أين السكون؟")
+  | "ending"; // hear a reading, choose its last syllable (مَ + ؟)
 
 export type Difficulty = 1 | 2 | 3;
 
-export type Haraka = "fatha" | "kasra" | "damma";
+export type Haraka = "fatha" | "kasra" | "damma" | "sukoon";
 
 /** How a unit's "build" activity assembles an item. */
 export type BuildSpec =
@@ -28,7 +30,13 @@ export type BuildSpec =
       dots: 0 | 1 | 2 | 3;
       place: "above" | "below" | "none";
     }
-  | { kind: "mark"; base: string; mark: Haraka }; // Unit 2: a bare letter + its harakah
+  | {
+      kind: "mark"; // Unit 2+: a bare letter + its mark
+      base: string;
+      mark: Haraka;
+      prefix?: string; // Unit 4: the vowelled syllable(s) before it, e.g. مَ in مَ + نْ
+      choices?: Haraka[]; // marks offered (default: the three short vowels)
+    };
 
 export type ItemAudio = {
   target?: string; // pronunciation clip for this item
@@ -58,7 +66,8 @@ export type ActivitySpec = {
   rounds: number;
   difficulty: Difficulty;
   choices?: 2 | 3 | 4;
-  variant?: "together" | "first" | "listen";
+  variant?: "together" | "first" | "listen" | "readFirst";
+  mark?: Haraka; // contrast mark for distractors / the mark to find (Level 4: "sukoon")
   prompt?: string; // phrase id overriding the engine's default instruction
 };
 

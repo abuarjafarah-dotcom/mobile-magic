@@ -38,6 +38,7 @@ export function Challenge({ targets, spec, player, onResult, onDone }: ActivityP
     target,
     n: spec.choices ?? 3,
     react: r,
+    mark: spec.mark,
     onAnswer: (correct: boolean, firstTry: boolean) =>
       onResult({ itemId: target.id, correct, firstTry }),
     onSolved: () => {

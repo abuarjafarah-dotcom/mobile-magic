@@ -38,7 +38,7 @@ export function Meet({ targets, spec, player, onDone }: ActivityProps) {
   const cards = useMemo<Card[]>(() => {
     const out: Card[] = [];
     let last: Haraka | undefined;
-    for (const t of targets) {
+    for (const t of spec.mark ? targets.filter((x) => x.haraka === spec.mark) : targets) {
       if (t.haraka && t.haraka !== last) {
         out.push({ kind: "chapter", haraka: t.haraka });
         last = t.haraka;
@@ -46,7 +46,7 @@ export function Meet({ targets, spec, player, onDone }: ActivityProps) {
       out.push({ kind: "item", item: t });
     }
     return out;
-  }, [targets]);
+  }, [targets, spec.mark]);
   const [i, setI] = useState(0);
   const [heard, setHeard] = useState(false);
   const [playing, setPlaying] = useState(false);

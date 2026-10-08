@@ -4,14 +4,27 @@ import { curriculumAudio } from "@/data/arabicCurriculumAudio";
 import type { Haraka, NooraniItem } from "./types";
 import { unit1Items } from "./unit1Letters";
 
+/** The three short vowels. Sukoon (Level 4) is a mark but not a vowel, so it is kept apart. */
 export const HARAKAT: Haraka[] = ["fatha", "kasra", "damma"];
-export const MARK: Record<Haraka, string> = { fatha: "َ", kasra: "ِ", damma: "ُ" };
+export const ALL_MARKS: Haraka[] = [...HARAKAT, "sukoon"];
+export const MARK: Record<Haraka, string> = {
+  fatha: "\u064E",
+  kasra: "\u0650",
+  damma: "\u064F",
+  sukoon: "\u0652",
+};
 export const HARAKA_NAME: Record<Haraka, { ar: string; en: string; sound: string }> = {
   fatha: { ar: "الْفَتْحَة", en: "Fatha", sound: "short “a” sound" },
   kasra: { ar: "الْكَسْرَة", en: "Kasra", sound: "short “i” sound" },
   damma: { ar: "الضَّمَّة", en: "Damma", sound: "short “u” sound" },
+  sukoon: { ar: "السُّكُون", en: "Sukoon", sound: "no short vowel" },
 };
-const SHORT: Record<Haraka, "a" | "i" | "u"> = { fatha: "a", kasra: "i", damma: "u" };
+const SHORT: Record<Haraka, "a" | "i" | "u" | "o"> = {
+  fatha: "a",
+  kasra: "i",
+  damma: "u",
+  sukoon: "o",
+};
 
 const letterGlyph = Object.fromEntries(unit1Items.map((i) => [i.id, i.glyph])) as Record<
   string,
@@ -28,6 +41,7 @@ const glyphOf = (letterId: string, h: Haraka) =>
         ? "أَ"
         : "أُ"
     : `${letterGlyph[letterId]}${MARK[h]}`;
+// (alif never takes sukoon in these lessons; أَبْ puts the sukoon on the second letter)
 
 const registry = new Map<string, NooraniItem>();
 const meta = new Map<string, { letterId: string; haraka: Haraka }>();
@@ -49,6 +63,7 @@ export function syl(letterId: string, haraka: Haraka): NooraniItem {
     letter: letterId === "alif" ? "ا" : letterGlyph[letterId]!,
     haraka,
     confusable: HARAKAT.filter((h) => h !== haraka).map((h) => `${letterId}-${SHORT[h]}`),
+    // Level 4: a sukoon letter's natural contrast is the same letter with a vowel.
     ...(letterId !== "alif"
       ? { build: { kind: "mark" as const, base: letterGlyph[letterId]!, mark: haraka } }
       : {}),
@@ -83,7 +98,7 @@ export function blend(segmentIds: string[], blended?: string): NooraniItem {
 }
 
 function sylFromId(id: string): NooraniItem {
-  const m = /^(.+)-([aiu])$/.exec(id);
+  const m = /^(.+)-([aiuo])$/.exec(id);
   if (!m) throw new Error(`Unknown syllable ${id}`);
   const h = Object.entries(SHORT).find(([, v]) => v === m[2])![0] as Haraka;
   return syl(m[1]!, h);
@@ -91,21 +106,48 @@ function sylFromId(id: string): NooraniItem {
 
 export const itemById = (id: string) => registry.get(id);
 
+const involvesSukoon = (item: NooraniItem) =>
+  item.haraka === "sukoon" || (item.segments ?? []).some((id) => meta.get(id)?.haraka === "sukoon");
+
+/** The same syllable or reading with the LAST mark changed, e.g. withMark(مَنْ, "fatha") → مَنَ. */
+export function withMark(item: NooraniItem, h: Haraka): NooraniItem {
+  if (item.haraka) {
+    const m = meta.get(item.id)!;
+    return syl(m.letterId, h);
+  }
+  const segs = [...(item.segments ?? [])];
+  const last = meta.get(segs[segs.length - 1]!)!;
+  segs[segs.length - 1] = syl(last.letterId, h).id;
+  return blend(segs);
+}
+
 /**
- * Alternatives that differ by exactly ONE harakah — so a child can only pick the right one by
+ * Alternatives that differ by exactly ONE mark — so a child can only pick the right one by
  * decoding the marks, never by the overall shape, colour or position.
+ * Sukoon joins the alternatives when the item involves sukoon, or when `extra` asks for it
+ * (Level 4's "is it بَ or بْ?"). A reading never starts with sukoon, so position 0 never gets one.
  */
-export function harakahVariants(item: NooraniItem): NooraniItem[] {
+export function harakahVariants(item: NooraniItem, extra?: Haraka): NooraniItem[] {
+  const marks = [...HARAKAT, ...(extra && !HARAKAT.includes(extra) ? [extra] : [])];
+  if (involvesSukoon(item) && !marks.includes("sukoon")) marks.push("sukoon");
   if (item.haraka) {
     const m = meta.get(item.id);
-    return m ? HARAKAT.filter((h) => h !== m.haraka).map((h) => syl(m.letterId, h)) : [];
+    if (!m) return [];
+    return marks
+      .filter((h) => h !== m.haraka && !(m.letterId === "alif" && h === "sukoon"))
+      .map((h) => syl(m.letterId, h));
   }
   if (item.segments) {
     const out: NooraniItem[] = [];
     item.segments.forEach((segId, pos) => {
       const m = meta.get(segId) ?? meta.get(sylFromId(segId).id)!;
-      for (const h of HARAKAT) {
-        if (h === m.haraka) continue;
+      for (const h of marks) {
+        if (
+          h === m.haraka ||
+          (pos === 0 && h === "sukoon") ||
+          (m.letterId === "alif" && h === "sukoon")
+        )
+          continue;
         const segs = [...item.segments!];
         segs[pos] = syl(m.letterId, h).id;
         out.push(blend(segs));

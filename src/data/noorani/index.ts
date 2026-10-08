@@ -7,15 +7,16 @@ import { itemById } from "./syllables";
 import { unit1Letters } from "./unit1Letters";
 import { unit2Harakat } from "./unit2Harakat";
 import { unit3Blending } from "./unit3Blending";
+import { unit4Sukoon } from "./unit4Sukoon";
 
 export * from "./types";
-export { HARAKA_NAME, HARAKAT, MARK, harakahVariants } from "./syllables";
+export { ALL_MARKS, HARAKA_NAME, HARAKAT, MARK, harakahVariants, withMark } from "./syllables";
 
-export const nooraniUnits: NooraniUnit[] = [unit1Letters, unit2Harakat, unit3Blending];
+export const nooraniUnits: NooraniUnit[] = [unit1Letters, unit2Harakat, unit3Blending, unit4Sukoon];
 
 /**
- * 12 levels over the PDF's 17 lessons. Levels 2–3 (harakat, blending) were moved forward at the
- * family's request; the book's lessons 2–3 (joined letters, muqattaʿat) follow as Level 4.
+ * 12 levels over the PDF's 17 lessons. Levels 2–4 (harakat, blending, sukoon) were moved forward at
+ * the family's request; the book's lessons 2–3 (joined letters, muqattaʿat) follow as Level 5.
  * Everything after keeps the book's order.
  */
 export const nooraniLevels: NooraniLevel[] = [
@@ -40,29 +41,29 @@ export const nooraniLevels: NooraniLevel[] = [
     lessons: [4, 6],
     unitIds: ["u3-blending"],
   },
+  { level: 4, ar: "السُّكُون", en: "Sukoon", lessons: [10, 11], unitIds: ["u4-sukoon"] },
   {
-    level: 4,
+    level: 5,
     ar: "الْحُرُوفُ الْمُرَكَّبَة وَالْمُقَطَّعَة",
     en: "Joined letters · Muqattaʿat",
     lessons: [2, 3],
     unitIds: [],
   },
   {
-    level: 5,
+    level: 6,
     ar: "الْحُرُوفُ الْمُنَوَّنَة",
     en: "Tanween + drills",
     lessons: [5, 6],
     unitIds: [],
   },
   {
-    level: 6,
+    level: 7,
     ar: "الْأَلِفُ وَالْيَاءُ وَالْوَاوُ الصَّغِيرَة",
     en: "Small alif, ya, waw",
     lessons: [7],
     unitIds: [],
   },
-  { level: 7, ar: "حُرُوفُ الْمَدِّ وَاللِّين", en: "Madd & leen", lessons: [8, 9], unitIds: [] },
-  { level: 8, ar: "السُّكُون", en: "Sukoon + drills", lessons: [10, 11], unitIds: [] },
+  { level: 8, ar: "حُرُوفُ الْمَدِّ وَاللِّين", en: "Madd & leen", lessons: [8, 9], unitIds: [] },
   { level: 9, ar: "الشَّدَّة", en: "Shadda + drills", lessons: [12, 13], unitIds: [] },
   {
     level: 10,
@@ -162,6 +163,18 @@ export const phrases = {
     "Find the correct reading",
   ),
   whichSound: E("أَيُّ صَوْتٍ هٰذَا؟", "أَيُّ صَوْتٍ هٰذَا؟", "Which sound matches?"),
+  // Level 4 — sukoon
+  sukoon: E("سُكُون", "سُكُونٌ", "Sukoon"),
+  sukoonMeet: E("السُّكُون", "اَلسُّكُونُ", "Sukoon — no short vowel"),
+  sukoonContrast: E("حَرَكَةٌ أَمْ سُكُون؟", "حَرَكَةٌ أَمْ سُكُونٌ؟", "Vowel or no vowel?"),
+  spotSukoon: E("أَيْنَ السُّكُون؟", "أَيْنَ السُّكُونُ؟", "Where is the sukoon?"),
+  hearDifference: E("اسْتَمِعْ", "اِسْتَمِعْ", "Listen"),
+  buildClosed: E("رَكِّبْ", "رَكِّبْ", "Build — the vowel, then the sukoon"),
+  chooseEnding: E("اخْتَرِ النِّهَايَة", "اِخْتَرِ النِّهَايَةَ", "Choose the correct ending"),
+  addSukoon: E("ضَعِ الْعَلَامَة", "ضَعِ الْعَلَامَةَ", "Add the right mark"),
+  readClosed: E("اقْرَأْ", "اِقْرَأْ", "Read", "prompt-read"),
+  selfRead: E("اقْرَأْ وَحْدَكَ", "اِقْرَأْ وَحْدَكَ", "Read it by yourself"),
+  mixedReview: E("مُرَاجَعَة", "مُرَاجَعَةٌ", "Mixed review"),
 } satisfies Record<string, Phrase>;
 export type PhraseId = keyof typeof phrases;
 

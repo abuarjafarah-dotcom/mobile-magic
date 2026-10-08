@@ -14,6 +14,7 @@ import {
   ActivityFrame,
   Ar,
   Glyph,
+  MarkedGlyph,
   Stars,
   promptOf,
   roundTargets,
@@ -154,7 +155,7 @@ export function Blend({ targets, spec, player, onResult, onDone }: ActivityProps
                   together && "rounded-none first:rounded-s-[2rem] last:rounded-e-[2rem]",
                 )}
               >
-                <Glyph className="text-7xl">{s.glyph}</Glyph>
+                <MarkedGlyph item={s} emphasis={lit === i} className="text-7xl" />
               </div>
             ))}
           </div>

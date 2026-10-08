@@ -5,7 +5,7 @@
 import { useMemo, useState } from "react";
 import { Check, Volume2 } from "lucide-react";
 import { GameButton } from "@/components/game/GameButton";
-import type { NooraniItem } from "@/data/noorani";
+import type { Haraka, NooraniItem } from "@/data/noorani";
 import { sayEncourage, sayItem, sayPhrase, saySuccess } from "@/lib/nooraniAudio";
 import { cn } from "@/lib/utils";
 import { Glyph, SoundButton, choicesFor, useAlive, useOnMount } from "../ui";
@@ -26,10 +26,11 @@ type RoundProps = {
   onAnswer: (correct: boolean, firstTry: boolean) => void; // correct=false fires once on the first miss
   onSolved: () => void;
   react: { right: () => void; wrong: () => void; listen: () => void };
+  mark?: Haraka | undefined; // contrast mark for the alternatives (Level 4: sukoon)
 };
 
-export function PickSoundRound({ target, n, onAnswer, onSolved, react }: RoundProps) {
-  const options = useMemo(() => choicesFor(target, [], n), [target, n]);
+export function PickSoundRound({ target, n, onAnswer, onSolved, react, mark }: RoundProps) {
+  const options = useMemo(() => choicesFor(target, [], n, mark), [target, n, mark]);
   const [sel, setSel] = useState<number | null>(null);
   const [lit, setLit] = useState<number | null>(null);
   const [missed, setMissed] = useState<number[]>([]);
@@ -117,8 +118,8 @@ export function PickSoundRound({ target, n, onAnswer, onSolved, react }: RoundPr
   );
 }
 
-export function PickTextRound({ target, n, onAnswer, onSolved, react }: RoundProps) {
-  const options = useMemo(() => choicesFor(target, [], n), [target, n]);
+export function PickTextRound({ target, n, onAnswer, onSolved, react, mark }: RoundProps) {
+  const options = useMemo(() => choicesFor(target, [], n, mark), [target, n, mark]);
   const [missed, setMissed] = useState<string[]>([]);
   const [solved, setSolved] = useState(false);
   const [playing, setPlaying] = useState(false);

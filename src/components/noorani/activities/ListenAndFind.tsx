@@ -39,8 +39,8 @@ export function ListenAndFind({
   const alive = useAlive();
   const target = rounds[round]!;
   const choices = useMemo(
-    () => choicesFor(target, pool, spec.choices ?? 3),
-    [target, pool, spec.choices],
+    () => choicesFor(target, pool, spec.choices ?? 3, spec.mark),
+    [target, pool, spec.choices, spec.mark],
   );
 
   const play = async (item = target) => {

@@ -6,7 +6,7 @@ import {
   HARAKA_NAME,
   HARAKAT,
   MARK,
-  harakahVariants,
+  withMark,
   phrases,
   type BuildSpec,
   type Haraka,
@@ -47,6 +47,7 @@ export function AddHarakah({ targets, spec, player, onResult, onDone }: Activity
   const alive = useAlive();
   const target = rounds[round]!;
   const b = target.build as MarkSpec;
+  const choices = b.choices ?? HARAKAT;
   const prompt = promptOf(spec, "addHaraka");
 
   const play = async (item = target) => {
@@ -63,8 +64,7 @@ export function AddHarakah({ targets, spec, player, onResult, onDone }: Activity
 
   const place = async (h: Haraka) => {
     if (done) return;
-    const built =
-      h === b.mark ? target : (harakahVariants(target).find((v) => v.haraka === h) ?? target);
+    const built = h === b.mark ? target : withMark(target, h);
     setShown(built);
     if (h === b.mark) {
       setDone(true);
@@ -134,18 +134,32 @@ export function AddHarakah({ targets, spec, player, onResult, onDone }: Activity
         <SoundButton size="md" onPlay={() => void play()} playing={playing} label="Hear it again" />
       </div>
 
-      <div className="relative mx-auto mt-4 flex w-full max-w-sm justify-center rounded-[2rem] border-4 border-[oklch(0.62_0.08_60)] bg-gradient-to-b from-[oklch(0.8_0.07_70)] to-[oklch(0.7_0.08_60)] p-5 shadow-[0_8px_0_oklch(0.52_0.08_55)]">
+      <div
+        dir="rtl"
+        className="relative mx-auto mt-4 flex w-full max-w-sm justify-center rounded-[2rem] border-4 border-[oklch(0.62_0.08_60)] bg-gradient-to-b from-[oklch(0.8_0.07_70)] to-[oklch(0.7_0.08_60)] p-5 shadow-[0_8px_0_oklch(0.52_0.08_55)]"
+      >
+        {b.prefix && !shown ? (
+          // Level 4: the vowelled part is given; the mark goes on the letter after it (مَ + ن)
+          <div
+            className="me-3 grid h-48 w-32 place-items-center rounded-3xl bg-card/80 shadow-inner"
+            dir="rtl"
+          >
+            <Glyph className="text-[6rem] leading-none text-foreground/80">{b.prefix}</Glyph>
+          </div>
+        ) : null}
         <div
           data-zone="letter"
           className={cn(
-            "grid h-48 w-48 place-items-center rounded-3xl bg-card/95 shadow-inner transition-[outline]",
+            "grid h-48 place-items-center rounded-3xl bg-card/95 shadow-inner transition-[outline]",
+            b.prefix && shown ? "w-64" : b.prefix ? "w-32" : "w-48",
             over && "outline-4 outline-dashed outline-primary",
           )}
         >
           <Glyph
             key={`${round}-${shown?.id ?? "bare"}`}
             className={cn(
-              "pointer-events-none text-[8rem] leading-none",
+              "pointer-events-none leading-none",
+              b.prefix ? "text-[6rem]" : "text-[8rem]",
               shown && "animate-pop-in",
               shown && !done && "text-foreground/60",
             )}
@@ -156,8 +170,14 @@ export function AddHarakah({ targets, spec, player, onResult, onDone }: Activity
         </div>
       </div>
 
-      <div dir="rtl" className="mx-auto mt-5 grid w-full max-w-sm grid-cols-3 gap-3">
-        {HARAKAT.map((h) => (
+      <div
+        dir="rtl"
+        className={cn(
+          "mx-auto mt-5 grid w-full max-w-sm gap-3",
+          choices.length === 4 ? "grid-cols-4" : "grid-cols-3",
+        )}
+      >
+        {choices.map((h) => (
           <button
             key={h}
             onPointerDown={onDown(h)}

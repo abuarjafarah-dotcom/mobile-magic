@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { Check, ChevronLeft } from "lucide-react";
 import { GameButton } from "@/components/game/GameButton";
-import { HARAKA_NAME, HARAKAT, phrases, type NooraniItem } from "@/data/noorani";
+import { ALL_MARKS, HARAKA_NAME, phrases, type NooraniItem } from "@/data/noorani";
 import { sayItem, sayPhrase } from "@/lib/nooraniAudio";
 import { cn } from "@/lib/utils";
 import {
@@ -26,7 +26,7 @@ export function Contrast({ targets, spec, player, onResult, onDone }: ActivityPr
     return [...byLetter.values()]
       .map(
         (list) =>
-          HARAKAT.map((h) => list.find((x) => x.haraka === h)).filter(Boolean) as NooraniItem[],
+          ALL_MARKS.map((h) => list.find((x) => x.haraka === h)).filter(Boolean) as NooraniItem[],
       )
       .slice(0, spec.rounds);
   }, [targets, spec.rounds]);
@@ -88,11 +88,19 @@ export function Contrast({ targets, spec, player, onResult, onDone }: ActivityPr
         {/* …branches into three readings */}
         <svg
           viewBox="0 0 300 40"
-          className="h-10 w-full max-w-sm text-muted-foreground"
+          className={cn(
+            "h-10 w-full text-muted-foreground",
+            set.length === 2 ? "max-w-xs" : "max-w-md",
+          )}
           aria-hidden
         >
           <path
-            d="M150 2 V18 M150 18 C150 30 250 26 250 38 M150 18 V38 M150 18 C150 30 50 26 50 38"
+            d={`M150 2 V18 ${set
+              .map((_, i) => {
+                const x = (300 * (i + 0.5)) / set.length;
+                return `M150 18 C150 30 ${x} 26 ${x} 38`;
+              })
+              .join(" ")}`}
             fill="none"
             stroke="currentColor"
             strokeWidth="3"
@@ -100,7 +108,17 @@ export function Contrast({ targets, spec, player, onResult, onDone }: ActivityPr
           />
         </svg>
       </div>
-      <div dir="rtl" className="mx-auto grid w-full max-w-md grid-cols-3 gap-3">
+      <div
+        dir="rtl"
+        className={cn(
+          "mx-auto grid w-full max-w-md gap-3",
+          set.length === 2
+            ? "max-w-xs grid-cols-2"
+            : set.length === 4
+              ? "grid-cols-4"
+              : "grid-cols-3",
+        )}
+      >
         {set.map((s) => (
           <button
             key={`${round}-${s.id}`}

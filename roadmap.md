@@ -58,4 +58,5 @@
 - [x] Noorani Level 2: letters with harakat (Meet, Same letter/different sound, Listen & choose, Add the harakah, Read it, Harakah challenge)
 - [x] Noorani Level 3: blending (Read together, order cards ×3, Read without audio, Find the correct reading)
 - [ ] Noorani: recordings for syllables beyond ب ت م and for every Level 3 blend
-- [ ] Noorani Levels 4–12 from the PDF, one level at a time (data only)
+- [x] Noorani Level 4: sukoon (meet, vowel-or-sukoon, spot, hear the difference, closed syllables, choose the ending, add the mark, listen→build, read + I read it, mixed review)
+- [ ] Noorani Levels 5–12 from the PDF, one level at a time (data only)

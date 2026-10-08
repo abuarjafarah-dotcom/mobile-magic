@@ -7,7 +7,9 @@ import { GameButton } from "@/components/game/GameButton";
 import {
   harakahVariants,
   phrases,
+  withMark,
   type ActivitySpec,
+  type Haraka,
   type NooraniItem,
   type NooraniSkill,
   type PhraseId,
@@ -269,12 +271,20 @@ export type ActivityProps = {
  * Distractors. Syllables and blends get alternatives that differ by exactly one harakah, so only
  * decoding the marks wins. Letters get look/sound-alikes the child has met, then anything else.
  */
-export function choicesFor(target: NooraniItem, pool: NooraniItem[], n: number): NooraniItem[] {
+export function choicesFor(
+  target: NooraniItem,
+  pool: NooraniItem[],
+  n: number,
+  mark?: Haraka,
+): NooraniItem[] {
   if (target.haraka || target.segments) {
-    const alts = harakahVariants(target)
-      .sort(() => Math.random() - 0.5)
-      .slice(0, n - 1);
-    return [target, ...alts].sort(() => Math.random() - 0.5);
+    const variants = harakahVariants(target, mark).sort(() => Math.random() - 0.5);
+    // With a contrast mark (Level 4: sukoon) the mark's twin always appears: بَ ↔ بْ.
+    if (mark && target.haraka) {
+      const twin = target.haraka === mark ? withMark(target, "fatha") : withMark(target, mark);
+      variants.sort((a, b) => (a.id === twin.id ? -1 : b.id === twin.id ? 1 : 0));
+    }
+    return [target, ...variants.slice(0, n - 1)].sort(() => Math.random() - 0.5);
   }
   // Letters only compete with letters, and never with a second item that sounds the same (two ya forms).
   const others = pool.filter(
@@ -405,12 +415,15 @@ export function MarkedGlyph({
   item,
   className,
   pulse = true,
+  emphasis = true,
 }: {
   item: NooraniItem;
   className?: string;
   pulse?: boolean;
+  emphasis?: boolean;
 }) {
-  if (!item.haraka || !item.letter) return <Glyph className={className}>{item.glyph}</Glyph>;
+  if (!emphasis || !item.haraka || !item.letter)
+    return <Glyph className={className}>{item.glyph}</Glyph>;
   const bare = item.glyph.replace(/[\u064B-\u0652]/g, "");
   return (
     <span className={cn("relative inline-grid", className)} aria-label={item.glyph}>

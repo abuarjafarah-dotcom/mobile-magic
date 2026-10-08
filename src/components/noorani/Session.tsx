@@ -33,6 +33,8 @@ import { Blend } from "./activities/Blend";
 import { Challenge } from "./activities/Challenge";
 import { Contrast } from "./activities/Contrast";
 import { OrderCards } from "./activities/OrderCards";
+import { Spot } from "./activities/Spot";
+import { Ending } from "./activities/Ending";
 import { ReadChoose } from "./activities/ReadChoose";
 import { WhichIsDifferent } from "./activities/WhichIsDifferent";
 import { Ar, Burst, Guide, Kid, MarkOnly, Stars, sprite, type ActivityProps } from "./ui";
@@ -51,6 +53,8 @@ export const ACTIVITY_META: Record<ActivityType, { ar: string; en: string; art: 
   challenge: { ar: "التَّحَدِّي", en: "Challenge", art: "item-gems" },
   blend: { ar: "اقْرَأْ مَعًا", en: "Read together", art: "station-listen" },
   order: { ar: "رَتِّبْ", en: "Put in order", art: "station-build" },
+  spot: { ar: "أَيْنَ؟", en: "Spot the mark", art: "station-match" },
+  ending: { ar: "النِّهَايَة", en: "Choose the ending", art: "station-build" },
 };
 
 /** Station label for a step: the data's own prompt wins, so the same engine can appear twice. */
@@ -77,6 +81,8 @@ const ENGINES: Record<ActivityType, ComponentType<ActivityProps>> = {
   challenge: Challenge,
   blend: Blend,
   order: OrderCards,
+  spot: Spot,
+  ending: Ending,
 };
 
 const MASTERY_AR = {
