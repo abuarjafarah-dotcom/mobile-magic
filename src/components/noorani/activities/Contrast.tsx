@@ -3,7 +3,15 @@
 import { useMemo, useState } from "react";
 import { Check, ChevronLeft } from "lucide-react";
 import { GameButton } from "@/components/game/GameButton";
-import { ALL_MARKS, HARAKA_NAME, phrases, type NooraniItem } from "@/data/noorani";
+import {
+  ALL_MARKS,
+  HARAKA_NAME,
+  SHORT_OF,
+  TANWEEN,
+  phrases,
+  withMark,
+  type NooraniItem,
+} from "@/data/noorani";
 import { sayItem, sayPhrase } from "@/lib/nooraniAudio";
 import { cn } from "@/lib/utils";
 import {
@@ -23,13 +31,22 @@ export function Contrast({ targets, spec, player, onResult, onDone }: ActivityPr
     const byLetter = new Map<string, NooraniItem[]>();
     for (const t of targets)
       if (t.letter && t.haraka) byLetter.set(t.letter, [...(byLetter.get(t.letter) ?? []), t]);
+    // "pairs" (Level 5): one short vowel beside its tanween — بَ | بًا, بِ | بٍ, بُ | بٌ
+    if (spec.variant === "pairs")
+      return [...byLetter.values()]
+        .flatMap((list) =>
+          TANWEEN.map((h) => list.find((x) => x.haraka === h))
+            .filter((x): x is NooraniItem => Boolean(x))
+            .map((t) => [withMark(t, SHORT_OF[t.haraka!]!), t]),
+        )
+        .slice(0, spec.rounds);
     return [...byLetter.values()]
       .map(
         (list) =>
           ALL_MARKS.map((h) => list.find((x) => x.haraka === h)).filter(Boolean) as NooraniItem[],
       )
       .slice(0, spec.rounds);
-  }, [targets, spec.rounds]);
+  }, [targets, spec.rounds, spec.variant]);
   const [round, setRound] = useState(0);
   const [heard, setHeard] = useState<string[]>([]);
   const [lit, setLit] = useState<string | null>(null);

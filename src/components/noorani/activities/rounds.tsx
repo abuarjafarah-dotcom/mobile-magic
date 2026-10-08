@@ -26,7 +26,7 @@ type RoundProps = {
   onAnswer: (correct: boolean, firstTry: boolean) => void; // correct=false fires once on the first miss
   onSolved: () => void;
   react: { right: () => void; wrong: () => void; listen: () => void };
-  mark?: Haraka | undefined; // contrast mark for the alternatives (Level 4: sukoon)
+  mark?: Haraka | Haraka[] | undefined; // contrast mark(s) for the alternatives (Level 4–5)
 };
 
 export function PickSoundRound({ target, n, onAnswer, onSolved, react, mark }: RoundProps) {

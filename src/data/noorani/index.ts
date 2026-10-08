@@ -8,15 +8,34 @@ import { unit1Letters } from "./unit1Letters";
 import { unit2Harakat } from "./unit2Harakat";
 import { unit3Blending } from "./unit3Blending";
 import { unit4Sukoon } from "./unit4Sukoon";
+import { unit5Tanween } from "./unit5Tanween";
 
 export * from "./types";
-export { ALL_MARKS, HARAKA_NAME, HARAKAT, MARK, harakahVariants, withMark } from "./syllables";
+export {
+  ALL_MARKS,
+  EVERY_MARK,
+  HARAKA_NAME,
+  HARAKAT,
+  MARK,
+  SHORT_OF,
+  TANWEEN,
+  TANWEEN_OF,
+  VOWELS_AND_TANWEEN,
+  harakahVariants,
+  withMark,
+} from "./syllables";
 
-export const nooraniUnits: NooraniUnit[] = [unit1Letters, unit2Harakat, unit3Blending, unit4Sukoon];
+export const nooraniUnits: NooraniUnit[] = [
+  unit1Letters,
+  unit2Harakat,
+  unit3Blending,
+  unit4Sukoon,
+  unit5Tanween,
+];
 
 /**
- * 12 levels over the PDF's 17 lessons. Levels 2–4 (harakat, blending, sukoon) were moved forward at
- * the family's request; the book's lessons 2–3 (joined letters, muqattaʿat) follow as Level 5.
+ * 12 levels over the PDF's 17 lessons. Levels 2–5 (harakat, blending, sukoon, tanween) were moved forward
+ * at the family's request; the book's lessons 2–3 (joined letters, muqattaʿat) follow as Level 6.
  * Everything after keeps the book's order.
  */
 export const nooraniLevels: NooraniLevel[] = [
@@ -42,18 +61,12 @@ export const nooraniLevels: NooraniLevel[] = [
     unitIds: ["u3-blending"],
   },
   { level: 4, ar: "السُّكُون", en: "Sukoon", lessons: [10, 11], unitIds: ["u4-sukoon"] },
+  { level: 5, ar: "التَّنْوِين", en: "Tanween", lessons: [5, 6], unitIds: ["u5-tanween"] },
   {
-    level: 5,
+    level: 6,
     ar: "الْحُرُوفُ الْمُرَكَّبَة وَالْمُقَطَّعَة",
     en: "Joined letters · Muqattaʿat",
     lessons: [2, 3],
-    unitIds: [],
-  },
-  {
-    level: 6,
-    ar: "الْحُرُوفُ الْمُنَوَّنَة",
-    en: "Tanween + drills",
-    lessons: [5, 6],
     unitIds: [],
   },
   {
@@ -175,6 +188,42 @@ export const phrases = {
   readClosed: E("اقْرَأْ", "اِقْرَأْ", "Read", "prompt-read"),
   selfRead: E("اقْرَأْ وَحْدَكَ", "اِقْرَأْ وَحْدَكَ", "Read it by yourself"),
   mixedReview: E("مُرَاجَعَة", "مُرَاجَعَةٌ", "Mixed review"),
+  // Level 5 — tanween
+  fathatan: E("فَتْحَتَان", "فَتْحَتَانِ", "Fathatan"),
+  kasratan: E("كَسْرَتَان", "كَسْرَتَانِ", "Kasratan"),
+  dammatan: E("ضَمَّتَان", "ضَمَّتَانِ", "Dammatan"),
+  tanweenMeet: E("التَّنْوِين", "اَلتَّنْوِينُ", "Tanween"),
+  tanweenIdentify: E(
+    "اسْمَعْ وَاخْتَرْ",
+    "اِسْمَعْ وَاخْتَرْ",
+    "Listen, then find it",
+    "prompt-listen",
+  ),
+  sameEnding: E(
+    "حَرَكَةٌ أَمْ تَنْوِين؟",
+    "حَرَكَةٌ أَمْ تَنْوِينٌ؟",
+    "Same letter, different ending",
+  ),
+  addTanween: E("ضَعِ الْعَلَامَة", "ضَعِ الْعَلَامَةَ", "Add the right mark"),
+  tanweenExact: E(
+    "اخْتَرِ الشَّكْلَ الصَّحِيح",
+    "اِخْتَرِ الشَّكْلَ الصَّحِيحَ",
+    "Choose the exact form",
+  ),
+  tanweenMixed: E(
+    "حَرَكَة، سُكُون، أَمْ تَنْوِين؟",
+    "حَرَكَةٌ، سُكُونٌ، أَمْ تَنْوِينٌ؟",
+    "Vowel, sukoon or tanween?",
+  ),
+  sortTanween: E("صَنِّفْ", "صَنِّفْ", "Sort"),
+  soundSymbol: E("الصَّوْتُ وَالْعَلَامَة", "اَلصَّوْتُ وَالْعَلَامَةُ", "Sound and symbol"),
+  readTanween: E("اقْرَأْ", "اِقْرَأْ", "Read", "prompt-read"),
+  readTanweenTogether: E("اقْرَأْ مَعًا", "اِقْرَأْ مَعًا", "Read together"),
+  masteryChallenge: E(
+    "التَّحَدِّي الْكَبِير",
+    "اَلتَّحَدِّي الْكَبِيرُ",
+    "Mixed mastery challenge",
+  ),
 } satisfies Record<string, Phrase>;
 export type PhraseId = keyof typeof phrases;
 

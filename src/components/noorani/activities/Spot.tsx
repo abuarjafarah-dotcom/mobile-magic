@@ -18,7 +18,7 @@ import {
 const shuffle = <T,>(a: T[]) => [...a].sort(() => Math.random() - 0.5);
 
 export function Spot({ targets, pool, spec, player, onResult, onDone }: ActivityProps) {
-  const mark = spec.mark ?? "sukoon";
+  const mark = (Array.isArray(spec.mark) ? spec.mark[0] : spec.mark) ?? "sukoon";
   // One round per letter that has the mark; the letter's other forms come from the syllable model.
   const rounds = useMemo(() => {
     const withTheMark = [...targets, ...pool].filter(

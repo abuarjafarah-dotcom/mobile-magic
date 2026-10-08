@@ -38,7 +38,9 @@ export function Meet({ targets, spec, player, onDone }: ActivityProps) {
   const cards = useMemo<Card[]>(() => {
     const out: Card[] = [];
     let last: Haraka | undefined;
-    for (const t of spec.mark ? targets.filter((x) => x.haraka === spec.mark) : targets) {
+    const only =
+      spec.mark === undefined ? null : Array.isArray(spec.mark) ? spec.mark : [spec.mark];
+    for (const t of only ? targets.filter((x) => x.haraka && only.includes(x.haraka)) : targets) {
       if (t.haraka && t.haraka !== last) {
         out.push({ kind: "chapter", haraka: t.haraka });
         last = t.haraka;

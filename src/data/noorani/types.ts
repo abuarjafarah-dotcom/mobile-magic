@@ -16,11 +16,20 @@ export type ActivityType =
   | "blend" // watch/hear syllables move together into one continuous reading
   | "order" // tap syllable cards in reading order (variants: together / first / listen)
   | "spot" // find the form carrying a given mark ("أين السكون؟")
-  | "ending"; // hear a reading, choose its last syllable (مَ + ؟)
+  | "ending" // hear a reading, choose its last syllable (مَ + ؟)
+  | "sort" // tap/drag each card into its category (Level 5: فتحتان / كسرتان / ضمتان)
+  | "symbol"; // sound → mark, then mark → sound (Level 5)
 
 export type Difficulty = 1 | 2 | 3;
 
-export type Haraka = "fatha" | "kasra" | "damma" | "sukoon";
+export type Haraka =
+  | "fatha"
+  | "kasra"
+  | "damma"
+  | "sukoon"
+  | "fathatan" // tanween (Level 5): the Qaida writes fathatan with an alif after it (بًا)
+  | "kasratan"
+  | "dammatan";
 
 /** How a unit's "build" activity assembles an item. */
 export type BuildSpec =
@@ -65,9 +74,10 @@ export type ActivitySpec = {
   type: ActivityType;
   rounds: number;
   difficulty: Difficulty;
-  choices?: 2 | 3 | 4;
-  variant?: "together" | "first" | "listen" | "readFirst";
-  mark?: Haraka; // contrast mark for distractors / the mark to find (Level 4: "sukoon")
+  choices?: number;
+  variant?: "together" | "first" | "listen" | "readFirst" | "pairs";
+  /** Contrast mark(s) for distractors, or the mark to find. Level 4: "sukoon"; Level 5: tanween sets. */
+  mark?: Haraka | Haraka[];
   prompt?: string; // phrase id overriding the engine's default instruction
 };
 

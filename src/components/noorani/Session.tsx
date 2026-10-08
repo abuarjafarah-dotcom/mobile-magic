@@ -35,6 +35,8 @@ import { Contrast } from "./activities/Contrast";
 import { OrderCards } from "./activities/OrderCards";
 import { Spot } from "./activities/Spot";
 import { Ending } from "./activities/Ending";
+import { Sort } from "./activities/Sort";
+import { SymbolSound } from "./activities/SymbolSound";
 import { ReadChoose } from "./activities/ReadChoose";
 import { WhichIsDifferent } from "./activities/WhichIsDifferent";
 import { Ar, Burst, Guide, Kid, MarkOnly, Stars, sprite, type ActivityProps } from "./ui";
@@ -55,6 +57,8 @@ export const ACTIVITY_META: Record<ActivityType, { ar: string; en: string; art: 
   order: { ar: "رَتِّبْ", en: "Put in order", art: "station-build" },
   spot: { ar: "أَيْنَ؟", en: "Spot the mark", art: "station-match" },
   ending: { ar: "النِّهَايَة", en: "Choose the ending", art: "station-build" },
+  sort: { ar: "صَنِّفْ", en: "Sort", art: "item-baskets" },
+  symbol: { ar: "الصَّوْتُ وَالْعَلَامَة", en: "Sound and symbol", art: "station-listen" },
 };
 
 /** Station label for a step: the data's own prompt wins, so the same engine can appear twice. */
@@ -83,6 +87,8 @@ const ENGINES: Record<ActivityType, ComponentType<ActivityProps>> = {
   order: OrderCards,
   spot: Spot,
   ending: Ending,
+  sort: Sort,
+  symbol: SymbolSound,
 };
 
 const MASTERY_AR = {

@@ -5,7 +5,10 @@ import { stopNoorani } from "@/lib/nooraniAudio";
 import { Volume2 } from "lucide-react";
 import { GameButton } from "@/components/game/GameButton";
 import {
+  SHORT_OF,
+  TANWEEN_OF,
   harakahVariants,
+  nooraniItems,
   phrases,
   withMark,
   type ActivitySpec,
@@ -130,7 +133,8 @@ export function Glyph({
 }) {
   const ref = useRef<HTMLSpanElement>(null);
   const [dy, setDy] = useState(0);
-  const text = centerOn === false ? null : (centerOn ?? (typeof children === "string" ? children : null));
+  const text =
+    centerOn === false ? null : (centerOn ?? (typeof children === "string" ? children : null));
 
   useEffect(() => {
     const el = ref.current;
@@ -275,13 +279,17 @@ export function choicesFor(
   target: NooraniItem,
   pool: NooraniItem[],
   n: number,
-  mark?: Haraka,
+  mark?: Haraka | Haraka[],
 ): NooraniItem[] {
   if (target.haraka || target.segments) {
-    const variants = harakahVariants(target, mark).sort(() => Math.random() - 0.5);
-    // With a contrast mark (Level 4: sukoon) the mark's twin always appears: بَ ↔ بْ.
-    if (mark && target.haraka) {
-      const twin = target.haraka === mark ? withMark(target, "fatha") : withMark(target, mark);
+    const marks = mark === undefined ? [] : Array.isArray(mark) ? mark : [mark];
+    const variants = harakahVariants(target, marks).sort(() => Math.random() - 0.5);
+    // With contrast marks the closest twin always appears: بَ ↔ بْ (Level 4), بَ ↔ بًا (Level 5).
+    const own =
+      target.haraka ?? nooraniItems[target.segments![target.segments!.length - 1]!]?.haraka;
+    const twinMark = own ? twinOf(own, marks) : undefined;
+    if (twinMark) {
+      const twin = withMark(target, twinMark);
       variants.sort((a, b) => (a.id === twin.id ? -1 : b.id === twin.id ? 1 : 0));
     }
     return [target, ...variants.slice(0, n - 1)].sort(() => Math.random() - 0.5);
@@ -295,6 +303,17 @@ export function choicesFor(
     .sort(() => Math.random() - 0.5);
   const rest = others.filter((p) => !alike.includes(p)).sort(() => Math.random() - 0.5);
   return [target, ...[...alike, ...rest].slice(0, n - 1)].sort(() => Math.random() - 0.5);
+}
+
+/** The mark a child is most likely to confuse with `h`, among the marks in play. */
+function twinOf(h: Haraka, marks: Haraka[]): Haraka | undefined {
+  if (!marks.length) return undefined;
+  if (SHORT_OF[h]) return SHORT_OF[h];
+  if (h === "sukoon") return "fatha";
+  const tanween = TANWEEN_OF[h];
+  if (tanween && marks.includes(tanween)) return tanween;
+  if (marks.includes("sukoon")) return "sukoon";
+  return undefined;
 }
 
 /** Round order that never repeats the same target twice in a row. */
@@ -436,18 +455,34 @@ export function MarkedGlyph({
       >
         {item.glyph}
       </Glyph>
-      <Glyph className="col-start-1 row-start-1 text-foreground" centerOn={bare}>{bare}</Glyph>
+      <Glyph className="col-start-1 row-start-1 text-foreground" centerOn={bare}>
+        {bare}
+      </Glyph>
     </span>
   );
 }
 
 /** A harakah on its own: it sits on a faint tatweel so it has something to attach to, and only the mark is coloured (an opaque
  *  copy of the tatweel is drawn on top of the coloured one). */
-export function MarkOnly({ mark, className }: { mark: string; className?: string }) {
+export function MarkOnly({
+  mark,
+  className,
+  centered = false,
+}: {
+  mark: string;
+  className?: string;
+  /** Centre the mark itself (not the tatweel) — for a mark shown big and alone in a box. */
+  centered?: boolean;
+}) {
+  const on = centered ? `\u0640${mark}` : "\u0640";
   return (
     <span className={cn("relative inline-grid", className)} aria-hidden>
-      <Glyph className="col-start-1 row-start-1 text-accent" centerOn={"\u0640"}>{`\u0640${mark}`}</Glyph>
-      <Glyph className="col-start-1 row-start-1 text-[color:var(--border)]" centerOn={"\u0640"}>{"\u0640"}</Glyph>
+      <Glyph className="col-start-1 row-start-1 text-accent" centerOn={on}>
+        {`\u0640${mark}`}
+      </Glyph>
+      <Glyph className="col-start-1 row-start-1 text-[color:var(--border)]" centerOn={on}>
+        {"\u0640"}
+      </Glyph>
     </span>
   );
 }

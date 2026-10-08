@@ -59,4 +59,5 @@
 - [x] Noorani Level 3: blending (Read together, order cards ×3, Read without audio, Find the correct reading)
 - [ ] Noorani: recordings for syllables beyond ب ت م and for every Level 3 blend
 - [x] Noorani Level 4: sukoon (meet, vowel-or-sukoon, spot, hear the difference, closed syllables, choose the ending, add the mark, listen→build, read + I read it, mixed review)
-- [ ] Noorani Levels 5–12 from the PDF, one level at a time (data only)
+- [x] Noorani Level 5: tanween (meet, vowel vs tanween, identify, add the mark, exact form, sort, sound↔symbol, + sukoon mix, read units, Qaida lesson-6 words, mixed mastery)
+- [ ] Noorani Levels 6–12 from the PDF, one level at a time (data only)

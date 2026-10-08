@@ -48,6 +48,7 @@ export function AddHarakah({ targets, spec, player, onResult, onDone }: Activity
   const target = rounds[round]!;
   const b = target.build as MarkSpec;
   const choices = b.choices ?? HARAKAT;
+  const many = choices.length > 4; // Level 5's six marks: tighter layout so it fits a phone
   const prompt = promptOf(spec, "addHaraka");
 
   const play = async (item = target) => {
@@ -136,7 +137,10 @@ export function AddHarakah({ targets, spec, player, onResult, onDone }: Activity
 
       <div
         dir="rtl"
-        className="relative mx-auto mt-4 flex w-full max-w-sm justify-center rounded-[2rem] border-4 border-[oklch(0.62_0.08_60)] bg-gradient-to-b from-[oklch(0.8_0.07_70)] to-[oklch(0.7_0.08_60)] p-5 shadow-[0_8px_0_oklch(0.52_0.08_55)]"
+        className={cn(
+          "relative mx-auto flex w-full max-w-sm justify-center rounded-[2rem] border-4 border-[oklch(0.62_0.08_60)] bg-gradient-to-b from-[oklch(0.8_0.07_70)] to-[oklch(0.7_0.08_60)] shadow-[0_8px_0_oklch(0.52_0.08_55)]",
+          many ? "mt-2 p-3" : "mt-4 p-5",
+        )}
       >
         {b.prefix && !shown ? (
           // Level 4: the vowelled part is given; the mark goes on the letter after it (مَ + ن)
@@ -150,7 +154,8 @@ export function AddHarakah({ targets, spec, player, onResult, onDone }: Activity
         <div
           data-zone="letter"
           className={cn(
-            "grid h-48 place-items-center rounded-3xl bg-card/95 shadow-inner transition-[outline]",
+            "grid place-items-center rounded-3xl bg-card/95 shadow-inner transition-[outline]",
+            many ? "h-36" : "h-48",
             b.prefix && shown ? "w-64" : b.prefix ? "w-32" : "w-48",
             over && "outline-4 outline-dashed outline-primary",
           )}
@@ -159,7 +164,7 @@ export function AddHarakah({ targets, spec, player, onResult, onDone }: Activity
             key={`${round}-${shown?.id ?? "bare"}`}
             className={cn(
               "pointer-events-none leading-none",
-              b.prefix ? "text-[6rem]" : "text-[8rem]",
+              b.prefix || many ? "text-[6rem]" : "text-[8rem]",
               shown && "animate-pop-in",
               shown && !done && "text-foreground/60",
             )}
@@ -173,7 +178,8 @@ export function AddHarakah({ targets, spec, player, onResult, onDone }: Activity
       <div
         dir="rtl"
         className={cn(
-          "mx-auto mt-5 grid w-full max-w-sm gap-3",
+          "mx-auto grid w-full max-w-sm",
+          many ? "mt-3 gap-2" : "mt-5 gap-3",
           choices.length === 4 ? "grid-cols-4" : "grid-cols-3",
         )}
       >
@@ -195,7 +201,10 @@ export function AddHarakah({ targets, spec, player, onResult, onDone }: Activity
               hint && h === b.mark && "ring-4 ring-primary ring-offset-2 ring-offset-background",
             )}
           >
-            <MarkOnly mark={MARK[h]} className="text-7xl leading-[1.25]" />
+            <MarkOnly
+              mark={MARK[h]}
+              className={many ? "text-6xl leading-[1.15]" : "text-7xl leading-[1.25]"}
+            />
             <span lang="ar" className="font-arabic text-base font-black">
               {HARAKA_NAME[h].ar}
             </span>

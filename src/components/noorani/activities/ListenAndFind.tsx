@@ -125,7 +125,13 @@ export function ListenAndFind({
               )}
             >
               <Glyph
-                className={c.glyph.length > 4 ? "text-4xl sm:text-5xl" : "text-7xl sm:text-8xl"}
+                className={
+                  c.glyph.length > 4
+                    ? "text-4xl sm:text-5xl"
+                    : choices.length > 4
+                      ? "text-6xl sm:text-7xl"
+                      : "text-7xl sm:text-8xl"
+                }
               >
                 {c.glyph}
               </Glyph>
