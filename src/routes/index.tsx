@@ -51,6 +51,8 @@ const allSurahs: readonly SurahData[] = [...surahs, ...juz29Surahs, ...juz28Sura
 import { units, allLessons, type Lesson } from "@/data/arabicCurriculum";
 import { FinishAyah } from "@/components/quran/FinishAyah";
 import { AlaqMemorize } from "@/components/quran/AlaqMemorize";
+import { SurahMemorize } from "@/components/quran/SurahMemorize";
+import type { MemoryGroup } from "@/components/quran/SurahMemorize";
 import { ArabicLesson, ArabicMap } from "@/components/arabic/ArabicPath";
 import { ArabicWorld, ArabicWorldHub } from "@/components/arabic/ArabicWorld";
 import { LearningWorld } from "@/components/arabic/LearningWorld";
@@ -340,7 +342,7 @@ function MathAdventure() {
       {screen === "quest" && <Suspense fallback={null}><MathQuest onExit={goHome} /></Suspense>}
       {screen === "g1" && <Grade1Lesson key={g1Lesson.id} lesson={g1Lesson} onProgress={updateLearning} onExit={goHome} />}
       {screen === "surah" && <SurahScreen surah={selectedSurah} onExit={goHome} />}
-      {screen === "memorize" && <AlaqMemorize surah={selectedSurah} onExit={goHome} />}
+      {screen === "memorize" && <MemorizeScreen surah={selectedSurah} onExit={goHome} />}
       {screen === "ayah" && <FinishAyah surah={selectedSurah} progress={learning} onProgress={updateLearning} sound={sound} onExit={goHome} />}
       {screen === "geo" && geoLesson && <Suspense fallback={null}><GeoLessonScreen key={geoLesson.id} lesson={geoLesson} progress={learning} onProgress={updateLearning} onExit={goHome} /></Suspense>}
       {screen === "ie" && <Suspense fallback={null}><IslamicExplorer onExit={() => setScreen("picker")} /></Suspense>}
@@ -354,6 +356,50 @@ function MathAdventure() {
       {screen === "parent" && <ParentScreen sound={sound} stats={stats} learning={learning} onToggleSound={() => setSound((value) => !value)} onReset={() => { saveStats(DEFAULT_STATS); updateLearning(() => EMPTY_PROGRESS); }} onClose={() => setScreen(settingsReturnRef.current)} />}
     </main>
   );
+}
+
+function MemorizeScreen({ surah, onExit }: { surah: SurahData; onExit: () => void }) {
+  const ALAQ_GROUPS: MemoryGroup[] = [
+    { from: 1, to: 3 },
+    { from: 4, to: 6 },
+    { from: 7, to: 9 },
+    { from: 10, to: 12 },
+    { from: 13, to: 15 },
+    { from: 16, to: 19 },
+  ];
+
+  const RAHMAN_GROUPS: MemoryGroup[] = [
+    { from: 1, to: 6 },
+    { from: 7, to: 12 },
+    { from: 13, to: 18 },
+    { from: 19, to: 24 },
+    { from: 25, to: 30 },
+    { from: 31, to: 36 },
+    { from: 37, to: 42 },
+    { from: 43, to: 48 },
+    { from: 49, to: 54 },
+    { from: 55, to: 60 },
+    { from: 61, to: 66 },
+    { from: 67, to: 72 },
+    { from: 73, to: 78 },
+  ];
+
+  const BAYYINAH_GROUPS: MemoryGroup[] = [
+    { from: 1, to: 4 },
+    { from: 5, to: 8 },
+  ];
+
+  let groups: MemoryGroup[] = ALAQ_GROUPS;
+  if (surah.id === "rahman") groups = RAHMAN_GROUPS;
+  if (surah.id === "bayyinah") groups = BAYYINAH_GROUPS;
+
+  // Use AlaqMemorize for Al-Alaq (backward compatibility with existing videos)
+  if (surah.id === "alalaq") {
+    return <AlaqMemorize surah={surah} onExit={onExit} />;
+  }
+
+  // Use generic SurahMemorize for other surahs
+  return <SurahMemorize surah={surah} groups={groups} onExit={onExit} />;
 }
 
 function GamePicker({ stats, onOpenCategory, onStartIq, onStartIe, onStartBuild, onStartScience, onStartKitchen, onStartChess }: { onStartKitchen: () => void; onStartChess: () => void; stats: Stats; onOpenCategory: (tab: ActivityTab) => void; onStartIq: () => void; onStartIe: () => void; onStartBuild: () => void; onStartScience: () => void }) {
@@ -546,7 +592,7 @@ function QuranPicker({ learning, onStartSurah, onStartAyah, onStartMemorize }: {
                   <span className="inline-flex items-center gap-2"><Sparkles className="h-5 w-5" />Finish the Ayah</span>
                 </GameButton>
               </div>
-              {surah.id === "alalaq" && onStartMemorize && (
+              {(surah.id === "alalaq" || surah.id === "rahman" || surah.id === "bayyinah") && onStartMemorize && (
                 <GameButton tone="sun" className="mt-2 min-h-12 w-full" onClick={() => onStartMemorize(surah)}>
                   <span className="inline-flex items-center gap-2"><Sparkles className="h-5 w-5" />Memorize with pictures</span>
                 </GameButton>
