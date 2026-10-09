@@ -31,6 +31,7 @@ const IslamicExplorer = lazy(() => import("@/components/explorer/IslamicExplorer
 const InteractiveQuran = lazy(() => import("@/components/iq/InteractiveQuran").then((m) => ({ default: m.InteractiveQuran })));
 const ScienceWorld = lazy(() => import("@/components/science/ScienceWorld").then((m) => ({ default: m.ScienceWorld })));
 const BuildingWorld = lazy(() => import("@/components/building/BuildingWorld").then((m) => ({ default: m.BuildingWorld })));
+const WuduSalahWorld = lazy(() => import("@/components/explorer/WuduSalah").then((m) => ({ default: m.WuduSalahWorld })));
 const ChessWorld = lazy(() => import("@/components/chess/ChessWorld").then((m) => ({ default: m.ChessWorld })));
 const SeekAndFind = lazy(() => import("@/components/arabic/SeekAndFind").then((m) => ({ default: m.SeekAndFind })));
 const PalestinianKitchen = lazy(() => import("@/components/kitchen/PalestinianKitchen").then((m) => ({ default: m.PalestinianKitchen })));
@@ -64,6 +65,7 @@ import { EMPTY_PROGRESS, surahProgress, useLearningProgress, type LearningProgre
 import hamadAsset from "@/assets/hamad.jpg.asset.json";
 import talalAsset from "@/assets/talal.jpg.asset.json";
 import yousefAsset from "@/assets/yousef.jpg.asset.json";
+import mosqueIcon from "@/assets/salah/mosque-icon.webp";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -79,7 +81,7 @@ export const Route = createFileRoute("/")({
   component: MathAdventure,
 });
 
-type Screen = "picker" | "home" | "game" | "reward" | "parent" | "surah" | "ayah" | "arabic" | "geo" | "iq" | "aw" | "g1" | "ie" | "bowling" | "quest" | "build" | "lw" | "sci" | "kitchen" | "chess" | "memorize" | "seek" | "beads";
+type Screen = "picker" | "home" | "game" | "reward" | "parent" | "surah" | "ayah" | "arabic" | "geo" | "iq" | "aw" | "g1" | "ie" | "bowling" | "quest" | "build" | "lw" | "sci" | "kitchen" | "chess" | "memorize" | "seek" | "beads" | "ws";
 type GameMode = "multiplication" | "addition";
 type ActivityTab = GameMode | "grade1" | "bowling" | "surah" | "arabic" | "geo" | "iq" | "more";
 type Level = 1 | 2 | 3 | 4 | 5;
@@ -331,8 +333,9 @@ function MathAdventure() {
           </GameButton>
         </div>
       )}
-      {screen === "picker" && <GamePicker stats={stats} onOpenCategory={openCategory} onStartIq={() => setScreen("iq")} onStartIe={() => setScreen("ie")} onStartBuild={() => setScreen("build")} onStartScience={() => setScreen("sci")} onStartKitchen={() => setScreen("kitchen")} onStartChess={() => setScreen("chess")} />}
+      {screen === "picker" && <GamePicker stats={stats} onOpenCategory={openCategory} onStartIq={() => setScreen("iq")} onStartIe={() => setScreen("ie")} onStartBuild={() => setScreen("build")} onStartScience={() => setScreen("sci")} onStartKitchen={() => setScreen("kitchen")} onStartChess={() => setScreen("chess")} onStartWs={() => setScreen("ws")} />}
       {screen === "chess" && <Suspense fallback={null}><ChessWorld onExit={() => setScreen("picker")} /></Suspense>}
+      {screen === "ws" && <Suspense fallback={null}><WuduSalahWorld onExit={() => setScreen("picker")} /></Suspense>}
       {screen === "kitchen" && <Suspense fallback={null}><PalestinianKitchen onExit={() => setScreen("picker")} /></Suspense>}
       {screen === "sci" && <Suspense fallback={null}><ScienceWorld onExit={() => setScreen("picker")} /></Suspense>}
       {screen === "home" && <HomeScreen stats={stats} learning={learning} tab={homeTab} onBack={() => setScreen("picker")} onTab={setHomeTab} onStartBowling={() => setScreen("bowling")} onStartQuest={() => setScreen("quest")} onStartBeads={() => setScreen("beads")} onStartMultiplication={startMultiplication} onStartAddition={startAddition} onStartSurah={(surah) => { setSelectedSurah(surah); setScreen("surah"); }} onStartAyah={(surah) => { setSelectedSurah(surah); setScreen("ayah"); }} onStartMemorize={(surah) => { setSelectedSurah(surah); setScreen("memorize"); }} onStartArabic={(lesson) => { setArabicLesson(lesson); setScreen("arabic"); }} onProgress={updateLearning} onStartGeo={(lesson) => { setGeoLesson(lesson); setScreen("geo"); }} onStartIq={() => setScreen("iq")} onStartIe={() => setScreen("ie")} onOpenArabicWorld={(v) => { if (v === "lw") { setScreen("lw"); return; } if (v === "seek") { setScreen("seek"); return; } setAwView(v); setScreen("aw"); }} onStartG1={(l) => { setG1Lesson(l); setScreen("g1"); }} />}
@@ -402,13 +405,14 @@ function MemorizeScreen({ surah, onExit }: { surah: SurahData; onExit: () => voi
   return <SurahMemorize surah={surah} groups={groups} onExit={onExit} />;
 }
 
-function GamePicker({ stats, onOpenCategory, onStartIq, onStartIe, onStartBuild, onStartScience, onStartKitchen, onStartChess }: { onStartKitchen: () => void; onStartChess: () => void; stats: Stats; onOpenCategory: (tab: ActivityTab) => void; onStartIq: () => void; onStartIe: () => void; onStartBuild: () => void; onStartScience: () => void }) {
+function GamePicker({ stats, onOpenCategory, onStartIq, onStartIe, onStartBuild, onStartScience, onStartKitchen, onStartChess, onStartWs }: { onStartKitchen: () => void; onStartChess: () => void; onStartWs: () => void; stats: Stats; onOpenCategory: (tab: ActivityTab) => void; onStartIq: () => void; onStartIe: () => void; onStartBuild: () => void; onStartScience: () => void }) {
   const choices: Array<{ label: string; detail: string; icon: ReactNode; tone: "sun" | "mint" | "sky" | "berry"; action: () => void }> = [
     { label: "Math", detail: "Numbers, tables & bowling", icon: <Grid3X3 className="h-9 w-9" />, tone: "mint", action: () => onOpenCategory("multiplication") },
     { label: "Qur’an", detail: "Listen & finish the ayah", icon: <Moon className="h-9 w-9" />, tone: "berry", action: () => onOpenCategory("surah") },
     { label: "Arabic", detail: "Letters, words & stories", icon: <span lang="ar" className="font-arabic text-4xl leading-none">أ ب</span>, tone: "sun", action: () => onOpenCategory("arabic") },
     { label: "Geography", detail: "Explore our world", icon: <Globe2 className="h-9 w-9" />, tone: "sky", action: () => onOpenCategory("geo") },
     { label: "Interactive Qur’an", detail: "Explore, listen & discover", icon: <Sparkles className="h-9 w-9" />, tone: "berry", action: onStartIq },
+    { label: "Wudu & Salah", detail: "الوضوء والصلاة · learn to pray", icon: <img src={mosqueIcon} alt="" className="h-12 w-auto drop-shadow" />, tone: "mint", action: onStartWs },
     { label: "More to Explore", detail: "Mosque, home & stories", icon: <span className="text-4xl leading-none">🕌</span>, tone: "mint", action: onStartIe },
     { label: "Building World", detail: "Build, copy & create", icon: <span className="text-4xl leading-none">🧱</span>, tone: "sun", action: onStartBuild },
     { label: "Science World", detail: "عالم العلوم · test & discover", icon: <span className="text-4xl leading-none">🔬</span>, tone: "sky", action: onStartScience },

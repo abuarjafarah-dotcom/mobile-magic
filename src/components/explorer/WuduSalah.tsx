@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight, Check, RotateCcw, Volume2 } from "lucide-react";
 import { GameButton } from "@/components/game/GameButton";
 import { shuffle } from "@/components/learn/shared";
 import { cn } from "@/lib/utils";
+import { sfx } from "@/lib/explorerSfx";
 import { speak, stopVoice, type VoiceLang } from "@/lib/voice";
 import {
   ACTIVITIES,
@@ -965,5 +966,54 @@ export function WuduSalah({ play, done, onComplete }: Props) {
         </>
       )}
     </div>
+  );
+}
+
+/* ---------------- homepage section shell ---------------- */
+
+/** Own progress key so it never touches other sections' progress. */
+const WS_KEY = "wudu-salah-v1";
+function loadDone(): string[] {
+  try {
+    const v = JSON.parse(localStorage.getItem(WS_KEY) ?? "{}") as { done?: string[] };
+    return Array.isArray(v.done) ? v.done : [];
+  } catch {
+    return [];
+  }
+}
+function saveDone(id: string) {
+  try {
+    const done = loadDone();
+    if (!done.includes(id)) localStorage.setItem(WS_KEY, JSON.stringify({ done: [...done, id] }));
+  } catch {
+    /* storage unavailable */
+  }
+}
+
+export function WuduSalahWorld({ onExit }: { onExit: () => void }) {
+  const [done] = useState(loadDone);
+  return (
+    <section className="mx-auto flex min-h-dvh w-full max-w-lg flex-col px-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[max(1rem,env(safe-area-inset-top))] sm:px-6 min-[960px]:max-w-5xl min-[960px]:pb-6 min-[960px]:pt-6">
+      <header className="flex items-center gap-3 pr-14">
+        <GameButton
+          tone="neutral"
+          className="grid h-12 w-12 place-items-center rounded-full p-0"
+          onClick={() => {
+            stopVoice();
+            onExit();
+          }}
+          aria-label="Back"
+        >
+          <ArrowLeft className="h-5 w-5" />
+        </GameButton>
+        <h1 className="truncate text-xl font-black">
+          <span lang="ar" dir="rtl" className="font-arabic">
+            {T.game.ar}
+          </span>{" "}
+          · {T.game.en}
+        </h1>
+      </header>
+      <WuduSalah play={sfx} done={done} onComplete={saveDone} />
+    </section>
   );
 }
