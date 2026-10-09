@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, lazy, useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, Music, Pause, Play } from "lucide-react";
 import { GameButton } from "@/components/game/GameButton";
 import { FamilyCharacter, type FamilyMember, shuffle } from "@/components/learn/shared";
@@ -6,6 +6,8 @@ import { cn } from "@/lib/utils";
 import { ieVerses } from "@/data/islamicExplorerVerses";
 import { surahs } from "@/data/surahs";
 import adhanAsset from "@/assets/adhan.mp3.asset.json";
+import mosqueIcon from "@/assets/salah/mosque-icon.webp";
+const WuduSalah = lazy(() => import("@/components/explorer/WuduSalah").then((m) => ({ default: m.WuduSalah })));
 
 /* ---------------- sounds (synthesized, gentle) ---------------- */
 type Sfx = "water" | "click" | "chime" | "bell" | "pop" | "buzz" | "rustle" | "clink" | "door" | "warm" | "coin" | "yay";
@@ -93,8 +95,6 @@ const SPACES: Space[] = [
       { id: "bell", e: "🔔", ar: "الجرس", en: "Chime", sfx: "bell" },
     ],
     games: [
-      { id: "wudu", kind: "order", ar: "خطوات الوضوء", en: "Wudu steps", prompt: "Tap the steps in order", items: [{ e: "🙌", ar: "اليدان", en: "Hands" }, { e: "😊", ar: "الوجه", en: "Face" }, { e: "💪", ar: "الذراعان", en: "Arms" }, { e: "🦶", ar: "القدمان", en: "Feet" }], wrong: "Try again — wash hands first", right: "Clean heart, ready to pray! ما شاء الله" },
-      { id: "postures", kind: "order", ar: "وضعيات الصلاة", en: "Prayer postures", prompt: "Tap in prayer order", items: [{ e: "🧍", ar: "القيام", en: "Standing" }, { e: "🙇", ar: "الركوع", en: "Bowing" }, { e: "🧎", ar: "السجود", en: "Prostrating" }, { e: "🪑", ar: "الجلوس", en: "Sitting" }], wrong: "Almost! We stand first 🧍", right: "Excellent prayer posture! ما شاء الله" },
     ], surahs: ["fatiha", "nas"] },
   { id: "home", ar: "البيت", en: "Home", e: "🏠", bg: "bg-space-home", guide: "talal", hello: "Welcome home! Let's help the family.", trayLabel: "Items in basket",
     toys: [
@@ -146,22 +146,23 @@ const STORIES = [
 ] as const;
 
 /* ---------------- UI ---------------- */
-type View = { at: "hub" } | { at: "space"; id: string } | { at: "game"; space: string; game: string } | { at: "story"; id: string } | { at: "surah"; space: string; id: string };
+type View = { at: "hub" } | { at: "ws" } | { at: "space"; id: string } | { at: "game"; space: string; game: string } | { at: "story"; id: string } | { at: "surah"; space: string; id: string };
 
 export function IslamicExplorer({ onExit }: { onExit: () => void }) {
   const [view, setView] = useState<View>({ at: "hub" });
-  const space = "space" in view ? SPACES.find((s) => s.id === view.space) : view.at === "space" ? SPACES.find((s) => s.id === view.id) : undefined;
-  const back = () => (view.at === "hub" ? onExit() : view.at === "space" ? setView({ at: "hub" }) : view.at === "story" ? setView({ at: "space", id: "stories" }) : setView({ at: "space", id: (view as { space: string }).space }));
+  const space = view.at === "ws" ? SPACES[0] : "space" in view ? SPACES.find((s) => s.id === view.space) : view.at === "space" ? SPACES.find((s) => s.id === view.id) : undefined;
+  const back = () => (view.at === "hub" ? onExit() : view.at === "ws" ? setView({ at: "space", id: "mosque" }) : view.at === "space" ? setView({ at: "hub" }) : view.at === "story" ? setView({ at: "space", id: "stories" }) : setView({ at: "space", id: (view as { space: string }).space }));
 
   return (
     <section className="mx-auto flex min-h-dvh w-full max-w-lg flex-col px-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[max(1rem,env(safe-area-inset-top))] sm:px-6 min-[960px]:max-w-5xl min-[960px]:pb-6 min-[960px]:pt-6">
       <header className="flex items-center gap-3 pr-14">
         <GameButton tone="neutral" className="grid h-12 w-12 place-items-center rounded-full p-0" onClick={back} aria-label="Back"><ArrowLeft className="h-5 w-5" /></GameButton>
-        <h1 className="truncate text-xl font-black">{view.at === "hub" ? "More to Explore" : view.at === "story" ? "حكايات القيم" : `${space?.ar} · ${space?.en}`}</h1>
+        <h1 className="truncate text-xl font-black">{view.at === "hub" ? "More to Explore" : view.at === "ws" ? "الوضوء والصلاة · Wudu & Salah" : view.at === "story" ? "حكايات القيم" : `${space?.ar} · ${space?.en}`}</h1>
       </header>
       {view.at === "hub" && <Hub onOpen={(id) => { mark("visited", id); setView({ at: "space", id }); }} />}
-      {view.at === "space" && space && <SpaceView space={space} onGame={(g) => setView({ at: "game", space: space.id, game: g })} onSurah={(id) => setView({ at: "surah", space: space.id, id })} onStory={(id) => setView({ at: "story", id })} />}
+      {view.at === "space" && space && <SpaceView space={space} onGame={(g) => setView({ at: "game", space: space.id, game: g })} onSurah={(id) => setView({ at: "surah", space: space.id, id })} onStory={(id) => setView({ at: "story", id })} onWuduSalah={() => setView({ at: "ws" })} />}
       {view.at === "game" && space && <GameView key={view.game} game={space.games.find((g) => g.id === view.game)!} onDone={() => setView({ at: "space", id: space.id })} />}
+      {view.at === "ws" && <Suspense fallback={null}><WuduSalah play={sfx} done={loadP().games} onComplete={(id) => mark("games", id)} /></Suspense>}
       {view.at === "surah" && <SurahPlayer rec={R[view.id]!} />}
       {view.at === "story" && <StoryView story={STORIES.find((s) => s.id === view.id)!} onSurah={(id) => setView({ at: "surah", space: "stories", id })} />}
     </section>
@@ -189,7 +190,7 @@ function Burst({ n }: { n: number }) {
   return n ? <div key={n} className="pointer-events-none absolute inset-0 grid place-items-center">{["⭐", "✨", "🌟"].map((s, i) => <span key={i} className="animate-bloom absolute text-4xl" style={{ animationDelay: `${i * 120}ms`, left: `${30 + i * 20}%` }}>{s}</span>)}</div> : null;
 }
 
-function SpaceView({ space, onGame, onSurah, onStory }: { space: Space; onGame: (id: string) => void; onSurah: (id: string) => void; onStory: (id: string) => void }) {
+function SpaceView({ space, onGame, onSurah, onStory, onWuduSalah }: { space: Space; onGame: (id: string) => void; onSurah: (id: string) => void; onStory: (id: string) => void; onWuduSalah: () => void }) {
   return (
     <div className="mt-4 grid gap-4">
       <div className="flex items-center gap-3"><FamilyCharacter name={space.guide} className="animate-hamad-float" /><p className="rounded-2xl bg-card px-4 py-3 text-sm font-black shadow-sm">{space.hello}</p></div>
@@ -199,12 +200,18 @@ function SpaceView({ space, onGame, onSurah, onStory }: { space: Space; onGame: 
             <span className="text-4xl">{s.e}</span><span><span lang="ar" className="block font-arabic text-2xl font-black">{s.ar}</span><span className="font-black">{s.en} — {s.desc}</span></span>
           </button>))}</div>
       ) : <Playground space={space} />}
-      <div>
+      {space.id === "mosque" && (
+        <button type="button" onClick={() => { sfx("water"); onWuduSalah(); }} className="bg-space-mosque flex min-h-28 items-center gap-4 rounded-3xl px-5 py-4 text-left text-primary-foreground shadow-md transition active:scale-95">
+          <img src={mosqueIcon} alt="" className="h-20 w-auto drop-shadow-md" />
+          <span className="min-w-0 flex-1"><span lang="ar" className="block font-arabic text-2xl font-black">الوضوء والصلاة</span><span className="block font-black opacity-90">Wudu & Salah · 5 activities</span></span>
+        </button>
+      )}
+      {space.games.length > 0 && <div>
         <h2 className="mb-2 font-black">Mini-games · ألعاب</h2>
         <div className="grid grid-cols-2 gap-3">{space.games.map((g) => (
           <GameButton key={g.id} tone="sky" className="min-h-20 px-3" onClick={() => onGame(g.id)}><span><span lang="ar" className="block font-arabic text-lg">{g.ar}</span><span className="text-sm">{g.en}</span></span></GameButton>
         ))}</div>
-      </div>
+      </div>}
       <div>
         <h2 className="mb-2 font-black">Listen · استمع</h2>
         <div className="grid gap-2">{space.surahs.map((id) => (
