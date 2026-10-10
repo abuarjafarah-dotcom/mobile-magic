@@ -67,7 +67,7 @@ const R: Record<string, Recitation> = {
 };
 
 /* ---------------- games ---------------- */
-type Item = { e: string; ar: string; en: string };
+type Item = { e: string; ar: string; en: string; clip?: string };   // clip: short muted video shown when this step is tapped correctly
 type Game =
   | { id: string; kind: "order"; ar: string; en: string; prompt: string; items: Item[]; wrong: string; right: string }
   | { id: string; kind: "match"; ar: string; en: string; prompt: string; pairs: { a: Item; b: Item }[]; right: string }
@@ -94,7 +94,7 @@ const SPACES: Space[] = [
     ],
     games: [
       { id: "wudu", kind: "order", ar: "خطوات الوضوء", en: "Wudu steps", prompt: "Tap the steps in order", items: [{ e: "🙌", ar: "اليدان", en: "Hands" }, { e: "😊", ar: "الوجه", en: "Face" }, { e: "💪", ar: "الذراعان", en: "Arms" }, { e: "🦶", ar: "القدمان", en: "Feet" }], wrong: "Try again — wash hands first", right: "Clean heart, ready to pray! ما شاء الله" },
-      { id: "postures", kind: "order", ar: "وضعيات الصلاة", en: "Prayer postures", prompt: "Tap in prayer order", items: [{ e: "🧍", ar: "القيام", en: "Standing" }, { e: "🙇", ar: "الركوع", en: "Bowing" }, { e: "🧎", ar: "السجود", en: "Prostrating" }, { e: "🪑", ar: "الجلوس", en: "Sitting" }], wrong: "Almost! We stand first 🧍", right: "Excellent prayer posture! ما شاء الله" },
+      { id: "postures", kind: "order", ar: "وضعيات الصلاة", en: "Prayer postures", prompt: "Tap in prayer order", items: [{ e: "🧍", ar: "القيام", en: "Standing", clip: "standing" }, { e: "🙇", ar: "الركوع", en: "Bowing", clip: "bowing" }, { e: "🧎", ar: "السجود", en: "Prostrating", clip: "prostrating" }, { e: "🪑", ar: "الجلوس", en: "Sitting", clip: "sitting" }], wrong: "Almost! We stand first 🧍", right: "Excellent prayer posture! ما شاء الله" },
     ], surahs: ["fatiha", "nas"] },
   { id: "home", ar: "البيت", en: "Home", e: "🏠", bg: "bg-space-home", guide: "talal", hello: "Welcome home! Let's help the family.", trayLabel: "Items in basket",
     toys: [
@@ -318,12 +318,20 @@ function OrderGame({ game, onWin }: { game: Extract<Game, { kind: "order" }>; on
   const tiles = useMemo(() => shuffle(game.items), [game]);
   const [picked, setPicked] = useState<Item[]>([]); const [msg, setMsg] = useState(game.prompt);
   const tap = (it: Item) => {
-    if (it === game.items[picked.length]) { sfx("pop"); const next = [...picked, it]; setPicked(next); setMsg("Yes! نعم"); if (next.length === game.items.length) setTimeout(onWin, 500); }
+    if (it === game.items[picked.length]) { sfx("pop"); const next = [...picked, it]; setPicked(next); setMsg(it.clip ? `${it.ar} · ${it.en}` : "Yes! نعم"); if (next.length === game.items.length) setTimeout(onWin, it.clip ? 2600 : 500); }
     else { sfx("click"); setMsg(game.wrong); }
   };
   return (
     <div className="mt-4 grid gap-4">
       <p className="rounded-2xl bg-card px-4 py-3 text-center font-black">{msg}</p>
+      {game.items.some((i) => i.clip) && (() => {
+        const last = picked[picked.length - 1], clip = last?.clip || game.items[0]!.clip!;
+        return (
+          <div className="overflow-hidden rounded-2xl bg-card">
+            <video key={clip} src={`/explorer/salah/${clip}.mp4`} poster={`/explorer/salah/${clip}.jpg`} autoPlay={!!last} muted playsInline preload="auto" disablePictureInPicture className={cn("aspect-video w-full object-cover", last ? "animate-in fade-in duration-500" : "opacity-60")} aria-hidden="true" />
+          </div>
+        );
+      })()}
       <div className="flex min-h-16 items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-border text-4xl">{picked.map((p) => <span key={p.en} className="animate-pop-in">{p.e}</span>)}{picked.length < game.items.length && <span className="opacity-30">…</span>}</div>
       <div className="grid grid-cols-2 gap-3">{tiles.map((t) => <Tile key={t.en} it={t} big done={picked.includes(t)} onClick={() => tap(t)} />)}</div>
     </div>
