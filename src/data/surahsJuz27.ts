@@ -1,10 +1,40 @@
-// Juz 27: Adh-Dhariyat 31–60 (51), At-Tur, An-Najm, Al-Qamar, Ar-Rahman, Al-Waqi'ah, Al-Hadid — Ahmad Al-Nufais (recitation 42), Uthmani text (quran.com).
+// Juz 27: Adh-Dhariyat (51, full surah; ayahs 1–30 stream from Tarteel's CDN), At-Tur, An-Najm, Al-Qamar, Ar-Rahman, Al-Waqi'ah, Al-Hadid — Ahmad Al-Nufais (recitation 42), Uthmani text (quran.com).
 import type { SurahData } from "./surahs";
 
 const v = (arabic: string, audio: string, wordTimings?: number[][]) => (wordTimings ? { arabic, audio, wordTimings } : { arabic, audio });
 
 export const juz27Surahs: readonly SurahData[] = [
-  { id: "dhariyat", number: 51, name: "Surah Adh-Dhariyat", arabicName: "سورة الذاريات", reciter: "Ahmad Al-Nufais", tone: "mint", scene: "trees", firstAyah: 31, verses: [
+  { id: "dhariyat", number: 51, name: "Surah Adh-Dhariyat", arabicName: "سورة الذاريات", reciter: "Ahmad Al-Nufais", tone: "mint", scene: "trees", verses: [
+    v("وَٱلذَّٰرِيَـٰتِ ذَرْوًا", "https://audio-cdn.tarteel.ai/quran/alnufais/051001.mp3"),
+    v("فَٱلْحَـٰمِلَـٰتِ وِقْرًا", "https://audio-cdn.tarteel.ai/quran/alnufais/051002.mp3"),
+    v("فَٱلْجَـٰرِيَـٰتِ يُسْرًا", "https://audio-cdn.tarteel.ai/quran/alnufais/051003.mp3"),
+    v("فَٱلْمُقَسِّمَـٰتِ أَمْرًا", "https://audio-cdn.tarteel.ai/quran/alnufais/051004.mp3"),
+    v("إِنَّمَا تُوعَدُونَ لَصَادِقٌ", "https://audio-cdn.tarteel.ai/quran/alnufais/051005.mp3"),
+    v("وَإِنَّ ٱلدِّينَ لَوَٰقِعٌ", "https://audio-cdn.tarteel.ai/quran/alnufais/051006.mp3"),
+    v("وَٱلسَّمَآءِ ذَاتِ ٱلْحُبُكِ", "https://audio-cdn.tarteel.ai/quran/alnufais/051007.mp3"),
+    v("إِنَّكُمْ لَفِى قَوْلٍ مُّخْتَلِفٍ", "https://audio-cdn.tarteel.ai/quran/alnufais/051008.mp3"),
+    v("يُؤْفَكُ عَنْهُ مَنْ أُفِكَ", "https://audio-cdn.tarteel.ai/quran/alnufais/051009.mp3"),
+    v("قُتِلَ ٱلْخَرَّٰصُونَ", "https://audio-cdn.tarteel.ai/quran/alnufais/051010.mp3"),
+    v("ٱلَّذِينَ هُمْ فِى غَمْرَةٍ سَاهُونَ", "https://audio-cdn.tarteel.ai/quran/alnufais/051011.mp3"),
+    v("يَسْـَٔلُونَ أَيَّانَ يَوْمُ ٱلدِّينِ", "https://audio-cdn.tarteel.ai/quran/alnufais/051012.mp3"),
+    v("يَوْمَ هُمْ عَلَى ٱلنَّارِ يُفْتَنُونَ", "https://audio-cdn.tarteel.ai/quran/alnufais/051013.mp3"),
+    v("ذُوقُوا۟ فِتْنَتَكُمْ هَـٰذَا ٱلَّذِى كُنتُم بِهِۦ تَسْتَعْجِلُونَ", "https://audio-cdn.tarteel.ai/quran/alnufais/051014.mp3"),
+    v("إِنَّ ٱلْمُتَّقِينَ فِى جَنَّـٰتٍ وَعُيُونٍ", "https://audio-cdn.tarteel.ai/quran/alnufais/051015.mp3"),
+    v("ءَاخِذِينَ مَآ ءَاتَىٰهُمْ رَبُّهُمْ ۚ إِنَّهُمْ كَانُوا۟ قَبْلَ ذَٰلِكَ مُحْسِنِينَ", "https://audio-cdn.tarteel.ai/quran/alnufais/051016.mp3"),
+    v("كَانُوا۟ قَلِيلًا مِّنَ ٱلَّيْلِ مَا يَهْجَعُونَ", "https://audio-cdn.tarteel.ai/quran/alnufais/051017.mp3"),
+    v("وَبِٱلْأَسْحَارِ هُمْ يَسْتَغْفِرُونَ", "https://audio-cdn.tarteel.ai/quran/alnufais/051018.mp3"),
+    v("وَفِىٓ أَمْوَٰلِهِمْ حَقٌّ لِّلسَّآئِلِ وَٱلْمَحْرُومِ", "https://audio-cdn.tarteel.ai/quran/alnufais/051019.mp3"),
+    v("وَفِى ٱلْأَرْضِ ءَايَـٰتٌ لِّلْمُوقِنِينَ", "https://audio-cdn.tarteel.ai/quran/alnufais/051020.mp3"),
+    v("وَفِىٓ أَنفُسِكُمْ ۚ أَفَلَا تُبْصِرُونَ", "https://audio-cdn.tarteel.ai/quran/alnufais/051021.mp3"),
+    v("وَفِى ٱلسَّمَآءِ رِزْقُكُمْ وَمَا تُوعَدُونَ", "https://audio-cdn.tarteel.ai/quran/alnufais/051022.mp3"),
+    v("فَوَرَبِّ ٱلسَّمَآءِ وَٱلْأَرْضِ إِنَّهُۥ لَحَقٌّ مِّثْلَ مَآ أَنَّكُمْ تَنطِقُونَ", "https://audio-cdn.tarteel.ai/quran/alnufais/051023.mp3"),
+    v("هَلْ أَتَىٰكَ حَدِيثُ ضَيْفِ إِبْرَٰهِيمَ ٱلْمُكْرَمِينَ", "https://audio-cdn.tarteel.ai/quran/alnufais/051024.mp3"),
+    v("إِذْ دَخَلُوا۟ عَلَيْهِ فَقَالُوا۟ سَلَـٰمًا ۖ قَالَ سَلَـٰمٌ قَوْمٌ مُّنكَرُونَ", "https://audio-cdn.tarteel.ai/quran/alnufais/051025.mp3"),
+    v("فَرَاغَ إِلَىٰٓ أَهْلِهِۦ فَجَآءَ بِعِجْلٍ سَمِينٍ", "https://audio-cdn.tarteel.ai/quran/alnufais/051026.mp3"),
+    v("فَقَرَّبَهُۥٓ إِلَيْهِمْ قَالَ أَلَا تَأْكُلُونَ", "https://audio-cdn.tarteel.ai/quran/alnufais/051027.mp3"),
+    v("فَأَوْجَسَ مِنْهُمْ خِيفَةً ۖ قَالُوا۟ لَا تَخَفْ ۖ وَبَشَّرُوهُ بِغُلَـٰمٍ عَلِيمٍ", "https://audio-cdn.tarteel.ai/quran/alnufais/051028.mp3"),
+    v("فَأَقْبَلَتِ ٱمْرَأَتُهُۥ فِى صَرَّةٍ فَصَكَّتْ وَجْهَهَا وَقَالَتْ عَجُوزٌ عَقِيمٌ", "https://audio-cdn.tarteel.ai/quran/alnufais/051029.mp3"),
+    v("قَالُوا۟ كَذَٰلِكِ قَالَ رَبُّكِ ۖ إِنَّهُۥ هُوَ ٱلْحَكِيمُ ٱلْعَلِيمُ", "https://audio-cdn.tarteel.ai/quran/alnufais/051030.mp3"),
     v("۞ قَالَ فَمَا خَطْبُكُمْ أَيُّهَا ٱلْمُرْسَلُونَ", "/__l5e/assets-v1/892b9537-3158-482d-af2b-f565b1185393/alnufais-051031.mp3"),
     v("قَالُوٓا۟ إِنَّآ أُرْسِلْنَآ إِلَىٰ قَوْمٍ مُّجْرِمِينَ", "/__l5e/assets-v1/c58c68ad-9d60-40b5-805a-02cc89526066/alnufais-051032.mp3"),
     v("لِنُرْسِلَ عَلَيْهِمْ حِجَارَةً مِّن طِينٍ", "/__l5e/assets-v1/c4ea3078-c126-41b2-a01a-4a5e2aed0495/alnufais-051033.mp3"),
