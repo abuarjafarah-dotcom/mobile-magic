@@ -666,7 +666,7 @@ function SurahScreen({ surah, onExit }: { surah: SurahData; onExit: () => void }
               {words.map((word, wordIndex) => (
                 <span key={`${word}-${wordIndex}`} className={`mx-0.5 inline-block rounded-md px-1 transition-all duration-200 ${isActive && playing && wordIndex === activeWord ? "scale-110 bg-primary text-primary-foreground" : isActive && wordIndex < activeWord && progress > 0 ? "text-success" : isActive ? "text-foreground" : ""}`}>{word}</span>
               ))}
-              <span className={`mr-1 inline-grid h-7 w-7 place-items-center rounded-full border-2 text-sm ${isActive ? "border-primary text-foreground" : "border-border"}`}>{verseIndex + 1}</span>
+              <span className={`mr-1 inline-grid h-7 w-7 place-items-center rounded-full border-2 text-sm ${isActive ? "border-primary text-foreground" : "border-border"}`}>{verseIndex + (surah.firstAyah ?? 1)}</span>
             </div>
           );
         })}
@@ -690,7 +690,7 @@ function SurahScreen({ surah, onExit }: { surah: SurahData; onExit: () => void }
       </div>
 
        <div className="mt-5 grid grid-cols-10 gap-1.5" aria-label="Choose a verse">
-         {surah.verses.map((item, index) => <GameButton key={item.arabic} tone={index === verse ? "sun" : "neutral"} className="aspect-square min-h-0 w-full p-0 text-sm" onClick={() => playVerse(index)} aria-label={`Play verse ${index + 1}`}>{index + 1}</GameButton>)}
+         {surah.verses.map((item, index) => <GameButton key={item.arabic} tone={index === verse ? "sun" : "neutral"} className="aspect-square min-h-0 w-full p-0 text-sm" onClick={() => playVerse(index)} aria-label={`Play verse ${index + (surah.firstAyah ?? 1)}`}>{index + (surah.firstAyah ?? 1)}</GameButton>)}
       </div>
        <p className="mt-4 text-center text-xs font-bold text-muted-foreground">Recitation by {surah.reciter}</p>
     </section>

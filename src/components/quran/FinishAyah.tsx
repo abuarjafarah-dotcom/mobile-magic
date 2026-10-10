@@ -170,7 +170,7 @@ function AyahRound({ surah, verseIndex, level, sceneProgress, onComplete, onNext
                 )}{" "}
               </span>
             ))}
-            <span className="mx-1 inline-grid h-9 w-9 place-items-center rounded-full border-2 border-primary align-middle font-sans text-sm font-black">{verseIndex + 1}</span>
+            <span className="mx-1 inline-grid h-9 w-9 place-items-center rounded-full border-2 border-primary align-middle font-sans text-sm font-black">{verseIndex + (surah.firstAyah ?? 1)}</span>
           </p>
         ) : (
           <div className="flex justify-center gap-2 py-6" aria-label="Listen to the ayah">
