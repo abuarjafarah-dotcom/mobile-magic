@@ -478,7 +478,7 @@ function HomeScreen({ onStartQuest, onStartBeads, onBack, stats, learning, tab, 
         </div>
       )}
       {tab === "bowling" ? (
-        <div className="mt-6" role="tabpanel"><GameButton tone="mint" className="flex min-h-40 w-full flex-col items-center justify-center gap-2 rounded-3xl p-6" onClick={onStartBowling}><span className="text-5xl">🎳</span><span className="text-2xl font-black">Talal &amp; Hamad&apos;s Math Bowling</span><span className="text-sm font-bold opacity-80">10 cooperative rounds · Take turns and bowl!</span></GameButton></div>
+        <div className="mt-6" role="tabpanel"><GameButton tone="mint" className="flex min-h-40 w-full flex-col items-center justify-center gap-2 rounded-3xl p-6" onClick={onStartBowling}><span className="text-5xl">🎳</span><span className="text-2xl font-black">Stardust Lanes · Math Bowling</span><span className="text-sm font-bold opacity-80">Hamad vs Talal · Solve the sum, then bowl in 3D!</span></GameButton></div>
       ) : tab === "grade1" ? (
         <div className="mt-6" role="tabpanel"><Grade1Home progress={learning} onStart={onStartG1} /></div>
       ) : tab === "multiplication" ? (

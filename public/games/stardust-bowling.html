@@ -1,0 +1,3188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>STARDUST LANES — league night</title>
+<link rel="icon" href="data:,">
+<style>
+  html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#050403;
+    font-family:"Lucida Console",Monaco,monospace;color:#ffb45e;-webkit-user-select:none;user-select:none;touch-action:none}
+  #c{position:fixed;inset:0;display:block}
+  .panel{background:rgba(12,8,4,.72);border:1px solid rgba(255,170,80,.35);border-radius:6px;
+    box-shadow:0 0 14px rgba(255,140,40,.12) inset,0 2px 10px rgba(0,0,0,.5);backdrop-filter:blur(2px)}
+  #hud{position:fixed;inset:0;pointer-events:none;z-index:5}
+  #hud .clickable{pointer-events:auto;cursor:pointer}
+  #topLeft{position:absolute;top:10px;left:10px;padding:8px 10px;font-size:12px;line-height:1.5}
+  #topLeft b{color:#ffd9a0}
+  .wbtn{display:inline-block;margin:2px 3px 0 0;padding:3px 8px;border:1px solid #7a5a33;border-radius:4px;
+    color:#caa26a;background:#191006;font-size:11px}
+  .wbtn.sel{color:#111;background:#ffb45e;border-color:#ffd9a0;text-shadow:none}
+  #stats{display:none}
+  #stats .v{color:#8dffb0;font-weight:bold}
+  #roundScoreboard{position:absolute;top:10px;left:50%;transform:translateX(-50%);padding:8px 16px;font-size:13px;text-align:center;line-height:1.5}
+  #fps{position:absolute;bottom:6px;right:10px;font-size:10px;color:rgba(255,180,94,.4)}
+  #msg{position:absolute;top:26%;left:50%;transform:translate(-50%,-50%) scale(.6);font-size:56px;font-weight:bold;
+    letter-spacing:4px;color:#ffe9c4;text-shadow:0 0 18px #ff8c1a,0 0 40px #ff5e00,2px 2px 0 #4a1e00;
+    opacity:0;transition:opacity .18s,transform .18s;white-space:nowrap;text-align:center}
+  #msg.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  #msg small{display:block;font-size:18px;letter-spacing:8px;color:#ffb45e;margin-top:6px}
+  #meterWrap{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);width:380px;display:none}
+  #meterWrap .lbl{font-size:11px;letter-spacing:2px;margin-bottom:3px;color:#ffd9a0;text-align:center}
+  .meterBar{position:relative;height:22px;border:1px solid #7a5a33;border-radius:4px;overflow:hidden;
+    background:linear-gradient(90deg,#1a1108,#241608)}
+  #powFill{position:absolute;top:0;left:0;bottom:0;width:0%;
+    background:linear-gradient(90deg,#3fae5a,#ffe45e 60%,#ff5e3a);opacity:.92}
+  #spinBar{margin-top:8px}
+  #spinNeedle{position:absolute;top:-2px;bottom:-2px;width:4px;left:50%;background:#8dffb0;box-shadow:0 0 8px #4dff8a}
+  .meterTick{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,220,160,.35)}
+  #hint{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);font-size:11px;color:rgba(255,200,140,.75);
+    letter-spacing:1px;text-align:center;text-shadow:0 1px 2px #000}
+  #foulLamp{position:absolute;top:14%;left:50%;transform:translateX(-50%);padding:10px 26px;font-size:30px;
+    color:#fff;background:#c11;border-radius:6px;box-shadow:0 0 30px #f00;display:none;letter-spacing:6px}
+  #boot{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    background:radial-gradient(ellipse at 50% 35%,#241206 0%,#0a0503 60%,#020101 100%);cursor:pointer}
+  #boot h1{font-size:64px;margin:0;color:#ffe2b0;letter-spacing:6px;
+    text-shadow:0 0 12px #ff9a2a,0 0 46px #ff6a00,0 0 90px #ff3800}
+  #boot h2{font-size:14px;letter-spacing:10px;color:#7fd6ff;text-shadow:0 0 12px #2ab6ff;margin:8px 0 30px 0;font-weight:normal}
+  #boot .go{font-size:20px;color:#8dffb0;text-shadow:0 0 10px #37ff7d;animation:blink 1.1s steps(2) infinite;margin:22px 0 8px}
+  @keyframes blink{50%{opacity:.25}}
+  #boot table{font-size:12px;color:#c9a06a;border-spacing:14px 3px}
+  #boot td:first-child{color:#ffd9a0;text-align:right}
+  #boot #selftest{margin-top:18px;font-size:11px;color:#6ea}
+  #boot #loadmsg{font-size:12px;color:#a86;margin-top:10px}
+  #boot .err{color:#ff7a6a;max-width:80%;white-space:pre-wrap;font-size:11px}
+  #muteBtn,#modeBtn,#camBtn,#viewBtn,#helpBtn{position:absolute;bottom:34px;font-size:11px;padding:5px 10px;
+    border:1px solid #7a5a33;border-radius:4px;background:#191006;color:#caa26a}
+  #muteBtn{right:12px} #modeBtn{right:110px} #camBtn{right:236px} #viewBtn{right:336px} #helpBtn{right:430px;display:none}
+  #leftAimBtn,#rightAimBtn{position:fixed;bottom:50px;width:60px;height:60px;border-radius:50%;background:rgba(255,107,157,0.7);border:3px solid #FFD700;color:#fff;font-size:24px;font-weight:bold;cursor:pointer;z-index:19;box-shadow:0 2px 8px rgba(0,0,0,0.4)}
+  #leftAimBtn{left:20px} #rightAimBtn{right:20px}
+  #leftAimBtn:active,#rightAimBtn:active{transform:scale(0.9);background:rgba(255,107,157,0.9)}
+  @media (max-width:760px){ #msg{font-size:34px} #boot h1{font-size:34px} #meterWrap{width:82vw} #topLeft{font-size:10px} }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="hud">
+  <div id="topLeft" class="panel">
+    <b>BALL WEIGHT</b> <span id="wbtns"></span><br>
+    <span id="frameInfo">FRAME 1 &nbsp;•&nbsp; BALL 1</span>
+  </div>
+  <div id="stats" class="panel">
+    SPEED <span class="v" id="stMph">--</span> MPH<br>
+    REVS&nbsp; <span class="v" id="stRpm">--</span> RPM<br>
+    BOARD <span class="v" id="stBoard">--</span>
+  </div>
+  <div id="roundScoreboard" class="panel" style="position:absolute;top:8px;left:50%;transform:translateX(-50%);padding:8px;font-size:10px;overflow-x:auto;white-space:nowrap">
+    <table style="border-collapse:collapse;color:#ffb45e;font-family:monospace">
+      <tr style="height:20px">
+        <td style="padding:2px 4px;border:1px solid #7a5a33;width:40px;text-align:center;font-weight:bold">HAMAD</td>
+        <td colspan="10" style="text-align:center;font-weight:bold;font-size:9px;padding:2px">
+          <span style="display:inline-block;width:28px">1</span>
+          <span style="display:inline-block;width:28px">2</span>
+          <span style="display:inline-block;width:28px">3</span>
+          <span style="display:inline-block;width:28px">4</span>
+          <span style="display:inline-block;width:28px">5</span>
+          <span style="display:inline-block;width:28px">6</span>
+          <span style="display:inline-block;width:28px">7</span>
+          <span style="display:inline-block;width:28px">8</span>
+          <span style="display:inline-block;width:28px">9</span>
+          <span style="display:inline-block;width:40px">10</span>
+        </td>
+        <td style="padding:2px 4px;border:1px solid #7a5a33;width:30px;text-align:center;font-weight:bold;background:rgba(255,180,94,0.2)">TOT</td>
+      </tr>
+      <tr style="height:24px">
+        <td style="padding:2px 4px;border:1px solid #7a5a33;width:40px"></td>
+        <td id="h1" style="border:1px solid #7a5a33;width:28px;text-align:center;color:#8dffb0">-</td>
+        <td id="h2" style="border:1px solid #7a5a33;width:28px;text-align:center;color:#8dffb0">-</td>
+        <td id="h3" style="border:1px solid #7a5a33;width:28px;text-align:center;color:#8dffb0">-</td>
+        <td id="h4" style="border:1px solid #7a5a33;width:28px;text-align:center;color:#8dffb0">-</td>
+        <td id="h5" style="border:1px solid #7a5a33;width:28px;text-align:center;color:#8dffb0">-</td>
+        <td id="h6" style="border:1px solid #7a5a33;width:28px;text-align:center;color:#8dffb0">-</td>
+        <td id="h7" style="border:1px solid #7a5a33;width:28px;text-align:center;color:#8dffb0">-</td>
+        <td id="h8" style="border:1px solid #7a5a33;width:28px;text-align:center;color:#8dffb0">-</td>
+        <td id="h9" style="border:1px solid #7a5a33;width:28px;text-align:center;color:#8dffb0">-</td>
+        <td id="h10" style="border:1px solid #7a5a33;width:40px;text-align:center;color:#8dffb0;font-size:8px">-</td>
+        <td id="hTotal" style="border:1px solid #7a5a33;width:30px;text-align:center;color:#8dffb0;background:rgba(255,180,94,0.2);font-weight:bold">0</td>
+      </tr>
+      <tr style="height:20px">
+        <td style="padding:2px 4px;border:1px solid #7a5a33;width:40px;text-align:center;font-weight:bold">TALAL</td>
+        <td colspan="10" style="text-align:center;font-weight:bold;font-size:9px;padding:2px">
+        </td>
+        <td></td>
+      </tr>
+      <tr style="height:24px">
+        <td style="padding:2px 4px;border:1px solid #7a5a33;width:40px"></td>
+        <td id="t1" style="border:1px solid #7a5a33;width:28px;text-align:center;color:#8dffb0">-</td>
+        <td id="t2" style="border:1px solid #7a5a33;width:28px;text-align:center;color:#8dffb0">-</td>
+        <td id="t3" style="border:1px solid #7a5a33;width:28px;text-align:center;color:#8dffb0">-</td>
+        <td id="t4" style="border:1px solid #7a5a33;width:28px;text-align:center;color:#8dffb0">-</td>
+        <td id="t5" style="border:1px solid #7a5a33;width:28px;text-align:center;color:#8dffb0">-</td>
+        <td id="t6" style="border:1px solid #7a5a33;width:28px;text-align:center;color:#8dffb0">-</td>
+        <td id="t7" style="border:1px solid #7a5a33;width:28px;text-align:center;color:#8dffb0">-</td>
+        <td id="t8" style="border:1px solid #7a5a33;width:28px;text-align:center;color:#8dffb0">-</td>
+        <td id="t9" style="border:1px solid #7a5a33;width:28px;text-align:center;color:#8dffb0">-</td>
+        <td id="t10" style="border:1px solid #7a5a33;width:40px;text-align:center;color:#8dffb0;font-size:8px">-</td>
+        <td id="tTotal" style="border:1px solid #7a5a33;width:30px;text-align:center;color:#8dffb0;background:rgba(255,180,94,0.2);font-weight:bold">0</td>
+      </tr>
+    </table>
+  </div>
+  <div id="msg"></div>
+  <div id="foulLamp">F O U L</div>
+  <div id="meterWrap">
+    <div class="lbl" id="meterLbl">POWER</div>
+    <div class="meterBar" id="powBar"><div id="powFill"></div>
+      <div class="meterTick" style="left:70%"></div><div class="meterTick" style="left:88%"></div></div>
+    <div class="meterBar" id="spinBar" style="display:none"><div id="spinNeedle"></div>
+      <div class="meterTick" style="left:50%"></div></div>
+  </div>
+  <div id="hint"></div>
+  <button id="viewBtn" class="clickable">VIEW: 3RD</button>
+  <button id="camBtn" class="clickable">CAM: AUTO</button>
+  <button id="modeBtn" class="clickable">MODE: SIMPLE</button>
+  <button id="muteBtn" class="clickable">SOUND: ON</button>
+  <button id="bowlBtn" class="clickable" style="position:fixed;bottom:30px;left:50%;transform:translateX(-50%);width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,#FF6B9D,#FF85C0);border:4px solid #FFD700;font-size:40px;z-index:20;box-shadow:0 4px 15px rgba(0,0,0,0.5)">🎳</button>
+  <button id="leftAimBtn" class="clickable">◀</button>
+  <button id="rightAimBtn" class="clickable">▶</button>
+  
+  <!-- Quiz Modal -->
+  <div id="quizModal" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(5,4,3,0.95);display:none;z-index:9999;flex-direction:column;align-items:center;justify-content:center;pointer-events:auto">
+    <div style="background:rgba(12,8,4,0.9);border:3px solid #FFD700;border-radius:20px;padding:40px;text-align:center;max-width:90%;width:500px;pointer-events:auto;position:relative;z-index:10000">
+      <div id="playerIndicator" style="font-size:24px;font-weight:bold;color:#FF6B9D;margin-bottom:20px"></div>
+      <div id="quizQuestion" style="font-size:48px;font-weight:bold;color:#ffd9a0;margin:20px 0 30px 0;min-height:100px;display:flex;align-items:center;justify-content:center;line-height:1.2"></div>
+      <div id="answersContainer" style="display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-bottom:30px;pointer-events:auto"></div>
+      <div id="feedbackMsg" style="font-size:24px;font-weight:bold;color:#8dffb0;margin-bottom:15px;min-height:30px"></div>
+      <button id="skipBtn" style="padding:12px 24px;font-size:14px;background:#7a5a33;border:1px solid #7a5a33;border-radius:8px;color:#caa26a;cursor:pointer;pointer-events:auto">Skip & Bowl</button>
+    </div>
+  </div>
+  <div id="fps"></div>
+</div>
+<div id="boot">
+  <h1>STARDUST LANES</h1>
+  <h2>LEAGUE NIGHT &nbsp;&bull;&nbsp; EST. 1977</h2>
+  <div id="loadmsg">warming up the pinsetters…</div>
+  <div class="go" style="display:none" id="clickToBowl">— CLICK TO BOWL —</div>
+  <table>
+    <tr><td>A / D</td><td>slide on the approach</td></tr>
+    <tr><td>&larr; / &rarr;</td><td>aim the shot</td></tr>
+    <tr><td>&uarr; / &darr;</td><td>hook right / left (simple mode)</td></tr>
+    <tr><td>SPACE</td><td>bowl! (simple: one press &bull; meter: power then hook)</td></tr>
+    <tr><td>1 – 4</td><td>ball weight (10/12/14/16 lb)</td></tr>
+    <tr><td>C / V</td><td>camera auto-cut on/off &bull; first-person view</td></tr>
+    <tr><td>N</td><td>new game</td></tr>
+  </table>
+  <div id="selftest"></div>
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+    "@dimforge/rapier3d-compat": "https://cdn.jsdelivr.net/npm/@dimforge/rapier3d-compat@0.12.0/+esm"
+  }
+}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import RAPIER from '@dimforge/rapier3d-compat';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+/* ================================================================== *
+ *  TUNING — every magic number in the sim lives here.                *
+ *  Units are SI (meters, kg, seconds) unless noted.                  *
+ * ================================================================== */
+const T = {
+  physics: {
+    dt: 1/120,              // fixed timestep
+    maxSubSteps: 10,        // accumulator cap per render frame
+    gravity: -9.81,
+    solverIters: 8,         // velocity iterations (or numSolverIterations on new solver)
+    frictionIters: 4,
+    posIters: 4,
+  },
+  lane: {
+    width: 1.0541,          // 39 boards
+    boards: 39,
+    boardW: 1.0541/39,
+    length: 18.288,         // foul line -> head pin spot
+    deckEnd: -19.16,        // tail plank (z). Lane runs z=0 (foul) to -19.16
+    approachLen: 4.57,
+    gutterW: 0.235,
+    gutterDepth: 0.105,
+    gutterEndZ: -17.55,     // open gutter ends before the pin deck and pit
+    crownSlope: 0.0035,     // lateral "downhill toward gutters" strength (fraction of g)
+    laneSpacing: 1.83,      // lane center pitch
+    lanes: 10,
+    playerLane: 4,          // 0-based index; middle of the house
+    ambientLanes: [1, 2, 6, 8],  // lanes with animated bowlers + live physics
+  },
+  ball: {
+    radius: 0.10795,        // 8.5 in diameter
+    weightsLb: [10, 12, 14, 16],
+    weightsKg: [4.536, 5.443, 6.350, 7.257],
+    defaultWeight: 2,       // index -> 14 lb
+    restitution: 0.08,
+    friction: 0.0,          // lane friction is applied manually (oil model)
+    linDamp: 0.02,
+    angDamp: 0.06,
+  },
+  pin: {
+    mass: 1.55,
+    comY: 0.14,             // hand-authored: low center of mass = late, believable tips
+    height: 0.381,          // 15 in
+    inertia: { x: 0.0190, y: 0.0032, z: 0.0190 },  // kg·m² about CoM
+    restitution: 0.45,      // pin-to-pin liveliness (combine rule = Max)
+    friction: 0.23,         // vs. lane's 0 (Average) -> slick deck, pins skate
+    linDamp: 0.14,
+    angDamp: 0.40,
+    spacing: 0.3048,        // 12 in triangle grid
+    spotR: 0.0286,          // painted spot radius
+  },
+  pit: {
+    depth: 0.25,            // shallow pit floor below deck — keeps ricochets alive
+    floorRest: 0.34,
+    floorFriction: 0.25,
+    kickbackX: 0.78,        // kickback plate outside the gutters (real 60-inch span)
+    kickbackRest: 0.60,     // hard + lively: this is what converts 7-10s
+    kickbackFriction: 0.05,
+    cushionZ: -19.86,       // rear cushion face (≈0.75 m behind the back row)
+    cushionRest: 0.42,
+    cushionFriction: 0.30,
+  },
+  oil: {
+    muOiled: 0.033,         // kinetic friction in the conditioned zone
+    muDry:   0.215,         // backend grip
+    muDeck:  0.055,         // polished pin deck
+    oilEnd:  12.0,          // meters of oil past the foul line
+    transition: 2.0,        // ramp length oiled->dry
+    carryDownPerThrow: 0.055,
+    carryDownMax: 1.5,
+    rollingResist: 0.0065,
+    slipEps: 0.30,          // regularization: below this slip speed friction feathers out
+  },
+  throwP: {
+    minMph: 11, maxMph: 22,
+    minRev: 30, maxRev: 560,      // rpm
+    rollFrac: 0.55,               // forward roll fraction at release (rest is skid)
+    aimRange: 0.50,               // reticle travel at the arrows (±m)
+    slideRange: 0.44,             // approach slide (±m)
+    launchZ: -0.04,               // ball spawn just past the foul line
+    powerHz: 0.75, spinHz: 0.95,  // meter oscillation speeds
+    flickMphPerPx: 0.022, flickRevPerPx: 3.2,
+    // SIMPLE mode (Break Through Bowling style): angle + hook + auto power, one press
+    simpleAngleMax: 0.10,         // rad of aim-angle at full deflection
+    simpleAngleRate: 0.9,         // angle units/s while holding ◄ ►
+    simpleHookRate: 1.25,         // hook units/s while holding ▲ ▼
+    simpleHookScale: 0.5,         // full hook deflection maps to this fraction of maxRev
+    simpleRandomAngle: 0.72,      // fresh starting challenge for every simple-mode ball
+    simpleRandomHook: 0.78,
+    simpleRandomMin: 0.16,        // avoid handing the player an almost-perfect neutral setup
+    simplePowerHz: 3.2,           // rad/s of the auto power sine (BTB pace)
+    simplePowerMin: 0.45, simplePowerMax: 1.0,
+  },
+  setter: {  // pinsetter choreography (seconds)
+    sweepDown: 0.65, sweepPush: 1.35, sweepBack: 1.0, sweepUp: 0.55,
+    tableDown: 1.0, grip: 0.35, tableUp: 0.9, release: 0.35,
+    settleDrop: 0.003,     // pins released from 3 mm — they settle themselves
+    sweepYUp: 1.32, sweepYDown: 0.128, sweepZHome: -17.80, sweepZEnd: -19.42,
+    tableYUp: 1.62, tableYGrip: 0.435, tableYRelease: 0.437,
+    pinHangY: 0.43,        // pin base sits this far below table center when gripped
+    pitConveyorDelay: 1.1, pitConveyorSink: 1.3,
+  },
+  ret: {  // ball return
+    pitGrabDelay: 0.7, speed: 4.2, rackExitVel: 0.85,
+    trackX: 0.915, trackY: 0.115, rackY: 0.331, rackZ: 3.32,
+  },
+  settle: {
+    linThresh: 0.10, angThresh: 0.7,
+    timeout: 5.0,          // seconds after first impact
+    minWait: 1.1,
+    standingDot: 0.985,    // cos(10°) — up-vector tolerance for "standing"
+  },
+  cam: {
+    fov: 55, followFov: 62,
+    aimPos: [0.30, 1.66, 2.35], aimLook: [0, 0.45, -9],
+    followH: 0.34, followBack: 2.35, followLead: 2.0,
+    cutZ: -17.15,          // hard cut to the pin-deck cam ~1 m before impact
+    deckPos: [0.86, 0.30, -17.05], deckLook: [-0.06, 0.30, -18.85],
+    widePos: [1.95, 1.55, -15.4], wideLook: [0, 0.55, -18.6],
+    attractR: 7.5,
+    slowmoScale: 0.28, slowmoDur: 1.15,
+    blendFast: 0.001, blendMed: 0.9, blendSlow: 1.8,
+    shakeImpact: 0.028,
+  },
+  render: {
+    maxDPR: 2,
+    exposure: 1.06,
+    bloomStrength: 0.55, bloomRadius: 0.6, bloomThreshold: 0.82,
+    grain: 0.055, vignette: 0.34, chromAb: 0.0018,
+    fogColor: 0x0d0805, fogDensity: 0.0145,
+  },
+  audio: {
+    master: 0.85,
+    impactMin: 45,          // N of contact force before we bother voicing it
+    crashForce: 2600,       // force that maps to a full-volume crash
+    maxVoices: 26,
+    music: 0.20, crowd: 0.30, arcade: 0.12, blower: 0.07, jukeLP: 900,
+  },
+};
+
+/* ============================ utils ============================== */
+const clamp = (v,a,b)=>v<a?a:(v>b?b:v);
+const lerp  = (a,b,t)=>a+(b-a)*t;
+const smooth = t=>t*t*(3-2*t);
+const easeIO = t=>t<0.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const rand  = (a=1,b)=>b===undefined?Math.random()*a:a+Math.random()*(b-a);
+const pick  = arr=>arr[Math.floor(Math.random()*arr.length)];
+const PLAYER_SETTINGS_KEY = 'stardustLanes.playerSettings.v1';
+function loadPlayerSettings(){
+  try{ return JSON.parse(localStorage.getItem(PLAYER_SETTINGS_KEY)||'{}')||{}; }
+  catch(e){ console.warn('[STARDUST] unable to load player settings',e); return {}; }
+}
+const SAVED_SETTINGS=loadPlayerSettings();
+function savePlayerSettings(){
+  try{
+    localStorage.setItem(PLAYER_SETTINGS_KEY,JSON.stringify({
+      weight:INPUT.weight, mode:INPUT.mode,
+      autoCam:GAME.autoCam, fpView:GAME.fpView, muted:AUD.muted,
+    }));
+  }catch(e){ console.warn('[STARDUST] unable to save player settings',e); }
+}
+function mulberry(seed){ let s=seed>>>0; return ()=>{ s|=0; s=(s+0x6D2B79F5)|0;
+  let t=Math.imul(s^(s>>>15),1|s); t=(t+Math.imul(t^(t>>>7),61|t))^t; return ((t^(t>>>14))>>>0)/4294967296; }; }
+const DEG = Math.PI/180;
+const MPH = 0.44704;                       // m/s per mph
+const _v1 = new THREE.Vector3(), _v2 = new THREE.Vector3(), _q1 = new THREE.Quaternion();
+
+// pin spot layout (index 0..9 = pins 1..10), bowler's view: +x right
+const PIN_ROW_DZ = T.pin.spacing * Math.sin(Math.PI/3);   // 0.26397
+const PIN_SPOTS = (()=>{ const z1 = -T.lane.length, s = T.pin.spacing, dz = PIN_ROW_DZ;
+  return [ [0,z1], [-s/2,z1-dz],[s/2,z1-dz], [-s,z1-2*dz],[0,z1-2*dz],[s,z1-2*dz],
+           [-1.5*s,z1-3*dz],[-s/2,z1-3*dz],[s/2,z1-3*dz],[1.5*s,z1-3*dz] ]; })();
+const PIN_ADJ = [[1,2],[0,2,3,4],[0,1,4,5],[1,6,7,4],[1,2,3,5,7,8],[2,4,8,9],[3,7],[3,4,6,8],[4,5,7,9],[5,8]];
+
+// USBC-ish lathe profile: [height above base, radius]
+const PIN_PROFILE = [
+  [0.000,0.0254],[0.010,0.0300],[0.030,0.0390],[0.057,0.0508],[0.085,0.0575],
+  [0.114,0.0605],[0.145,0.0585],[0.170,0.0530],[0.200,0.0410],[0.225,0.0290],
+  [0.241,0.0228],[0.260,0.0230],[0.285,0.0270],[0.310,0.0325],[0.330,0.0330],
+  [0.352,0.0290],[0.368,0.0210],[0.378,0.0100],[0.381,0.0001]
+];
+// compound collider: truncated-cone hulls following the profile (y0,r0,y1,r1)
+const PIN_HULLS_FULL = [
+  [0.000,0.0254, 0.030,0.0390],[0.030,0.0390, 0.075,0.0555],[0.075,0.0555, 0.114,0.0605],
+  [0.114,0.0605, 0.170,0.0530],[0.170,0.0530, 0.241,0.0228],[0.241,0.0228, 0.310,0.0325],
+  [0.310,0.0325, 0.381,0.0090]
+];
+const PIN_HULLS_CHEAP = [
+  [0.000,0.0280, 0.114,0.0605],[0.114,0.0605, 0.241,0.0230],[0.241,0.0230, 0.381,0.0180]
+];
+
+/* ============================ textures ============================ *
+ * Every surface in the house is painted procedurally on canvases —  *
+ * no external assets, no bare primitives.                           */
+function makeCanvas(w,h,fn){ const c=document.createElement('canvas'); c.width=w; c.height=h;
+  const g=c.getContext('2d'); fn(g,w,h); return c; }
+function tex(c,{srgb=true,repeat=null,aniso=8,wrap=true}={}){ const t=new THREE.CanvasTexture(c);
+  if(srgb) t.colorSpace=THREE.SRGBColorSpace;
+  if(wrap){ t.wrapS=t.wrapT=THREE.RepeatWrapping; } if(repeat) t.repeat.set(repeat[0],repeat[1]);
+  t.anisotropy=aniso; return t; }
+function speckle(g,w,h,n,cols,rmax=2,alpha=0.5){ for(let i=0;i<n;i++){ g.globalAlpha=Math.random()*alpha;
+  g.fillStyle=pick(cols); const r=Math.random()*rmax+0.3;
+  g.beginPath(); g.arc(Math.random()*w,Math.random()*h,r,0,7); g.fill(); } g.globalAlpha=1; }
+function stains(g,w,h,n,col='#5a4526',rmin=8,rmax=46,alpha=0.16){ for(let i=0;i<n;i++){ const x=Math.random()*w,y=Math.random()*h,
+  r=rand(rmin,rmax); const gr=g.createRadialGradient(x,y,r*0.2,x,y,r);
+  gr.addColorStop(0,col); gr.addColorStop(1,'rgba(0,0,0,0)'); g.globalAlpha=rand(alpha*0.4,alpha);
+  g.fillStyle=gr; g.beginPath(); g.arc(x,y,r,0,7); g.fill(); } g.globalAlpha=1; }
+function scratches(g,w,h,n,col='rgba(0,0,0,0.25)',len=40){ g.strokeStyle=col; for(let i=0;i<n;i++){
+  g.globalAlpha=Math.random()*0.35+0.05; g.lineWidth=Math.random()*1.2+0.2; g.beginPath();
+  const x=Math.random()*w,y=Math.random()*h,a=Math.random()*7; g.moveTo(x,y);
+  g.lineTo(x+Math.cos(a)*rand(4,len),y+Math.sin(a)*rand(4,len)); g.stroke(); } g.globalAlpha=1; }
+
+function woodGrain(g,x0,w,h,base,varAmt=10,grainN=26){
+  g.fillStyle=base; g.fillRect(x0,0,w,h);
+  for(let i=0;i<grainN;i++){ g.globalAlpha=Math.random()*0.14+0.03;
+    g.strokeStyle=Math.random()<0.5?'rgba(60,35,12,1)':'rgba(255,235,200,1)';
+    g.lineWidth=Math.random()*1.6+0.3; g.beginPath();
+    let gx=x0+Math.random()*w; g.moveTo(gx,0);
+    for(let y=0;y<=h;y+=h/8) g.lineTo(gx+Math.sin(y*0.01+i)*varAmt*Math.random(),y);
+    g.stroke(); }
+  g.globalAlpha=1;
+}
+
+function laneWoodCanvas(hero){
+  const W=hero?640:320, H=hero?2560:1024, bw=W/T.lane.boards;
+  return makeCanvas(W,H,(g)=>{
+    const zToY = z => (1 - z/19.16)*H;   // z = meters past foul line, canvas y (v=0 bottom=foul line)
+    for(let b=0;b<T.lane.boards;b++){
+      const j=(Math.random()*14-7)|0;
+      // maple heads -> pine mid-lane -> maple pin deck
+      const grad=g.createLinearGradient(0,H,0,0);
+      grad.addColorStop(0.00,`rgb(${216+j},${185+j},${138+j})`);
+      grad.addColorStop(0.18,`rgb(${210+j},${178+j},${130+j})`);
+      grad.addColorStop(0.26,`rgb(${176+j},${132+j},${86+j})`);
+      grad.addColorStop(0.90,`rgb(${168+j},${124+j},${80+j})`);
+      grad.addColorStop(0.94,`rgb(${182+j},${152+j},${108+j})`);
+      grad.addColorStop(1.00,`rgb(${172+j},${142+j},${100+j})`);
+      g.fillStyle=grad; g.fillRect(b*bw,0,bw+1,H);
+      woodGrain(g,b*bw,bw,H,'rgba(0,0,0,0)',3,hero?10:4);
+      g.fillStyle='rgba(30,16,6,0.55)'; g.fillRect(b*bw,0,1,H);  // board seam
+    }
+    // ball-track wear (righty track, boards ~8-14 from the right, faint mirror)
+    const wear=(cx,alpha)=>{ const gr=g.createLinearGradient(cx-bw*3,0,cx+bw*3,0);
+      gr.addColorStop(0,'rgba(0,0,0,0)'); gr.addColorStop(0.5,`rgba(40,22,8,${alpha})`); gr.addColorStop(1,'rgba(0,0,0,0)');
+      g.fillStyle=gr; g.fillRect(cx-bw*3, zToY(17.5), bw*6, zToY(3)-zToY(17.5)); };
+    wear(W*0.5+W*0.20,0.20); wear(W*0.5-W*0.20,0.09);
+    // targeting arrows at 4.57 m (7 chevrons) + range-finder dots at 2.13 m
+    g.fillStyle='#3a2410';
+    for(let i=-3;i<=3;i++){ const cx=W/2+i*(W*0.105), cy=zToY(4.57)+Math.abs(i)*26;
+      g.beginPath(); g.moveTo(cx,cy-20); g.lineTo(cx+7,cy+8); g.lineTo(cx-7,cy+8); g.fill(); }
+    for(let i=-2;i<=2;i++){ g.beginPath(); g.arc(W/2+i*(W*0.105),zToY(2.13),4,0,7); g.fill(); }
+    // pin deck: scuffs, chips, and painted spots
+    const deckTop=zToY(17.9);
+    g.globalAlpha=0.35; g.fillStyle='#2c1c0c'; g.fillRect(0,0,W,zToY(19.16)); g.globalAlpha=1;
+    scratches(g,W,deckTop,hero?260:80,'rgba(15,8,3,0.5)',26);
+    stains(g,W,deckTop*0.5,hero?30:8,'#1c1008',4,18,0.35);
+    g.fillStyle='#181818';
+    for(const [sx,sz] of PIN_SPOTS){ const cx=(0.5+sx/T.lane.width)*W, cy=zToY(-sz);
+      g.beginPath(); g.arc(cx,cy,W*0.026,0,7); g.fill(); }
+    scratches(g,W,H,hero?200:60,'rgba(20,10,4,0.3)',60);
+  });
+}
+function approachCanvas(){
+  const W=256,H=512,bw=W/16;
+  return makeCanvas(W,H,(g)=>{
+    for(let b=0;b<16;b++){ const j=(Math.random()*10-5)|0;
+      g.fillStyle=`rgb(${208+j},${182+j},${140+j})`; g.fillRect(b*bw,0,bw+1,H);
+      woodGrain(g,b*bw,bw,H,'rgba(0,0,0,0)',2,5);
+      g.fillStyle='rgba(40,24,10,0.4)'; g.fillRect(b*bw,0,1,H); }
+    g.fillStyle='#2e1c0c';
+    for(const fy of [0.22,0.62]) for(let i=-2;i<=2;i++){ g.beginPath(); g.arc(W/2+i*W*0.11,fy*H,4,0,7); g.fill(); }
+    scratches(g,W,H,90,'rgba(30,18,8,0.35)',30);
+    g.fillStyle='#111'; g.fillRect(0,0,W,5);   // foul line at v=1 edge
+  });
+}
+function pinCanvas(seed){
+  const R=mulberry(seed*7919+11), W=256,H=512;
+  return makeCanvas(W,H,(g)=>{
+    const yl=(v)=>((1-v)*H);
+    const age=R()*0.5;
+    const grad=g.createLinearGradient(0,H,0,0);
+    grad.addColorStop(0,`rgb(${232-age*26|0},${226-age*36|0},${212-age*52|0})`);
+    grad.addColorStop(0.5,`rgb(${246-age*20|0},${242-age*28|0},${232-age*44|0})`);
+    grad.addColorStop(1,`rgb(${240-age*18|0},${236-age*24|0},${226-age*40|0})`);
+    g.fillStyle=grad; g.fillRect(0,0,W,H);
+    const band=(v0,v1,col)=>{ g.fillStyle=col; g.fillRect(0,yl(v1),W,yl(v0)-yl(v1)); };
+    band(0.555,0.60,'#c1121f'); band(0.635,0.68,'#c1121f');      // two neck stripes
+    band(0.905,1.0,'#c1121f');                                    // red crown
+    g.fillStyle='rgba(120,20,25,0.5)'; g.fillRect(0,yl(0.60),W,2); g.fillRect(0,yl(0.68),W,2);
+    // crest on the belly
+    g.fillStyle='rgba(160,30,40,0.85)'; g.font='bold 26px monospace'; g.textAlign='center';
+    g.fillText('SDL',W/2,yl(0.30)); g.font='9px monospace'; g.fillText('STARDUST',W/2,yl(0.27));
+    // scuffs concentrated around the belly contact zone, chips near the base
+    scratches(g,W,H,120+R()*120|0,'rgba(70,60,50,0.5)',22);
+    for(let i=0;i<30+R()*40;i++){ g.globalAlpha=R()*0.5;
+      g.fillStyle=R()<0.3?'#8a8378':'#6b6155';
+      const v=R()<0.7?rand(0.1,0.45):R();
+      g.beginPath(); g.arc(R()*W,yl(v)+R()*8-4,R()*3.5+0.4,0,7); g.fill(); }
+    g.globalAlpha=1;
+    band(0,0.03,'rgba(40,30,20,0.55)');                           // dirty base ring
+  });
+}
+function ballCanvas(seed,c1,c2,c3){
+  const R=mulberry(seed*104729+3), W=512,H=512;
+  return makeCanvas(W,H,(g)=>{
+    g.fillStyle=c1; g.fillRect(0,0,W,H);
+    for(let i=0;i<16;i++){ g.globalAlpha=R()*0.5+0.12; g.strokeStyle=R()<0.55?c2:c3;
+      g.lineWidth=R()*26+4; g.beginPath();
+      let x=R()*W,y=R()*H; g.moveTo(x,y);
+      for(let s=0;s<4;s++){ x+=R()*260-130; y+=R()*260-130; g.quadraticCurveTo(R()*W,R()*H,x,y); }
+      g.stroke(); }
+    g.globalAlpha=1;
+    speckle(g,W,H,700,[c2,c3,'#ffffff'],1.4,0.3);
+    scratches(g,W,H,180,'rgba(255,255,255,0.16)',30);   // hairline scratches in the gloss
+    scratches(g,W,H,120,'rgba(0,0,0,0.2)',18);
+  });
+}
+function carpetCanvas(){
+  const W=512,H=512;
+  return makeCanvas(W,H,(g)=>{
+    g.fillStyle='#241238'; g.fillRect(0,0,W,H);
+    const cols=['#0fb8a8','#e02f8f','#f5c518','#3346cc'];
+    for(let i=0;i<70;i++){ const col=pick(cols); g.strokeStyle=col; g.fillStyle=col; g.globalAlpha=0.85;
+      const x=Math.random()*W,y=Math.random()*H,k=Math.random();
+      if(k<0.35){ g.lineWidth=rand(3,7); g.beginPath(); g.moveTo(x,y);
+        g.quadraticCurveTo(x+rand(-60,60),y+rand(-60,60),x+rand(-90,90),y+rand(-90,90)); g.stroke(); }
+      else if(k<0.6){ g.beginPath(); g.moveTo(x,y); g.lineTo(x+rand(14,42),y+rand(-10,10)); g.lineTo(x+rand(2,20),y+rand(16,40)); g.fill(); }
+      else if(k<0.8){ g.lineWidth=rand(3,6); g.beginPath();
+        for(let s=0;s<5;s++) g.lineTo(x+s*14,y+(s%2?14:-14)); g.stroke(); }
+      else { g.beginPath(); g.arc(x,y,rand(5,14),0,7); g.fill(); } }
+    g.globalAlpha=0.25; g.fillStyle='#000'; speckle(g,W,H,900,['#000'],1.6,0.4);
+    stains(g,W,H,10,'#120a08',10,40,0.4); g.globalAlpha=1;
+  });
+}
+function ceilingCanvas(){
+  return makeCanvas(512,512,(g)=>{
+    g.fillStyle='#b9b2a4'; g.fillRect(0,0,512,512);
+    for(let i=0;i<2;i++)for(let j=0;j<2;j++){ g.strokeStyle='#77705f'; g.lineWidth=4;
+      g.strokeRect(i*256+2,j*256+2,252,252); }
+    speckle(g,512,512,2200,['#8d8574','#a49c8b'],1.2,0.5);
+    stains(g,512,512,9,'#7a5c30',20,90,0.5);
+    stains(g,512,512,4,'#4d3418',14,50,0.6);
+  });
+}
+function wallCanvas(){
+  return makeCanvas(512,512,(g)=>{
+    g.fillStyle='#4d4038'; g.fillRect(0,0,512,512);
+    const grd=g.createLinearGradient(0,0,0,512);
+    grd.addColorStop(0,'rgba(20,14,10,0.55)'); grd.addColorStop(0.35,'rgba(0,0,0,0)');
+    grd.addColorStop(1,'rgba(15,10,6,0.5)'); g.fillStyle=grd; g.fillRect(0,0,512,512);
+    for(let b=0;b<8;b++){ woodGrain(g,b*64,64,300,'rgba(0,0,0,0)',3,4);
+      g.fillStyle='rgba(20,12,6,0.5)'; g.fillRect(b*64,212,1,300); }
+    g.fillStyle='#6b5a3c'; g.fillRect(0,204,512,10);   // chair rail
+    for(let b=0;b<8;b++){ g.fillStyle=`rgba(${90+Math.random()*24|0},${66+Math.random()*18|0},40,1)`;
+      g.fillRect(b*64+1,214,62,298); woodGrain(g,b*64,64,512,'rgba(0,0,0,0)',2,3); }
+    stains(g,512,200,6,'#241a10',10,60,0.4);
+  });
+}
+function metalCanvas(light){
+  return makeCanvas(256,256,(g)=>{
+    g.fillStyle=light?'#b9bcc2':'#6d7076'; g.fillRect(0,0,256,256);
+    for(let i=0;i<300;i++){ g.globalAlpha=Math.random()*0.25;
+      g.strokeStyle=Math.random()<0.5?'#fff':'#40444c'; g.lineWidth=1;
+      const y=Math.random()*256; g.beginPath(); g.moveTo(0,y); g.lineTo(256,y+rand(-2,2)); g.stroke(); }
+    g.globalAlpha=1; scratches(g,256,256,60,'rgba(20,22,26,0.5)',34);
+  });
+}
+function gutterCanvas(){
+  return makeCanvas(256,512,(g)=>{
+    // Smooth graphite channel: the dark center and soft edge highlights make
+    // the concavity readable without looking like a raised, dented curb.
+    const bowl=g.createLinearGradient(0,0,256,0);
+    bowl.addColorStop(0,'#6f7378'); bowl.addColorStop(0.18,'#45484d');
+    bowl.addColorStop(0.46,'#202226'); bowl.addColorStop(0.54,'#202226');
+    bowl.addColorStop(0.82,'#45484d'); bowl.addColorStop(1,'#6f7378');
+    g.fillStyle=bowl; g.fillRect(0,0,256,512);
+    for(let i=0;i<90;i++){
+      g.globalAlpha=rand(0.025,0.11); g.strokeStyle=Math.random()<0.7?'#c2c5ca':'#08090a';
+      g.lineWidth=rand(0.35,1.1); const x=Math.random()*256;
+      g.beginPath(); g.moveTo(x,0); g.lineTo(x+rand(-1.2,1.2),512); g.stroke();
+    }
+    g.globalAlpha=0.16; g.fillStyle='#050607';
+    for(let y=64;y<512;y+=128) g.fillRect(0,y,256,1);
+    g.globalAlpha=1;
+  });
+}
+function kickbackCanvas(){
+  return makeCanvas(256,512,(g)=>{
+    g.fillStyle='#8a6d4a'; g.fillRect(0,0,256,512);
+    woodGrain(g,0,256,512,'rgba(0,0,0,0)',5,14);
+    g.fillStyle='#39598f';  // old painted plate, chipped
+    g.fillRect(0,0,256,512); g.globalAlpha=1;
+    for(let i=0;i<90;i++){ g.globalAlpha=rand(0.5,1); g.fillStyle=Math.random()<0.6?'#8a6d4a':'#5d4630';
+      const x=Math.random()*256,y=Math.random()*512;
+      g.beginPath(); g.moveTo(x,y);
+      for(let s=0;s<5;s++) g.lineTo(x+rand(-14,14),y+rand(-9,9)); g.fill(); }
+    g.globalAlpha=1; scratches(g,256,512,160,'rgba(10,8,5,0.6)',40);
+    stains(g,256,512,10,'#141210',10,50,0.5);
+  });
+}
+function cushionCanvas(){
+  return makeCanvas(256,256,(g)=>{
+    g.fillStyle='#141216'; g.fillRect(0,0,256,256);
+    for(let y=0;y<256;y+=32){ g.strokeStyle='rgba(60,58,66,0.6)'; g.lineWidth=2;
+      g.beginPath(); g.moveTo(0,y+16); g.lineTo(256,y+16); g.stroke();
+      const gr=g.createLinearGradient(0,y,0,y+32); gr.addColorStop(0,'rgba(90,88,98,0.25)');
+      gr.addColorStop(0.5,'rgba(0,0,0,0)'); gr.addColorStop(1,'rgba(0,0,0,0.4)');
+      g.fillStyle=gr; g.fillRect(0,y,256,32); }
+    scratches(g,256,256,50,'rgba(120,116,128,0.2)',30);
+  });
+}
+function maskingCanvas(variant){
+  const W=1024,H=256;
+  return makeCanvas(W,H,(g)=>{
+    const sky=g.createLinearGradient(0,0,0,H);
+    if(variant===0){ sky.addColorStop(0,'#0b1440'); sky.addColorStop(0.6,'#7a1e6e'); sky.addColorStop(1,'#ff7a3c'); }
+    else if(variant===1){ sky.addColorStop(0,'#03102a'); sky.addColorStop(1,'#0a4a6e'); }
+    else { sky.addColorStop(0,'#26063a'); sky.addColorStop(1,'#c1206a'); }
+    g.fillStyle=sky; g.fillRect(0,0,W,H);
+    g.fillStyle='rgba(255,255,240,0.9)';
+    for(let i=0;i<70;i++){ g.globalAlpha=Math.random()*0.9+0.1;
+      g.beginPath(); g.arc(Math.random()*W,Math.random()*H*0.7,Math.random()*1.8+0.4,0,7); g.fill(); }
+    g.globalAlpha=1;
+    if(variant===0){ const cx=W*0.78; const gr=g.createRadialGradient(cx,H*0.55,4,cx,H*0.55,60);
+      gr.addColorStop(0,'#fff3c0'); gr.addColorStop(1,'rgba(255,150,40,0)'); g.fillStyle=gr;
+      g.beginPath(); g.arc(cx,H*0.55,60,0,7); g.fill(); }
+    if(variant===1) for(let i=0;i<3;i++){ g.fillStyle=['#ff9a3c','#7fd6ff','#e02f8f'][i]; // planets
+      g.beginPath(); g.arc(W*(0.2+i*0.28),H*(0.3+0.12*i),18+i*8,0,7); g.fill(); }
+    // silhouette pins + ball
+    g.fillStyle='rgba(255,255,255,0.92)';
+    for(let i=0;i<3;i++){ const x=W*0.5+(i-1)*46, y=H*0.62, s=(i===1?1.15:0.95);
+      g.beginPath(); g.ellipse(x,y+30*s,13*s,20*s,0,0,7); g.ellipse(x,y-4*s,7*s,16*s,0,0,7); g.fill();
+      g.fillStyle='#c1121f'; g.fillRect(x-7*s,y-8*s,14*s,4); g.fillStyle='rgba(255,255,255,0.92)'; }
+    g.fillStyle='#1a1a2e'; g.beginPath(); g.arc(W*0.36,H*0.78,26,0,7); g.fill();
+    g.font='bold 64px cursive'; g.textAlign='center'; g.fillStyle='#fff8e0';
+    g.shadowColor='#ff9a2a'; g.shadowBlur=26; g.fillText('Stardust',W/2,H*0.36); g.shadowBlur=0;
+    stains(g,W,H,8,'#241a10',8,30,0.35);
+  });
+}
+function neonCanvas(text,color,sub){
+  const W=512,H=192;
+  return makeCanvas(W,H,(g)=>{
+    g.fillStyle='#000'; g.fillRect(0,0,W,H);
+    g.textAlign='center'; g.shadowColor=color; g.shadowBlur=30;
+    g.font='bold 74px cursive'; g.strokeStyle=color; g.lineWidth=4;
+    g.strokeText(text,W/2,H*0.55); g.fillStyle='#fff'; g.font='bold 70px cursive';
+    g.fillText(text,W/2,H*0.55);
+    if(sub){ g.font='22px monospace'; g.fillStyle=color; g.fillText(sub,W/2,H*0.85); }
+    g.shadowBlur=0;
+  });
+}
+function flyerCanvas(i){
+  const W=256,H=340;
+  return makeCanvas(W,H,(g)=>{
+    g.fillStyle=['#f2e8cf','#ffd9e8','#d8f0ff'][i%3]; g.fillRect(0,0,W,H);
+    g.fillStyle='#222'; g.textAlign='center'; g.font='bold 26px monospace';
+    const title=['LEAGUE NIGHT','9-PIN NO TAP','LOST: SHOE'][i%3];
+    g.fillText(title,W/2,44);
+    g.font='13px monospace';
+    const lines=[['TUESDAYS 7PM','SIGN UP AT DESK','$12 / BOWLER','TROPHIES!!'],
+                 ['SATURDAY 9PM','COSMIC BOWL','BLACKLIGHT ON','DJ RANDY'],
+                 ['SIZE 11 RENTAL','LAST SEEN LANE 6','REWARD: NACHOS','ASK FOR DOT']][i%3];
+    lines.forEach((l,k)=>g.fillText(l,W/2,90+k*26));
+    g.strokeStyle='#888'; g.strokeRect(6,6,W-12,H-12);
+    g.fillStyle='rgba(180,160,120,0.6)'; g.fillRect(W/2-30,0,60,18);  // tape
+    stains(g,W,H,4,'#7a5c30',6,24,0.4);
+  });
+}
+function menuCanvas(){
+  return makeCanvas(512,256,(g)=>{
+    g.fillStyle='#181310'; g.fillRect(0,0,512,256);
+    g.fillStyle='#f5c518'; g.font='bold 30px monospace'; g.textAlign='left';
+    g.fillText('SNACK BAR',20,40);
+    g.font='17px monospace'; g.fillStyle='#eee';
+    ['NACHOS ............ 3.50','HOT DOG ........... 2.75','PITCHER ........... 7.00',
+     'FRIES ............. 2.25','PIZZA SLICE ....... 3.00'].forEach((l,i)=>g.fillText(l,20,80+i*30));
+    g.fillStyle='#e02f8f'; g.font='bold 15px monospace'; g.fillText('NO OUTSIDE FOOD',330,40);
+  });
+}
+function keyboardCanvas(){
+  return makeCanvas(256,128,(g)=>{
+    g.fillStyle='#3a3a40'; g.fillRect(0,0,256,128);
+    for(let r=0;r<4;r++)for(let c=0;c<12;c++){ g.fillStyle=Math.random()<0.1?'#26262c':'#54545c';
+      g.fillRect(c*21+4,r*30+6,17,24); }
+    stains(g,256,128,6,'#181410',4,20,0.6); speckle(g,256,128,200,['#111'],1,0.5);
+  });
+}
+function cubbiesCanvas(){
+  return makeCanvas(512,512,(g)=>{
+    g.fillStyle='#5d4630'; g.fillRect(0,0,512,512);
+    for(let r=0;r<4;r++)for(let c=0;c<6;c++){ g.fillStyle='#241a10';
+      g.fillRect(c*85+8,r*128+8,72,112);
+      if(Math.random()<0.7){ g.fillStyle=pick(['#a33','#33a','#3a6','#a83','#845']);   // rental shoes
+        g.beginPath(); g.ellipse(c*85+44,r*128+92,26,12,0,0,7); g.fill();
+        g.fillStyle='#eee'; g.fillRect(c*85+22,r*128+78,44,6); } }
+  });
+}
+function lockersCanvas(){
+  return makeCanvas(512,512,(g)=>{
+    g.fillStyle='#496b52'; g.fillRect(0,0,512,512);
+    for(let c=0;c<6;c++){ g.strokeStyle='#1e2f24'; g.lineWidth=3; g.strokeRect(c*85+4,4,79,504);
+      for(let v=0;v<3;v++){ g.fillStyle='#2c4234'; g.fillRect(c*85+18,30+v*12,52,5); }
+      g.fillStyle='#c9cdd4'; g.fillRect(c*85+62,240,10,22);
+      g.fillStyle='#20281f'; g.font='10px monospace'; g.fillText(''+(c+12),c*85+12,24); }
+    scratches(g,512,512,120,'rgba(10,20,12,0.5)',30); stains(g,512,512,8,'#1a2018',8,40,0.4);
+  });
+}
+function arcadeCanvas(i){
+  return makeCanvas(256,256,(g)=>{
+    g.fillStyle='#05060f'; g.fillRect(0,0,256,256);
+    if(i===0){ for(let k=0;k<40;k++){ g.fillStyle=pick(['#ff3860','#3ee06a','#3aa0ff','#ffd23e']);
+        g.fillRect(Math.random()*240,Math.random()*200+20,14,14); }
+      g.fillStyle='#fff'; g.font='bold 20px monospace'; g.textAlign='center';
+      g.fillText('GALAXY RAID',128,36); }
+    else { g.strokeStyle='#3ee06a'; g.lineWidth=3;
+      for(let k=0;k<8;k++){ g.beginPath(); g.moveTo(20,230-k*24); g.lineTo(236,230-k*24-rand(0,30)); g.stroke(); }
+      g.fillStyle='#ffd23e'; g.font='bold 22px monospace'; g.textAlign='center'; g.fillText('TURBO GP',128,40); }
+    g.fillStyle='#fff'; g.font='14px monospace'; g.textAlign='center';
+    g.fillText('INSERT COIN',128,140);
+  });
+}
+function shirtCanvas(seed){
+  const R=mulberry(seed*7-3), main=pick(['#7a2030','#1e3a6e','#2a6446','#6e5a1e','#4a2a6e','#7a4a1a']),
+    side=pick(['#f2e8cf','#1a1a1a','#e8e0d0']);
+  return makeCanvas(128,128,(g)=>{
+    g.fillStyle=main; g.fillRect(0,0,128,128);
+    g.fillStyle=side; g.fillRect(0,0,26,128); g.fillRect(102,0,26,128);
+    g.strokeStyle='rgba(0,0,0,0.4)'; g.strokeRect(26,0,76,128);
+    g.fillStyle='#fff'; g.font='bold 13px cursive'; g.textAlign='center';
+    g.fillText(pick(['Earl','Dot','Ray','Marge','Lou','Pearl','Hank','Wanda']),64,36);
+    g.font='9px monospace'; g.fillText(pick(["BOB'S AUTO","DINER 66","ACME PLUMB","STARDUST"]),64,102);
+    speckle(g,128,128,60,['#000'],0.8,0.25);
+  });
+}
+function faceCanvas(seed){
+  const R=mulberry(seed*31+7), skin=pick(['#e8b990','#c98d5f','#9c6b43','#f0cba6','#7a4f30']);
+  return makeCanvas(64,64,(g)=>{
+    g.fillStyle=skin; g.fillRect(0,0,64,64);
+    g.fillStyle='#1a1210'; g.beginPath(); g.arc(22,30,3,0,7); g.arc(42,30,3,0,7); g.fill();
+    g.fillStyle='rgba(20,10,8,0.8)'; g.fillRect(16,22,12,3); g.fillRect(36,22,12,3);
+    if(R()<0.4){ g.fillRect(20,42,24,4); }                     // mustache
+    g.fillStyle='rgba(120,50,40,0.7)'; g.fillRect(26,50,12,3); // mouth
+  });
+}
+function capLaminateCanvas(){
+  return makeCanvas(128,512,(g)=>{
+    g.fillStyle='#17151a'; g.fillRect(0,0,128,512);
+    g.fillStyle='#c1121f'; g.fillRect(8,0,6,512); g.fillRect(114,0,6,512);
+    for(let i=0;i<80;i++){ g.globalAlpha=Math.random()*0.2; g.strokeStyle='#fff';
+      g.lineWidth=0.8; const y=Math.random()*512; g.beginPath(); g.moveTo(0,y); g.lineTo(128,y+rand(-4,4)); g.stroke(); }
+    g.globalAlpha=1; scratches(g,128,512,80,'rgba(200,200,210,0.2)',20);
+  });
+}
+function jukeArchCanvas(){
+  return makeCanvas(256,384,(g)=>{
+    g.fillStyle='#1a0d08'; g.fillRect(0,0,256,384);
+    const cols=['#ff3860','#ffd23e','#3ee06a','#3aa0ff','#e02f8f'];
+    for(let i=0;i<5;i++){ g.strokeStyle=cols[i]; g.lineWidth=10; g.shadowColor=cols[i]; g.shadowBlur=16;
+      g.beginPath(); g.arc(128,300,150-i*22,Math.PI,0); g.stroke(); }
+    g.shadowBlur=0; g.fillStyle='#2c1608'; g.fillRect(48,300,160,84);
+    g.fillStyle='#f5deb0'; g.fillRect(64,310,128,40);
+    g.fillStyle='#222'; for(let i=0;i<6;i++) g.fillRect(70+i*20,316,12,28);
+  });
+}
+const oilAlphaCanvas = ()=>makeCanvas(64,512,(g)=>{
+  const gr=g.createLinearGradient(0,512,0,0);   // v=0 foul line -> bright, fades past oil end
+  gr.addColorStop(0,'#ffffff'); gr.addColorStop(0.52,'#e8e8e8'); gr.addColorStop(0.62,'#555555');
+  gr.addColorStop(0.68,'#111111'); gr.addColorStop(1,'#000000');
+  g.fillStyle=gr; g.fillRect(0,0,64,512);
+  for(let i=0;i<26;i++){ g.globalAlpha=0.12; g.fillStyle='#000';
+    g.fillRect(Math.random()*64,Math.random()*300,2,rand(30,120)); } g.globalAlpha=1;
+});
+
+const TEX = {
+  laneHero: tex(laneWoodCanvas(true)), laneStd: tex(laneWoodCanvas(false)),
+  approach: tex(approachCanvas()),
+  pins: [0,1,2,3].map(i=>tex(pinCanvas(i+2),{wrap:false})),
+  balls: [ tex(ballCanvas(1,'#101418','#3aa0ff','#0a2a4a')),          // 10lb — midnight blue
+           tex(ballCanvas(2,'#3a0a12','#e02f4f','#7a1020')),          // 12lb — burgundy
+           tex(ballCanvas(3,'#0a2a1a','#3ee06a','#f5c518')),          // 14lb — emerald
+           tex(ballCanvas(4,'#151018','#8a4fff','#e02f8f')) ],        // 16lb — galaxy purple
+  carpet: tex(carpetCanvas(),{repeat:[10,5]}),
+  ceiling: tex(ceilingCanvas(),{repeat:[18,10]}),
+  wall: tex(wallCanvas(),{repeat:[8,1]}),
+  metal: tex(metalCanvas(false)), metalLight: tex(metalCanvas(true)),
+  gutter: tex(gutterCanvas(),{repeat:[1,10]}),
+  kickback: tex(kickbackCanvas(),{wrap:false}),
+  cushion: tex(cushionCanvas(),{repeat:[4,1]}),
+  masking: [0,1,2].map(maskingCanvas).map(c=>tex(c,{wrap:false})),
+  cap: tex(capLaminateCanvas(),{repeat:[1,12]}),
+  flyers: [0,1,2].map(flyerCanvas).map(c=>tex(c,{wrap:false})),
+  menu: tex(menuCanvas(),{wrap:false}), keyboard: tex(keyboardCanvas(),{wrap:false}),
+  cubbies: tex(cubbiesCanvas(),{wrap:false}), lockers: tex(lockersCanvas(),{repeat:[3,1]}),
+  arcade: [0,1].map(arcadeCanvas).map(c=>tex(c,{wrap:false})),
+  jukeArch: tex(jukeArchCanvas(),{wrap:false}),
+  oilAlpha: tex(oilAlphaCanvas(),{srgb:false,wrap:false}),
+  neonBowl: tex(neonCanvas('BOWL','#ff2a5a','* * *'),{wrap:false}),
+  neonCocktails: tex(neonCanvas('cocktails','#3ee0c0','OPEN LATE'),{wrap:false}),
+  neonStar: tex(neonCanvas('★ Stardust ★','#ffd23e','LANES'),{wrap:false}),
+};
+
+/* ============================ materials ============================ */
+const std=(map,o={})=>new THREE.MeshStandardMaterial(Object.assign({map,roughness:0.7,metalness:0.0},o));
+const phys=(map,o={})=>new THREE.MeshPhysicalMaterial(Object.assign({map,roughness:0.3,metalness:0.0},o));
+const MATS = {
+  laneHero: phys(TEX.laneHero,{roughness:0.34,clearcoat:0.55,clearcoatRoughness:0.3,envMapIntensity:0.55}),
+  laneStd: std(TEX.laneStd,{roughness:0.5,envMapIntensity:0.25}),
+  oilSheen: new THREE.MeshPhysicalMaterial({color:0xfff4d8,transparent:true,opacity:0.16,roughness:0.045,
+    metalness:0,clearcoat:1,clearcoatRoughness:0.06,alphaMap:TEX.oilAlpha,depthWrite:false,envMapIntensity:1.0}),
+  approach: std(TEX.approach,{roughness:0.55,envMapIntensity:0.3}),
+  gutter: std(TEX.gutter,{metalness:0.58,roughness:0.34,envMapIntensity:0.58}),
+  cap: std(TEX.cap,{roughness:0.35,envMapIntensity:0.5}),
+  kickback: std(TEX.kickback,{roughness:0.75}),
+  cushion: std(TEX.cushion,{roughness:0.85}),
+  pit: new THREE.MeshStandardMaterial({color:0x060504,roughness:1}),
+  pins: TEX.pins.map(t=>phys(t,{roughness:0.32,clearcoat:0.6,clearcoatRoughness:0.28,envMapIntensity:0.6})),
+  balls: TEX.balls.map(t=>phys(t,{roughness:0.13,clearcoat:1.0,clearcoatRoughness:0.07,envMapIntensity:1.1})),
+  carpet: std(TEX.carpet,{roughness:0.96,envMapIntensity:0.06}),
+  ceiling: std(TEX.ceiling,{roughness:0.95,envMapIntensity:0.05}),
+  wall: std(TEX.wall,{roughness:0.85,envMapIntensity:0.08}),
+  metal: std(TEX.metal,{metalness:0.85,roughness:0.4,envMapIntensity:0.8}),
+  chrome: std(TEX.metalLight,{metalness:1.0,roughness:0.16,envMapIntensity:1.3}),
+  machine: new THREE.MeshStandardMaterial({color:0x2e3136,roughness:0.6,metalness:0.7,map:TEX.metal}),
+  rubber: new THREE.MeshStandardMaterial({color:0x141414,roughness:0.92}),
+  masking: TEX.masking.map(t=>new THREE.MeshStandardMaterial({map:t,emissive:0xffffff,emissiveMap:t,
+    emissiveIntensity:0.9,roughness:0.8})),
+  formica: std(tex(makeCanvas(256,256,(g)=>{ g.fillStyle='#c9c2b2'; g.fillRect(0,0,256,256);
+    speckle(g,256,256,1600,['#8d8574','#efe8d8','#a49c8b'],1,0.6); stains(g,256,256,7,'#6e4a20',6,30,0.5);
+    scratches(g,256,256,60,'rgba(60,50,40,0.4)',26); })),{roughness:0.5}),
+  woodDark: std(tex(makeCanvas(256,256,(g)=>{ woodGrain(g,0,256,256,'#3d2b18',8,30);
+    stains(g,256,256,6,'#140c06',8,40,0.5); })),{roughness:0.7}),
+  seat: [0xc23a2a,0x2a6ac2,0xc2952a].map(c=>std(tex(makeCanvas(128,128,(g)=>{
+    g.fillStyle='#fff'; g.fillRect(0,0,128,128); speckle(g,128,128,300,['#00000022'],1,0.4);
+    scratches(g,128,128,40,'rgba(255,255,255,0.3)',20); })),{color:c,roughness:0.45,envMapIntensity:0.4})),
+  keyboard: std(TEX.keyboard), cubbies: std(TEX.cubbies), lockers: std(TEX.lockers,{roughness:0.5,metalness:0.3}),
+  menu: new THREE.MeshStandardMaterial({map:TEX.menu,emissive:0xffffff,emissiveMap:TEX.menu,emissiveIntensity:0.65,roughness:0.9}),
+  arcade: TEX.arcade.map(t=>new THREE.MeshStandardMaterial({map:t,emissive:0xffffff,emissiveMap:t,emissiveIntensity:1.1,roughness:0.9})),
+  jukeArch: new THREE.MeshStandardMaterial({map:TEX.jukeArch,emissive:0xffffff,emissiveMap:TEX.jukeArch,emissiveIntensity:1.0,roughness:0.8}),
+  glass: new THREE.MeshPhysicalMaterial({color:0xcfe8f0,transparent:true,opacity:0.18,roughness:0.05,metalness:0,envMapIntensity:1.2}),
+  trophy: new THREE.MeshStandardMaterial({color:0xd8a828,metalness:1,roughness:0.28,envMapIntensity:1.2}),
+  skinPool: [0,1,2,3,4,5].map(i=>std(tex(faceCanvas(i),{wrap:false}),{roughness:0.6})),
+};
+function neonMesh(t,w,h){ const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),
+  new THREE.MeshBasicMaterial({map:t,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false}));
+  return m; }
+
+/* ============================ audio ============================== *
+ * Fully procedural Web Audio: every sample is synthesized at boot,  *
+ * mixed positionally, and driven by real contact-force energy.      */
+const AUD = {
+  ready:false, muted:SAVED_SETTINGS.muted===true, voices:0, cool:{},
+  init(){
+    if(this.ready) return;
+    const C = this.ctx = new (window.AudioContext||window.webkitAudioContext)();
+    this.master = C.createGain(); this.master.gain.value = this.muted?0:T.audio.master;
+    const comp = C.createDynamicsCompressor();
+    comp.threshold.value=-16; comp.ratio.value=5; comp.knee.value=18;
+    this.master.connect(comp); comp.connect(C.destination);
+    // small dirty room reverb
+    const vlen = (1.4*C.sampleRate)|0, imp = C.createBuffer(2,vlen,C.sampleRate);
+    for(let ch=0;ch<2;ch++){ const d=imp.getChannelData(ch);
+      for(let i=0;i<vlen;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/vlen,2.6)*0.6; }
+    this.verb = C.createConvolver(); this.verb.buffer=imp;
+    this.verbGain = C.createGain(); this.verbGain.gain.value=0.16;
+    this.verb.connect(this.verbGain); this.verbGain.connect(this.master);
+    this._buildBuffers();
+    this.ready = true;
+    this._ambience();
+    this._music();
+  },
+  _mk(dur, fn){ const C=this.ctx, n=(dur*C.sampleRate)|0, b=C.createBuffer(1,n,C.sampleRate),
+    d=b.getChannelData(0), sr=C.sampleRate; fn(d,n,sr);
+    let mx=0; for(let i=0;i<n;i++) mx=Math.max(mx,Math.abs(d[i]));
+    if(mx>0) for(let i=0;i<n;i++) d[i]*=0.85/mx; return b; },
+  _modes(d,n,sr,modes,decays,amps,jit=1){
+    for(let m=0;m<modes.length;m++){ const f=modes[m]*(1+(Math.random()*2-1)*0.04*jit),
+      dec=decays[m], a=amps[m], w=2*Math.PI*f/sr, ph=Math.random()*6;
+      for(let i=0;i<n;i++) d[i]+=a*Math.sin(w*i+ph)*Math.exp(-dec*i/sr); } },
+  _noiseBurst(d,n,sr,dec,lp=0.35,amp=1){ let b=0;
+    for(let i=0;i<n;i++){ b+=( (Math.random()*2-1) - b)*lp; d[i]+=amp*b*Math.exp(-dec*i/sr); } },
+  _loopable(buf,fade=0.08){ const d=buf.getChannelData(0), n=d.length, f=(fade*this.ctx.sampleRate)|0;
+    for(let i=0;i<f;i++){ const t=i/f; d[i]=d[i]*t + d[n-f+i]*(1-t); d[n-f+i]*=0; }
+    return buf; },
+  _buildBuffers(){
+    const B = this.B = {};
+    B.pinHit = [0,1,2].map(()=> this._mk(0.24,(d,n,sr)=>{
+      this._modes(d,n,sr,[1120,1880,2680,3600],[30,38,46,60],[1,0.7,0.42,0.28]);
+      this._noiseBurst(d,n,sr,240,0.5,0.9); }));
+    B.thud = this._mk(0.30,(d,n,sr)=>{ const w=2*Math.PI/sr;
+      for(let i=0;i<n;i++){ const f=84-40*(i/n); d[i]+=Math.sin(w*f*i)*Math.exp(-13*i/sr); }
+      this._noiseBurst(d,n,sr,50,0.06,0.55); });
+    B.crash = [0,1].map(()=> this._mk(0.7,(d,n,sr)=>{
+      for(let k=0;k<6;k++){ const off=(k*rand(0.02,0.06)*sr)|0;
+        const tmp=new Float32Array(n-off);
+        this._modes(tmp,tmp.length,sr,[1050+k*130,1900+k*90,2800],[26,34,50],[1,0.6,0.4]);
+        this._noiseBurst(tmp,tmp.length,sr,200,0.5,0.8);
+        for(let i=0;i<tmp.length;i++) d[i+off]+=tmp[i]*(1-k*0.12); }
+      const w=2*Math.PI/sr; for(let i=0;i<n;i++) d[i]+=0.8*Math.sin(w*(70-30*i/n)*i)*Math.exp(-11*i/sr); }));
+    B.cushion = this._mk(0.45,(d,n,sr)=>{ const w=2*Math.PI/sr;
+      for(let i=0;i<n;i++) d[i]+=Math.sin(w*(58-20*i/n)*i)*Math.exp(-9*i/sr);
+      this._noiseBurst(d,n,sr,30,0.04,0.5); });
+    B.clank = this._mk(0.5,(d,n,sr)=>{
+      this._modes(d,n,sr,[382,948,1520,2210],[7,9,12,16],[1,0.7,0.5,0.3]);
+      this._noiseBurst(d,n,sr,300,0.6,0.6); });
+    B.woodClap = this._mk(0.14,(d,n,sr)=>{
+      this._modes(d,n,sr,[720,1260,1900],[46,60,80],[1,0.6,0.3]);
+      this._noiseBurst(d,n,sr,320,0.5,0.7); });
+    B.gutterKnock = this._mk(0.22,(d,n,sr)=>{
+      this._modes(d,n,sr,[178,420,760],[24,30,44],[1,0.6,0.3]);
+      this._noiseBurst(d,n,sr,120,0.2,0.4); });
+    B.clunk = this._mk(0.22,(d,n,sr)=>{
+      this._modes(d,n,sr,[122,340,660],[18,26,40],[1,0.5,0.3]);
+      this._noiseBurst(d,n,sr,90,0.15,0.5); });
+    B.ballClick = this._mk(0.09,(d,n,sr)=>{
+      this._modes(d,n,sr,[920,1460,2400],[70,90,120],[1,0.7,0.4]); });
+    B.servo = this._mk(0.32,(d,n,sr)=>{ const w=2*Math.PI/sr;
+      for(let i=0;i<n;i++){ const f=310-170*(i/n); d[i]+=0.7*Math.sin(w*f*i)*Math.exp(-6*i/sr)
+        *(1+0.4*Math.sin(w*34*i)); } this._noiseBurst(d,n,sr,40,0.3,0.2); });
+    B.buzz = this._mk(0.6,(d,n,sr)=>{ const w=2*Math.PI/sr;
+      for(let i=0;i<n;i++) d[i]+= (Math.sin(w*160*i)>0?0.7:-0.7)*Math.exp(-4*i/sr)*(1+0.3*Math.sin(w*7*i)); });
+    B.roll = this._loopable(this._mk(2.2,(d,n,sr)=>{ let b=0,b2=0;
+      for(let i=0;i<n;i++){ b+=((Math.random()*2-1)-b)*0.024; b2+=(b-b2)*0.11;
+        d[i]=b2*(1+0.25*Math.sin(2*Math.PI*8*i/sr)+0.15*Math.sin(2*Math.PI*13.7*i/sr)); } }));
+    B.motor = this._loopable(this._mk(1.9,(d,n,sr)=>{ const w=2*Math.PI/sr; let b=0;
+      for(let i=0;i<n;i++){ b+=((Math.random()*2-1)-b)*0.08;
+        const saw=(i*48/sr%1)*2-1, saw2=(i*97/sr%1)*2-1;
+        d[i]=0.4*saw+0.3*saw2+0.35*b*(1+0.5*Math.sin(w*24*i)); } }));
+    B.chain = this._loopable(this._mk(1.3,(d,n,sr)=>{ let b=0;
+      for(let i=0;i<n;i++){ b+=((Math.random()*2-1)-b)*0.5;
+        const tick=(Math.sin(2*Math.PI*13.5*i/sr)>0.86)?1:0.08;
+        d[i]=b*tick*(0.6+0.4*Math.random()); } }));
+    B.grind = this._loopable(this._mk(1.6,(d,n,sr)=>{ const w=2*Math.PI/sr; let b=0;
+      for(let i=0;i<n;i++){ b+=((Math.random()*2-1)-b)*0.14;
+        d[i]=0.4*Math.sin(w*56*i)*(1+0.3*Math.sin(w*9*i))+0.5*b; } }));
+    B.crowd = this._loopable(this._mk(7,(d,n,sr)=>{ let b=0,b2=0;
+      for(let i=0;i<n;i++){ b+=((Math.random()*2-1)-b)*0.05; b2+=(b-b2)*0.05;
+        const am=0.55+0.45*Math.sin(2*Math.PI*0.11*i/sr)+0.2*Math.sin(2*Math.PI*0.043*i/sr+2);
+        d[i]=b2*am; }
+      for(let k=0;k<14;k++){ const st=(Math.random()*(n-9000))|0, f=rand(180,520), w=2*Math.PI*f/sr;
+        for(let i=0;i<9000;i++){ const e=Math.sin(Math.PI*i/9000);
+          d[st+i]+=0.10*e*Math.sin(w*i)*(1+0.6*Math.sin(w*0.13*i)); } } }),0.4);
+    B.hum = this._loopable(this._mk(2.5,(d,n,sr)=>{ const w=2*Math.PI/sr;
+      for(let i=0;i<n;i++) d[i]=0.5*Math.sin(w*120*i)+0.3*Math.sin(w*240*i)+0.1*Math.sin(w*60*i); }));
+    B.blower = this._loopable(this._mk(2.0,(d,n,sr)=>{ let b=0,h=0;
+      for(let i=0;i<n;i++){ const wht=Math.random()*2-1; b+=(wht-b)*0.3; h=wht-b;
+        d[i]=0.6*h+0.3*b; } }));
+    B.oilHiss = this._loopable(this._mk(1.5,(d,n,sr)=>{ let p=0;
+      for(let i=0;i<n;i++){ const wht=Math.random()*2-1; p+=(wht-p)*0.6; d[i]=(wht-p)*0.5; } }));
+    // drums for the jukebox
+    B.kick = this._mk(0.22,(d,n,sr)=>{ const w=2*Math.PI/sr;
+      for(let i=0;i<n;i++) d[i]=Math.sin(w*(120-70*i/n)*i)*Math.exp(-18*i/sr); });
+    B.snare = this._mk(0.18,(d,n,sr)=>{ this._noiseBurst(d,n,sr,40,0.5,1);
+      this._modes(d,n,sr,[190],[24],[0.6]); });
+    B.hat = this._mk(0.06,(d,n,sr)=>{ let p=0; for(let i=0;i<n;i++){ const wht=Math.random()*2-1;
+      p+=(wht-p)*0.7; d[i]=(wht-p)*Math.exp(-70*i/sr); } });
+  },
+  _panner(pos){ const C=this.ctx, p=C.createPanner();
+    p.panningModel='equalpower'; p.distanceModel='inverse'; p.refDistance=2.2;
+    p.rolloffFactor=1.15; p.maxDistance=90;
+    if(pos) this._setPan(p,pos); return p; },
+  _setPan(p,pos){ if(p.positionX){ p.positionX.value=pos.x; p.positionY.value=pos.y; p.positionZ.value=pos.z; }
+    else p.setPosition(pos.x,pos.y,pos.z); },
+  play(name,{pos=null,vol=1,rate=1,verb=0.5,cooldown=0.03}={}){
+    if(!this.ready||this.muted) return;
+    const C=this.ctx, now=C.currentTime;
+    if(this.voices>=T.audio.maxVoices) return;
+    const key=name+((pos&&pos.k)||''); if(this.cool[key] && now-this.cool[key]<cooldown) return;
+    this.cool[key]=now;
+    let buf=this.B[name]; if(Array.isArray(buf)) buf=pick(buf);
+    if(!buf) return;
+    const src=C.createBufferSource(); src.buffer=buf; src.playbackRate.value=rate;
+    const g=C.createGain(); g.gain.value=clamp(vol,0,1.4);
+    let node=g; src.connect(g);
+    if(pos){ const p=this._panner(pos); g.connect(p); node=p; }
+    node.connect(this.master);
+    if(verb>0){ const vg=C.createGain(); vg.gain.value=verb*0.5; node.connect(vg); vg.connect(this.verb); }
+    this.voices++; src.onended=()=>{ this.voices--; };
+    src.start();
+  },
+  loop(name,{pos=null,vol=0.5,rate=1}={}){
+    if(!this.ready) return { set(){}, vol(){}, rate(){}, stop(){} };
+    const C=this.ctx, src=C.createBufferSource(); src.buffer=this.B[name]; src.loop=true;
+    src.playbackRate.value=rate;
+    const g=C.createGain(); g.gain.value=0; src.connect(g);
+    let p=null; if(pos){ p=this._panner(pos); g.connect(p); p.connect(this.master); }
+    else g.connect(this.master);
+    src.start();
+    const h={ _g:g, _target:vol,
+      set:(np)=>{ if(p) this._setPan(p,np); },
+      vol:(v)=>{ g.gain.setTargetAtTime(this.muted?0:v,C.currentTime,0.06); },
+      rate:(r)=>{ src.playbackRate.setTargetAtTime(r,C.currentTime,0.08); },
+      stop:()=>{ g.gain.setTargetAtTime(0,C.currentTime,0.1); setTimeout(()=>{try{src.stop()}catch(e){}},600); } };
+    h.vol(vol); this.loops.push(h); return h;
+  },
+  loops: [],
+  _ambience(){
+    this.loop('crowd',{vol:T.audio.crowd*0.45});
+    this.loop('hum',{vol:0.018});
+    this.arcadeTimer=0;
+  },
+  _music(){
+    const C=this.ctx;
+    const lp=C.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=T.audio.jukeLP; lp.Q.value=0.6;
+    const g=C.createGain(); g.gain.value=T.audio.music;
+    const p=this._panner({x:8.6,y:1.2,z:9.5});
+    lp.connect(g); g.connect(p); p.connect(this.master);
+    const vg=C.createGain(); vg.gain.value=0.4; g.connect(vg); vg.connect(this.verb);
+    this.jukeBus=lp; this.jukeGain=g;
+    const bpm=104, spb=60/bpm, bar=spb*4;
+    const roots=[55,55,73.4,82.4];        // A A D E — original three-chord bar rock
+    let next=C.currentTime+0.2, step=0;
+    const playBuf=(name,t,v,r=1)=>{ const s=C.createBufferSource(); s.buffer=this.B[name];
+      s.playbackRate.value=r; const gg=C.createGain(); gg.gain.value=v; s.connect(gg); gg.connect(lp); s.start(t); };
+    const osc=(f,t,d,type,v)=>{ const o=C.createOscillator(); o.type=type; o.frequency.value=f;
+      const gg=C.createGain(); gg.gain.setValueAtTime(v,t); gg.gain.exponentialRampToValueAtTime(0.001,t+d);
+      o.connect(gg); gg.connect(lp); o.start(t); o.stop(t+d+0.05); };
+    this._musTimer=setInterval(()=>{
+      if(this.muted){ next=C.currentTime+0.2; return; }
+      while(next < C.currentTime+0.4){
+        const s8=step%8, barN=(step/8|0)%4, root=roots[barN];
+        if(s8===0||s8===4) playBuf('kick',next,0.9);
+        if(s8===2||s8===6) playBuf('snare',next,0.6);
+        playBuf('hat',next,0.28);
+        osc(root*(s8===3?1.5:(s8===6?0.749:1)),next,spb*0.5,'triangle',0.5);   // bass
+        if(s8===2||s8===5){ osc(root*2,next,spb*0.7,'sawtooth',0.11);          // guitar stab
+          osc(root*3,next,spb*0.7,'sawtooth',0.08); osc(root*2*1.26,next,spb*0.7,'sawtooth',0.06); }
+        next+=spb*0.5; step++;
+      }
+    },120);
+  },
+  arcadeBlip(){
+    if(!this.ready||this.muted) return;
+    const C=this.ctx, notes=[523,659,784,1046,784,1319];
+    notes.forEach((f,i)=>{ const o=C.createOscillator(); o.type='square'; o.frequency.value=f;
+      const g=C.createGain(); const t=C.currentTime+i*0.09;
+      g.gain.setValueAtTime(0.0,t); g.gain.linearRampToValueAtTime(T.audio.arcade,t+0.01);
+      g.gain.exponentialRampToValueAtTime(0.001,t+0.085);
+      const p=this._panner({x:-8.6,y:1.4,z:10.2}); o.connect(g); g.connect(p); p.connect(this.master);
+      o.start(t); o.stop(t+0.1); });
+  },
+  setListener(cam){
+    if(!this.ready) return;
+    const L=this.ctx.listener, p=cam.position;
+    const f=_v1.set(0,0,-1).applyQuaternion(cam.quaternion), u=_v2.set(0,1,0).applyQuaternion(cam.quaternion);
+    if(L.positionX){ const t=this.ctx.currentTime;
+      L.positionX.setTargetAtTime(p.x,t,0.05); L.positionY.setTargetAtTime(p.y,t,0.05); L.positionZ.setTargetAtTime(p.z,t,0.05);
+      L.forwardX.setTargetAtTime(f.x,t,0.05); L.forwardY.setTargetAtTime(f.y,t,0.05); L.forwardZ.setTargetAtTime(f.z,t,0.05);
+      L.upX.setTargetAtTime(u.x,t,0.05); L.upY.setTargetAtTime(u.y,t,0.05); L.upZ.setTargetAtTime(u.z,t,0.05); }
+    else { L.setPosition(p.x,p.y,p.z); L.setOrientation(f.x,f.y,f.z,u.x,u.y,u.z); }
+  },
+  toggleMute(){ this.muted=!this.muted;
+    if(this.ready) this.master.gain.setTargetAtTime(this.muted?0:T.audio.master,this.ctx.currentTime,0.05);
+    return this.muted; },
+  // contact-force -> sound routing
+  impact(a,b,force,pos){
+    if(!this.ready||force<T.audio.impactMin) return;
+    const pair=(x,y)=>(a===x&&b===y)||(a===y&&b===x);
+    const v=clamp(force/T.audio.crashForce,0.05,1.15);
+    pos.k=((pos.x*3)|0)+'_'+((pos.z*3)|0);
+    if(pair('ball','pin')){
+      this.play('thud',{pos,vol:v,rate:rand(0.92,1.08)});
+      this.play('pinHit',{pos,vol:v*0.9,rate:rand(0.9,1.15)});
+      if(v>0.5) this.play('crash',{pos,vol:v,rate:rand(0.95,1.05),cooldown:0.25});
+    }
+    else if(pair('pin','pin')) this.play('pinHit',{pos,vol:v*0.85,rate:rand(0.85,1.2),cooldown:0.02});
+    else if(pair('pin','lane')) this.play('woodClap',{pos,vol:v*0.6,rate:rand(0.9,1.2),cooldown:0.04});
+    else if(pair('pin','kickback')) this.play('clank',{pos,vol:v*0.9,rate:rand(0.9,1.1)});
+    else if(pair('pin','cushion')) this.play('cushion',{pos,vol:v,rate:rand(0.9,1.05)});
+    else if(pair('pin','pit')) this.play('thud',{pos,vol:v*0.7,rate:rand(0.8,1.0)});
+    else if(pair('ball','cushion')||pair('ball','pit')) this.play('cushion',{pos,vol:v*0.8});
+    else if(pair('ball','bumper')) this.play('clank',{pos,vol:v*0.6,rate:rand(0.85,1.15)});
+    else if(pair('ball','kickback')) this.play('clank',{pos,vol:v*0.7});
+    else if(pair('ball','gutter')) this.play('gutterKnock',{pos,vol:v*0.8,rate:rand(0.9,1.2),cooldown:0.09});
+    else if(pair('ball','lane')&&force>300) this.play('thud',{pos,vol:v*0.7,cooldown:0.3});   // lofted ball
+    else if(pair('ball','ball')) this.play('ballClick',{pos,vol:v});
+    else if(pair('pin','sweep')) this.play('woodClap',{pos,vol:v*0.5,rate:0.8,cooldown:0.08});
+  },
+};
+
+/* ====================== renderer / scene / post ====================== */
+const canvas = document.getElementById('c');
+const renderer = new THREE.WebGLRenderer({canvas, antialias:true, powerPreference:'high-performance'});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, T.render.maxDPR));
+renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = T.render.exposure;
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x070403);
+scene.fog = new THREE.FogExp2(T.render.fogColor, T.render.fogDensity);
+
+const camera = new THREE.PerspectiveCamera(T.cam.fov, innerWidth/innerHeight, 0.05, 90);
+camera.position.set(0,1.7,3);
+
+{ const pmrem = new THREE.PMREMGenerator(renderer);
+  scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.06).texture; pmrem.dispose(); }
+
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+const bloomPass = new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),
+  T.render.bloomStrength, T.render.bloomRadius, T.render.bloomThreshold);
+composer.addPass(bloomPass);
+composer.addPass(new OutputPass());
+const gradePass = new ShaderPass({
+  uniforms:{ tDiffuse:{value:null}, uTime:{value:0}, uGrain:{value:T.render.grain},
+    uVig:{value:T.render.vignette}, uCA:{value:T.render.chromAb} },
+  vertexShader:`varying vec2 vUv; void main(){ vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0); }`,
+  fragmentShader:`
+    uniform sampler2D tDiffuse; uniform float uTime,uGrain,uVig,uCA; varying vec2 vUv;
+    void main(){
+      vec2 d = vUv-0.5; float r2 = dot(d,d);
+      vec2 off = d * uCA * (r2*36.0);
+      vec3 col;
+      col.r = texture2D(tDiffuse, vUv+off).r;
+      col.g = texture2D(tDiffuse, vUv).g;
+      col.b = texture2D(tDiffuse, vUv-off).b;
+      col *= 1.0 - uVig*smoothstep(0.12, 0.72, r2);
+      float n = fract(sin(dot(vUv+fract(uTime), vec2(12.9898,78.233)))*43758.5453);
+      col += (n-0.5)*uGrain*(0.55+0.45*smoothstep(0.1,0.6,r2));
+      gl_FragColor = vec4(col,1.0);
+    }`
+});
+composer.addPass(gradePass);
+addEventListener('resize',()=>{ camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth,innerHeight); composer.setSize(innerWidth,innerHeight); });
+
+/* ============================ lanes registry ========================= */
+const laneX = i => (i - T.lane.playerLane) * T.lane.laneSpacing;
+const LANES = [];
+for(let i=0;i<T.lane.lanes;i++){
+  const quality = i===T.lane.playerLane ? 'hero' : (T.lane.ambientLanes.includes(i) ? 'ambient' : 'static');
+  LANES.push({ i, x:laneX(i), quality, vis:{}, pins:[], balls:[], setter:null, oilLength:T.oil.oilEnd,
+    active: quality!=='static' });
+}
+const PL = LANES[T.lane.playerLane];
+
+/* shared geometry */
+const PIN_GEO = (()=>{ const pts = PIN_PROFILE.map(([y,r])=>new THREE.Vector2(Math.max(r,0.0004),y));
+  const geo = new THREE.LatheGeometry(pts, 26); geo.computeVertexNormals(); return geo; })();
+const BALL_GEO = new THREE.SphereGeometry(T.ball.radius, 36, 26);
+const HOLE_GEO = new THREE.CylinderGeometry(0.0135,0.0135,0.024,12);
+const HOLE_MAT = new THREE.MeshStandardMaterial({color:0x0a0a0c,roughness:0.9});
+function makeBallMesh(matIdx){
+  const grp = new THREE.Group();
+  const ball = new THREE.Mesh(BALL_GEO, MATS.balls[matIdx]); ball.castShadow = true; grp.add(ball);
+  // drilled finger holes: three recessed plugs sunk into the shell
+  const R=T.ball.radius;
+  [[0,10],[ -11,-6],[11,-6]].forEach(([lon,lat])=>{
+    const h = new THREE.Mesh(HOLE_GEO, HOLE_MAT);
+    const dir = new THREE.Vector3().setFromSphericalCoords(R-0.008, (90-lat)*DEG, lon*DEG);
+    h.position.copy(dir); h.lookAt(dir.clone().multiplyScalar(2)); h.rotateX(Math.PI/2);
+    grp.add(h);
+  });
+  return grp;
+}
+
+/* ============================ alley build =========================== */
+const ROOM = { xMin:-10.2, xMax:11.2, zBack:13.2, zPit:-21.2, ceilH:3.42 };
+function box(w,h,d,mat,x,y,z,{shadow=false,recv=true,ry=0}={}){
+  const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);
+  m.position.set(x,y,z); m.rotation.y=ry; m.castShadow=shadow; m.receiveShadow=recv; scene.add(m); return m; }
+
+function buildRoom(){
+  // concourse carpet + back-of-house floor
+  const carpet=new THREE.Mesh(new THREE.PlaneGeometry(ROOM.xMax-ROOM.xMin, ROOM.zBack-T.lane.approachLen),MATS.carpet);
+  carpet.rotation.x=-Math.PI/2;
+  carpet.position.set((ROOM.xMin+ROOM.xMax)/2,-0.001,(T.lane.approachLen+ROOM.zBack)/2);
+  carpet.receiveShadow=true; scene.add(carpet);
+  // one continuous approach: wood, dots, foul line (12 lane-spacings wide, cells centered on lanes)
+  const appW=12*T.lane.laneSpacing;
+  const app=new THREE.Mesh(new THREE.PlaneGeometry(appW, T.lane.approachLen),MATS.approach);
+  MATS.approach.map.repeat.set(12,1); MATS.approach.map.offset.x=0.5;
+  app.rotation.x=-Math.PI/2; app.position.set(0,0,T.lane.approachLen/2);
+  app.receiveShadow=true; scene.add(app);
+  // walls / ceiling
+  const wallMat=MATS.wall;
+  box(ROOM.xMax-ROOM.xMin,ROOM.ceilH,0.2,wallMat,(ROOM.xMin+ROOM.xMax)/2,ROOM.ceilH/2,ROOM.zBack);
+  box(0.2,ROOM.ceilH,ROOM.zBack-ROOM.zPit,wallMat,ROOM.xMin,ROOM.ceilH/2,(ROOM.zBack+ROOM.zPit)/2);
+  box(0.2,ROOM.ceilH,ROOM.zBack-ROOM.zPit,wallMat,ROOM.xMax,ROOM.ceilH/2,(ROOM.zBack+ROOM.zPit)/2);
+  box(ROOM.xMax-ROOM.xMin,ROOM.ceilH,0.2,new THREE.MeshStandardMaterial({color:0x0a0806,roughness:1}),
+      (ROOM.xMin+ROOM.xMax)/2,ROOM.ceilH/2,ROOM.zPit);
+  const ceil=new THREE.Mesh(new THREE.PlaneGeometry(ROOM.xMax-ROOM.xMin,ROOM.zBack-ROOM.zPit),MATS.ceiling);
+  ceil.rotation.x=Math.PI/2; ceil.position.set((ROOM.xMin+ROOM.xMax)/2,ROOM.ceilH,(ROOM.zBack+ROOM.zPit)/2);
+  scene.add(ceil);
+  // exposed ducts
+  for(const [x,r] of [[-4,0.34],[3.5,0.30]]){
+    const duct=new THREE.Mesh(new THREE.CylinderGeometry(r,r,ROOM.zBack-ROOM.zPit-2,14),MATS.metal);
+    duct.rotation.x=Math.PI/2; duct.position.set(x,ROOM.ceilH-0.45,(ROOM.zBack+ROOM.zPit)/2); scene.add(duct); }
+  box(0.5,0.5,20,MATS.metal,7.8,ROOM.ceilH-0.4,-3);
+  // dimmed fluorescent banks over the concourse (instanced)
+  const fixGeo=new THREE.BoxGeometry(1.4,0.09,0.4);
+  const fixMat=new THREE.MeshStandardMaterial({color:0xfff2d0,emissive:0xffe9b8,emissiveIntensity:0.55,roughness:0.6});
+  const fixtures=new THREE.InstancedMesh(fixGeo,fixMat,14); let fi=0; const mtx=new THREE.Matrix4();
+  for(let gx=0;gx<7;gx++)for(let gz=0;gz<2;gz++){
+    mtx.setPosition(ROOM.xMin+2+gx*2.9, ROOM.ceilH-0.06, 6+gz*3.4); fixtures.setMatrixAt(fi++,mtx); }
+  scene.add(fixtures);
+}
+
+function gutterTroughData(width,depth,length,segments=28){
+  const rows=segments+1;
+  const vertices=new Float32Array(rows*2*3);
+  const uvs=new Float32Array(rows*2*2);
+  const indices=new Uint32Array(segments*6);
+  for(let i=0;i<rows;i++){
+    const u=i/segments, x=lerp(-width/2,width/2,u);
+    const y=-depth*Math.sin(Math.PI*u); // zero-height rims, deepest at center
+    vertices.set([x,y,0, x,y,-length],i*6);
+    uvs.set([u,0, u,1],i*4);
+    if(i<segments){
+      const a=i*2,b=a+1,c=a+2,d=a+3;
+      indices.set([a,c,b, c,d,b],i*6); // upward-facing concave surface
+    }
+  }
+  return {vertices,uvs,indices};
+}
+function gutterTroughGeometry(width,depth,length){
+  const data=gutterTroughData(width,depth,length);
+  const geo=new THREE.BufferGeometry();
+  geo.setAttribute('position',new THREE.BufferAttribute(data.vertices,3));
+  geo.setAttribute('uv',new THREE.BufferAttribute(data.uvs,2));
+  geo.setIndex(new THREE.BufferAttribute(data.indices,1));
+  geo.computeVertexNormals(); geo.computeBoundingSphere();
+  return geo;
+}
+
+function buildLane(L){
+  const g = new THREE.Group(); g.position.x = L.x; scene.add(g); L.vis.group=g;
+  const hero = L.quality==='hero';
+  const laneLen = -T.lane.deckEnd;   // 19.16
+  // the star surface: 39 boards from foul line to tail plank
+  const laneMesh = new THREE.Mesh(new THREE.BoxGeometry(T.lane.width,0.05,laneLen),
+      hero?MATS.laneHero:MATS.laneStd);
+  laneMesh.position.set(0,-0.025,-laneLen/2); laneMesh.receiveShadow=true; g.add(laneMesh);
+  if(hero||L.quality==='ambient'){
+    const sheen=new THREE.Mesh(new THREE.PlaneGeometry(T.lane.width,laneLen),MATS.oilSheen);
+    sheen.rotation.x=-Math.PI/2; sheen.position.set(0,0.0018,-laneLen/2); g.add(sheen);
+    L.vis.sheen=sheen;
+  }
+  // gutters: curved steel troughs that dive into an enclosed under-deck
+  // channel at the end — once a ball is in, it only comes out in the pit
+  const gutLen=laneLen, gR=T.lane.gutterW/2, gx=T.lane.width/2+gR;
+  for(const s of [-1,1]){
+    const gut=new THREE.Mesh(gutterTroughGeometry(T.lane.gutterW,T.lane.gutterDepth,gutLen),MATS.gutter);
+    gut.position.set(s*gx,0,0); gut.receiveShadow=true; g.add(gut);
+    // descending chute into the ball channel (mostly swallowed by darkness)
+    const chute=new THREE.Mesh(new THREE.PlaneGeometry(gR*2,0.66),MATS.gutter);
+    chute.rotation.x=-Math.PI/2+0.22; chute.position.set(s*gx,-0.185,-17.85); g.add(chute);
+    
+    // Bright bumper rail visual
+    const bumperRail = new THREE.Mesh(
+      new THREE.BoxGeometry(0.12, 0.25, laneLen),
+      new THREE.MeshStandardMaterial({color: 0xFF6B9D, metalness: 0.5, roughness: 0.4})
+    );
+    bumperRail.position.set(s*(T.lane.width/2 + 0.08), 0.12, -laneLen/2);
+    bumperRail.castShadow = hero;
+    bumperRail.receiveShadow = true;
+    g.add(bumperRail);
+  }
+  // kickback plates — hard walls flanking deck + gutters
+  for(const s of [-1,1]){
+    const kb=new THREE.Mesh(new THREE.BoxGeometry(0.05,1.31,2.5),MATS.kickback);
+    kb.position.set(s*T.pit.kickbackX,0.405,-18.95); kb.receiveShadow=true; g.add(kb);
+  }
+  // pit: shallow, dark, with a padded rear cushion
+  const pitFloor=new THREE.Mesh(new THREE.BoxGeometry(1.44,0.04,1.1),MATS.pit);
+  pitFloor.position.set(0,-T.pit.depth-0.02,-19.7); g.add(pitFloor);
+  const apron=new THREE.Mesh(new THREE.PlaneGeometry(1.44,0.42),MATS.pit);
+  apron.rotation.x=-Math.PI/2+1.05; apron.position.set(0,-T.pit.depth/2,-19.2); g.add(apron);
+  const cushion=new THREE.Mesh(new THREE.BoxGeometry(1.46,0.55,0.13),MATS.cushion);
+  cushion.position.set(0,0.03,-19.93); g.add(cushion);
+  box(1.5,1.4,0.06,MATS.pit,L.x,0.4,-20.15);   // black void behind the cushion
+  // masking unit: glowing backlit art above the deck, far enough forward
+  // to fully hide the parked sweep bar behind it
+  const mask=new THREE.Mesh(new THREE.PlaneGeometry(1.62,0.94),MATS.masking[L.i%3]);
+  mask.position.set(0,1.56,-17.58); g.add(mask);
+  box(1.7,0.12,0.1,MATS.machine,L.x,1.04,-17.58);
+  box(1.7,0.12,0.1,MATS.machine,L.x,2.08,-17.58);
+  // pinsetter visuals for live lanes; static lanes get a parked look
+  if(L.active){
+    const sweep=new THREE.Group();
+    const bar=new THREE.Mesh(new THREE.BoxGeometry(1.42,0.16,0.10),MATS.rubber);
+    bar.castShadow=hero; sweep.add(bar);
+    for(const s of [-1,1]){ const arm=new THREE.Mesh(new THREE.BoxGeometry(0.05,1.3,0.06),MATS.machine);
+      arm.position.set(s*0.68,0.62,0.04); sweep.add(arm); }
+    sweep.position.set(L.x, T.setter.sweepYUp, T.setter.sweepZHome); scene.add(sweep);
+    L.vis.sweep=sweep;
+    const table=new THREE.Group();
+    const slab=new THREE.Mesh(new THREE.BoxGeometry(1.16,0.13,1.06),MATS.machine); table.add(slab);
+    const cupGeo=new THREE.CylinderGeometry(0.048,0.055,0.13,10);
+    for(const [sx,sz] of PIN_SPOTS){ const cup=new THREE.Mesh(cupGeo,MATS.rubber);
+      cup.position.set(sx,-0.11,sz+18.684); table.add(cup); }
+    table.position.set(L.x, T.setter.tableYUp, -18.684); scene.add(table);
+    L.vis.table=table;
+    // machine housing up in the dark
+    box(1.6,0.85,1.9,MATS.machine,L.x,2.62,-18.9,{recv:false});
+    for(const [sx,sz] of [[-0.66,-18.2],[0.66,-18.2],[-0.66,-19.7],[0.66,-19.7]])
+      box(0.07,1.4,0.07,MATS.machine,L.x+sx,2.0,sz,{recv:false});
+  }
+  // painted pin spots wear through — decor handled in the lane texture
+  // division caps between lanes
+  return g;
+}
+function buildCapsAndReturns(){
+  const capGeo=new THREE.BoxGeometry(0.30,0.10,17.9);
+  for(let b=0;b<=T.lane.lanes;b++){
+    const x=laneX(0)-0.915+b*T.lane.laneSpacing;
+    const cap=new THREE.Mesh(capGeo,MATS.cap); cap.position.set(x,0.05,-8.95);
+    cap.receiveShadow=true; scene.add(cap);
+    // filler panels between kickbacks in the machine bay
+    if(b>0&&b<T.lane.lanes) box(0.42,1.05,2.5,MATS.pit,x,0.52,-18.95);
+  }
+  // ball-return housings + racks between each pair
+  for(let p=0;p<T.lane.lanes/2;p++){
+    const x=laneX(p*2)+0.915, isPlayerPair=(p===2);
+    const hull=new THREE.Mesh(new THREE.CapsuleGeometry(0.26,0.7,6,14),MATS.chrome);
+    hull.rotation.x=Math.PI/2; hull.position.set(x,0.36,3.85); hull.castShadow=isPlayerPair; scene.add(hull);
+    box(0.62,0.30,1.15,MATS.metal,x,0.15,3.85);
+    const blower=new THREE.Mesh(new THREE.CylinderGeometry(0.09,0.11,0.16,12),MATS.metal);
+    blower.position.set(x-0.14,0.62,4.28); scene.add(blower);
+    // rack rails running toward the lane-pair center
+    for(const dz of [-0.115,0.115]){
+      const rail=new THREE.Mesh(new THREE.CylinderGeometry(0.016,0.016,1.35,8),MATS.chrome);
+      rail.rotation.z=Math.PI/2; rail.position.set(x-0.95,T.ret.rackY-0.115,T.ret.rackZ+dz); scene.add(rail); }
+    box(0.05,0.16,0.3,MATS.metal,x-1.66,T.ret.rackY-0.05,T.ret.rackZ);  // end stop
+    if(isPlayerPair){
+      // exposed return track from the pit — the ball rides this home
+      for(const dy of [[-0.045,-0.04],[0.045,-0.04]]){
+        const tube=new THREE.Mesh(new THREE.CylinderGeometry(0.014,0.014,21.6,8),MATS.chrome);
+        tube.rotation.x=Math.PI/2; tube.position.set(x+dy[0],T.ret.trackY+dy[1],-7.4); scene.add(tube); }
+      for(let k=0;k<9;k++) box(0.16,0.05,0.05,MATS.metal,x,T.ret.trackY-0.1,-18+k*2.4);
+    }
+    // house balls parked on the rack
+    const hb=new THREE.InstancedMesh(BALL_GEO,new THREE.MeshPhysicalMaterial({color:0xffffff,roughness:0.15,
+      clearcoat:0.9,map:TEX.balls[(p+1)%4]}),3);
+    const m4=new THREE.Matrix4();
+    for(let k=0;k<3;k++){ m4.makeRotationY(rand(0,6)); m4.setPosition(x-0.5-k*0.24,T.ret.rackY,T.ret.rackZ);
+      hb.setMatrixAt(k,m4); }
+    if(!isPlayerPair) scene.add(hb);   // the player pair gets real, selectable balls instead
+  }
+}
+function buildStaticRacks(){
+  // full racks glinting on the idle lanes (meshes only — no physics needed)
+  const statics=LANES.filter(L=>!L.active);
+  const inst=new THREE.InstancedMesh(PIN_GEO,MATS.pins[1],statics.length*10);
+  const m4=new THREE.Matrix4(); let k=0;
+  for(const L of statics) for(const [sx,sz] of PIN_SPOTS){
+    m4.makeRotationY(rand(0,6)); m4.setPosition(L.x+sx,0,sz); inst.setMatrixAt(k++,m4); }
+  scene.add(inst);
+}
+function buildSeating(){
+  const seatGeo=new THREE.BoxGeometry(0.5,0.08,0.46), backGeo=new THREE.BoxGeometry(0.5,0.42,0.07);
+  for(let p=0;p<T.lane.lanes/2;p++){
+    const cx=laneX(p*2)+0.915;
+    // scoring table: stained formica, keyboard, monitor pedestal
+    box(1.0,0.06,0.7,MATS.formica,cx,0.72,5.4,{shadow:p===2});
+    box(0.08,0.7,0.08,MATS.metal,cx,0.36,5.4);
+    const kb=new THREE.Mesh(new THREE.BoxGeometry(0.42,0.04,0.2),MATS.keyboard);
+    kb.position.set(cx,0.77,5.15); kb.rotation.x=0.08; scene.add(kb);
+    // cracked plastic bucket seats on a shared beam, facing the lanes
+    box(2.6,0.05,0.05,MATS.metal,cx,0.42,6.6);
+    for(let s=0;s<4;s++){
+      const mat=MATS.seat[(p+s)%3], sx=cx-1.05+s*0.7;
+      const seat=new THREE.Mesh(seatGeo,mat); seat.position.set(sx,0.46,6.6); scene.add(seat);
+      const back=new THREE.Mesh(backGeo,mat); back.position.set(sx,0.68,6.82); back.rotation.x=0.18; scene.add(back);
+      box(0.05,0.42,0.05,MATS.metal,sx-0.18,0.21,6.6); box(0.05,0.42,0.05,MATS.metal,sx+0.18,0.21,6.6);
+    }
+    // sagging overhead monitor on an arm, a third of the way down the lane facing the bowler
+    const arm=new THREE.Mesh(new THREE.CylinderGeometry(0.03,0.03,0.75,8),MATS.metal);
+    arm.position.set(cx,ROOM.ceilH-0.38,-6.8); arm.rotation.x=0.12; scene.add(arm);
+    const crt=new THREE.Group(); crt.position.set(cx,ROOM.ceilH-0.95,-6.9); crt.rotation.x=0.24+rand(-0.03,0.05);
+    const shell=new THREE.Mesh(new THREE.BoxGeometry(0.78,0.56,0.5),MATS.machine); crt.add(shell);
+    const cnv=document.createElement('canvas'); cnv.width=768; cnv.height=512;
+    const ct=new THREE.CanvasTexture(cnv); ct.colorSpace=THREE.SRGBColorSpace;
+    const screen=new THREE.Mesh(new THREE.PlaneGeometry(0.68,0.46),
+      new THREE.MeshStandardMaterial({map:ct,emissive:0xffffff,emissiveMap:ct,emissiveIntensity:1.25,roughness:0.4}));
+    screen.position.z=0.253; crt.add(screen); scene.add(crt);
+    const pair={canvas:cnv,tex:ct};
+    if(p===2){ PL.vis.crt=pair; } else { drawIdleCRT(cnv,ct,p); }
+  }
+}
+function drawIdleCRT(cnv,ct,p){
+  const g=cnv.getContext('2d');
+  g.fillStyle='#050608'; g.fillRect(0,0,cnv.width,cnv.height);
+  g.fillStyle='#ffb020'; g.font='bold 44px monospace'; g.textAlign='center';
+  g.fillText('LANES '+(p*2+1)+' — '+(p*2+2),384,80);
+  g.font='26px monospace'; g.fillStyle='#7fd6ff';
+  const names=[['EARL','DOT'],['RAY','MARGE'],['LOU','PEARL'],['HANK','WANDA'],['SAL','RUTH']][p%5];
+  names.forEach((nm,i)=>{ g.fillStyle=i?'#7fd6ff':'#8dffb0'; g.fillText(nm,120,180+i*120);
+    for(let f=0;f<10;f++){ g.strokeStyle='#345'; g.strokeRect(200+f*52,140+i*120,48,64);
+      g.fillStyle='#ffb020'; g.font='20px monospace';
+      if(Math.random()<0.8)g.fillText(pick(['X','/','9','7','8','-']),224+f*52,168+i*120); g.font='26px monospace'; } });
+  g.fillStyle='#e02f8f'; g.font='18px monospace';
+  g.fillText('★ LEAGUE NIGHT — TUESDAYS ★',384,480); ct.needsUpdate=true;
+}
+function buildConcourse(){
+  // shoe rental counter with cubbies
+  box(3.2,1.0,0.6,MATS.woodDark,-6.4,0.5,10.8,{});
+  const cub=new THREE.Mesh(new THREE.PlaneGeometry(3.2,1.7),MATS.cubbies);
+  cub.position.set(-6.4,1.35,11.9); cub.rotation.y=Math.PI; scene.add(cub);
+  const shoeSign=neonMesh(TEX.neonBowl,1.5,0.6); shoeSign.position.set(-6.4,2.5,11.9);
+  shoeSign.rotation.y=Math.PI; scene.add(shoeSign);
+  // lockers
+  const lk=new THREE.Mesh(new THREE.PlaneGeometry(4.5,1.9),MATS.lockers); lk.position.set(-1.2,0.95,13.05);
+  lk.rotation.y=Math.PI; scene.add(lk);
+  // snack bar
+  box(3.4,1.02,0.7,MATS.formica,3.4,0.51,11.6);
+  box(0.8,1.5,0.5,MATS.metal,2.4,0.75,12.6);   // soda fountain
+  for(let i=0;i<4;i++) box(0.05,0.28,0.05,MATS.chrome,2.15+i*0.16,1.4,12.5,{recv:false});
+  const menu=new THREE.Mesh(new THREE.PlaneGeometry(1.9,0.95),MATS.menu); menu.position.set(3.9,2.2,13.05);
+  menu.rotation.y=Math.PI; scene.add(menu);
+  // bar with bottles + stools
+  box(3.6,1.06,0.65,MATS.woodDark,8.2,0.53,10.2,{ry:-0.35});
+  box(3.4,0.12,0.4,MATS.woodDark,9.4,1.7,12.4,{ry:0});
+  const botGeo=new THREE.CylinderGeometry(0.035,0.04,0.26,8);
+  const bottles=new THREE.InstancedMesh(botGeo,new THREE.MeshPhysicalMaterial({color:0x3a7a4a,roughness:0.1,
+    transparent:true,opacity:0.85,envMapIntensity:1.4}),22);
+  const m4=new THREE.Matrix4(); const bcols=[0x3a7a4a,0x7a3a2a,0xc9a227,0x2a4a7a,0x6a2a5a];
+  for(let i=0;i<22;i++){ m4.setPosition(7.9+i*0.145,1.9,12.4); bottles.setMatrixAt(i,m4);
+    bottles.setColorAt&&bottles.setColorAt(i,new THREE.Color(bcols[i%5])); }
+  scene.add(bottles);
+  box(3.4,0.05,0.42,new THREE.MeshStandardMaterial({color:0xfff0c0,emissive:0xffd980,emissiveIntensity:1.6}),
+      9.4,1.62,12.4);  // shelf underlight
+  const stoolGeo=new THREE.CylinderGeometry(0.17,0.17,0.06,12), stoolLeg=new THREE.CylinderGeometry(0.03,0.05,0.62,8);
+  for(let i=0;i<4;i++){ const sx=7.0+i*0.72, sz=9.4-0.35*(i*0.2);
+    const st=new THREE.Mesh(stoolGeo,MATS.seat[i%3]); st.position.set(sx,0.66,sz); scene.add(st);
+    const lg=new THREE.Mesh(stoolLeg,MATS.chrome); lg.position.set(sx,0.32,sz); scene.add(lg); }
+  const cock=neonMesh(TEX.neonCocktails,1.9,0.75); cock.position.set(9.2,2.45,12.9);
+  cock.rotation.y=Math.PI-0.1; scene.add(cock);
+  // jukebox
+  const jk=new THREE.Group(); jk.position.set(6.1,0,12.6); jk.rotation.y=Math.PI;
+  const jbody=new THREE.Mesh(new THREE.BoxGeometry(0.9,1.45,0.55),MATS.woodDark); jbody.position.y=0.72; jk.add(jbody);
+  const jarch=new THREE.Mesh(new THREE.PlaneGeometry(0.86,1.3),MATS.jukeArch); jarch.position.set(0,0.8,0.283); jk.add(jarch);
+  scene.add(jk);
+  // arcade nook: cabinets + claw machine
+  for(let i=0;i<3;i++){ const ax=-8.7+i*0.85;
+    box(0.7,1.7,0.75,new THREE.MeshStandardMaterial({color:[0x24246e,0x6e2424,0x246e3a][i],roughness:0.7,map:TEX.metal}),
+        ax,0.85,11.9);
+    const scr=new THREE.Mesh(new THREE.PlaneGeometry(0.52,0.44),MATS.arcade[i%2]);
+    scr.position.set(ax,1.28,11.5); scr.rotation.y=Math.PI; scr.rotation.x=0.12; scene.add(scr); }
+  const claw=new THREE.Group(); claw.position.set(-9.3,0,10.2);
+  const cbase=new THREE.Mesh(new THREE.BoxGeometry(0.8,0.7,0.8),MATS.woodDark); cbase.position.y=0.35; claw.add(cbase);
+  const cglass=new THREE.Mesh(new THREE.BoxGeometry(0.76,0.9,0.76),MATS.glass); cglass.position.y=1.15; claw.add(cglass);
+  box(0.8,0.12,0.8,MATS.metal,-9.3,1.66,10.2);
+  const plushG=new THREE.SphereGeometry(0.09,10,8);
+  for(let i=0;i<8;i++){ const pl=new THREE.Mesh(plushG,new THREE.MeshStandardMaterial({
+      color:[0xff6a9a,0x6aff9a,0x6a9aff,0xffd23e][i%4],roughness:0.95}));
+    pl.position.set(rand(-0.24,0.24),0.78+((i/3)|0)*0.1,rand(-0.24,0.24)); claw.add(pl); }
+  const cl=new THREE.Mesh(new THREE.CylinderGeometry(0.02,0.02,0.3,6),MATS.chrome); cl.position.set(-9.3,1.45,10.2); scene.add(cl);
+  scene.add(claw);
+  // trophy case + pennants + flyers
+  box(2.0,1.3,0.35,MATS.woodDark,-9.9,1.3,7.0,{ry:Math.PI/2});
+  const tg=new THREE.Mesh(new THREE.PlaneGeometry(1.9,1.1),MATS.glass); tg.position.set(-9.7,1.35,7.0);
+  tg.rotation.y=Math.PI/2; scene.add(tg);
+  for(let i=0;i<4;i++){ const t=new THREE.Group(); t.position.set(-9.92,0.95+((i/2)|0)*0.5,6.3+(i%2)*0.7);
+    const cup=new THREE.Mesh(new THREE.ConeGeometry(0.06,0.16,10),MATS.trophy); cup.position.y=0.3; cup.rotation.x=Math.PI; t.add(cup);
+    const fig=new THREE.Mesh(new THREE.SphereGeometry(0.03,8,6),MATS.trophy); fig.position.y=0.38; t.add(fig);
+    const base=new THREE.Mesh(new THREE.BoxGeometry(0.1,0.06,0.1),MATS.woodDark); base.position.y=0.18; t.add(base);
+    scene.add(t); }
+  for(let i=0;i<3;i++){ const fl=new THREE.Mesh(new THREE.PlaneGeometry(0.42,0.56),std(TEX.flyers[i]));
+    fl.position.set(ROOM.xMin+0.12,1.7,5.5+i*1.4); fl.rotation.y=Math.PI/2; fl.rotation.z=rand(-0.06,0.06); scene.add(fl); }
+  const penMat=new THREE.MeshStandardMaterial({map:tex(makeCanvas(128,64,(g)=>{ g.fillStyle='#c1121f';
+    g.beginPath(); g.moveTo(0,0); g.lineTo(128,32); g.lineTo(0,64); g.fill(); g.fillStyle='#fff';
+    g.font='bold 18px monospace'; g.fillText('STARDUST',6,38); }),{wrap:false}),transparent:true,side:THREE.DoubleSide});
+  for(const [px,pz,ry] of [[-3,12.9,Math.PI],[1.5,12.9,Math.PI]]){
+    const pen=new THREE.Mesh(new THREE.PlaneGeometry(0.9,0.45),penMat); pen.position.set(px,2.6,pz); pen.rotation.y=ry; scene.add(pen); }
+  // neon + exit signs
+  const star=neonMesh(TEX.neonStar,3.4,1.3); star.position.set(0.5,2.7,13.0);
+  star.rotation.y=Math.PI; scene.add(star);
+  const exitMat=new THREE.MeshStandardMaterial({map:tex(makeCanvas(128,64,(g)=>{ g.fillStyle='#180404';
+    g.fillRect(0,0,128,64); g.fillStyle='#ff3222'; g.font='bold 40px monospace'; g.textAlign='center';
+    g.shadowColor='#ff2a1a'; g.shadowBlur=18; g.fillText('EXIT',64,46); }),{wrap:false}),
+    emissive:0xff2a1a,emissiveIntensity:0.9});
+  for(const [ex,ez,ry] of [[ROOM.xMin+0.15,12.0,Math.PI/2],[ROOM.xMax-0.15,4.5,-Math.PI/2]]){
+    const e=new THREE.Mesh(new THREE.BoxGeometry(0.5,0.26,0.08),exitMat); e.position.set(ex,2.9,ez);
+    e.rotation.y=ry; scene.add(e); }
+}
+function buildLights(){
+  scene.add(new THREE.HemisphereLight(0x2c2336,0x191310,0.6));
+  const amb=new THREE.AmbientLight(0x1c140e,0.55); scene.add(amb);
+  // focused pin-deck downlights: the pins glow against the black pit
+  for(const L of LANES){
+    if(!L.active && Math.abs(L.i-T.lane.playerLane)>1) continue;
+    const s=new THREE.SpotLight(0xffe2b8, L.quality==='hero'?70:36, 11, 0.46, 0.55, 1.7);
+    s.position.set(L.x,2.9,-17.6);
+    s.target.position.set(L.x,0,-18.75); scene.add(s.target); scene.add(s);
+    if(L.quality==='hero'){ s.castShadow=true; s.shadow.mapSize.set(1024,1024);
+      s.shadow.camera.near=0.5; s.shadow.camera.far=8; s.shadow.bias=-0.0004; s.shadow.radius=4; }
+    // haze cone so the shaft reads
+    const cone=new THREE.Mesh(new THREE.ConeGeometry(1.15,2.9,20,1,true),
+      new THREE.MeshBasicMaterial({color:0xffd9a0,transparent:true,opacity:0.045,side:THREE.DoubleSide,
+        blending:THREE.AdditiveBlending,depthWrite:false}));
+    cone.position.set(L.x,1.45,-18.4); scene.add(cone);
+  }
+  // hero approach light (soft shadow over the bowler)
+  const ap=new THREE.SpotLight(0xffe8c8, 40, 12, 0.6, 0.7, 1.6);
+  ap.position.set(PL.x+0.4,3.15,1.6); ap.target.position.set(PL.x,0,-1); scene.add(ap.target);
+  ap.castShadow=true; ap.shadow.mapSize.set(1024,1024); ap.shadow.bias=-0.0004; ap.shadow.radius=5; scene.add(ap);
+  // concourse pools of warm light + neon bleed
+  for(const [x,z] of [[-5,9],[0.5,8],[6,9.5]]){
+    const pt=new THREE.PointLight(0xffc890,9,10,1.8); pt.position.set(x,2.6,z); scene.add(pt); }
+  const barGlow=new THREE.PointLight(0x2fe0c0,5,7,1.8); barGlow.position.set(8.6,2.2,11.6); scene.add(barGlow);
+  const arcGlow=new THREE.PointLight(0x4a6aff,4,6,1.8); arcGlow.position.set(-8.7,1.6,11.2); scene.add(arcGlow);
+  const starGlow=new THREE.PointLight(0xff5a8a,5,8,1.8); starGlow.position.set(0.5,2.6,12.4); scene.add(starGlow);
+}
+/* aim visuals on the player lane */
+const AIMVIS = (()=>{
+  const grp=new THREE.Group(); grp.position.x=PL.x; scene.add(grp);
+  const ring=new THREE.Mesh(new THREE.RingGeometry(0.05,0.075,24),
+    new THREE.MeshBasicMaterial({color:0x8dffb0,transparent:true,opacity:0.85,depthWrite:false}));
+  ring.rotation.x=-Math.PI/2; ring.position.set(0,0.006,-T.lane.approachLen); grp.add(ring);
+  const lineGeo=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(),new THREE.Vector3()]);
+  const line=new THREE.Line(lineGeo,new THREE.LineDashedMaterial({color:0x8dffb0,transparent:true,opacity:0.4,
+    dashSize:0.12,gapSize:0.14}));
+  grp.add(line);
+  // BTB-style predicted trajectory: a full curved line down to the pins
+  const N_PATH=64;
+  const pathGeo=new THREE.BufferGeometry();
+  pathGeo.setAttribute('position',new THREE.Float32BufferAttribute(new Array(N_PATH*3).fill(0),3));
+  const path=new THREE.Line(pathGeo,new THREE.LineBasicMaterial({color:0xfff25a,transparent:true,
+    opacity:0.9,depthWrite:false}));
+  path.renderOrder=15; grp.add(path);
+  return { grp, ring, line, path,
+    update(startX, aimX){          // meter/flick: dashed line to the arrows + reticle
+      path.visible=false; line.visible=true;
+      ring.position.set(aimX,0.006,-T.lane.approachLen);
+      line.geometry.setFromPoints([new THREE.Vector3(startX,0.01,T.throwP.launchZ),
+        new THREE.Vector3(aimX,0.01,-T.lane.approachLen)]);
+      line.computeLineDistances();
+    },
+    updatePath(pts){               // simple: the whole predicted line, ring on the end
+      line.visible=false; path.visible=true;
+      const attr=pathGeo.attributes.position, n=Math.min(pts.length,N_PATH);
+      for(let i=0;i<N_PATH;i++){ const p=pts[Math.min(i,n-1)];
+        attr.setXYZ(i,p.x,0.012,p.z); }
+      attr.needsUpdate=true; pathGeo.computeBoundingSphere();
+      const last=pts[n-1];
+      ring.position.set(last.x,0.006,last.z);
+    },
+    show(v){ grp.visible=v; } };
+})();
+
+buildRoom();
+for(const L of LANES) buildLane(L);
+buildCapsAndReturns();
+buildStaticRacks();
+buildSeating();
+buildConcourse();
+buildLights();
+
+/* ============================ physics ============================ */
+await RAPIER.init();
+const world = new RAPIER.World({x:0, y:T.physics.gravity, z:0});
+world.timestep = T.physics.dt;
+{ // raise solver iterations — a ten-pin rack is a dense, high-energy contact pile
+  const ip = world.integrationParameters;
+  for(const [k,v] of [['numSolverIterations',T.physics.solverIters],
+      ['numAdditionalFrictionIterations',T.physics.frictionIters],
+      ['maxVelocityIterations',T.physics.solverIters],
+      ['maxVelocityFrictionIterations',T.physics.frictionIters],
+      ['maxStabilizationIterations',T.physics.posIters]]){
+    try{ if(k in ip) ip[k]=v; }catch(e){} }
+}
+const eventQ = new RAPIER.EventQueue(true);
+const INFO = new Map();          // collider handle -> {kind, lane, pin}
+const SYNC = [];                 // physics->render interpolation registry
+const MAXR = RAPIER.CoefficientCombineRule.Max;
+
+function addSync(body, mesh){
+  const t=body.translation(), r=body.rotation();
+  const rec={ body, mesh,
+    prev:{p:new THREE.Vector3(t.x,t.y,t.z), q:new THREE.Quaternion(r.x,r.y,r.z,r.w)},
+    curr:{p:new THREE.Vector3(t.x,t.y,t.z), q:new THREE.Quaternion(r.x,r.y,r.z,r.w)} };
+  SYNC.push(rec); return rec;
+}
+function snapshotPrev(){ for(const s of SYNC){ s.prev.p.copy(s.curr.p); s.prev.q.copy(s.curr.q); } }
+function refreshCurr(){ for(const s of SYNC){ const t=s.body.translation(), r=s.body.rotation();
+  s.curr.p.set(t.x,t.y,t.z); s.curr.q.set(r.x,r.y,r.z,r.w); } }
+function interpolate(alpha){ for(const s of SYNC){ if(!s.mesh.visible) continue;
+  s.mesh.position.lerpVectors(s.prev.p,s.curr.p,alpha);
+  s.mesh.quaternion.slerpQuaternions(s.prev.q,s.curr.q,alpha); } }
+
+function fixedCol(desc, kind, L){
+  const body = world.createRigidBody(RAPIER.RigidBodyDesc.fixed());
+  const col = world.createCollider(desc, body);
+  col.setRestitutionCombineRule(MAXR);
+  INFO.set(col.handle, {kind, lane: L?L.i:-1});
+  return col;
+}
+const rotX = a => { const q=new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1,0,0),a);
+  return {x:q.x,y:q.y,z:q.z,w:q.w}; };
+const rotZ = a => { const q=new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,0,1),a);
+  return {x:q.x,y:q.y,z:q.z,w:q.w}; };
+
+function buildLanePhysics(L){
+  const X=L.x, gx=T.lane.width/2+T.lane.gutterW/2, gutterLen=-T.lane.deckEnd;
+  // lane bed (approach through tail plank). Friction 0: the oil model owns ball friction,
+  // and pins see avg(0, pinFriction) — a slick, polished deck that lets them skate.
+  fixedCol(RAPIER.ColliderDesc.cuboid(T.lane.width/2, 0.05, 11.87)
+    .setTranslation(X, -0.05, -7.29).setFriction(0.0).setRestitution(0.04), 'lane', L);
+  for(const s of [-1,1]){
+    // BUMPER GUARD — prevents ball from entering gutter
+    // Tall, thin wall running the full lane length at the lane edge
+    const bumperX = X + s * (T.lane.width/2);  // exactly at lane edge (inside)
+    fixedCol(RAPIER.ColliderDesc.cuboid(0.025, 0.12, gutterLen)
+      .setTranslation(bumperX, 0.06, -gutterLen/2)
+      .setFriction(0.4)
+      .setRestitution(0.5), 'bumper', L);
+    
+    // Use the exact rendered U-profile for collision. Both rims meet the lane
+    // at y=0, so the inside edge cannot behave like a raised curb.
+    const trough=gutterTroughData(T.lane.gutterW,T.lane.gutterDepth,gutterLen);
+    fixedCol(RAPIER.ColliderDesc.trimesh(trough.vertices,trough.indices)
+      .setTranslation(X+s*gx,0,0).setFriction(0.22).setRestitution(0.03),'gutter',L);
+    // descending chute under the deck level
+    fixedCol(RAPIER.ColliderDesc.cuboid(0.115,0.015,0.37).setTranslation(X+s*gx,-0.199,-17.89)
+      .setRotation(rotX(-0.181)).setFriction(0.08).setRestitution(0.02),'gutter',L);
+    // enclosed ball channel beside the pin deck, straight into the pit
+    fixedCol(RAPIER.ColliderDesc.cuboid(0.13,0.02,0.46).setTranslation(X+s*gx,-0.27,-18.70)
+      .setFriction(0.15).setRestitution(0.05),'gutter',L);
+    fixedCol(RAPIER.ColliderDesc.cuboid(0.012,0.11,0.75).setTranslation(X+s*0.518,-0.14,-18.45)
+      .setFriction(0.1).setRestitution(0.05),'gutter',L);
+    // kickback plate: hard, lively, effectively immovable — the 7-10 wall
+    fixedCol(RAPIER.ColliderDesc.cuboid(0.025,0.70,1.25).setTranslation(X+s*T.pit.kickbackX,0.45,-18.95)
+      .setFriction(T.pit.kickbackFriction).setRestitution(T.pit.kickbackRest),'kickback',L);
+  }
+  // shallow pit
+  fixedCol(RAPIER.ColliderDesc.cuboid(0.75,0.02,0.56).setTranslation(X,-T.pit.depth-0.02,-19.71)
+    .setFriction(T.pit.floorFriction).setRestitution(T.pit.floorRest),'pit',L);
+  fixedCol(RAPIER.ColliderDesc.cuboid(0.527,0.125,0.02).setTranslation(X,-0.125,-19.17)
+    .setFriction(0.3).setRestitution(0.2),'pit',L);                       // tail plank lip
+  fixedCol(RAPIER.ColliderDesc.cuboid(0.73,0.29,0.06).setTranslation(X,0.04,-19.92)
+    .setFriction(T.pit.cushionFriction).setRestitution(T.pit.cushionRest),'cushion',L);
+  fixedCol(RAPIER.ColliderDesc.cuboid(0.75,0.85,0.05).setTranslation(X,0.4,-20.22)
+    .setFriction(0.5).setRestitution(0.1),'pit',L);                       // backstop
+  fixedCol(RAPIER.ColliderDesc.cuboid(0.74,0.02,1.25).setTranslation(X,1.02,-18.95)
+    .setFriction(0.4).setRestitution(0.1),'pit',L);                       // under-machine guard
+  // kinematic sweep bar
+  const sb = world.createRigidBody(RAPIER.RigidBodyDesc.kinematicPositionBased()
+    .setTranslation(X, T.setter.sweepYUp, T.setter.sweepZHome));
+  const sc = world.createCollider(RAPIER.ColliderDesc.cuboid(0.70,0.08,0.05)
+    .setFriction(0.5).setRestitution(0.05), sb);
+  sc.setRestitutionCombineRule(MAXR);
+  INFO.set(sc.handle,{kind:'sweep',lane:L.i});
+  L.sweepBody = sb;
+  addSync(sb, L.vis.sweep);
+}
+// player ball-return rack channel (static)
+function buildRackPhysics(){
+  const rx=PL.x+T.ret.trackX, rz=T.ret.rackZ, ry=T.ret.rackY-0.128;
+  fixedCol(RAPIER.ColliderDesc.cuboid(0.75,0.02,0.06).setTranslation(rx-0.85,ry,rz)
+    .setFriction(0.4).setRestitution(0.1),'rack',PL);
+  for(const s of [-1,1]) fixedCol(RAPIER.ColliderDesc.cuboid(0.75,0.05,0.015)
+    .setTranslation(rx-0.85,ry+0.05,rz+s*0.135).setFriction(0.2).setRestitution(0.2),'rack',PL);
+  fixedCol(RAPIER.ColliderDesc.cuboid(0.02,0.1,0.08).setTranslation(rx-1.66,ry+0.08,rz)
+    .setFriction(0.3).setRestitution(0.15),'rack',PL);
+  fixedCol(RAPIER.ColliderDesc.cuboid(0.02,0.1,0.08).setTranslation(rx+0.02,ry+0.08,rz)
+    .setFriction(0.3).setRestitution(0.15),'rack',PL);
+}
+
+/* ------------------------------ pins ------------------------------ */
+function coneHullPoints(y0,r0,y1,r1){
+  const pts=[]; const N=12;
+  for(let k=0;k<N;k++){ const a=k/N*Math.PI*2, c=Math.cos(a), s=Math.sin(a);
+    pts.push(r0*c,y0,r0*s, r1*c,y1,r1*s); }
+  return new Float32Array(pts);
+}
+class PinEntity {
+  constructor(L, idx){
+    this.lane=L; this.idx=idx; this.state='deck'; this.pitT=0;
+    const [sx,sz]=PIN_SPOTS[idx];
+    const hero = L.quality==='hero';
+    const desc = RAPIER.RigidBodyDesc.dynamic()
+      .setTranslation(L.x+sx, 0.0006, sz)
+      .setLinearDamping(T.pin.linDamp).setAngularDamping(T.pin.angDamp)
+      .setCcdEnabled(hero)
+      .setAdditionalMassProperties(T.pin.mass, {x:0,y:T.pin.comY,z:0},
+        {x:T.pin.inertia.x,y:T.pin.inertia.y,z:T.pin.inertia.z}, {x:0,y:0,z:0,w:1});
+    this.body = world.createRigidBody(desc);
+    const hulls = hero?PIN_HULLS_FULL:PIN_HULLS_CHEAP;
+    for(const [y0,r0,y1,r1] of hulls){
+      const cd = RAPIER.ColliderDesc.convexHull(coneHullPoints(y0,r0,y1,r1));
+      if(!cd) continue;
+      cd.setDensity(0).setFriction(T.pin.friction).setRestitution(T.pin.restitution);
+      const col = world.createCollider(cd, this.body);
+      col.setRestitutionCombineRule(MAXR);
+      col.setActiveEvents(RAPIER.ActiveEvents.CONTACT_FORCE_EVENTS);
+      col.setContactForceEventThreshold(25);
+      INFO.set(col.handle, {kind:'pin', lane:L.i, pin:idx});
+    }
+    this.mesh = new THREE.Mesh(PIN_GEO, MATS.pins[(idx+L.i)%4]);
+    const e=rand(-0.008,0.008); this.mesh.scale.set(1+e,1+rand(-0.004,0.004),1+e);
+    this.mesh.castShadow = hero; this.mesh.matrixAutoUpdate=true;
+    scene.add(this.mesh);
+    this.sync = addSync(this.body, this.mesh);
+  }
+  get pos(){ return this.body.translation(); }
+  upDot(){ const r=this.body.rotation();
+    _q1.set(r.x,r.y,r.z,r.w); _v1.set(0,1,0).applyQuaternion(_q1); return _v1.y; }
+  isStanding(){
+    const p=this.pos;
+    return this.state==='deck' && this.upDot()>T.settle.standingDot &&
+      p.y>-0.03 && p.y<0.05 && Math.abs(p.x-this.lane.x)<0.62 &&
+      p.z<-17.6 && p.z>T.lane.deckEnd-0.05;
+  }
+  isCalm(){
+    if(this.body.isSleeping()) return true;
+    const v=this.body.linvel(), w=this.body.angvel();
+    return (v.x*v.x+v.y*v.y+v.z*v.z)<T.settle.linThresh**2 &&
+           (w.x*w.x+w.y*w.y+w.z*w.z)<T.settle.angThresh**2;
+  }
+  makeKinematic(){ this.body.setBodyType(RAPIER.RigidBodyType.KinematicPositionBased,true); }
+  makeDynamic(){ this.body.setBodyType(RAPIER.RigidBodyType.Dynamic,true);
+    this.body.setLinvel({x:0,y:0,z:0},true); this.body.setAngvel({x:0,y:0,z:0},true); }
+  teleport(x,y,z,q){ const b=this.body;
+    if(b.isKinematic&&b.isKinematic()){ b.setNextKinematicTranslation({x,y,z});
+      if(q) b.setNextKinematicRotation(q); }
+    else { b.setTranslation({x,y,z},true); if(q) b.setRotation(q,true); }
+  }
+}
+
+/* ------------------------------ balls ------------------------------ */
+class BallEntity {
+  constructor(L, weightIdx, slotPos){
+    this.lane=L; this.weightIdx=weightIdx; this.state='rack';
+    this.mass=T.ball.weightsKg[weightIdx]; this.radius=T.ball.radius;
+    this.slot=slotPos.clone(); this.carryTarget=new THREE.Vector3().copy(slotPos);
+    this.carrySpin=0; this.pitT=0; this.restT=0;
+    const I=0.4*this.mass*this.radius*this.radius;
+    const desc=RAPIER.RigidBodyDesc.fixed()
+      .setTranslation(slotPos.x,slotPos.y,slotPos.z)
+      .setLinearDamping(T.ball.linDamp).setAngularDamping(T.ball.angDamp)
+      .setCcdEnabled(true)
+      .setAdditionalMassProperties(this.mass,{x:0,y:0,z:0},{x:I,y:I,z:I},{x:0,y:0,z:0,w:1});
+    this.body=world.createRigidBody(desc);
+    const cd=RAPIER.ColliderDesc.ball(this.radius).setDensity(0)
+      .setFriction(T.ball.friction).setRestitution(T.ball.restitution);
+    const col=world.createCollider(cd,this.body);
+    col.setRestitutionCombineRule(MAXR);
+    col.setActiveEvents(RAPIER.ActiveEvents.CONTACT_FORCE_EVENTS);
+    col.setContactForceEventThreshold(40);
+    INFO.set(col.handle,{kind:'ball',lane:L.i,ball:this});
+    this.col=col;
+    this.mesh=makeBallMesh(weightIdx); scene.add(this.mesh);
+    this.mesh.position.copy(slotPos);
+    this.sync=addSync(this.body,this.mesh);
+  }
+  setState(s){ this.state=s; }
+  toKinematic(){ this.body.setBodyType(RAPIER.RigidBodyType.KinematicPositionBased,true); }
+  toDynamic(){ this.body.setBodyType(RAPIER.RigidBodyType.Dynamic,true); }
+  toFixed(){ this.body.setBodyType(RAPIER.RigidBodyType.Fixed,true); }
+  launch(px,pz,vel,angvel){
+    this.toDynamic();
+    this.body.setTranslation({x:px,y:this.radius+0.002,z:pz},true);
+    this.body.setLinvel(vel,true); this.body.setAngvel(angvel,true);
+    this.setState('rolling'); this.pitT=0; this.rollT=0; this.stallT=0;
+    this.lane.oilLength=Math.min(
+      this.lane.oilLength+T.oil.carryDownPerThrow, T.oil.oilEnd+T.oil.carryDownMax);
+  }
+  get speed(){ const v=this.body.linvel(); return Math.hypot(v.x,v.z); }
+}
+
+/* --------------------------- oil model ---------------------------- */
+function oilMu(L, zPastFoul){
+  if(zPastFoul>18.05) return T.oil.muDeck;
+  const end=L.oilLength;
+  if(zPastFoul<=end) return T.oil.muOiled;
+  const t=clamp((zPastFoul-end)/T.oil.transition,0,1);
+  return lerp(T.oil.muOiled, T.oil.muDry, smooth(t));
+}
+function ballLaneFriction(ball, dt){
+  if(ball.state!=='rolling') return;
+  const b=ball.body, p=b.translation(), R=ball.radius, lx=p.x-ball.lane.x;
+  if(Math.abs(lx)>T.lane.width/2+0.01) return;           // in the gutter
+  if(p.z<T.lane.deckEnd||p.z>0.3||p.y>R+0.012) return;   // off the lane or airborne
+  const v=b.linvel(), w=b.angvel();
+  // slip velocity of the contact patch: vc = v + w × (-R ŷ)
+  const cx=v.x+w.z*R, cz=v.z-w.x*R;
+  const slip=Math.hypot(cx,cz);
+  const mu=oilMu(ball.lane, -p.z);
+  const Fn=ball.mass*9.81;
+  let Fmag=mu*Fn;
+  if(slip<T.oil.slipEps) Fmag*=slip/T.oil.slipEps;       // regularized static transition
+  if(slip>1e-4){
+    const s=Fmag*dt/slip;
+    b.applyImpulseAtPoint({x:-cx*s,y:0,z:-cz*s},{x:p.x,y:p.y-R,z:p.z},true);
+  }
+  const sp=Math.hypot(v.x,v.z);
+  if(sp>0.15){
+    const rr=T.oil.rollingResist*Fn*dt/sp;               // rolling resistance
+    b.applyImpulse({x:-v.x*rr,y:0,z:-v.z*rr},true);
+    // crowned lane: a whisper of downhill toward the gutters
+    b.applyImpulse({x:Math.sign(lx)*T.lane.crownSlope*Fn*dt*Math.min(1,Math.abs(lx)/0.35),y:0,z:0},true);
+  }
+}
+
+/* --------------------- contact event routing ---------------------- */
+let SHAKE=0;
+function processContactEvents(){
+  eventQ.drainContactForceEvents(e=>{
+    const i1=INFO.get(e.collider1()), i2=INFO.get(e.collider2());
+    if(!i1||!i2) return;
+    const f=e.totalForceMagnitude();
+    const c=world.getCollider(e.collider1());
+    if(!c) return;
+    const p=c.translation();
+    AUD.impact(i1.kind,i2.kind,f,{x:p.x,y:p.y,z:p.z});
+    const isPin=(i1.kind==='pin'||i2.kind==='pin'), isBall=(i1.kind==='ball'||i2.kind==='ball');
+    const lane=(i1.kind==='pin'?i1.lane:(i2.kind==='pin'?i2.lane:i1.lane));
+    if(isPin&&isBall){
+      const L=LANES[lane];
+      if(L&&L.firstImpact===null) L.firstImpact=perfNow();
+      if(lane===PL.i&&f>400) SHAKE=Math.min(SHAKE+f/22000,T.cam.shakeImpact*2.2);
+    }
+  });
+  eventQ.drainCollisionEvents(()=>{});
+}
+let _tAcc=0; const perfNow=()=>_tAcc;   // physics-clock timestamp (advanced per step)
+
+/* -------------------- lane entity instantiation -------------------- */
+for(const L of LANES){ L.firstImpact=null; if(L.active) buildLanePhysics(L); }
+buildRackPhysics();
+for(const L of LANES){
+  if(!L.active) continue;
+  for(let i=0;i<10;i++) L.pins.push(new PinEntity(L,i));
+  if(L.quality==='hero'){
+    for(let k=0;k<4;k++){
+      const slot=new THREE.Vector3(PL.x+T.ret.trackX-0.5-k*0.35, T.ret.rackY, T.ret.rackZ);
+      L.balls.push(new BallEntity(L,k,slot));
+    }
+  } else {
+    const slot=new THREE.Vector3(L.x+0.9, T.ret.rackY, T.ret.rackZ);
+    const b=new BallEntity(L,(L.i+1)%4,slot); b.mesh.visible=true; L.balls.push(b);
+  }
+}
+/* pit conveyor: deadwood that lands in the pit is carried down into the
+ * machine (visible sink into the dark), never deleted mid-flight. */
+function updatePitConveyor(L,dt){
+  for(const pin of L.pins){
+    const p=pin.pos;
+    if(pin.state==='deck' && (p.z<-19.14&&p.y<0.02 || p.y<-0.09)){ pin.state='pit'; pin.pitT=0; }
+    else if(pin.state==='pit'){
+      pin.pitT+=dt;
+      const v=pin.body.linvel(), sp=Math.hypot(v.x,v.y,v.z);
+      if(pin.pitT>T.setter.pitConveyorDelay && sp<0.8){
+        pin.state='sinking'; pin.makeKinematic(); }
+    }
+    else if(pin.state==='sinking'){
+      pin.teleport(p.x,p.y-T.setter.pitConveyorSink*dt*0.35,p.z);
+      if(p.y<-0.9){ pin.state='pool'; pin.mesh.visible=false;
+        pin.teleport(L.x,-3,-19.5+pin.idx*0.02); }
+    }
+  }
+}
+
+/* ============================ pinsetter ============================ *
+ * Real mechanical sequence: sweep drops -> table lifts the standing  *
+ * pins -> sweep clears deadwood into the pit -> table respots the    *
+ * survivors exactly where they stood. Fresh racks ride down on the   *
+ * table. Pins are kinematic in transit, dynamic on release.          */
+const S_HOLD_Y = 0.95;   // table hold height while the sweep passes underneath
+class Pinsetter {
+  constructor(L){ this.L=L; this.phase='idle'; this.plan=[]; this.pi=0; this.t=0;
+    this.kind=null; this.grip=[]; this.sweepY=T.setter.sweepYUp; this.sweepZ=T.setter.sweepZHome;
+    this.tableY=T.setter.tableYUp; this.motor=null; this.chain=null; this.onDone=null; }
+  get busy(){ return this.phase!=='idle'; }
+  _pos(){ return {x:this.L.x,y:1.4,z:-18.8}; }
+  run(kind,onDone){
+    if(this.busy) return;
+    const S=T.setter; this.kind=kind; this.onDone=onDone||null;
+    this.plan = kind==='respot'
+      ? [['sweepDown',S.sweepDown],['tableDown',S.tableDown],['grip',S.grip],['tableUpHold',S.tableUp*0.8],
+         ['sweepPush',S.sweepPush],['sweepUp',S.sweepUp],['sweepBack',S.sweepBack],
+         ['tableDownRelease',S.tableDown*0.85],['release',S.release],['tableUp',S.tableUp],['end',0.25]]
+      : [['sweepDown',S.sweepDown],['sweepPush',S.sweepPush],['sweepUp',S.sweepUp],['sweepBack',S.sweepBack],
+         ['loadRack',0.4],['tableDownRelease',S.tableDown+0.2],['release',S.release],['tableUp',S.tableUp],['end',0.25]];
+    this.pi=-1;
+    this.motor = AUD.loop('motor',{pos:this._pos(),vol:0.11,rate:rand(0.95,1.05)});
+    this.chain = AUD.loop('chain',{pos:this._pos(),vol:0});
+    this._next();
+  }
+  _next(){
+    this.pi++; this.t=0;
+    if(this.pi>=this.plan.length){ this._finish(); return; }
+    this.phase=this.plan[this.pi][0];
+    switch(this.phase){
+      case 'sweepDown': AUD.play('servo',{pos:this._pos(),vol:0.5}); break;
+      case 'sweepPush': if(this.chain) this.chain.vol(0.22); break;
+      case 'sweepUp': if(this.chain) this.chain.vol(0.08); AUD.play('servo',{pos:this._pos(),vol:0.35,rate:1.2}); break;
+      case 'sweepBack': break;
+      case 'grip': {
+        this.grip=[];
+        for(const pin of this.L.pins){
+          if(pin.isStanding()){
+            const p=pin.pos, r=pin.body.rotation();
+            pin.makeKinematic(); pin.state='table';
+            this.grip.push({pin, x:p.x, z:p.z, y0:Math.max(p.y,0), q:{x:r.x,y:r.y,z:r.z,w:r.w}});
+          }
+        }
+        AUD.play('clank',{pos:this._pos(),vol:0.4,rate:1.25});
+        break; }
+      case 'loadRack': {
+        this.grip=[];
+        for(const pin of this.L.pins){   // anything not pooled yet is inside the machine now
+          if(pin.state!=='pool'){ pin.makeKinematic(); pin.state='pool'; pin.mesh.visible=false; }
+        }
+        for(const pin of this.L.pins){
+          const [sx,sz]=PIN_SPOTS[pin.idx];
+          pin.state='table'; pin.mesh.visible=true;
+          this.grip.push({pin, x:this.L.x+sx, z:sz, y0:0, q:{x:0,y:0,z:0,w:1}});
+        }
+        AUD.play('clank',{pos:this._pos(),vol:0.45});
+        break; }
+      case 'release': {
+        for(const g of this.grip){
+          const pin=g.pin;
+          pin.makeDynamic(); pin.state='deck';
+          pin.body.setTranslation({x:g.x, y:g.y0+T.setter.settleDrop, z:g.z},true);
+          pin.body.setRotation(g.q,true);
+        }
+        this.grip=[];
+        AUD.play('servo',{pos:this._pos(),vol:0.4,rate:0.8});
+        break; }
+    }
+  }
+  step(dt){
+    if(!this.busy) return;
+    const S=T.setter, [name,dur]=this.plan[this.pi];
+    this.t+=dt;
+    const u=dur>0?clamp(this.t/dur,0,1):1, e=easeIO(u);
+    switch(name){
+      case 'sweepDown': this.sweepY=lerp(S.sweepYUp,S.sweepYDown,e); break;
+      case 'sweepPush': this.sweepZ=lerp(S.sweepZHome,S.sweepZEnd,e); break;
+      case 'sweepUp':   this.sweepY=lerp(S.sweepYDown,S.sweepYUp,e); break;
+      case 'sweepBack': this.sweepZ=lerp(S.sweepZEnd,S.sweepZHome,e); break;
+      case 'tableDown': this.tableY=lerp(S.tableYUp,S.tableYGrip,e); break;
+      case 'tableUpHold': this.tableY=lerp(S.tableYGrip,S_HOLD_Y,e); break;
+      case 'tableDownRelease':
+        this.tableY=lerp(this.kind==='respot'?S_HOLD_Y:S.tableYUp, S.tableYRelease, e); break;
+      case 'tableUp': this.tableY=lerp(S.tableYRelease,S.tableYUp,e); break;
+    }
+    this.L.sweepBody.setNextKinematicTranslation({x:this.L.x,y:this.sweepY,z:this.sweepZ});
+    for(const g of this.grip)
+      g.pin.teleport(g.x, this.tableY - S.tableYGrip + g.y0 + 0.001, g.z, g.q);
+    if(this.L.vis.table) this.L.vis.table.position.y=this.tableY;
+    if(this.t>=dur) this._next();
+  }
+  _finish(){
+    this.phase='idle';
+    if(this.motor){ this.motor.stop(); this.motor=null; }
+    if(this.chain){ this.chain.stop(); this.chain=null; }
+    this.L.sweepBody.setNextKinematicTranslation({x:this.L.x,y:T.setter.sweepYUp,z:T.setter.sweepZHome});
+    const cb=this.onDone; this.onDone=null; if(cb) cb();
+  }
+}
+for(const L of LANES) if(L.active) L.setter=new Pinsetter(L);
+
+/* =========================== ball return =========================== */
+const _retQ = new THREE.Quaternion(), _retAxis = new THREE.Vector3(1,0,0);
+class BallReturn {
+  constructor(){ this.active=null; this.t=0; this.curve=null; this.len=1; this.grind=null; this.spin=0; }
+  get busy(){ return !!this.active; }
+  start(ball){
+    ball.setState('returning'); ball.toKinematic();
+    ball.col.setSensor(true);   // ghost through deadwood — no violent pin ejections
+    this.active=ball; this.t=0; this.spin=0;
+    const rx=PL.x+T.ret.trackX, bp=ball.body.translation();
+    this.curve=new THREE.CatmullRomCurve3([
+      new THREE.Vector3(bp.x, Math.max(bp.y,-0.2), Math.min(bp.z,-19.2)),
+      new THREE.Vector3(PL.x+0.5, -0.12, -19.4),
+      new THREE.Vector3(rx, 0.0, -18.4),
+      new THREE.Vector3(rx, T.ret.trackY+0.03, -13),
+      new THREE.Vector3(rx, T.ret.trackY+0.03, -5),
+      new THREE.Vector3(rx, T.ret.trackY+0.06, 1.4),
+      new THREE.Vector3(rx, T.ret.rackY+0.12, 3.0),
+      new THREE.Vector3(rx-0.12, T.ret.rackY+0.01, T.ret.rackZ)]);
+    this.len=this.curve.getLength();
+    this.grind=AUD.loop('grind',{pos:{x:bp.x,y:0,z:bp.z},vol:0.13,rate:rand(0.95,1.05)});
+    AUD.play('clank',{pos:{x:bp.x,y:-0.2,z:bp.z},vol:0.35,rate:0.85});
+  }
+  step(dt){
+    if(!this.active) return;
+    const ball=this.active;
+    this.t+=dt*T.ret.speed/this.len;
+    const u=Math.min(this.t,1);
+    const p=this.curve.getPointAt(u);
+    this.spin+=dt*9;
+    _retQ.setFromAxisAngle(_retAxis,this.spin);
+    ball.body.setNextKinematicTranslation({x:p.x,y:p.y+ball.radius*0.2,z:p.z});
+    ball.body.setNextKinematicRotation({x:_retQ.x,y:_retQ.y,z:_retQ.z,w:_retQ.w});
+    if(this.grind) this.grind.set({x:p.x,y:p.y,z:p.z});
+    if(this.t>=1){
+      ball.col.setSensor(false);   // solid again on the rack
+      ball.toDynamic();
+      ball.body.setLinvel({x:-T.ret.rackExitVel,y:0,z:0},true);
+      ball.body.setAngvel({x:0,y:0,z:rand(-2,2)},true);
+      ball.setState('racking'); ball.restT=0;
+      if(this.grind){ this.grind.stop(); this.grind=null; }
+      AUD.play('clunk',{pos:{x:p.x,y:p.y,z:p.z},vol:0.75});
+      this.active=null;
+    }
+  }
+}
+const BALL_RETURN = new BallReturn();
+
+/* ============================= scoring ============================= */
+class ScoreCard {
+  constructor(){ this.throwsList=[]; this.meta=[]; }
+  addThrow(pins, meta={}){ this.throwsList.push(pins); this.meta.push(meta); }
+  static compute(throws, meta=[]){
+    const frames=[]; let ti=0, cum=0;
+    const val=i=>throws[i]===undefined?null:throws[i];
+    for(let f=0;f<10;f++){
+      const fr={marks:[],cum:null,split:false,open:true};
+      const m0=meta[ti]||{};
+      fr.split=!!m0.split;
+      const mark=(i,first,prev)=>{   // notation for throw i
+        const v=val(i); if(v===null) return '';
+        if(meta[i]&&meta[i].foul) return 'F';
+        if(first&&v===10) return 'X';
+        if(!first&&prev!==10&&prev+v===10) return '/';
+        if(!first&&prev===10&&v===10) return 'X';
+        return v===0?'-':''+v;
+      };
+      if(f<9){
+        if(val(ti)===null){ frames.push(fr); continue; }
+        if(throws[ti]===10){
+          fr.marks=['','X'];
+          if(val(ti+1)!==null&&val(ti+2)!==null){ cum+=10+throws[ti+1]+throws[ti+2]; fr.cum=cum; fr.open=false; }
+          ti+=1;
+        } else {
+          fr.marks=[mark(ti,true)];
+          if(val(ti+1)!==null){
+            fr.marks.push(mark(ti+1,false,throws[ti]));
+            if(throws[ti]+throws[ti+1]===10){
+              if(val(ti+2)!==null){ cum+=10+throws[ti+2]; fr.cum=cum; fr.open=false; }
+            } else { cum+=throws[ti]+throws[ti+1]; fr.cum=cum; fr.open=false; }
+          }
+          ti+=2;
+        }
+      } else {  // tenth
+        const a=val(ti),b=val(ti+1),c=val(ti+2);
+        if(a!==null) fr.marks.push(a===10?'X':mark(ti,true));
+        if(b!==null) fr.marks.push(a===10?(b===10?'X':(b===0?'-':''+b)):mark(ti+1,false,a));
+        if(c!==null){
+          const prev=(a===10)?b:null;
+          fr.marks.push(c===10?((a===10&&b!==10&&b+c===10)?'/':'X')
+            :((a===10&&b!==10&&b+c===10)?'/':((a!==10&&a+b===10&&c===10)?'X':(c===0?'-':''+c))));
+        }
+        const done=(a===null)?false:(a===10||a+b===10)?(c!==null):(b!==null);
+        if(done&&a!==null&&b!==null){ cum+=a+b+(c||0); fr.cum=cum; fr.open=false; }
+      }
+      frames.push(fr);
+    }
+    const complete=frames[9]&&!frames[9].open;
+    return {frames, total:frames[9]&&frames[9].cum!==null?frames[9].cum:cum, complete};
+  }
+  compute(){ return ScoreCard.compute(this.throwsList,this.meta); }
+}
+function scoringSelfTest(){
+  const t=(arr)=>ScoreCard.compute(arr).total;
+  const cases=[
+    ['12 strikes = 300', t(Array(12).fill(10)), 300],
+    ['all 9-spares +9 = 190', t([].concat(...Array(10).fill([9,1])).concat([9])), 190],
+    ['gutter game = 0', t(Array(20).fill(0)), 0],
+    ['open 8s = 80', t([].concat(...Array(10).fill([8,0]))), 80],
+  ];
+  const fails=cases.filter(c=>c[1]!==c[2]);
+  return { pass:fails.length===0,
+    text:cases.map(c=>`${c[0]}: got ${c[1]} ${c[1]===c[2]?'✓':'✗ (want '+c[2]+')'}`).join('\n') };
+}
+// USBC-ish split detection: headpin down + standing pins in disconnected groups.
+// Sleeper pairs (2-8, 3-9, 1-5) count as connected so they don't flag.
+const SPLIT_ADJ = PIN_ADJ.map((a,i)=>a.slice());
+SPLIT_ADJ[0].push(4); SPLIT_ADJ[4].push(0); SPLIT_ADJ[1].push(7); SPLIT_ADJ[7].push(1);
+SPLIT_ADJ[2].push(8); SPLIT_ADJ[8].push(2);
+function detectSplit(standing){   // standing: bool[10]
+  if(standing[0]) return false;
+  const up=[]; for(let i=0;i<10;i++) if(standing[i]) up.push(i);
+  if(up.length<2) return false;
+  const seen=new Set([up[0]]), stack=[up[0]];
+  while(stack.length){ const n=stack.pop();
+    for(const m of SPLIT_ADJ[n]) if(standing[m]&&!seen.has(m)){ seen.add(m); stack.push(m); } }
+  return seen.size!==up.length;
+}
+
+/* ======================= CRT scoreboard ======================= */
+const SCOREBOARD = {
+  msg:'', msgT:0, dirty:true,
+  flash(m){ this.msg=m; this.msgT=perfNow(); this.dirty=true; },
+  draw(card, frameIdx, ballIdx){
+    if(!PL.vis.crt) return;
+    const {canvas:cnv,tex:ct}=PL.vis.crt, g=cnv.getContext('2d');
+    const W=cnv.width,H=cnv.height;
+    g.fillStyle='#040507'; g.fillRect(0,0,W,H);
+    const amber='#ffb020', dim='#7a5410', green='#8dffb0', cyan='#7fd6ff', red='#ff5a4a';
+    g.textAlign='center'; g.textBaseline='middle';
+    g.shadowColor=amber; g.shadowBlur=10;
+    g.fillStyle=amber; g.font='bold 38px monospace';
+    g.fillText('★ STARDUST LANES — LANE '+(PL.i+1)+' ★',W/2,44);
+    g.shadowBlur=0;
+    const res=card.compute();
+    const fw=(W-40)/10.6, x0=24, y0=110, fh=150;
+    for(let f=0;f<10;f++){
+      const wF=f===9?fw*1.6:fw, x=x0+f*fw + (f===9?0:0);
+      g.strokeStyle=f===frameIdx?green:'#3a4a5a'; g.lineWidth=f===frameIdx?3:1.5;
+      g.strokeRect(x,y0,wF-4,fh);
+      g.fillStyle=dim; g.font='16px monospace'; g.fillText(''+(f+1),x+(wF-4)/2,y0-14);
+      const fr=res.frames[f], cells=f===9?3:2, cw=(wF-4)/ (cells+0.0001) ;
+      for(let c=0;c<cells;c++){
+        g.strokeStyle='#26323e'; g.lineWidth=1;
+        g.strokeRect(x+c*cw,y0,cw,44);
+        const mk=fr.marks[c]||'';
+        g.shadowBlur=6;
+        g.fillStyle=mk==='X'?green:(mk==='/'?cyan:(mk==='F'?red:amber));
+        g.shadowColor=g.fillStyle;
+        g.font='bold 26px monospace';
+        g.fillText(mk,x+c*cw+cw/2,y0+23);
+        g.shadowBlur=0;
+      }
+      if(fr.split){ g.fillStyle=red; g.font='bold 13px monospace'; g.fillText('SPLIT',x+(wF-4)/2,y0+58); }
+      g.fillStyle=amber; g.shadowColor=amber; g.shadowBlur=8; g.font='bold 34px monospace';
+      if(fr.cum!==null) g.fillText(''+fr.cum,x+(wF-4)/2,y0+108);
+      g.shadowBlur=0;
+    }
+    g.fillStyle=green; g.font='bold 30px monospace'; g.shadowColor=green; g.shadowBlur=10;
+    g.fillText('YOU',70,y0+fh+60);
+    g.fillStyle=amber; g.shadowColor=amber;
+    g.font='bold 44px monospace';
+    g.fillText('TOTAL  '+res.total,W/2,y0+fh+62);
+    g.shadowBlur=0;
+    if(this.msg && perfNow()-this.msgT<4.5){
+      g.fillStyle=red; g.font='bold 34px monospace'; g.shadowColor=red; g.shadowBlur=14;
+      g.fillText(this.msg,W/2,H-40); g.shadowBlur=0;
+    }
+    // scanlines + vignette grime
+    g.fillStyle='rgba(0,0,0,0.22)';
+    for(let y=0;y<H;y+=4) g.fillRect(0,y,W,1.4);
+    g.fillStyle='rgba(120,200,255,0.03)'; g.fillRect(0,0,W,H);
+    ct.needsUpdate=true;
+  }
+};
+
+/* ========================= camera director ========================= */
+const DIRECTOR = {
+  shot:'aim', blend:1, blendDur:0.001,
+  from:{pos:new THREE.Vector3(0,1.7,3),look:new THREE.Vector3(0,0.4,-9),fov:T.cam.fov},
+  cur:{pos:new THREE.Vector3(0,1.7,3),look:new THREE.Vector3(0,0.4,-9),fov:T.cam.fov},
+  _tgt:{pos:new THREE.Vector3(),look:new THREE.Vector3(),fov:T.cam.fov},
+  clock:0,
+  cut(name,dur=T.cam.blendMed){
+    if(this.shot===name) return;
+    this.from.pos.copy(this.cur.pos); this.from.look.copy(this.cur.look); this.from.fov=this.cur.fov;
+    this.shot=name; this.blend=0; this.blendDur=Math.max(dur,0.001);
+  },
+  _compute(){
+    const t=this._tgt, C=T.cam, ball=GAME.ball, bw=GAME.bowler;
+    switch(this.shot){
+      case 'aim': {
+        const bx=PL.x+INPUT.slideX, sway=Math.sin(this.clock*0.7)*0.012;
+        if(GAME.fpView){   // first-person: camera at the bowler's head, body hidden
+          t.pos.set(bx+sway*0.5, 1.58, 1.26);
+          t.look.set(PL.x+INPUT.lookX, 0.35, C.aimLook[2]); t.fov=58;
+        } else {
+          // Closer, lower camera to show ball above approach
+          t.pos.set(bx+C.aimPos[0]+sway, 2.2, C.aimPos[2]-0.5);
+          t.look.set(PL.x+INPUT.lookX, 0.4, C.aimLook[2]); t.fov=65;
+        }
+        break; }
+      case 'follow': {
+        if(ball){ const p=ball.sync.curr.p;
+          const lx=clamp(p.x-PL.x,-0.95,0.95);
+          t.pos.set(PL.x+lx*0.55, C.followH, clamp(p.z+C.followBack,-16.8,2.5));
+          t.look.set(p.x, 0.12, Math.max(p.z-C.followLead,-19.0)); }
+        t.fov=C.followFov; break; }
+      case 'deck':
+        t.pos.set(PL.x+C.deckPos[0],C.deckPos[1],C.deckPos[2]);
+        t.look.set(PL.x+C.deckLook[0],C.deckLook[1],C.deckLook[2]); t.fov=46; break;
+      case 'wide':
+        t.pos.set(PL.x+C.widePos[0],C.widePos[1],C.widePos[2]);
+        t.look.set(PL.x+C.wideLook[0],C.wideLook[1],C.wideLook[2]); t.fov=C.fov; break;
+    }
+    return t;
+  },
+  update(dt){
+    this.clock+=dt;
+    this.blend=Math.min(1,this.blend+dt/this.blendDur);
+    const tgt=this._compute(), e=easeIO(this.blend);
+    this.cur.pos.lerpVectors(this.from.pos,tgt.pos,e);
+    this.cur.look.lerpVectors(this.from.look,tgt.look,e);
+    this.cur.fov=lerp(this.from.fov,tgt.fov,e);
+    SHAKE*=Math.exp(-dt*3.6);
+    const sh=SHAKE, c=this.clock;
+    camera.position.copy(this.cur.pos);
+    camera.position.x+=sh*Math.sin(c*47.3); camera.position.y+=sh*Math.sin(c*53.7+1.3);
+    camera.lookAt(this.cur.look);
+    camera.rotation.z+=sh*0.5*Math.sin(c*41.1);
+    if(Math.abs(camera.fov-this.cur.fov)>0.01){ camera.fov=this.cur.fov; camera.updateProjectionMatrix(); }
+  }
+};
+
+/* ============================ bowler rig ============================ */
+class Bowler {
+  constructor(seed,{shadow=false}={}){
+    const grp=this.grp=new THREE.Group();
+    const shirt=std(tex(shirtCanvas(seed),{wrap:false}),{roughness:0.85});
+    const pants=new THREE.MeshStandardMaterial({color:pick([0x2a2a33,0x3a2a1a,0x23303a]),roughness:0.95});
+    const skin=new THREE.MeshStandardMaterial({color:pick([0xe8b990,0xc98d5f,0x9c6b43,0xf0cba6,0x7a4f30]),roughness:0.7});
+    const mk=(geo,mat,x,y,z,parent)=>{ const m=new THREE.Mesh(geo,mat); m.position.set(x,y,z);
+      m.castShadow=shadow; (parent||grp).add(m); return m; };
+    this.legL=new THREE.Group(); this.legL.position.set(-0.1,0.95,0); grp.add(this.legL);
+    this.legR=new THREE.Group(); this.legR.position.set(0.1,0.95,0); grp.add(this.legR);
+    for(const lg of [this.legL,this.legR]){
+      mk(new THREE.BoxGeometry(0.13,0.88,0.16),pants,0,-0.44,0,lg);
+      const shoe=mk(new THREE.BoxGeometry(0.14,0.09,0.27),
+        new THREE.MeshStandardMaterial({color:0x8a3030,roughness:0.6}),0,-0.9,0.05,lg);
+      shoe.material=new THREE.MeshStandardMaterial({color:pick([0x8a3030,0x30508a]),roughness:0.5});
+    }
+    this.torso=mk(new THREE.BoxGeometry(0.42,0.58,0.24),shirt,0,1.26,0);
+    this.armL=new THREE.Group(); this.armL.position.set(-0.27,1.48,0); grp.add(this.armL);
+    this.armR=new THREE.Group(); this.armR.position.set(0.27,1.48,0); grp.add(this.armR);
+    for(const ar of [this.armL,this.armR]) mk(new THREE.BoxGeometry(0.1,0.55,0.12),shirt,0,-0.26,0,ar);
+    mk(new THREE.SphereGeometry(0.05,8,6),skin,0,-0.56,0,this.armL);
+    mk(new THREE.SphereGeometry(0.05,8,6),skin,0,-0.56,0,this.armR);
+    this.hand=new THREE.Object3D(); this.hand.position.set(0.02,-0.6,0.02); this.armR.add(this.hand);
+    mk(new THREE.SphereGeometry(0.115,14,10),skin,0,1.7,0);
+    const face=new THREE.Mesh(new THREE.PlaneGeometry(0.17,0.17),
+      std(tex(faceCanvas(seed),{wrap:false}),{roughness:0.7}));
+    face.position.set(0,1.7,0.105); grp.add(face);
+    const hair=mk(new THREE.SphereGeometry(0.118,12,8),
+      new THREE.MeshStandardMaterial({color:pick([0x2a1a10,0x4a3a20,0x777777,0x1a1a1a]),roughness:0.95}),0,1.74,-0.02);
+    hair.scale.set(1.02,0.55,1.02);
+    scene.add(grp);
+  }
+  handPos(out){ return this.hand.getWorldPosition(out); }
+  idlePose(t){ this.armR.rotation.x=0.5+Math.sin(t*1.4)*0.03; this.armL.rotation.x=0.45;
+    this.legL.rotation.x=0; this.legR.rotation.x=0; this.torso.rotation.x=0;
+    this.grp.position.y=Math.sin(t*1.4)*0.008; }
+  walkPose(ph){ const s=Math.sin(ph*Math.PI*2);
+    this.legL.rotation.x=s*0.55; this.legR.rotation.x=-s*0.55;
+    this.armL.rotation.x=-s*0.35-0.1; this.armR.rotation.x=s*0.35-0.1;
+    this.grp.position.y=Math.abs(Math.cos(ph*Math.PI*2))*0.03; }
+  sitPose(){ this.legL.rotation.x=1.45; this.legR.rotation.x=1.45;
+    this.armL.rotation.x=-0.2; this.armR.rotation.x=-0.2; this.grp.position.y=-0.42; }
+  deliveryPose(t){    // 0..1, release ~0.74
+    const steps=Math.min(t/0.78,1);
+    this.walkPose(steps*2.2);
+    let a;
+    if(t<0.38) a=lerp(0.35, -1.25, smooth(t/0.38));            // pushaway, then backswing behind
+    else if(t<0.74) a=lerp(-1.25, 0.30, smooth((t-0.38)/0.36)); // downswing to the release point
+    else a=lerp(0.30, 1.7, smooth((t-0.74)/0.26));              // follow-through up and out front
+    this.armR.rotation.x=a;
+    this.armL.rotation.x=0.3-0.4*Math.sin(t*3);
+    const crouch=t<0.74? smooth(t/0.74)*0.22 : 0.22-smooth((t-0.74)/0.26)*0.1;
+    this.grp.position.y=-crouch; this.torso.rotation.x=crouch*1.1;
+    if(t>0.55){ this.legL.rotation.x=0.9*smooth((t-0.55)/0.3); this.legR.rotation.x=-0.5*smooth((t-0.55)/0.3); }
+  }
+  cheerPose(t){ this.armR.rotation.x=-2.6; this.armL.rotation.x=-2.6;
+    this.grp.position.y=Math.abs(Math.sin(t*9))*0.12;
+    this.legL.rotation.x=0; this.legR.rotation.x=0; }
+  slumpPose(){ this.armR.rotation.x=-0.1; this.armL.rotation.x=-0.1;
+    this.torso.rotation.x=0.35; this.grp.position.y=-0.06; }
+}
+
+/* ======================= ambient bowlers (AI) ======================= */
+class AmbientBowler {
+  constructor(L){
+    this.L=L; this.rig=new Bowler(L.i*13+5); this.skill=rand(0.35,0.9);
+    this.pairX=laneX(L.i - L.i%2)+0.915;
+    this.seat=new THREE.Vector3(this.pairX-1.05+rand(0,3)*0.7,0,6.55);
+    this.rack=new THREE.Vector3(L.i%2?this.pairX-0.6:this.pairX-0.6,0,3.7);
+    this.stance=new THREE.Vector3(L.x+rand(-0.18,0.18),0,1.45);
+    this.pos=this.rig.grp.position; this.pos.copy(this.seat);
+    this.rig.grp.rotation.y=Math.PI;
+    this.state='sit'; this.t=rand(0,6); this.dur=rand(3,9);
+    this.ballNum=1; this.standingBefore=10; this.result='';
+    this.companion=new Bowler(L.i*29+3); this.companion.grp.position.set(this.seat.x+0.7,0.02,6.55);
+    this.companion.grp.rotation.y=Math.PI; this.companion.sitPose();
+    this.cheerT=0;
+  }
+  get ball(){ return this.L.balls[0]; }
+  _walkTo(target,dt,speed=1.15){
+    _v1.copy(target).sub(this.pos); _v1.y=0; const d=_v1.length();
+    if(d<0.06) return true;
+    _v1.normalize(); this.pos.addScaledVector(_v1,Math.min(speed*dt,d));
+    this.rig.grp.rotation.y=Math.atan2(_v1.x,_v1.z);
+    this.walkPh=(this.walkPh||0)+dt*2.1; this.rig.walkPose(this.walkPh%1);
+    return false;
+  }
+  _go(state,dur){ this.state=state; this.t=0; this.dur=dur; }
+  update(dt){
+    this.t+=dt;
+    const rig=this.rig;
+    if(this.cheerT>0){ this.cheerT-=dt; this.companion.cheerPose(this.t); }
+    else this.companion.sitPose();
+    switch(this.state){
+      case 'sit': rig.sitPose(); this.rig.grp.rotation.y=Math.PI;
+        if(this.t>this.dur && this.ball.state==='rack' && !this.L.setter.busy) this._go('walkToRack',20); break;
+      case 'walkToRack':
+        if(this._walkTo(this.rack,dt)) this._go('pickup',0.8); break;
+      case 'pickup': rig.idlePose(this.t); rig.armR.rotation.x=0.6-this.t;
+        if(this.t>=this.dur){
+          const b=this.ball; b.toKinematic(); b.setState('hand'); b.mesh.visible=true;
+          this._go('walkToStance',20); }
+        break;
+      case 'walkToStance':
+        if(this._walkTo(this.stance,dt)){ this.rig.grp.rotation.y=Math.PI; this._go('stance',rand(0.8,1.8)); }
+        break;
+      case 'stance': rig.idlePose(this.t);
+        if(this.t>=this.dur) this._go('approach',1.05); break;
+      case 'approach': {
+        const u=Math.min(this.t/this.dur,1);
+        rig.deliveryPose(u);
+        this.pos.z=lerp(this.stance.z,0.3,smooth(Math.min(u/0.78,1)));
+        if(u>=0.74&&!this.released){ this.released=true; this._release(); }
+        if(u>=1){ this.released=false; this._go('watch',3.6); }
+        break; }
+      case 'watch': rig.idlePose(this.t); rig.armL.rotation.x=1.2;
+        if(this.t>=this.dur){
+          const standing=this.L.pins.filter(p=>p.isStanding()).length;
+          const knocked=this.standingBefore-standing;
+          this.result=knocked>=10?'strike':(knocked>=this.standingBefore?'clear':(knocked>=7?'good':'bad'));
+          if(this.result==='strike'||this.result==='clear'){ this.cheerT=1.6; }
+          const kind=(this.ballNum===1&&standing>0)?'respot':'fullRack';
+          if(!this.L.setter.busy) this.L.setter.run(kind);
+          this.ballNum=(this.ballNum===1&&standing>0)?2:1;
+          this.standingBefore=this.ballNum===1?10:standing;
+          this._go('react',1.8); }
+        break;
+      case 'react':
+        if(this.result==='strike'||this.result==='clear') rig.cheerPose(this.t);
+        else if(this.result==='bad') rig.slumpPose(); else rig.idlePose(this.t);
+        if(this.t>=this.dur) this._go('walkBack',20); break;
+      case 'walkBack':
+        if(this._walkTo(this.seat,dt)) this._go('sit',rand(2.5,8)); break;
+    }
+    // carry the ball with the hand while held
+    const b=this.ball;
+    if(b.state==='hand'){ rig.handPos(b.carryTarget); }
+  }
+  _release(){
+    const b=this.ball; if(b.state!=='hand') return;
+    const err=(1-this.skill);
+    const spd=rand(6.3,8.4);   // m/s — a plausible league-night band
+    const targetBoard=17.5+rand(-1,1)*err*14;
+    const tx=this.L.x+(20-targetBoard)*T.lane.boardW+rand(-0.02,0.02);
+    const sx=this.pos.x, dz=-T.lane.approachLen-T.throwP.launchZ;
+    const dx=tx-sx;
+    const inv=1/Math.hypot(dx,dz);
+    const rev=this.skill>0.55?rand(8,32):rand(0,10);
+    const side=Math.random()<0.9?1:-1;
+    b.launch(sx,T.throwP.launchZ,
+      {x:dx*inv*spd,y:0,z:dz*inv*spd},
+      {x:T.throwP.rollFrac*(dz*inv*spd)/b.radius,y:0,z:side*rev});
+    this.L.firstImpact=null;
+  }
+}
+const AMBIENTS = T.lane.ambientLanes.map(i=>new AmbientBowler(LANES[i]));
+
+/* ============================== input ============================== */
+const $=id=>document.getElementById(id);
+const INPUT = {
+  slideX:0.20, aimX:0.017,
+  weight:Number.isInteger(SAVED_SETTINGS.weight)?clamp(SAVED_SETTINGS.weight,0,T.ball.weightsLb.length-1):T.ball.defaultWeight,
+  mode:['simple','meter','flick'].includes(SAVED_SETTINGS.mode)?SAVED_SETTINGS.mode:'simple',
+  angle:0, hook:0,              // randomized for each simple-mode ball in toAim()
+  powerPhase:Math.random()*6, powerVal:0.72,
+  keys:{}, spinVal:0, meterT:0,
+  drag:null,
+  get lookX(){ return this.mode==='simple' ? this.slideX+this.angle*3.0 : this.aimX*0.85; },
+  init(){
+    addEventListener('keydown',e=>{
+      this.keys[e.code]=true;
+      if(['Space','ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.code)) e.preventDefault();
+      // Space key disabled for manual control only via bowl button
+      // if(e.code==='Space') GAME.onAction();
+      if(e.code==='KeyN') GAME.newGame();
+      if(e.code==='KeyC') $('camBtn').click();
+      if(e.code==='KeyV') $('viewBtn').click();
+      if(e.code==='Escape') GAME.cancelMeters();
+      if(GAME.phase==='aim'){
+        if(e.code==='Digit1')this.setWeight(0); if(e.code==='Digit2')this.setWeight(1);
+        if(e.code==='Digit3')this.setWeight(2); if(e.code==='Digit4')this.setWeight(3); }
+    });
+    addEventListener('keyup',e=>{ this.keys[e.code]=false; });
+    $('modeBtn').onclick=()=>{ const order=['simple','meter','flick'], previous=this.mode;
+      this.mode=order[(order.indexOf(this.mode)+1)%3];
+      if(this.mode==='simple'&&previous!=='simple'&&GAME.phase==='aim') this.randomizeSimpleSetup();
+      $('modeBtn').textContent='MODE: '+this.mode.toUpperCase();
+      if(GAME.phase==='aim') HUD.meters(this.mode==='simple'?'simple':'off');
+      GAME.setHint(); savePlayerSettings(); };
+    $('camBtn').onclick=()=>{ GAME.autoCam=!GAME.autoCam;
+      $('camBtn').textContent='CAM: '+(GAME.autoCam?'AUTO':'BALL'); savePlayerSettings(); };
+    $('viewBtn').onclick=()=>{ GAME.setView(!GAME.fpView); savePlayerSettings(); };
+    $('muteBtn').onclick=()=>{ const m=AUD.toggleMute(); $('muteBtn').textContent='SOUND: '+(m?'OFF':'ON'); savePlayerSettings(); };
+    const wb=$('wbtns');
+    T.ball.weightsLb.forEach((lb,k)=>{ const b=document.createElement('span');
+      b.className='wbtn clickable'+(k===this.weight?' sel':''); b.textContent=lb;
+      b.onclick=()=>this.setWeight(k); wb.appendChild(b); });
+    $('modeBtn').textContent='MODE: '+this.mode.toUpperCase();
+    $('camBtn').textContent='CAM: '+(GAME.autoCam?'AUTO':'BALL');
+    $('muteBtn').textContent='SOUND: '+(AUD.muted?'OFF':'ON');
+    GAME.setView(GAME.fpView);
+    // click-and-flick: drag speed -> velocity, lateral -> revs
+    canvas.addEventListener('pointerdown',e=>{
+      if(GAME.phase==='aim'&&this.mode==='flick'){
+        this.drag={x0:e.clientX,y0:e.clientY,t0:performance.now(),pts:[[e.clientX,e.clientY,performance.now()]]};
+      } else if(GAME.phase==='aim'||GAME.phase==='meterPower'||GAME.phase==='meterSpin'){ GAME.onAction(); }
+    });
+    addEventListener('pointermove',e=>{
+      if(this.drag){ this.drag.pts.push([e.clientX,e.clientY,performance.now()]);
+        if(this.drag.pts.length>40)this.drag.pts.shift(); }
+    });
+    addEventListener('pointerup',e=>{
+      if(!this.drag) return;
+      const d=this.drag; this.drag=null;
+      const dy=d.y0-e.clientY, dx=e.clientX-d.x0, dt=(performance.now()-d.t0)/1000;
+      if(dy<40||dt<0.05) return;                      // too small: ignore
+      const pxPerSec=dy/dt;
+      const mph=clamp(pxPerSec*T.throwP.flickMphPerPx,T.throwP.minMph,T.throwP.maxMph);
+      const spinN=clamp(dx/170,-1,1);
+      const foul=dy>innerHeight*0.66;                 // oversliding past the line
+      GAME.beginDelivery((mph-T.throwP.minMph)/(T.throwP.maxMph-T.throwP.minMph),spinN,foul);
+    });
+  },
+  setWeight(k){
+    if(GAME.phase!=='aim'||k===this.weight) return;
+    const old=GAME.ball;
+    if(old&&old.state==='hand'){ old.body.setBodyType(RAPIER.RigidBodyType.Fixed,true);
+      old.body.setTranslation({x:old.slot.x,y:old.slot.y,z:old.slot.z},true); old.setState('rack'); }
+    this.weight=k;
+    document.querySelectorAll('.wbtn').forEach((b,i)=>b.classList.toggle('sel',i===k));
+    GAME.pickupBall();
+    AUD.play('ballClick',{vol:0.4});
+    savePlayerSettings();
+  },
+  randomizeSimpleSetup(){
+    const S=T.throwP;
+    const challenge=(limit)=>{ let v=rand(-limit,limit);
+      if(Math.abs(v)<S.simpleRandomMin) v=(v<0?-1:1)*S.simpleRandomMin;
+      return v; };
+    this.angle=challenge(S.simpleRandomAngle);
+    this.hook=challenge(S.simpleRandomHook);
+  },
+  update(dt){
+    const sl=T.throwP.slideRange, am=T.throwP.aimRange, S=T.throwP;
+    if(GAME.phase==='aim'){
+      if(this.keys['KeyA']) this.slideX=clamp(this.slideX-0.6*dt,-sl,sl);
+      if(this.keys['KeyD']) this.slideX=clamp(this.slideX+0.6*dt,-sl,sl);
+      if(this.mode==='simple'){
+        // Break Through Bowling scheme: arrows angle the shot, ▲▼ set hook,
+        // power breathes on its own, one SPACE press bowls
+        if(this.keys['ArrowLeft'])  this.angle=clamp(this.angle-S.simpleAngleRate*dt,-1,1);
+        if(this.keys['ArrowRight']) this.angle=clamp(this.angle+S.simpleAngleRate*dt,-1,1);
+        if(this.keys['ArrowUp'])    this.hook=clamp(this.hook+S.simpleHookRate*dt,-1,1);
+        if(this.keys['ArrowDown'])  this.hook=clamp(this.hook-S.simpleHookRate*dt,-1,1);
+        this.powerPhase+=dt*S.simplePowerHz;
+        this.powerVal=lerp(S.simplePowerMin,S.simplePowerMax,(Math.sin(this.powerPhase)+1)/2);
+        $('powFill').style.width=(this.powerVal*100)+'%';
+        $('spinNeedle').style.left=(50+this.hook*47)+'%';
+        AIMVIS.updatePath(predictPath(this.slideX,this.angle,this.hook,this.powerVal));
+      } else {
+        if(this.keys['ArrowLeft']) this.aimX=clamp(this.aimX-0.45*dt,-am,am);
+        if(this.keys['ArrowRight']) this.aimX=clamp(this.aimX+0.45*dt,-am,am);
+        AIMVIS.update(this.slideX,this.aimX);
+      }
+    }
+    if(GAME.phase==='meterPower'){
+      this.meterT+=dt;
+      this.powerVal=Math.abs(((this.meterT*T.throwP.powerHz*2)%2)-1);
+      $('powFill').style.width=(this.powerVal*100)+'%';
+    }
+    if(GAME.phase==='meterSpin'){
+      this.meterT+=dt;
+      this.spinVal=Math.sin(this.meterT*T.throwP.spinHz*2*Math.PI);
+      $('spinNeedle').style.left=(50+this.spinVal*47)+'%';
+    }
+  }
+};
+/* predicted ball path for the simple-mode aim guide — integrates the same
+ * oil/slip friction model the live sim uses, so the line is honest */
+function predictPath(startX, angleN, hookN, powerN){
+  const R=T.ball.radius, v0=lerp(T.throwP.minMph,T.throwP.maxMph,clamp(powerN,0,1))*MPH;
+  const th=angleN*T.throwP.simpleAngleMax;
+  const spinN=hookN*T.throwP.simpleHookScale;   // same mapping the throw uses
+  let x=startX, z=T.throwP.launchZ, vx=Math.sin(th)*v0, vz=-Math.cos(th)*v0;
+  const revRad=Math.abs(spinN)*T.throwP.maxRev*2*Math.PI/60;
+  let wz=-Math.sign(spinN)*revRad, wx=T.throwP.rollFrac*vz/R;
+  const dt=1/120, pts=[{x,z}];
+  const linD=1/(1+dt*T.ball.linDamp), angD=1/(1+dt*T.ball.angDamp);
+  for(let i=0;i<1100;i++){
+    if(Math.abs(x)<=T.lane.width/2){
+      const mu=oilMu(PL,-z);
+      const cx=vx+wz*R, cz=vz-wx*R, slip=Math.hypot(cx,cz);
+      let F=mu*9.81; if(slip<T.oil.slipEps) F*=slip/T.oil.slipEps;
+      if(slip>1e-4){ const fx=-F*cx/slip, fz=-F*cz/slip;
+        vx+=fx*dt; vz+=fz*dt; wx+=(-2.5*fz/R)*dt; wz+=(2.5*fx/R)*dt; }
+      const sp=Math.hypot(vx,vz);
+      if(sp>0.15){ const rr=T.oil.rollingResist*9.81*dt/sp; vx-=vx*rr; vz-=vz*rr;
+        vx+=Math.sign(x)*T.lane.crownSlope*9.81*dt*Math.min(1,Math.abs(x)/0.35); }
+    }
+    vx*=linD; vz*=linD; wx*=angD; wz*=angD;
+    x+=vx*dt; z+=vz*dt;
+    if(i%16===0) pts.push({x,z});
+    if(z<=-18.15||Math.abs(x)>T.lane.width/2+0.1){ pts.push({x,z}); break; }
+  }
+  return pts;
+}
+
+/* =============================== HUD =============================== */
+const HUD = {
+  msgTimer:null,
+  msg(main,sub='',dur=2.2){
+    const el=$('msg'); el.innerHTML=main+(sub?`<small>${sub}</small>`:'');
+    el.classList.add('on');
+    clearTimeout(this.msgTimer);
+    this.msgTimer=setTimeout(()=>el.classList.remove('on'),dur*1000);
+  },
+  stats(mph,rpm,board){
+    if(mph!==undefined) $('stMph').textContent=mph===null?'--':mph.toFixed(1);
+    if(rpm!==undefined) $('stRpm').textContent=rpm===null?'--':Math.round(rpm);
+    if(board!==undefined) $('stBoard').textContent=board===null?'--':board;
+  },
+  frame(f,b){ 
+    $('frameInfo').textContent=`FRAME ${Math.min(f+1,10)} • BALL ${b}`;
+  },
+  updateRoundScore(pinsKnockedThisFrame){
+    // This will be called from scoring—update in scorecard display
+  },
+  updateScorecard(playerNum, frameNum, score){
+    // playerNum: 0=Hamad, 1=Talal
+    // frameNum: 0-9 for frames 1-10
+    // score: pins knocked in this frame
+    const prefix = playerNum === 0 ? 'h' : 't';
+    const frameId = prefix + (frameNum + 1);
+    const cell = $(frameId);
+    if(cell) cell.textContent = score;
+  },
+  updateTotal(playerNum, total){
+    const totalId = playerNum === 0 ? 'hTotal' : 'tTotal';
+    const cell = $(totalId);
+    if(cell) cell.textContent = total;
+  },
+  updatePlayerTurn(playerNum){
+    // Highlight the current player's row (0=Hamad, 1=Talal)
+    const hamadRow = document.querySelector('tr:has(#h1)');
+    const talalRow = document.querySelector('tr:has(#t1)');
+    if(hamadRow) hamadRow.style.backgroundColor = playerNum === 0 ? 'rgba(255,107,157,0.3)' : 'transparent';
+    if(talalRow) talalRow.style.backgroundColor = playerNum === 1 ? 'rgba(255,107,157,0.3)' : 'transparent';
+  },
+  resetScorecard(){
+    // Clear all frame scores and totals
+    for(let i=1; i<=10; i++){
+      const hCell = $('h' + i);
+      const tCell = $('t' + i);
+      if(hCell) hCell.textContent = '-';
+      if(tCell) tCell.textContent = '-';
+    }
+    $('hTotal').textContent = '0';
+    $('tTotal').textContent = '0';
+  },
+  foul(show){ $('foulLamp').style.display=show?'block':'none'; },
+  meters(mode){  // 'off' | 'power' | 'spin' | 'simple'
+    $('meterWrap').style.display=mode==='off'||mode==='simple'?'none':'block';
+    $('powBar').style.display=(mode==='power')?'block':'none';
+    $('spinBar').style.display=(mode==='spin')?'block':'none';
+    $('meterLbl').textContent=mode==='simple'?'AIM WITH ◄ ►  •  TAP 🎳 TO BOWL'
+      :(mode==='power'?'POWER':'HOOK  ◄ LEFT   |   RIGHT ►');
+  },
+  hint(t){ $('hint').textContent=t; },
+};
+
+function isPlayableGutterPosition(p,L){
+  const localX=Math.abs(p.x-L.x), laneEdge=T.lane.width/2;
+  return p.z<-0.5 && p.z>T.lane.gutterEndZ
+    && localX>laneEdge+0.015 && localX<laneEdge+T.lane.gutterW
+    && p.y<T.ball.radius*0.75;
+}
+
+/* =============================== game =============================== */
+const GAME = {
+  phase:'boot', card:new ScoreCard(), frame:0, ballNum:1, standingBefore:10,
+  ball:null, bowler:null, deliverT:0, deliverParams:null, releaseT:0,
+  gutterFlagged:false, foulFlag:false, slowmoT:0, slowmoDone:false,
+  gamesPlayedToday:0,
+  rollLoop:null, hissLoop:null, scoreDirty:true, boardsShown:false,
+  pendingCycle:null, stats:{mph:null,rpm:null},
+  // Multiplayer tracking
+  currentPlayer: 0, // 0=Hamad, 1=Talal
+  playerCards: [new ScoreCard(), new ScoreCard()], // One card per player
+  playerFrameScores: [[],[]], // scores for each frame per player
+  autoCam:typeof SAVED_SETTINGS.autoCam==='boolean'?SAVED_SETTINGS.autoCam:true,
+  fpView:typeof SAVED_SETTINGS.fpView==='boolean'?SAVED_SETTINGS.fpView:false,
+  setView(fp){ this.fpView=fp; $('viewBtn').textContent='VIEW: '+(fp?'1ST':'3RD');
+    if(this.bowler) this.bowler.grp.visible=!fp; },
+  init(){
+    this.bowler=new Bowler(999,{shadow:true});
+    this.bowler.grp.position.set(PL.x,0,1.35);
+    INPUT.init();
+  },
+  newGame(){
+    if(!['boot','aim','gameover','cycling','settling'].includes(this.phase)) return;
+    
+    // Check play limit (3 games per session)
+    if(!this.gamesPlayedToday) this.gamesPlayedToday = 0;
+    if(this.gamesPlayedToday >= 3){
+      HUD.msg('LIMIT REACHED','See you tomorrow! 👋',5);
+      this.phase = 'limited';
+      return;
+    }
+    
+    this.gamesPlayedToday++;
+    savePlayerSettings();
+    this.gameOver=false;
+    this.card=new ScoreCard(); 
+    this.playerCards=[new ScoreCard(), new ScoreCard()];
+    this.playerFrameScores=[[],[]];
+    this.frame=0; this.ballNum=1; this.standingBefore=10;
+    this.currentPlayer=0; // Start with Hamad
+    this.foulFlag=false; this.scoreDirty=true;
+    HUD.frame(0,1); HUD.stats(null,null,null); HUD.foul(false);
+    HUD.resetScorecard(); // Clear all scores
+    HUD.updatePlayerTurn(0); // Highlight Hamad's row
+    // fresh rack if the deck isn't clean
+    const standing=PL.pins.filter(p=>p.isStanding()).length;
+    if(standing===10&&!PL.setter.busy){ this.toAim(); }
+    else { this.phase='cycling'; DIRECTOR.cut('wide',T.cam.blendMed);
+      PL.setter.run('fullRack',()=>{}); }
+  },
+  pickupBall(){
+    const b=PL.balls[INPUT.weight];
+    if(b.state==='rack'){ b.toKinematic(); b.setState('hand'); }
+    this.ball=b;
+  },
+  toAim(){
+    this.phase='aim'; this.gutterFlagged=false; this.foulFlag=false;
+    PL.firstImpact=null; this.slowmoDone=false;
+    if(INPUT.mode==='simple') INPUT.randomizeSimpleSetup();
+    this.pickupBall();
+    HUD.meters(INPUT.mode==='simple'?'simple':'off'); HUD.foul(false); AIMVIS.show(true);
+    HUD.frame(this.frame,this.ballNum);
+    DIRECTOR.cut('aim',T.cam.blendMed);
+    this.setHint();
+    // Show quiz before aiming
+    showQuiz();
+  },
+  setHint(){
+    if(this.phase!=='aim') return;
+    HUD.hint(INPUT.mode==='simple'
+      ? '◄ ► aim • ▲ ▼ hook • A/D slide • SPACE bowls at the current power'
+      : INPUT.mode==='meter'
+      ? 'A/D slide • ◄ ► aim • SPACE for power'
+      : 'A/D slide • ◄ ► aim • drag up & flick to bowl (sideways = hook)');
+  },
+  onAction(){
+    if(this.phase==='aim'&&INPUT.mode==='simple'){
+      this.beginDelivery(INPUT.powerVal,INPUT.hook*T.throwP.simpleHookScale,false);
+    } else if(this.phase==='aim'&&INPUT.mode==='meter'){
+      this.phase='meterPower'; INPUT.meterT=0; HUD.meters('power');
+      HUD.hint('SPACE to lock power');
+    } else if(this.phase==='meterPower'){
+      this.phase='meterSpin'; this.lockedPower=INPUT.powerVal; INPUT.meterT=0; HUD.meters('spin');
+      HUD.hint('SPACE to lock hook');
+    } else if(this.phase==='meterSpin'){
+      HUD.meters('off');
+      this.beginDelivery(this.lockedPower,INPUT.spinVal,false);
+    }
+  },
+  cancelMeters(){
+    if(this.phase==='meterPower'||this.phase==='meterSpin'){ this.phase='aim'; HUD.meters('off'); this.setHint(); }
+  },
+  beginDelivery(powerN,spinN,foul){
+    if(this.phase!=='aim'&&this.phase!=='meterPower'&&this.phase!=='meterSpin') return;
+    if(!this.ball||this.ball.state!=='hand') return;
+    this.phase='delivering'; this.deliverT=0;
+    this.deliverParams={powerN:clamp(powerN,0,1),spinN:clamp(spinN,-1,1),foul};
+    this.released=false;
+    HUD.meters('off'); AIMVIS.show(false); HUD.hint('');
+  },
+  _launch(){
+    const {powerN,spinN,foul}=this.deliverParams;
+    const mph=lerp(T.throwP.minMph,T.throwP.maxMph,powerN);
+    const speed=mph*MPH;
+    const b=this.ball, R=b.radius;
+    const sx=PL.x+INPUT.slideX;
+    let vel;
+    if(INPUT.mode==='simple'){          // aim by launch angle — what the guide line shows
+      const th=INPUT.angle*T.throwP.simpleAngleMax;
+      vel={x:Math.sin(th)*speed, y:0, z:-Math.cos(th)*speed};
+    } else {                            // aim through a target on the arrows
+      const tx=PL.x+INPUT.aimX;
+      const dz=-T.lane.approachLen-T.throwP.launchZ, dx=tx-sx;
+      const inv=1/Math.hypot(dx,dz);
+      vel={x:dx*inv*speed, y:0, z:dz*inv*speed};
+    }
+    const revRad=Math.abs(spinN)*T.throwP.maxRev*2*Math.PI/60;
+    const wz=-Math.sign(spinN)*revRad;
+    const wx=T.throwP.rollFrac*vel.z/R;
+    b.launch(sx+ (foul?0:0), foul?0.25:T.throwP.launchZ, vel, {x:wx,y:-spinN*revRad*0.12,z:wz});
+    this.foulFlag=foul;
+    if(foul){ HUD.foul(true); AUD.play('buzz',{vol:0.6}); HUD.msg('FOUL','crossed the line'); }
+    this.releaseT=perfNow(); PL.firstImpact=null; this.gutterFlagged=false;
+    const totalRpm=Math.hypot(wx,wz)*60/(2*Math.PI);
+    this.stats={mph,rpm:Math.abs(wz)*60/(2*Math.PI)};
+    HUD.stats(mph,this.stats.rpm,null); this.boardsShown=false;
+    this.phase='rolling';
+    DIRECTOR.cut('follow',0.28);
+    this.rollLoop=AUD.loop('roll',{pos:{x:sx,y:0,z:0},vol:0.0,rate:1});
+    this.hissLoop=AUD.loop('oilHiss',{pos:{x:sx,y:0,z:0},vol:0.0,rate:1});
+  },
+  _stopRollAudio(){
+    if(this.rollLoop){ this.rollLoop.stop(); this.rollLoop=null; }
+    if(this.hissLoop){ this.hissLoop.stop(); this.hissLoop=null; }
+  },
+  update(dt){
+    INPUT.update(dt);
+    for(const a of AMBIENTS) a.update(dt);
+    // slow-motion recovery
+    if(this.slowmoT>0){ this.slowmoT-=dt;
+      if(this.slowmoT<=0) timeScale=1; }
+    switch(this.phase){
+      case 'aim': case 'meterPower': case 'meterSpin': {
+        this.bowler.grp.visible=!this.fpView;
+        this.bowler.grp.position.x=PL.x+INPUT.slideX;
+        this.bowler.grp.position.z=1.35;
+        this.bowler.grp.rotation.y=Math.PI;   // face down the lane, not the camera
+        this.bowler.idlePose(DIRECTOR.clock);
+        this.bowler.armR.rotation.x=0.9;      // cradling the ball out front
+        if(this.ball&&this.ball.state==='hand') this.bowler.handPos(this.ball.carryTarget);
+        break; }
+      case 'delivering': {
+        this.deliverT+=dt;
+        const u=this.deliverT/1.1;
+        this.bowler.grp.position.x=PL.x+INPUT.slideX;
+        this.bowler.grp.position.z=lerp(1.35,0.3,smooth(Math.min(u/0.78,1)));
+        this.bowler.deliveryPose(Math.min(u,1));
+        if(this.ball.state==='hand') this.bowler.handPos(this.ball.carryTarget);
+        if(u>=0.74&&!this.released){ this.released=true; this._launch(); }
+        break; }
+      case 'rolling': {
+        const b=this.ball, p=b.sync.curr.p, v=b.body.linvel(), sp=Math.hypot(v.x,v.z);
+        // live audio
+        if(this.rollLoop&&b.state==='rolling'){
+          const onLane=p.y<b.radius+0.02&&p.z>T.lane.deckEnd;
+          this.rollLoop.set({x:p.x,y:0,z:p.z});
+          this.rollLoop.vol(onLane?clamp(sp/9,0,1)*0.5:0.05);
+          this.rollLoop.rate(0.7+sp/14);
+          const inOil=-p.z<PL.oilLength&&onLane;
+          this.hissLoop.set({x:p.x,y:0,z:p.z});
+          this.hissLoop.vol(inOil?clamp(sp/9,0,1)*0.08:0);
+        }
+        // HUD: board at the arrows, then entry board at the pins
+        if(!this.boardsShown&&p.z<-T.lane.approachLen){
+          HUD.stats(undefined,undefined,clamp(Math.round(20-(p.x-PL.x)/T.lane.boardW),1,39));
+        }
+        if(p.z<-17.9&&!this.entryShown){ this.entryShown=true;
+          HUD.stats(undefined,undefined,clamp(Math.round(20-(p.x-PL.x)/T.lane.boardW),1,39)); }
+        // A gutter is only called when the ball has physically dropped into the
+        // open lane-side channel. Pit travel and post-impact deflections do not qualify.
+        if(!this.gutterFlagged&&PL.firstImpact===null&&isPlayableGutterPosition(p,PL)){
+          this.gutterFlagged=true; HUD.msg('GUTTER','ouch'); }
+        // camera: hard cut to the deck ~1 m out (only when auto-cut is on)
+        if(this.autoCam&&p.z<T.cam.cutZ&&DIRECTOR.shot==='follow') DIRECTOR.cut('deck',T.cam.blendFast);
+        // strike slow-mo heuristic: half a second after impact, is the whole rack falling?
+        if(!this.slowmoDone&&PL.firstImpact!==null&&perfNow()-PL.firstImpact>0.45){
+          this.slowmoDone=true;
+          const falling=PL.pins.filter(pin=>pin.state==='deck'&&pin.upDot()<0.86).length
+            + PL.pins.filter(pin=>pin.state!=='deck').length;
+          if(falling>=9&&this.standingBefore===10){
+            timeScale=T.cam.slowmoScale; this.slowmoT=T.cam.slowmoDur;
+            bloomPass.strength=T.render.bloomStrength*2.1;
+            setTimeout(()=>{ bloomPass.strength=T.render.bloomStrength; },1400);
+            SHAKE=Math.max(SHAKE,T.cam.shakeImpact*1.6);
+          }
+        }
+        // settle detection
+        const now=perfNow(), sinceRel=now-this.releaseT;
+        const ballDone=b.state!=='rolling';
+        const pinsCalm=PL.pins.every(pin=>pin.state!=='deck'||pin.isCalm());
+        const timedOut=(PL.firstImpact!==null&&now-PL.firstImpact>T.settle.timeout)||sinceRel>10;
+        if(sinceRel>T.settle.minWait&&((ballDone&&pinsCalm)||timedOut)){
+          this.entryShown=false; this._stopRollAudio(); this.onSettled();
+        }
+        break; }
+      case 'settling': break;
+      case 'cycling': {
+        if(PL.setter.busy) break;
+        if(this.ball&&this.ball.state!=='rack') break;   // wait for the return to finish
+        if(this.gameOver){ 
+          this.phase='gameover';
+          const hamadScore = this.playerCards[0].compute().total;
+          const talalScore = this.playerCards[1].compute().total;
+          const winner = hamadScore > talalScore ? 'HAMAD' : talalScore > hamadScore ? 'TALAL' : 'TIE';
+          HUD.msg('GAME OVER',`HAMAD: ${hamadScore} • TALAL: ${talalScore}`,6);
+          HUD.hint('Tap to Play Again');
+          // Show play again button
+          if(!document.getElementById('playAgainBtn')) {
+            const btn = document.createElement('button');
+            btn.id = 'playAgainBtn';
+            btn.type = 'button';
+            btn.textContent = '🎳 PLAY AGAIN 🎳';
+            btn.style.cssText = 'position:fixed;bottom:40px;left:50%;transform:translateX(-50%);width:220px;height:80px;border-radius:20px;background:linear-gradient(135deg,#8dffb0,#37ff7d);border:4px solid #FFD700;font-size:24px;font-weight:bold;color:#0a0503;cursor:pointer;z-index:25;box-shadow:0 4px 15px rgba(0,0,0,0.5);transition:all 0.2s;pointer-events:auto';
+            btn.onclick = (e) => { 
+              e.preventDefault();
+              e.stopPropagation();
+              btn.remove(); 
+              GAME.newGame(); 
+            };
+            btn.onmousedown = (e) => e.preventDefault();
+            document.body.appendChild(btn);
+          }
+        } else this.toAim();
+        break; }
+    }
+    // ball entities housekeeping (pit pickups, racking balls come to rest -> lock them)
+    for(const L of LANES){ if(!L.active) continue;
+      for(const b of L.balls){
+        if(b.state==='rolling'){ const p=b.body.translation();
+          // pit, or riding the enclosed gutter channel under the deck
+          if((p.z<-19.13&&p.y<0.06)||(p.y<-0.10&&p.z<-17.8)||p.y<-0.16){
+            b.setState('pit'); b.pitT=0;
+            if(L===PL) this._stopRollAudio();
+          } else {
+            // dead-ball rescue: a stalled or lost ball is always sent back
+            const v=b.body.linvel(), sp=Math.hypot(v.x,v.y,v.z);
+            b.rollT=(b.rollT||0)+dt;
+            b.stallT=sp<0.15?(b.stallT||0)+dt:0;
+            if(b.stallT>2.5||b.rollT>18){
+              if(L===PL){ if(!BALL_RETURN.busy){ this._stopRollAudio();
+                b.setState('pit'); b.pitT=T.ret.pitGrabDelay+1;
+                HUD.msg('DEAD BALL','the house sends it back',2); } }
+              else { b.toFixed(); b.body.setTranslation({x:b.slot.x,y:b.slot.y,z:b.slot.z},true);
+                b.setState('rack'); }
+            }
+          } }
+        if(b.state==='pit'){ b.pitT+=dt;
+          if(L===PL){ if(b.pitT>T.ret.pitGrabDelay&&!BALL_RETURN.busy) BALL_RETURN.start(b); }
+          else if(b.pitT>2.6){ b.toFixed(); b.body.setTranslation({x:b.slot.x,y:b.slot.y,z:b.slot.z},true);
+            b.setState('rack'); } }
+        if(b.state==='racking'){
+          const v=b.body.linvel();
+          if(Math.hypot(v.x,v.y,v.z)<0.09){ b.restT+=dt;
+            if(b.restT>0.5){ b.toFixed(); b.setState('rack'); } }
+          else b.restT=0;
+        }
+      }
+    }
+    if(this.scoreDirty||((perfNow()*2|0)!==this._lastBlink)){
+      this._lastBlink=perfNow()*2|0; this.scoreDirty=false;
+      SCOREBOARD.draw(this.card,this.frame,this.ballNum);
+    }
+  },
+  onSettled(){
+    this.phase='settling';
+    const standingArr=PL.pins.map(p=>p.isStanding());
+    const standingCount=standingArr.filter(Boolean).length;
+    let knocked=this.standingBefore-standingCount;
+    knocked=clamp(knocked,0,this.standingBefore);
+    const wasSplitBall=this.ballNum===1;
+    let split=false;
+    if(this.foulFlag){
+      this.playerCards[this.currentPlayer].addThrow(0,{foul:true});
+    } else {
+      split=wasSplitBall&&standingCount>=2&&knocked<10&&detectSplit(standingArr);
+      this.playerCards[this.currentPlayer].addThrow(knocked,{split});
+    }
+    this.scoreDirty=true;
+    // Update scorecard with current player's score
+    const res = this.playerCards[this.currentPlayer].compute();
+    HUD.updateScorecard(this.currentPlayer, this.frame, knocked);
+    HUD.updateTotal(this.currentPlayer, res.total);
+    // messaging
+    const strike=!this.foulFlag&&knocked===10&&this.standingBefore===10;
+    const spare=!this.foulFlag&&!strike&&standingCount===0&&this.ballNum>=2;
+    const only710=split&&standingArr[6]&&standingArr[9]&&standingCount===2;
+    if(strike) HUD.msg('STRIKE!','', 2.5);
+    else if(spare){ HUD.msg(this.prevSplit?'SPLIT CONVERTED!!':'SPARE!','',2.5);
+      if(this.prevSplit) SCOREBOARD.flash('SPLIT CONVERTED!!'); }
+    else if(only710){ HUD.msg('7 – 10 SPLIT','the big one',3); SCOREBOARD.flash('7-10 SPLIT!'); }
+    else if(split){ HUD.msg('SPLIT','',2.2); SCOREBOARD.flash('SPLIT'); }
+    else if(knocked===0&&!this.foulFlag) HUD.msg(this.gutterFlagged?'GUTTER':'NOTHING DOING','',1.8);
+    this.prevSplit=split&&!spare;
+    // advance frame bookkeeping + machine cycle
+    let cycle;
+    const tenth=this.frame===9;
+    if(!tenth){
+      if(this.foulFlag&&this.ballNum===1){ cycle='fullRack'; this.ballNum=2; this.standingBefore=10; }
+      else if(strike||this.ballNum===2){ 
+        cycle='fullRack'; 
+        // Frame complete for this player—switch to next player
+        if(this.currentPlayer===0){
+          this.currentPlayer=1; // Switch to Talal
+        } else {
+          this.currentPlayer=0; // Back to Hamad, advance frame
+          this.frame++;
+        }
+        this.ballNum=1; 
+        this.standingBefore=10;
+        HUD.updatePlayerTurn(this.currentPlayer); // Highlight current player
+      }
+      else { cycle='respot'; this.ballNum=2; this.standingBefore=standingCount; }
+      this.gameOver=false;
+    } else {
+      const playerCard = this.playerCards[this.currentPlayer];
+      const th=playerCard.throwsList, n=th.length;
+      // count throws already taken in the tenth
+      let before=0; { let ti=0; for(let f=0;f<9;f++){ ti+=th[ti]===10?1:2; } before=n-ti; }
+      if(before>=3||(before===2&&!(th[n-2]===10||th[n-2]+th[n-1]>=10))){
+        cycle='fullRack'; 
+        // 10th frame done for this player
+        if(this.currentPlayer===0){
+          this.currentPlayer=1;
+          HUD.updatePlayerTurn(1); // Talal's turn in 10th
+        } else {
+          this.gameOver=true;
+        }
+      } else {
+        this.gameOver=false;
+        if(strike||standingCount===0||this.foulFlag){ cycle='fullRack'; this.standingBefore=10; }
+        else { cycle='respot'; this.standingBefore=standingCount; }
+        this.ballNum=Math.min(this.ballNum+1,3);
+      }
+    }
+    HUD.frame(this.frame,this.ballNum);
+    this.phase='cycling';
+    DIRECTOR.cut('wide',T.cam.blendSlow);
+    PL.setter.run(cycle,()=>{});
+    HUD.foul(false);
+  },
+};
+
+/* ====================== physics pre-step hook ====================== */
+function prePhysics(dt){
+  for(const L of LANES){
+    if(!L.active) continue;
+    L.setter.step(dt);
+    updatePitConveyor(L,dt);
+    for(const b of L.balls){
+      if(b.state==='hand'){
+        b.body.setNextKinematicTranslation({x:b.carryTarget.x,y:b.carryTarget.y,z:b.carryTarget.z});
+      } else if(b.state==='rolling'){
+        ballLaneFriction(b,dt);
+      }
+    }
+  }
+  BALL_RETURN.step(dt);
+}
+
+/* ============================ main loop ============================ */
+let timeScale=1;
+const DT=T.physics.dt;
+let last=performance.now(), acc=0, fpsAcc=0, fpsN=0, fpsT=0;
+function frame(now){
+  requestAnimationFrame(frame);
+  let dt=Math.min((now-last)/1000,0.08); last=now;
+  fpsAcc+=dt; fpsN++; fpsT+=dt;
+  if(fpsT>0.5){ $('fps').textContent=(fpsN/fpsAcc).toFixed(0)+' fps'; fpsAcc=0; fpsN=0; fpsT=0; }
+  acc+=dt*timeScale;
+  let steps=0;
+  while(acc>=DT&&steps<T.physics.maxSubSteps){
+    snapshotPrev();
+    prePhysics(DT);
+    world.step(eventQ);
+    _tAcc+=DT;
+    refreshCurr();
+    processContactEvents();
+    acc-=DT; steps++;
+  }
+  if(steps===T.physics.maxSubSteps) acc=0;
+  interpolate(clamp(acc/DT,0,1));
+  GAME.update(dt);
+  DIRECTOR.update(dt);
+  AUD.setListener(camera);
+  gradePass.uniforms.uTime.value=(now/1000)%37;
+  // occasional arcade attract bleeps
+  if(AUD.ready&&Math.random()<dt/9) AUD.arcadeBlip();
+  composer.render();
+}
+
+/* ============================== boot =============================== */
+const st=scoringSelfTest();
+$('selftest').textContent='SCORING SELF-TEST — '+(st.pass?'PASS':'FAIL')+'\n'+st.text;
+console.log('[STARDUST] scoring self-test:',st.pass?'PASS':'FAIL','\n'+st.text);
+GAME.init();
+$('loadmsg').style.display='none';
+$('clickToBowl').style.display='block';
+let booted=false;
+$('boot').addEventListener('click',()=>{
+  if(booted) return; booted=true;
+  try{ AUD.init(); }catch(e){ console.warn('audio init failed',e); }
+  $('boot').style.transition='opacity .7s'; $('boot').style.opacity='0';
+  setTimeout(()=>$('boot').remove(),750);
+  GAME.newGame();
+});
+
+// Bowl button - tap to throw
+$('bowlBtn').addEventListener('click',(e)=>{
+  e.preventDefault();
+  if(GAME.phase==='aim') GAME.onAction();
+});
+
+// Quiz system
+const quizModal = document.getElementById('quizModal');
+const playerIndicator = document.getElementById('playerIndicator');
+const quizQuestion = document.getElementById('quizQuestion');
+const answersContainer = document.getElementById('answersContainer');
+const feedbackMsg = document.getElementById('feedbackMsg');
+const skipBtn = document.getElementById('skipBtn');
+
+function generateQuiz() {
+  const isHamad = GAME.currentPlayer === 0;
+  
+  playerIndicator.textContent = isHamad ? "HAMAD's Turn 🎳" : "TALAL's Turn 🎳";
+  answersContainer.innerHTML = '';
+  feedbackMsg.textContent = '';
+
+  let question, correctAnswer, answers;
+
+  if(!GAME.quizQuestionType) GAME.quizQuestionType = {};
+  
+  if (isHamad) {
+    // Hamad (4.5): Multiplication tables (1-12) + subtraction alternating
+    const useMultiplication = !GAME.quizQuestionType.hamad || GAME.quizQuestionType.hamad === 'multiplication';
+    
+    if(useMultiplication) {
+      // Multiplication: 1×1 through 12×12
+      const a = Math.floor(Math.random() * 12) + 1; // 1-12
+      const b = Math.floor(Math.random() * 12) + 1; // 1-12
+      question = `${a} × ${b} = ?`;
+      correctAnswer = a * b;
+      const wrong = [correctAnswer - 1, correctAnswer + 1, correctAnswer + 5].filter(n => n > 0);
+      answers = [correctAnswer, ...wrong].sort(() => Math.random() - 0.5);
+      GAME.quizQuestionType.hamad = 'subtraction';
+    } else {
+      // Subtraction: larger numbers (10-20 minus 1-8)
+      const a = Math.floor(Math.random() * 11) + 10; // 10-20
+      const b = Math.floor(Math.random() * 8) + 1;  // 1-8
+      question = `${a} - ${b} = ?`;
+      correctAnswer = a - b;
+      const wrong = [correctAnswer - 1, correctAnswer + 1, correctAnswer - 2].filter(n => n > 0);
+      answers = [correctAnswer, ...wrong].sort(() => Math.random() - 0.5);
+      GAME.quizQuestionType.hamad = 'multiplication';
+    }
+  } else {
+    // Talal (3): Harder addition (up to 20)
+    const a = Math.floor(Math.random() * 15) + 1; // 1-15
+    const b = Math.floor(Math.random() * (20 - a)) + 1; // ensure sum doesn't exceed 20
+    question = `${a} + ${b} = ?`;
+    correctAnswer = a + b;
+    const wrong = [correctAnswer - 1, correctAnswer + 1, correctAnswer + 2].filter(n => n > 0 && n <= 20);
+    answers = [correctAnswer, ...wrong].sort(() => Math.random() - 0.5);
+  }
+
+  quizQuestion.innerHTML = `<div style="font-size:48px;font-weight:bold">${question}</div>`;
+  answers.forEach(answer => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'answerBtn';
+    btn.style.cssText = 'padding:20px;font-size:36px;background:linear-gradient(135deg,#FF6B9D,#FF85C0);border:3px solid #FFD700;border-radius:15px;color:white;font-weight:bold;cursor:pointer;transition:all 0.2s;min-height:80px;pointer-events:auto;';
+    btn.textContent = answer;
+    btn.onclick = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      checkAnswer(answer === correctAnswer, correctAnswer);
+    };
+    answersContainer.appendChild(btn);
+  });
+}
+
+function showQuiz() {
+  quizModal.style.display = 'flex';
+  generateQuiz();
+}
+
+function checkAnswer(isCorrect, correct) {
+  if (isCorrect) {
+    feedbackMsg.textContent = '✅ CORRECT!';
+    feedbackMsg.style.color = '#8dffb0';
+    setTimeout(closeQuiz, 1000);
+  } else {
+    feedbackMsg.textContent = `❌ Try again! Answer: ${correct}`;
+    feedbackMsg.style.color = '#ff7a6a';
+    setTimeout(generateQuiz, 1500);
+  }
+}
+
+function closeQuiz() {
+  quizModal.style.display = 'none';
+  // Don't auto-bowl — let the kid tap the bowl button
+}
+
+skipBtn.onclick = () => closeQuiz();
+
+// Aim arrow buttons
+let aimLeftPressed = false;
+let aimRightPressed = false;
+
+$('leftAimBtn').addEventListener('pointerdown',(e)=>{
+  e.preventDefault();
+  aimLeftPressed = true;
+});
+$('leftAimBtn').addEventListener('pointerup',()=>{
+  aimLeftPressed = false;
+});
+$('leftAimBtn').addEventListener('pointerleave',()=>{
+  aimLeftPressed = false;
+});
+
+$('rightAimBtn').addEventListener('pointerdown',(e)=>{
+  e.preventDefault();
+  aimRightPressed = true;
+});
+$('rightAimBtn').addEventListener('pointerup',()=>{
+  aimRightPressed = false;
+});
+$('rightAimBtn').addEventListener('pointerleave',()=>{
+  aimRightPressed = false;
+});
+
+// Update INPUT to handle aim from buttons
+const origInputUpdate = INPUT.update.bind(INPUT);
+INPUT.update = function(dt){
+  origInputUpdate.call(this, dt);
+  if(GAME.phase === 'aim' && INPUT.mode === 'simple'){
+    if(aimLeftPressed) this.angle = clamp(this.angle - T.throwP.simpleAngleRate * dt, -1, 1);
+    if(aimRightPressed) this.angle = clamp(this.angle + T.throwP.simpleAngleRate * dt, -1, 1);
+  }
+};
+requestAnimationFrame(frame);
+
+/* ======================= debug / test console ====================== */
+window.BOWL = {
+  T, world, GAME, LANES, PL, INPUT, DIRECTOR, AUD, ScoreCard, scoringSelfTest,
+  predict:predictPath, AIMVIS,
+  state(){
+    return {
+      phase:GAME.phase, frame:GAME.frame+1, ball:GAME.ballNum,
+      standing:PL.pins.map(p=>p.isStanding()?1:0),
+      score:GAME.card.compute().total,
+      throws:GAME.card.throwsList.slice(),
+      setterBusy:PL.setter.busy, ballState:GAME.ball&&GAME.ball.state,
+    };
+  },
+  // synchronous stepper: drives the exact frame-loop body without rAF
+  // (headless/hidden-tab testing — rAF is paused in background tabs)
+  tick(sec=1){
+    const dt=1/60, n=Math.round(sec/dt);
+    for(let i=0;i<n;i++){
+      acc+=dt*timeScale;
+      let steps=0;
+      while(acc>=DT&&steps<T.physics.maxSubSteps){
+        snapshotPrev(); prePhysics(DT); world.step(eventQ); _tAcc+=DT;
+        refreshCurr(); processContactEvents(); acc-=DT; steps++;
+      }
+      if(steps===T.physics.maxSubSteps) acc=0;
+      GAME.update(dt); DIRECTOR.update(dt);
+    }
+    interpolate(clamp(acc/DT,0,1));
+    composer.render();
+    last=performance.now();
+    return this.state();
+  },
+  speed(x){ timeScale=x; },
+  // programmatic throw for testing: BOWL.throwTest({mph:17, startBoard:17, targetBoard:17.5, rev:350, side:1})
+  throwTest({mph=16,startBoard=20,targetBoard=17.5,rev=0,side=1}={}){
+    if(GAME.phase!=='aim'){ console.warn('not aiming'); return; }
+    INPUT.mode='meter';   // aim-point launch path (physics identical to simple mode)
+    INPUT.slideX=clamp((20-startBoard)*T.lane.boardW,-T.throwP.slideRange,T.throwP.slideRange);
+    INPUT.aimX=clamp((20-targetBoard)*T.lane.boardW,-T.throwP.aimRange,T.throwP.aimRange);
+    const powerN=clamp((mph-T.throwP.minMph)/(T.throwP.maxMph-T.throwP.minMph),0,1);
+    const spinN=clamp(side*rev/T.throwP.maxRev,-1,1);
+    GAME.beginDelivery(powerN,-spinN,false);   // note: spinN sign flipped inside _launch
+  },
+  // set a custom leave for practice: BOWL.spot([7,10])
+  spot(pinNums){
+    if(PL.setter.busy){ console.warn('setter busy'); return; }
+    const keep=new Set(pinNums.map(n=>n-1));
+    for(const pin of PL.pins){
+      if(keep.has(pin.idx)){
+        pin.makeDynamic(); pin.state='deck'; pin.mesh.visible=true;
+        const [sx,sz]=PIN_SPOTS[pin.idx];
+        pin.body.setTranslation({x:PL.x+sx,y:0.003,z:sz},true);
+        pin.body.setRotation({x:0,y:0,z:0,w:1},true);
+      } else { pin.makeKinematic(); pin.state='pool'; pin.mesh.visible=false;
+        pin.teleport(PL.x,-3,-19.5+pin.idx*0.02); }
+    }
+    GAME.standingBefore=pinNums.length;
+  },
+};
+</script>
+</body>
+</html>
