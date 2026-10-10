@@ -67,9 +67,12 @@ const R: Record<string, Recitation> = {
 };
 
 /* ---------------- games ---------------- */
-type Item = { e: string; ar: string; en: string; clip?: string };   // clip: short muted video shown when this step is tapped correctly
+type Item = { e: string; ar: string; en: string; img?: string; full?: boolean; focus?: string };   // focus: CSS object-position to zoom a tile on the action   // img: picture shown on the tile and in the scene; full: a photo-style frame, not a cut-out
+const ART = "/explorer/salah/";
+// Picture panel for order games: shows the last correct step large, the start picture before any tap, the done picture at the end.
+type Scene = { start: string; done?: string; mosque?: boolean };
 type Game =
-  | { id: string; kind: "order"; ar: string; en: string; prompt: string; items: Item[]; wrong: string; right: string }
+  | { id: string; kind: "order"; ar: string; en: string; prompt: string; items: Item[]; wrong: string; right: string; scene?: Scene }
   | { id: string; kind: "match"; ar: string; en: string; prompt: string; pairs: { a: Item; b: Item }[]; right: string }
   | { id: string; kind: "collect"; ar: string; en: string; prompt: string; items: Item[]; right: string }
   | { id: string; kind: "choice"; ar: string; en: string; rounds: () => { q: string; show: string; options: string[]; answer: string }[]; right: string }
@@ -79,22 +82,36 @@ const creatures = ["🐝", "🦋", "🐛", "🐞"];
 const creatureNames: Record<string, string> = { "🐝": "bees", "🦋": "butterflies", "🐛": "caterpillars", "🐞": "ladybirds" };
 
 /* ---------------- spaces ---------------- */
-type Toy = { id: string; e: string; ar: string; en: string; sfx: Sfx; fx?: "count33" | "toggle" | "unroll" | "ripple" | "bloom"; add?: string[] };
-type Space = { id: string; ar: string; en: string; e: string; bg: string; guide: FamilyMember; hello: string; trayLabel?: string; toys: Toy[]; games: Game[]; surahs: string[] };
+type Toy = { id: string; e: string; img?: string; ar: string; en: string; sfx: Sfx; fx?: "count33" | "toggle" | "unroll" | "ripple" | "bloom"; add?: string[] };
+type Space = { id: string; ar: string; en: string; e: string; img?: string; bg: string; guide: FamilyMember; hello: string; trayLabel?: string; toys: Toy[]; games: Game[]; surahs: string[] };
 
 const SPACES: Space[] = [
-  { id: "mosque", ar: "المسجد", en: "The Mosque", e: "🕌", bg: "bg-space-mosque", guide: "hamad", hello: "Shh… a calm, peaceful place. Tap to explore!",
+  { id: "mosque", ar: "المسجد", en: "The Mosque", e: "🕌", img: "mosque-icon", bg: "bg-space-mosque", guide: "hamad", hello: "Shh… a calm, peaceful place. Tap to explore!",
     toys: [
       { id: "fountain", e: "⛲", ar: "الماء", en: "Water", sfx: "water", fx: "ripple" },
       { id: "beads", e: "📿", ar: "المسبحة", en: "Beads", sfx: "click", fx: "count33" },
-      { id: "mat", e: "🟩", ar: "السجادة", en: "Prayer mat", sfx: "rustle", fx: "unroll" },
+      { id: "mat", e: "🟩", img: "mat", ar: "السجادة", en: "Prayer mat", sfx: "rustle", fx: "unroll" },
       { id: "lamp", e: "🏮", ar: "الفانوس", en: "Lantern", sfx: "warm", fx: "toggle" },
       { id: "minaret", e: "🕌", ar: "المئذنة", en: "Minaret", sfx: "chime" },
       { id: "bell", e: "🔔", ar: "الجرس", en: "Chime", sfx: "bell" },
     ],
     games: [
-      { id: "wudu", kind: "order", ar: "خطوات الوضوء", en: "Wudu steps", prompt: "Tap the steps in order", items: [{ e: "🙌", ar: "اليدان", en: "Hands" }, { e: "😊", ar: "الوجه", en: "Face" }, { e: "💪", ar: "الذراعان", en: "Arms" }, { e: "🦶", ar: "القدمان", en: "Feet" }], wrong: "Try again — wash hands first", right: "Clean heart, ready to pray! ما شاء الله" },
-      { id: "postures", kind: "order", ar: "وضعيات الصلاة", en: "Prayer postures", prompt: "Tap in prayer order", items: [{ e: "🧍", ar: "القيام", en: "Standing", clip: "standing" }, { e: "🙇", ar: "الركوع", en: "Bowing", clip: "bowing" }, { e: "🧎", ar: "السجود", en: "Prostrating", clip: "prostrating" }, { e: "🪑", ar: "الجلوس", en: "Sitting", clip: "sitting" }], wrong: "Almost! We stand first 🧍", right: "Excellent prayer posture! ما شاء الله" },
+      { id: "wudu", kind: "order", ar: "خطوات الوضوء", en: "Wudu steps", prompt: "Tap the wudu steps in order", scene: { start: "wudu-ready", done: "wudu-done" }, items: [
+        { e: "🙌", ar: "غسل الكفين", en: "Hands", img: "wudu-hands", focus: "78% 30%" },
+        { e: "👄", ar: "المضمضة", en: "Mouth", img: "wudu-mouth", focus: "78% 12%" },
+        { e: "👃", ar: "الاستنشاق", en: "Nose", img: "wudu-nose", focus: "78% 12%" },
+        { e: "😊", ar: "غسل الوجه", en: "Face", img: "wudu-face", focus: "78% 12%" },
+        { e: "💪", ar: "غسل اليدين إلى المرفقين", en: "Arms to elbows", img: "wudu-arms", full: true },
+        { e: "💆", ar: "مسح الرأس", en: "Wipe head", img: "wudu-head", focus: "78% 8%" },
+        { e: "🦶", ar: "غسل القدمين", en: "Feet", img: "wudu-feet", focus: "70% 70%" },
+      ], wrong: "Try again — we start by washing our hands 🙌", right: "Clean and ready to pray! ما شاء الله" },
+      { id: "postures", kind: "order", ar: "وضعيات الصلاة", en: "Prayer postures", prompt: "Tap in prayer order", scene: { start: "mat", mosque: true }, items: [
+        { e: "🙌", ar: "تكبيرة الإحرام", en: "Allahu Akbar", img: "salah-takbir" },
+        { e: "🙇", ar: "الركوع", en: "Bowing", img: "salah-ruku" },
+        { e: "🧍", ar: "الرفع من الركوع", en: "Stand up", img: "salah-standing" },
+        { e: "🧎", ar: "السجود", en: "Prostrating", img: "salah-sujood" },
+        { e: "🪑", ar: "الجلوس", en: "Sitting", img: "salah-sitting" },
+      ], wrong: "Almost! We start with Allahu Akbar 🙌", right: "Excellent prayer posture! ما شاء الله" },
     ], surahs: ["fatiha", "nas"] },
   { id: "home", ar: "البيت", en: "Home", e: "🏠", bg: "bg-space-home", guide: "talal", hello: "Welcome home! Let's help the family.", trayLabel: "Items in basket",
     toys: [
@@ -175,7 +192,7 @@ function Hub({ onOpen }: { onOpen: (id: string) => void }) {
       <div className="flex items-center gap-3 min-[960px]:col-span-2"><FamilyCharacter name="hamad" className="animate-hamad-float" /><p className="rounded-2xl bg-card px-4 py-3 text-sm font-black shadow-sm">Five places to discover! · خمسة أماكن نكتشفها</p></div>
       {SPACES.map((s) => (
         <button key={s.id} onClick={() => onOpen(s.id)} className={cn(s.bg, "flex min-h-24 items-center gap-4 rounded-3xl px-5 py-4 text-left text-primary-foreground shadow-md transition active:scale-95")}>
-          <span className="text-5xl">{s.e}</span>
+          {s.img ? <img src={`${ART}${s.img}.webp`} alt="" draggable={false} className="h-16 w-20 shrink-0 object-contain drop-shadow-md" /> : <span className="text-5xl">{s.e}</span>}
           <span className="min-w-0 flex-1"><span lang="ar" className="block font-arabic text-2xl font-black">{s.ar}</span><span className="block font-black opacity-90">{s.en}</span></span>
           {p.visited.includes(s.id) && <span className="rounded-full bg-card/30 px-2 py-1 text-xs font-black">✓</span>}
         </button>
@@ -243,7 +260,7 @@ function Playground({ space }: { space: Space }) {
             <button key={t.id} onClick={() => { if (isAdhan) { toggleAdhan(); return; } sfx(t.sfx); setState((s) => ({ ...s, [t.id]: t.fx === "count33" ? (n % 33) + 1 : n + 1 })); if (t.add) setTray((x) => [...x, t.add![n % t.add!.length]!]); }}
               aria-pressed={isAdhan ? adhanOn : undefined}
               className={cn("relative grid min-h-28 place-items-center rounded-2xl bg-card/85 p-2 font-black shadow transition active:scale-90", (t.fx === "toggle" || isAdhan) && on && "bg-primary/90 shadow-[0_0_30px] shadow-primary")}>
-              <span className={cn("text-5xl", t.fx === "unroll" && on && "animate-unroll", isAdhan && on && "animate-character-speak")} key={t.fx === "unroll" ? n : undefined}>{t.e}</span>
+              <span className={cn("text-5xl", t.fx === "unroll" && on && "animate-unroll", isAdhan && on && "animate-character-speak")} key={t.fx === "unroll" ? n : undefined}>{t.img ? <img src={`${ART}${t.img}.webp`} alt="" draggable={false} className="h-14 w-14 object-contain" /> : t.e}</span>
               {t.fx === "ripple" && n > 0 && <span key={n} className="animate-ripple absolute h-12 w-12 rounded-full border-4 border-card" />}
               {t.fx === "bloom" && n > 0 && <span key={n} className="animate-bloom absolute text-3xl">🌺</span>}
               <span className="grid text-center text-xs leading-tight"><span lang="ar" className="font-arabic text-sm">{t.ar}</span><span>{isAdhan ? (on ? "Tap to stop" : "Adhan") : t.en}</span></span>
@@ -310,30 +327,41 @@ function GameView({ game, onDone }: { game: Game; onDone: () => void }) {
 
 const Tile = ({ it, onClick, done, big }: { it: Item; onClick?: () => void; done?: boolean; big?: boolean }) => (
   <button onClick={onClick} disabled={done} className={cn("grid min-h-24 place-items-center rounded-2xl bg-card p-2 font-black shadow transition active:scale-90", done && "opacity-40", big && "min-h-28")}>
-    {it.e && <span className="text-4xl">{it.e}</span>}<span lang="ar" className="font-arabic text-lg">{it.ar}</span><span className="text-xs">{it.en}</span>
+    {it.img ? (
+      <span className="block h-24 w-full overflow-hidden rounded-xl">
+        <img src={`${ART}${it.img}.webp`} alt="" draggable={false} loading="lazy" style={it.focus ? { transform: "scale(1.9)", transformOrigin: it.focus } : undefined}
+          className={cn("h-full w-full", it.full ? "object-cover" : "object-contain")} />
+      </span>
+    ) : it.e && <span className="text-4xl">{it.e}</span>}
+    <span lang="ar" className="font-arabic text-base leading-tight">{it.ar}</span><span className="text-xs">{it.en}</span>
   </button>
 );
+
+function ScenePanel({ scene, last, finished }: { scene: Scene; last?: Item; finished: boolean }) {
+  const show = finished && scene.done ? { img: scene.done, full: false } : last?.img ? { img: last.img, full: !!last.full } : { img: scene.start, full: false };
+  return (
+    <div className={cn("relative flex h-64 items-end justify-center overflow-hidden rounded-3xl shadow-inner sm:h-72", !scene.mosque && "bg-gradient-to-b from-[oklch(0.95_0.03_80)] to-[oklch(0.88_0.05_70)]")}
+      style={scene.mosque ? { backgroundImage: `url(${ART}mosque-bg.webp)`, backgroundSize: "cover", backgroundPosition: "center 40%" } : undefined}>
+      <img key={show.img} src={`${ART}${show.img}.webp`} alt="" draggable={false}
+        className={cn("animate-in fade-in zoom-in-95 duration-500", show.full ? "absolute inset-0 h-full w-full object-cover" : "relative z-10 max-h-[92%] max-w-[85%] object-contain drop-shadow-xl")} />
+      <img src={`${ART}${finished ? "teacher-show" : "teacher-talk"}.webp`} alt="Teacher" draggable={false} className="absolute bottom-1 left-2 z-20 h-[46%] object-contain drop-shadow-lg" />
+    </div>
+  );
+}
 
 function OrderGame({ game, onWin }: { game: Extract<Game, { kind: "order" }>; onWin: () => void }) {
   const tiles = useMemo(() => shuffle(game.items), [game]);
   const [picked, setPicked] = useState<Item[]>([]); const [msg, setMsg] = useState(game.prompt);
   const tap = (it: Item) => {
-    if (it === game.items[picked.length]) { sfx("pop"); const next = [...picked, it]; setPicked(next); setMsg(it.clip ? `${it.ar} · ${it.en}` : "Yes! نعم"); if (next.length === game.items.length) setTimeout(onWin, it.clip ? 2600 : 500); }
+    if (it === game.items[picked.length]) { sfx("pop"); const next = [...picked, it]; setPicked(next); setMsg(it.img ? `${it.ar} · ${it.en}` : "Yes! نعم"); if (next.length === game.items.length) setTimeout(onWin, game.scene ? 2400 : 500); }
     else { sfx("click"); setMsg(game.wrong); }
   };
   return (
     <div className="mt-4 grid gap-4">
       <p className="rounded-2xl bg-card px-4 py-3 text-center font-black">{msg}</p>
-      {game.items.some((i) => i.clip) && (() => {
-        const last = picked[picked.length - 1], clip = last?.clip || game.items[0]!.clip!;
-        return (
-          <div className="overflow-hidden rounded-2xl bg-card">
-            <video key={clip} src={`/explorer/salah/${clip}.mp4`} poster={`/explorer/salah/${clip}.jpg`} autoPlay={!!last} muted playsInline preload="auto" disablePictureInPicture className={cn("aspect-video w-full object-cover", last ? "animate-in fade-in duration-500" : "opacity-60")} aria-hidden="true" />
-          </div>
-        );
-      })()}
+      {game.scene && <ScenePanel scene={game.scene} last={picked[picked.length - 1]} finished={picked.length === game.items.length} />}
       <div className="flex min-h-16 items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-border text-4xl">{picked.map((p) => <span key={p.en} className="animate-pop-in">{p.e}</span>)}{picked.length < game.items.length && <span className="opacity-30">…</span>}</div>
-      <div className="grid grid-cols-2 gap-3">{tiles.map((t) => <Tile key={t.en} it={t} big done={picked.includes(t)} onClick={() => tap(t)} />)}</div>
+      <div className={cn("grid gap-3", game.items.length > 4 ? "grid-cols-3 min-[960px]:grid-cols-4" : "grid-cols-2")}>{tiles.map((t) => <Tile key={t.en} it={t} big done={picked.includes(t)} onClick={() => tap(t)} />)}</div>
     </div>
   );
 }
