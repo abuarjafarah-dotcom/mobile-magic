@@ -1,6 +1,9 @@
 // Cooking-engine recipe data. The engine (src/components/kitchen/CookingStage.tsx) reads only this file;
 // add a dish by adding a Recipe here — never by hard-coding steps in components.
 import { kitchenPic } from "@/data/kitchen";
+import tetaStory from "@/assets/kitchen/mloukhye/teta-story.mp4";
+import tetaStoryWebm from "@/assets/kitchen/mloukhye/teta-story.webm";
+import tetaPoster from "@/assets/kitchen/mloukhye/teta-story-poster.jpg";
 
 const art = import.meta.glob("@/assets/kitchen/*/*.png", { eager: true, import: "default" }) as Record<string, string>;
 /** Kitchen-only art: "cast/hamad-idle", "maqluba/final", "tools/pot-stove". Falls back to ingredient/dish cut-outs. */
@@ -11,7 +14,10 @@ export type Line = { ar: string; en: string; v?: string[] };
 export type Vessel = "bowl" | "board" | "pot" | "dough" | "tray" | "flip" | "plate" | "pan" | "table";
 export type Cook = "hamad" | "talal" | "teta";
 /** What a vessel holds. Steps can patch it with `after` (e.g. leaves melt into green soup). */
-export type VState = { layers: string[]; scatter: { img: string; x: number; y: number; r: number }[]; liquid?: string; cooked?: boolean };
+export type VState = {
+  layers: string[]; scatter: { img: string; x: number; y: number; r: number }[]; liquid?: string; cooked?: boolean;
+  /** Whole-vessel picture for this moment (e.g. "mloukhye/pot-broth"); replaces the drawn vessel + layers. */ art?: string;
+};
 export type Interaction =
   | { kind: "wash"; item: string; taps: number }
   | { kind: "chop"; item: string; result: string; taps: number }
@@ -22,7 +28,8 @@ export type Interaction =
   | { kind: "knead"; taps: number }
   | { kind: "roll"; taps: number }
   | { kind: "sprinkle"; item: string; taps: number }
-  | { kind: "cook"; mode: "simmer" | "fry" | "bake"; seconds: number }
+  /** `during` = picture shown while it cooks (e.g. pot with its lid on). */
+  | { kind: "cook"; mode: "simmer" | "fry" | "bake"; seconds: number; during?: string }
   | { kind: "flip" }
   | { kind: "serve" }
   /** Tap the vessel to lift a (cooked) item out; `show` is the picture that flies out. */
@@ -39,6 +46,8 @@ export type Recipe = {
   /** Picture the vessel turns into once cooking finishes (optional). */ cookedArt?: string;
   /** Picture for the recipe-picker card (defaults to dish). */ card?: string;
   /** Characters on the [left, right] of the stage. Defaults to Hamad & Talal. */ cast?: [Cook, Cook];
+  /** Starting state per slot, e.g. { pot: { art: "mloukhye/pot-empty" } }. */ start?: Record<string, Partial<VState>>;
+  /** Optional short film shown from the Get Ready screen (never replaces the cooking). */ video?: { src: string; webm?: string; poster?: string };
 };
 
 const CHEERS = [["shater"], ["mumtaz"], ["wow"], ["tamam"], ["shatrin"], ["ahsantum"], ["m-bravo"], ["mashallah"]];
@@ -130,48 +139,46 @@ export const COOK_RECIPES: Recipe[] = [
     ],
   },
   {
-    // Palestinian mloukhye with Teta: chicken broth → leaves → garlic-coriander tasha → rice → family table.
-    // Every stage is data; reorder or drop steps here to match a family variation.
-    id: "molokhia", name: { ar: "مْلوخِيَّة", en: "Mloukhye" }, dish: "mloukhye/table", card: "dish-molokhia-dish", cast: ["teta", "hamad"],
-    ingredients: ["molokhia", "garlic", "coriander", "chicken", "water", "olive-oil", "rice", "lemon"],
+    // Palestinian mloukhye with Teta. Every pot/pan moment is a picture from the Gemini step sheets (src/assets/kitchen/mloukhye/),
+    // swapped in by `after: { art }`. Reorder or drop steps here to match a family variation.
+    id: "molokhia", name: { ar: "مْلوخِيَّة", en: "Mloukhye" }, dish: "mloukhye/served-plate", card: "mloukhye/served-plate", cast: ["teta", "hamad"],
+    video: { src: tetaStory, webm: tetaStoryWebm, poster: tetaPoster },
+    start: { pot: { art: "mloukhye/pot-empty" }, pan: { art: "mloukhye/pan-empty" }, "rice-pot": { art: "mloukhye/pot-empty" } },
+    ingredients: ["mloukhye/molokhia-leaves", "mloukhye/chicken-raw-pieces", "mloukhye/onion-whole", "mloukhye/cardamom", "mloukhye/bay-leaves", "mloukhye/garlic-head", "mloukhye/coriander-fresh", "mloukhye/rice-raw-bowl", "mloukhye/lemon-wedges"],
     intro: { ar: "أَهْلَيْن حَبايْبي! يَلّا نُطْبُخ مْلوخِيَّة مَع تيتا", en: "Hi my loves! Let's cook mloukhye with Teta!", v: ["m-ahlein", "yalla-natbukh", "molokhia"] },
     done: { ar: "ريحِتْها طَيْبَة! صَحْتَين وَعافْيَة", en: "It smells wonderful! Sahtein!", v: ["m-tayyba", "sahtein-wafia"] },
     steps: [
-      // 1 · get the leaves ready
-      sx("bowl", { kind: "add", item: "molokhia" }, ["حُطّ وَرَق الْمْلوخِيَّة بِالْوْعا", "Put the mloukhye leaves in the bowl", ["hutta", "molokhia"]], ["شاطِر", "Well done", ["shater"]], "teta"),
-      sx("bowl", { kind: "wash", item: "molokhia", taps: 4 }, ["يَلّا نِغْسِل الْوَرَق", "Let's wash the leaves", ["yalla", "molokhia"]], ["وَرَق نْضيف", "Clean leaves!", ["tamam"]], "hamad"),
-      sx("board", { kind: "chop", item: "molokhia", result: "molokhia-chopped", taps: 4 }, ["نْقَطِّع الْمْلوخِيَّة", "Chop the leaves", ["cut", "molokhia"]], ["مُمْتاز", "Great", ["mumtaz"]], "teta"),
-      sx("board", { kind: "chop", item: "garlic", result: "garlic-minced", taps: 4 }, ["وْهَلَّأ الثّوم", "Now the garlic", ["cut", "garlic"]], ["ثوم ناعِم", "Tiny garlic!", ["shatrin"]], "hamad"),
-      // 2 · broth — the chicken cooks all the way through before anything else
-      sx("pot", { kind: "add", item: "chicken" }, ["أَوَّل إِشي الْجاج", "First, the chicken", ["m-jaj"]], ["واو", "Wow", ["wow"]], "teta"),
-      sx("pot", { kind: "pour", item: "water", color: "oklch(0.8 0.08 230 / .55)" }, ["وْمَيّ", "And water", ["m-mayy"]], ["تَمام", "Good", ["tamam"]], "hamad"),
-      sx("pot", { kind: "cook", mode: "simmer", seconds: 6 }, ["نُطْبُخ الْجاج عَلى نار هادْيَة لَحَدّ ما يِسْتْوي", "Cook the chicken gently until it's fully done", ["m-nar"]], ["شو هالرّيحَة! الْجاج اسْتَوى", "What a smell! The chicken is cooked", ["m-riha"]], "teta",
-        { after: { liquid: "oklch(0.84 0.11 88 / .75)" } }),
-      sx("pot", { kind: "lift", item: "chicken", show: "chicken-cooked" }, ["طَلِّع الْجاج عَالصَّحْن", "Lift the chicken onto a plate", ["chicken"]], ["بِنوكْلو مَع الرُّزّ", "We'll eat it with the rice", ["shater"]], "hamad",
-        { after: { cooked: false } }),
-      // 3 · the mloukhye goes into the broth
-      sx("pot", { kind: "add", item: "molokhia-chopped", into: "molokhia" }, ["حُطّ الْمْلوخِيَّة بِالْمَرَق", "Add the mloukhye to the broth", ["hutta", "molokhia"]], ["واو", "Wow", ["wow"]], "teta"),
-      sx("pot", { kind: "stir", taps: 5 }, ["نْحَرِّك، نْحَرِّك", "Stir, stir!", ["nharrik"]], ["صارَت خَضْرا", "It turned green!", ["m-mashallah"]], "hamad",
-        { after: { layers: [], liquid: "oklch(0.47 0.12 138 / .92)" } }),
-      // 4 · tasha: garlic + coriander in oil in the small pan
-      sx("pan", { kind: "pour", item: "olive-oil", color: "oklch(0.82 0.15 95 / .7)" }, ["بِالْمِقْلايَة شْوَيِّة زيت", "A little oil in the small pan", ["m-zeit"]], ["تَمام", "Good", ["tamam"]], "teta"),
-      sx("pan", { kind: "add", item: "garlic-minced" }, ["حُطّ الثّوم", "Add the garlic", ["hutta", "garlic"]], ["شاطِر", "Well done", ["shater"]], "hamad"),
-      sx("pan", { kind: "add", item: "coriander" }, ["وِالْكُزْبَرَة", "And the coriander", ["hutta"]], ["مُمْتاز", "Great", ["mumtaz"]], "teta"),
-      sx("pan", { kind: "stir", taps: 4 }, ["حَرِّك بِشْويش", "Stir gently", ["harrikha"]], ["صار لونو ذَهَبي", "It's turning golden", ["wow"]], "hamad",
-        { after: { cooked: true } }),
-      sx("pot", { kind: "transfer", from: "pan", item: "garlic-minced" }, ["كُبّ الطَّشَّة عَالْمْلوخِيَّة", "Pour the garlic and coriander into the mloukhye", ["hutta"]], ["تْشْشْش! سْمِعْتو؟", "Tssss! Did you hear it?", ["isma3u"]], "teta"),
-      sx("pot", { kind: "stir", taps: 4 }, ["حَرِّكْها", "Stir it", ["harrikha"]], ["اسْتَوَت الْمْلوخِيَّة", "The mloukhye is ready", ["m-istawat"]], "hamad",
-        { after: { layers: [], liquid: "oklch(0.4 0.11 136 / .96)" } }),
+      // 1 · leaves and garlic
+      sx("bowl", { kind: "add", item: "mloukhye/molokhia-leaves" }, ["حُطّ وَرَق الْمْلوخِيَّة بِالْوْعا", "Put the mloukhye leaves in the bowl", ["hutta", "molokhia"]], ["شاطِر", "Well done", ["shater"]], "teta"),
+      sx("bowl", { kind: "wash", item: "mloukhye/molokhia-leaves", taps: 4 }, ["يَلّا نِغْسِل الْوَرَق", "Let's wash the leaves", ["yalla", "molokhia"]], ["وَرَق نْضيف", "Clean leaves!", ["tamam"]], "hamad"),
+      sx("board", { kind: "chop", item: "mloukhye/molokhia-leaves", result: "mloukhye/molokhia-chopped-bowl", taps: 4 }, ["نْقَطِّع الْمْلوخِيَّة", "Chop the leaves", ["cut", "molokhia"]], ["مُمْتاز", "Great", ["mumtaz"]], "teta"),
+      sx("board", { kind: "chop", item: "mloukhye/garlic-head", result: "mloukhye/garlic-chopped", taps: 4 }, ["وْهَلَّأ الثّوم", "Now the garlic", ["cut", "garlic"]], ["ثوم ناعِم", "Tiny garlic!", ["shatrin"]], "hamad"),
+      // 2 · broth: water, chicken, onion and spices — the chicken cooks all the way through
+      sx("pot", { kind: "pour", item: "water", color: "oklch(0.8 0.08 230 / .55)" }, ["مَيّ بِالطَّنْجَرَة", "Water in the pot", ["m-mayy"]], ["تَمام", "Good", ["tamam"]], "teta", { after: { art: "mloukhye/pot-water" } }),
+      sx("pot", { kind: "add", item: "mloukhye/chicken-raw-pieces" }, ["أَوَّل إِشي الْجاج", "Now the chicken", ["m-jaj"]], ["واو", "Wow", ["wow"]], "hamad", { after: { art: "mloukhye/pot-chicken-raw" } }),
+      sx("pot", { kind: "add", item: "mloukhye/onion-whole" }, ["بَصَلَة وْهال وْوَرَق غار", "An onion, cardamom and bay leaves", ["hutta", "onion"]], ["شو هالرّيحَة", "What a smell!", ["m-riha"]], "teta", { after: { art: "mloukhye/pot-aromatics" } }),
+      sx("pot", { kind: "cook", mode: "simmer", seconds: 6 }, ["نُطْبُخ الْجاج عَلى نار هادْيَة لَحَدّ ما يِسْتْوي", "Cook the chicken gently until it's fully done", ["m-nar"]], ["الْجاج اسْتَوى، وْصار عِنّا مَرَق", "The chicken is cooked, and we have broth", ["mumtaz"]], "hamad", { after: { art: "mloukhye/pot-broth" } }),
+      sx("pot", { kind: "lift", item: "chicken", show: "mloukhye/chicken-cooked-plate" }, ["طَلِّع الْجاج عَالصَّحْن", "Lift the chicken onto a plate", ["chicken"]], ["بِنوكْلو مَع الرُّزّ", "We'll eat it with the rice", ["shater"]], "teta"),
+      // 3 · mloukhye into the broth
+      sx("pot", { kind: "add", item: "mloukhye/molokhia-chopped-bowl" }, ["حُطّ الْمْلوخِيَّة بِالْمَرَق", "Add the mloukhye to the broth", ["hutta", "molokhia"]], ["واو", "Wow", ["wow"]], "hamad", { after: { art: "mloukhye/pot-leaves" } }),
+      sx("pot", { kind: "stir", taps: 5 }, ["نْحَرِّك، نْحَرِّك", "Stir, stir!", ["nharrik"]], ["صارَت تِغْلي", "It's bubbling!", ["m-mashallah"]], "teta", { after: { art: "mloukhye/pot-steaming" } }),
+      // 4 · tasha: garlic and coriander fried in oil
+      sx("pan", { kind: "pour", item: "olive-oil", color: "oklch(0.82 0.15 95 / .7)" }, ["بِالْمِقْلايَة شْوَيِّة زيت", "A little oil in the small pan", ["m-zeit"]], ["تَمام", "Good", ["tamam"]], "hamad", { after: { art: "mloukhye/pan-oil" } }),
+      sx("pan", { kind: "add", item: "mloukhye/garlic-chopped" }, ["حُطّ الثّوم", "Add the garlic", ["hutta", "garlic"]], ["شاطِر", "Well done", ["shater"]], "teta", { after: { art: "mloukhye/pan-garlic" } }),
+      sx("pan", { kind: "stir", taps: 4 }, ["حَرِّك بِشْويش", "Stir gently", ["harrikha"]], ["صار لونو ذَهَبي", "It's turning golden", ["wow"]], "hamad", { after: { art: "mloukhye/pan-garlic-golden" } }),
+      sx("pan", { kind: "add", item: "mloukhye/coriander-chopped" }, ["وِالْكُزْبَرَة", "And the coriander", ["hutta"]], ["مُمْتاز", "Great", ["mumtaz"]], "teta", { after: { art: "mloukhye/pan-coriander" } }),
+      sx("pan", { kind: "stir", taps: 3 }, ["حَرِّك كَمان", "Stir some more", ["nharrik"]], ["الطَّشَّة جاهْزَة", "The tasha is ready", ["tamam"]], "hamad", { after: { art: "mloukhye/pan-tasha" } }),
+      sx("pot", { kind: "transfer", from: "pan", item: "garlic-minced" }, ["كُبّ الطَّشَّة عَالْمْلوخِيَّة", "Pour the garlic and coriander into the mloukhye", ["hutta"]], ["تْشْشْش! سْمِعْتو؟", "Tssss! Did you hear it?", ["isma3u"]], "teta", { after: { art: "mloukhye/pot-tasha" } }),
+      sx("pot", { kind: "stir", taps: 4 }, ["حَرِّكْها", "Stir it in", ["harrikha"]], ["اسْتَوَت الْمْلوخِيَّة", "The mloukhye is ready", ["m-istawat"]], "hamad", { after: { art: "mloukhye/pot-simmer" } }),
       // 5 · rice in its own pot
-      sx("pot", { kind: "add", item: "rice" }, ["وْهَلَّأ الرُّزّ", "And now the rice", ["m-ruz"]], ["شاطِر", "Well done", ["shater"]], "teta", { slot: "rice-pot" }),
-      sx("pot", { kind: "pour", item: "water", color: "oklch(0.8 0.08 230 / .55)" }, ["وْمَيّ", "And water", ["m-mayy"]], ["تَمام", "Good", ["tamam"]], "hamad", { slot: "rice-pot" }),
-      sx("pot", { kind: "cook", mode: "simmer", seconds: 4 }, ["عَلى نار هادْيَة", "On a low fire", ["m-nar"]], ["الرُّزّ شِرِب الْمَيّ", "The rice drank up the water", ["wow"]], "teta",
-        { slot: "rice-pot", after: { cooked: false, liquid: undefined } }),
-      // 6 · serve at the family table
-      sx("table", { kind: "add", item: "mloukhye-bowl" }, ["نْغَرِّف الْمْلوخِيَّة بِالزِّبْدِيَّة", "Ladle the mloukhye into a bowl", ["hutta", "molokhia"]], ["مُمْتاز", "Great", ["mumtaz"]], "hamad"),
-      sx("table", { kind: "add", item: "rice" }, ["وِالرُّزّ جَنْبْها", "Rice next to it", ["rice"]], ["شاطِر", "Well done", ["shater"]], "teta"),
-      sx("table", { kind: "add", item: "chicken-cooked" }, ["وِالْجاج الْمِسْتْوي", "And the cooked chicken", ["chicken"]], ["واو", "Wow", ["wow"]], "hamad"),
-      sx("table", { kind: "add", item: "lemon-sliced" }, ["شْوَيِّة لَيْمون", "A little lemon", ["lemon"]], ["برافو", "Bravo", ["m-bravo"]], "teta"),
+      sx("pot", { kind: "pour", item: "water", color: "oklch(0.8 0.08 230 / .55)" }, ["مَيّ لَلرُّزّ", "Water for the rice", ["m-mayy"]], ["تَمام", "Good", ["tamam"]], "teta", { slot: "rice-pot", after: { art: "mloukhye/pot-water" } }),
+      sx("pot", { kind: "add", item: "mloukhye/rice-raw-bowl" }, ["وْهَلَّأ الرُّزّ", "And now the rice", ["m-ruz"]], ["شاطِر", "Well done", ["shater"]], "hamad", { slot: "rice-pot", after: { art: "mloukhye/rice-pot-water" } }),
+      sx("pot", { kind: "cook", mode: "simmer", seconds: 4, during: "mloukhye/rice-pot-lid" }, ["نْغَطّيه وْعَلى نار هادْيَة", "Cover it, on a low fire", ["m-nar"]], ["الرُّزّ شِرِب الْمَيّ", "The rice drank up the water", ["wow"]], "teta", { slot: "rice-pot", after: { art: "mloukhye/rice-pot-cooked" } }),
+      // 6 · serve
+      sx("table", { kind: "add", item: "mloukhye/mloukhye-serving-bowl" }, ["نْغَرِّف الْمْلوخِيَّة بِالزِّبْدِيَّة", "Ladle the mloukhye into a bowl", ["hutta", "molokhia"]], ["مُمْتاز", "Great", ["mumtaz"]], "hamad"),
+      sx("table", { kind: "add", item: "mloukhye/rice-plate" }, ["وِالرُّزّ جَنْبْها", "Rice next to it", ["rice"]], ["شاطِر", "Well done", ["shater"]], "teta"),
+      sx("table", { kind: "add", item: "mloukhye/chicken-cooked-pieces" }, ["وِالْجاج الْمِسْتْوي", "And the cooked chicken", ["chicken"]], ["واو", "Wow", ["wow"]], "hamad"),
+      sx("table", { kind: "add", item: "mloukhye/lemon-wedges" }, ["شْوَيِّة لَيْمون", "A little lemon", ["lemon"]], ["برافو", "Bravo", ["m-bravo"]], "teta"),
     ],
   },
   {
@@ -200,7 +207,12 @@ export const ING_NAME: Record<string, Line> = {
   "onion-sliced": { ar: "بَصَل", en: "Onion" }, "garlic-minced": { ar: "ثوم", en: "Garlic" },
   "arabic-bread": { ar: "خُبْزُ الطّابون", en: "Taboon bread" }, "grape-leaves": { ar: "أَصابِعُ مَلْفوف", en: "Cabbage rolls" },
   "lemon-sliced": { ar: "لَيْمون", en: "Lemon" },
-  "molokhia-chopped": { ar: "مْلوخِيَّة مْقَطَّعَة", en: "Chopped mloukhye" }, "chicken-cooked": { ar: "جاج مِسْتْوي", en: "Cooked chicken" },
-  "mloukhye-bowl": { ar: "زِبْدِيَّة مْلوخِيَّة", en: "Bowl of mloukhye" }, coriander: { ar: "كُزْبَرَة", en: "Coriander" },
-  molokhia: { ar: "مْلوخِيَّة", en: "Mloukhye leaves" },
+  "mloukhye/molokhia-leaves": { ar: "وَرَق مْلوخِيَّة", en: "Mloukhye leaves" }, "mloukhye/molokhia-chopped-bowl": { ar: "مْلوخِيَّة مْقَطَّعَة", en: "Chopped mloukhye" },
+  "mloukhye/chicken-raw-pieces": { ar: "جاج", en: "Chicken" }, "mloukhye/onion-whole": { ar: "بَصَلَة", en: "Onion" },
+  "mloukhye/cardamom": { ar: "هال", en: "Cardamom" }, "mloukhye/bay-leaves": { ar: "وَرَق غار", en: "Bay leaves" },
+  "mloukhye/garlic-head": { ar: "ثوم", en: "Garlic" }, "mloukhye/garlic-chopped": { ar: "ثوم مْفَرَّم", en: "Chopped garlic" },
+  "mloukhye/coriander-fresh": { ar: "كُزْبَرَة", en: "Coriander" }, "mloukhye/coriander-chopped": { ar: "كُزْبَرَة مْقَطَّعَة", en: "Chopped coriander" },
+  "mloukhye/rice-raw-bowl": { ar: "رُزّ", en: "Rice" }, "mloukhye/lemon-wedges": { ar: "لَيْمون", en: "Lemon" },
+  "mloukhye/mloukhye-serving-bowl": { ar: "زِبْدِيَّة مْلوخِيَّة", en: "Bowl of mloukhye" }, "mloukhye/rice-plate": { ar: "صَحْن رُزّ", en: "Plate of rice" },
+  "mloukhye/chicken-cooked-pieces": { ar: "جاج مِسْتْوي", en: "Cooked chicken" },
 };

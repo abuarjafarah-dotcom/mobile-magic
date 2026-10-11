@@ -20,7 +20,9 @@ const ING_CLIP: Record<string, string> = {
   chicken: "chicken", eggplant: "eggplant", "eggplant-sliced": "eggplant", potato: "potato", "potato-cubed": "potato",
   rice: "rice", water: "water", salt: "salt", garlic: "garlic", "garlic-minced": "garlic", onion: "onion", "onion-sliced": "onion",
   parsley: "parsley", lemon: "lemon", "lemon-sliced": "lemon", bread: "bread", "arabic-bread": "bread", cabbage: "malfouf", molokhia: "molokhia",
-  "molokhia-chopped": "molokhia", "mloukhye-bowl": "molokhia", "chicken-cooked": "chicken",
+  "mloukhye/molokhia-leaves": "molokhia", "mloukhye/molokhia-chopped-bowl": "molokhia", "mloukhye/mloukhye-serving-bowl": "molokhia",
+  "mloukhye/chicken-raw-pieces": "chicken", "mloukhye/chicken-cooked-pieces": "chicken", "mloukhye/onion-whole": "onion",
+  "mloukhye/garlic-head": "garlic", "mloukhye/garlic-chopped": "garlic", "mloukhye/rice-raw-bowl": "rice", "mloukhye/rice-plate": "rice", "mloukhye/lemon-wedges": "lemon",
 };
 export const ingName = (id: string): Line => ({ ...(ING_NAME[id] ?? { ar: INGREDIENTS[id]?.ar ?? id, en: INGREDIENTS[id]?.en ?? id }), v: ING_CLIP[id] ? [ING_CLIP[id]] : [] });
 
@@ -123,6 +125,14 @@ function TableArt({ v }: { v: VState }) {
   );
 }
 
+/** Gas ring under a pot/pan picture; flames only while cooking. */
+function Burner({ heat }: { heat: boolean }) {
+  return (<>
+    <div className="absolute bottom-[2%] left-[26%] h-[8%] w-[48%] rounded-[50%] border-[5px] border-[oklch(0.38_0.01_60)] bg-[oklch(0.38_0.01_60/.25)]" />
+    {heat && <div className="absolute inset-x-[30%] bottom-[3%] z-10 flex justify-center gap-1 text-3xl" aria-hidden>{["🔥", "🔥", "🔥"].map((f, i) => <span key={i} style={{ animation: `k-flame .5s ${i * 0.15}s infinite` }}>{f}</span>)}</div>}
+  </>);
+}
+
 function VesselArt({ vessel, recipe, v, step, count, heat, anim, served }: { vessel: Vessel; recipe: Recipe; v: VState; step: Step | undefined; count: number; heat: boolean; anim: string; served: boolean }) {
   const layers = (
     <div className="absolute inset-x-[20%] top-[14%] h-[30%]">
@@ -135,6 +145,10 @@ function VesselArt({ vessel, recipe, v, step, count, heat, anim, served }: { ves
   );
   const scatter = v.scatter.map((s, i) => DOTS[s.img] ? <span key={i} className="absolute h-2 w-2 rounded-full" style={{ left: `${s.x}%`, top: `${s.y + 10}%`, background: DOTS[s.img], animation: "k-fall .6s ease-in both" }} /> : <img key={i} src={kart(s.img)} alt="" className="absolute h-[14%] w-auto object-contain" style={{ left: `${s.x}%`, top: `${s.y}%`, transform: `rotate(${s.r}deg)`, animation: "k-fall .6s ease-in both" }} />);
   const wrap = (children: ReactNode) => <div className={`relative aspect-[10/7] w-full ${anim}`}>{children}{scatter}</div>;
+  if (v.art && (vessel === "pot" || vessel === "pan" || vessel === "bowl")) return wrap(<>
+    {vessel !== "bowl" && <Burner heat={heat || vessel === "pan"} />}
+    <img key={v.art} src={kart(v.art)} alt="" draggable={false} className={`absolute inset-x-0 top-0 h-[90%] w-full object-contain ${vessel === "pan" ? "scale-[1.06]" : ""}`} style={{ animation: "k-pop .45s ease-out both" }} />
+  </>);
 
   if (vessel === "board") {
     const d = step?.do; const it = d?.kind === "chop" ? (count >= d.taps ? d.result : d.item) : d?.kind === "roll" ? "cabbage" : "";
@@ -186,7 +200,8 @@ export function CookingStage({ recipe, lang, muted, onDone }: { recipe: Recipe; 
   const [i, setI] = useState(-1);
   const [count, setCount] = useState(0);
   const [busy, setBusy] = useState(false);
-  const [vs, setVs] = useState<Record<string, VState>>({});
+  const [vs, setVs] = useState<Record<string, VState>>(() => Object.fromEntries(Object.entries(recipe.start ?? {}).map(([k, p]) => [k, { ...emptyV(), ...p }])));
+  const [film, setFilm] = useState(false);
   const [bits, setBits] = useState<Bit[]>([]);
   const [heat, setHeat] = useState(0); // 0 off, 0..1 progress
   const [anim, setAnim] = useState("");
@@ -256,7 +271,8 @@ export function CookingStage({ recipe, lang, muted, onDone }: { recipe: Recipe; 
     // cookRef guards double-taps: heat only updates on the first tick, so a quick second tap used to start a second timer and skip a step
     if (!step || step.do.kind !== "cook" || heat || busy || cookRef.current === i) return;
     cookRef.current = i; setHeat(0.01);
-    const secs = step.do.seconds, mode = step.do.mode; sfx("sizzle", muted); setPose((s) => ({ ...s, [step.who]: "stir" }));
+    const secs = step.do.seconds, mode = step.do.mode, during = step.do.during; sfx("sizzle", muted);
+    if (during) patch((s) => ({ ...s, art: during })); setPose((s) => ({ ...s, [step.who]: "stir" }));
     const t0 = Date.now();
     const tick = setInterval(() => {
       const p = Math.min(1, (Date.now() - t0) / (secs * 1000)); setHeat(Math.max(0.01, p));
@@ -301,7 +317,7 @@ export function CookingStage({ recipe, lang, muted, onDone }: { recipe: Recipe; 
           <div ref={target} role={tapping ? "button" : undefined} aria-label={step ? L(step.say) : undefined} onClick={tapping ? tapVessel : undefined}
             className={`relative w-full touch-manipulation select-none ${tapping ? "cursor-pointer" : ""} ${vessel === "dough" && heat ? "rounded-3xl shadow-[0_0_60px_20px_oklch(0.75_0.18_50/.6)]" : ""}`}>
             <div className={anim === "k-stirring" ? "[animation:k-wiggle_.4s]" : anim.startsWith("[") ? anim : ""}>
-              <VesselArt vessel={vessel} recipe={recipe} v={v} step={step} count={count} heat={heat > 0 && vessel === "pot"} anim="" served={served} />
+              <VesselArt vessel={vessel} recipe={recipe} v={v} step={step} count={count} heat={heat > 0 && (vessel === "pot" || vessel === "pan")} anim="" served={served} />
             </div>
             {d?.kind === "stir" && <span key={count} className="pointer-events-none absolute left-1/2 top-[8%] text-6xl" style={{ animation: "k-wiggle .4s" }} aria-hidden>🥄</span>}
             {vessel === "tray" && heat > 0 && <div className="pointer-events-none absolute inset-0 rounded-3xl shadow-[0_0_70px_24px_oklch(0.75_0.18_50/.6)]" />}
@@ -313,7 +329,7 @@ export function CookingStage({ recipe, lang, muted, onDone }: { recipe: Recipe; 
             )}
             {bits.map((b) => (
               <span key={b.id} className="pointer-events-none absolute z-30" style={{ left: `${b.x}%`, top: `${b.y}%`, animation: `${b.fx === "bubble" ? "k-bubble" : b.fx === "steam" ? "k-steam" : b.fx === "spark" ? "k-spark" : "k-fall"} 1.4s ease-out both` }}>
-                {b.img ? <img src={kart(b.img)} alt="" className="h-8 w-8 object-contain" style={{ animation: "k-spark 1s both" }} />
+                {b.img ? <img src={kart(b.img)} alt="" className={`${b.fx === "spark" ? "h-24 w-24" : "h-8 w-8"} object-contain`} style={{ animation: b.fx === "spark" ? "k-lift 1.4s ease-out both" : "k-spark 1s both" }} />
                   : b.fx === "bubble" ? <span className="block h-4 w-4 rounded-full border-2 border-card bg-card/40" />
                   : b.fx === "steam" ? <span className="block h-10 w-10 rounded-full bg-card/70 blur-md" />
                   : <span className="text-2xl">✨</span>}
@@ -325,14 +341,21 @@ export function CookingStage({ recipe, lang, muted, onDone }: { recipe: Recipe; 
       </div>
 
       {/* tray: the one thing to use now */}
-      <div className="relative z-30 flex min-h-36 items-center justify-center gap-6 pb-4">
+      <div className="relative z-30 flex min-h-36 items-center justify-center gap-4 pb-4">
         {i === -1 && (
-          <button type="button" onClick={() => setI(0)} className="k-glow rounded-full bg-primary px-10 py-4 text-3xl font-black text-primary-foreground shadow-[0_6px_0_var(--sun-shadow)] active:translate-y-1">
+          <button type="button" onClick={() => setI(0)} className={`k-glow whitespace-nowrap rounded-full bg-primary py-4 text-3xl ${recipe.video ? "px-7" : "px-10"} font-black text-primary-foreground shadow-[0_6px_0_var(--sun-shadow)] active:translate-y-1`}>
             {lang === "ar" ? "هَيّا نَطْبُخ" : "Let's cook"} ▶
           </button>
         )}
+        {i === -1 && recipe.video && (
+          <button type="button" onClick={() => { stopVoice(); setFilm(true); }} aria-label={lang === "ar" ? "شوف تيتا" : "Watch Teta"}
+            className="relative h-16 w-24 shrink-0 overflow-hidden rounded-2xl border-4 border-card shadow-lg active:scale-95">
+            {recipe.video.poster && <img src={recipe.video.poster} alt="" className="absolute inset-0 h-full w-full object-cover" />}
+            <span className="absolute inset-0 grid place-items-center bg-foreground/25 text-3xl text-card" aria-hidden>▶</span>
+          </button>
+        )}
         {d && (d.kind === "add" || d.kind === "pour") && !busy && anim !== "pour" && <DragItem key={i} img={kart(d.item)} label={L(ingName(d.item))} target={target} onDrop={dropItem} />}
-        {d?.kind === "transfer" && !busy && <DragItem key={i} img="" label={L(step!.say)} target={target} onDrop={dropItem}><div className="relative h-full w-full"><PanArt v={vs[d.from] ?? emptyV()} heat={false} /></div></DragItem>}
+        {d?.kind === "transfer" && !busy && <DragItem key={i} img="" label={L(step!.say)} target={target} onDrop={dropItem}><div className="relative h-full w-full">{vs[d.from]?.art ? <img src={kart(vs[d.from]!.art!)} alt="" draggable={false} className="h-full w-full object-contain" /> : <PanArt v={vs[d.from] ?? emptyV()} heat={false} />}</div></DragItem>}
         {d?.kind === "sprinkle" && <img src={kart(d.item)} alt="" className="h-20 w-20 object-contain k-hint" />}
         {d?.kind === "cook" && (
           <button type="button" data-k="act" onClick={light} disabled={heat > 0} aria-label={L(step!.say)}
@@ -343,6 +366,16 @@ export function CookingStage({ recipe, lang, muted, onDone }: { recipe: Recipe; 
         {(progress > 0 && progress < 1) && <div className="absolute bottom-1 left-1/2 h-3 w-48 -translate-x-1/2 overflow-hidden rounded-full bg-card/70"><div className="h-full bg-success transition-all" style={{ width: `${progress * 100}%` }} /></div>}
       </div>
 
+      {film && recipe.video && (
+        <div className="fixed inset-0 z-[70] flex items-center justify-center bg-foreground/80 p-3" onClick={() => setFilm(false)}>
+          <video poster={recipe.video.poster} autoPlay playsInline controls muted={muted} onEnded={() => setFilm(false)}
+            className="max-h-[80dvh] w-full max-w-3xl rounded-3xl shadow-2xl" onClick={(e) => e.stopPropagation()}>
+            <source src={recipe.video.src} type="video/mp4" />
+            {recipe.video.webm && <source src={recipe.video.webm} type="video/webm" />}
+          </video>
+          <button type="button" onClick={() => setFilm(false)} aria-label="Close" className="absolute right-4 top-[max(1rem,env(safe-area-inset-top))] grid h-12 w-12 place-items-center rounded-full bg-card text-2xl font-black shadow-lg">✕</button>
+        </div>
+      )}
       <Buddy who={left} side="left" pose={pose[left]} hop={pose.hop[left]} talking={talking === left} />
       <Buddy who={right} side="right" pose={pose[right]} hop={pose.hop[right]} talking={talking === right} />
     </div>

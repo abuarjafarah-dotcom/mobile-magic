@@ -318,6 +318,7 @@
 @keyframes k-hint { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
 @keyframes k-glow { 0%, 100% { filter: drop-shadow(0 0 0 oklch(0.85 0.17 85 / 0)); } 50% { filter: drop-shadow(0 0 14px oklch(0.85 0.17 85 / .9)); } }
 @keyframes k-flame { 0%, 100% { transform: scaleY(1); opacity: .85; } 50% { transform: scaleY(1.25); opacity: 1; } }
+@keyframes k-pop { 0% { transform: scale(.94); opacity: .6; } 60% { transform: scale(1.03); opacity: 1; } 100% { transform: scale(1); } }
 .k-breathe { animation: k-breathe 3.2s ease-in-out infinite; transform-origin: bottom center; }
 .k-hop { animation: k-hop .9s ease-out 1; transform-origin: bottom center; }
 .k-talk { animation: k-talk .5s ease-in-out infinite; transform-origin: bottom center; }
