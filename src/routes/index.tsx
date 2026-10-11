@@ -37,6 +37,7 @@ const SeekAndFind = lazy(() => import("@/components/arabic/SeekAndFind").then((m
 const PalestinianKitchen = lazy(() => import("@/components/kitchen/PalestinianKitchen").then((m) => ({ default: m.PalestinianKitchen })));
 const MathQuest = lazy(() => import("@/components/math/MathQuest").then((m) => ({ default: m.MathQuest })));
 const MontessoriBeadChains = lazy(() => import("@/components/math/MontessoriBeadChains").then((m) => ({ default: m.MontessoriBeadChains })));
+const GoldenBeadWorkshop = lazy(() => import("@/components/math/golden/GoldenBeadWorkshop").then((m) => ({ default: m.GoldenBeadWorkshop })));
 const MathBowling = lazy(() => import("@/components/math/MathBowling").then((m) => ({ default: m.MathBowling })));
 import { GameButton } from "@/components/game/GameButton";
 import { surahs, type SurahData } from "@/data/surahs";
@@ -69,6 +70,7 @@ import hamadAsset from "@/assets/hamad.jpg.asset.json";
 import talalAsset from "@/assets/talal.jpg.asset.json";
 import yousefAsset from "@/assets/yousef.jpg.asset.json";
 import mosqueIcon from "@/assets/salah/mosque-icon.webp";
+import goldenBeadIcon from "@/assets/golden-workshop/unit-bead.webp";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -84,7 +86,7 @@ export const Route = createFileRoute("/")({
   component: MathAdventure,
 });
 
-type Screen = "picker" | "home" | "game" | "reward" | "parent" | "surah" | "ayah" | "arabic" | "geo" | "iq" | "aw" | "g1" | "ie" | "bowling" | "quest" | "build" | "lw" | "sci" | "kitchen" | "chess" | "memorize" | "seek" | "beads" | "ws";
+type Screen = "picker" | "home" | "game" | "reward" | "parent" | "surah" | "ayah" | "arabic" | "geo" | "iq" | "aw" | "g1" | "ie" | "bowling" | "quest" | "build" | "lw" | "sci" | "kitchen" | "chess" | "memorize" | "seek" | "beads" | "ws" | "golden";
 type GameMode = "multiplication" | "addition";
 type ActivityTab = GameMode | "grade1" | "bowling" | "surah" | "arabic" | "geo" | "iq" | "more";
 type Level = 1 | 2 | 3 | 4 | 5;
@@ -341,8 +343,9 @@ function MathAdventure() {
       {screen === "ws" && <Suspense fallback={null}><WuduSalahWorld onExit={() => setScreen("picker")} /></Suspense>}
       {screen === "kitchen" && <Suspense fallback={null}><PalestinianKitchen onExit={() => setScreen("picker")} /></Suspense>}
       {screen === "sci" && <Suspense fallback={null}><ScienceWorld onExit={() => setScreen("picker")} /></Suspense>}
-      {screen === "home" && <HomeScreen stats={stats} learning={learning} tab={homeTab} onBack={() => setScreen("picker")} onTab={setHomeTab} onStartBowling={() => setScreen("bowling")} onStartQuest={() => setScreen("quest")} onStartBeads={() => setScreen("beads")} onStartMultiplication={startMultiplication} onStartAddition={startAddition} onStartSurah={(surah) => { setSelectedSurah(surah); setScreen("surah"); }} onStartAyah={(surah) => { setSelectedSurah(surah); setScreen("ayah"); }} onStartMemorize={(surah) => { setSelectedSurah(surah); setScreen("memorize"); }} onStartArabic={(lesson) => { setArabicLesson(lesson); setScreen("arabic"); }} onProgress={updateLearning} onStartGeo={(lesson) => { setGeoLesson(lesson); setScreen("geo"); }} onStartIq={() => setScreen("iq")} onStartIe={() => setScreen("ie")} onOpenArabicWorld={(v) => { if (v === "lw") { setScreen("lw"); return; } if (v === "seek") { setScreen("seek"); return; } setAwView(v); setScreen("aw"); }} onStartG1={(l) => { setG1Lesson(l); setScreen("g1"); }} />}
+      {screen === "home" && <HomeScreen stats={stats} learning={learning} tab={homeTab} onBack={() => setScreen("picker")} onTab={setHomeTab} onStartBowling={() => setScreen("bowling")} onStartQuest={() => setScreen("quest")} onStartBeads={() => setScreen("beads")} onStartGolden={() => setScreen("golden")} onStartMultiplication={startMultiplication} onStartAddition={startAddition} onStartSurah={(surah) => { setSelectedSurah(surah); setScreen("surah"); }} onStartAyah={(surah) => { setSelectedSurah(surah); setScreen("ayah"); }} onStartMemorize={(surah) => { setSelectedSurah(surah); setScreen("memorize"); }} onStartArabic={(lesson) => { setArabicLesson(lesson); setScreen("arabic"); }} onProgress={updateLearning} onStartGeo={(lesson) => { setGeoLesson(lesson); setScreen("geo"); }} onStartIq={() => setScreen("iq")} onStartIe={() => setScreen("ie")} onOpenArabicWorld={(v) => { if (v === "lw") { setScreen("lw"); return; } if (v === "seek") { setScreen("seek"); return; } setAwView(v); setScreen("aw"); }} onStartG1={(l) => { setG1Lesson(l); setScreen("g1"); }} />}
       {screen === "build" && <Suspense fallback={null}><BuildingWorld onExit={() => setScreen("picker")} /></Suspense>}
+      {screen === "golden" && <Suspense fallback={null}><GoldenBeadWorkshop onExit={goHome} /></Suspense>}
       {screen === "beads" && <Suspense fallback={null}><MontessoriBeadChains onExit={goHome} /></Suspense>}
       {screen === "bowling" && <Suspense fallback={null}><MathBowling onExit={goHome} /></Suspense>}
       {screen === "quest" && <Suspense fallback={null}><MathQuest onExit={goHome} /></Suspense>}
@@ -442,7 +445,7 @@ function GamePicker({ stats, onOpenCategory, onStartIq, onStartIe, onStartBuild,
   );
 }
 
-function HomeScreen({ onStartQuest, onStartBeads, onBack, stats, learning, tab, onTab, onStartBowling, onStartMultiplication, onStartAddition, onStartSurah, onStartAyah, onStartMemorize, onStartArabic, onProgress, onStartGeo, onStartIq, onStartIe, onOpenArabicWorld, onStartG1 }: { onStartQuest: () => void; onStartBeads: () => void; onBack: () => void; onStartIe: () => void; onStartG1: (lesson: G1Lesson) => void; onStartBowling: () => void; onOpenArabicWorld: (view: string) => void; onProgress: (change: (p: LearningProgress) => LearningProgress) => void; onStartGeo: (lesson: GeoLesson) => void; onStartIq: () => void; stats: Stats; learning: LearningProgress; tab: ActivityTab; onTab: (mode: ActivityTab) => void; onStartMultiplication: (table: TimesTable) => void; onStartAddition: (level: Level) => void; onStartSurah: (surah: SurahData) => void; onStartAyah: (surah: SurahData) => void; onStartMemorize?: (surah: SurahData) => void; onStartArabic: (lesson: Lesson) => void }) {
+function HomeScreen({ onStartQuest, onStartBeads, onStartGolden, onBack, stats, learning, tab, onTab, onStartBowling, onStartMultiplication, onStartAddition, onStartSurah, onStartAyah, onStartMemorize, onStartArabic, onProgress, onStartGeo, onStartIq, onStartIe, onOpenArabicWorld, onStartG1 }: { onStartQuest: () => void; onStartBeads: () => void; onStartGolden: () => void; onBack: () => void; onStartIe: () => void; onStartG1: (lesson: G1Lesson) => void; onStartBowling: () => void; onOpenArabicWorld: (view: string) => void; onProgress: (change: (p: LearningProgress) => LearningProgress) => void; onStartGeo: (lesson: GeoLesson) => void; onStartIq: () => void; stats: Stats; learning: LearningProgress; tab: ActivityTab; onTab: (mode: ActivityTab) => void; onStartMultiplication: (table: TimesTable) => void; onStartAddition: (level: Level) => void; onStartSurah: (surah: SurahData) => void; onStartAyah: (surah: SurahData) => void; onStartMemorize?: (surah: SurahData) => void; onStartArabic: (lesson: Lesson) => void }) {
   const isMath = tab === "multiplication" || tab === "addition" || tab === "grade1" || tab === "bowling";
   return (
     <section className="mx-auto flex min-h-dvh w-full max-w-lg flex-col px-4 pb-[max(2rem,env(safe-area-inset-bottom))] pt-[max(4.5rem,env(safe-area-inset-top))] sm:px-6 min-[960px]:max-w-6xl min-[960px]:pb-8 min-[960px]:pt-8">
@@ -481,6 +484,10 @@ function HomeScreen({ onStartQuest, onStartBeads, onBack, stats, learning, tab, 
           </GameButton>
           <GameButton tone="neutral" className="min-h-12 text-sm" onClick={onStartBeads}>
             <span className="inline-flex items-center gap-2">📿 Bead Chains</span>
+          </GameButton>
+          <GameButton tone="sun" className="col-span-2 flex min-h-16 items-center justify-center gap-3 text-base" onClick={onStartGolden}>
+            <img src={goldenBeadIcon} alt="" className="h-9 w-auto drop-shadow" />
+            <span className="text-start leading-tight"><span className="block font-black">Golden Bead Workshop</span><span lang="ar" className="block font-arabic text-xs font-bold opacity-80">ورشة الخرز الذهبي · Living Numbers</span></span>
           </GameButton>
         </div>
       )}
