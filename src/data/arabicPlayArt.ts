@@ -47,6 +47,8 @@ import letter25 from "@/assets/arabicplay/letter-25.webp";
 import letter26 from "@/assets/arabicplay/letter-26.webp";
 import letter27 from "@/assets/arabicplay/letter-27.webp";
 import letter28 from "@/assets/arabicplay/letter-28.webp";
+import salahRuku from "@/assets/salah/salah-ruku.webp";
+import salahSujud from "@/assets/salah/salah-sujud.webp";
 
 export type PicWord = { id: string; ar: string; en: string; img: string };
 export type LetterCard = { letter: string; word: string; en: string; img: string };
@@ -106,3 +108,62 @@ export const LETTER_CARDS: LetterCard[] = [
   { letter: "و", word: "وَرْدَة", en: "rose", img: letter27 },
   { letter: "ي", word: "يَد", en: "hand", img: letter28 },
 ];
+
+/* ---------------- Harakat Slot Machine words ---------------- */
+
+
+/** One reel per letter: the letter with its haraka, in reading order. */
+export type SlotWord = PicWord & { reels: [string, string, string] };
+export type SlotLevel = { id: string; title: { ar: string; en: string }; hint: { ar: string; en: string }; words: SlotWord[] };
+
+const pic = (id: string) => [...VERB_PICS, ...NOUN_PICS].find((p) => p.id === id)!;
+const w = (id: string, reels: [string, string, string]): SlotWord => ({ ...pic(id), reels });
+
+export const SLOT_LEVELS: SlotLevel[] = [
+  {
+    id: "fatha",
+    title: { ar: "الفَتْحَة", en: "Fatha words" },
+    hint: { ar: "كلُّ الحروفِ بالفَتْحَة", en: "Every letter has a fatha" },
+    words: [
+      w("kataba", ["كَ", "تَ", "بَ"]),
+      w("fataha", ["فَ", "تَ", "حَ"]),
+      w("dhahaba", ["ذَ", "هَ", "بَ"]),
+      w("jalasa", ["جَ", "لَ", "سَ"]),
+      w("dakhala", ["دَ", "خَ", "لَ"]),
+      w("kharaja", ["خَ", "رَ", "جَ"]),
+      w("rasama", ["رَ", "سَ", "مَ"]),
+      { id: "rakaa", ar: "رَكَعَ", en: "bowed", img: salahRuku, reels: ["رَ", "كَ", "عَ"] },
+      { id: "sajada", ar: "سَجَدَ", en: "prostrated", img: salahSujud, reels: ["سَ", "جَ", "دَ"] },
+    ],
+  },
+  {
+    id: "kasra-damma",
+    title: { ar: "الكَسْرَة والضَّمَّة", en: "Kasra & damma" },
+    hint: { ar: "انتبه للحرف الأوسط", en: "Watch the middle letter" },
+    words: [
+      w("shariba", ["شَ", "رِ", "بَ"]),
+      w("laiba", ["لَ", "عِ", "بَ"]),
+      w("fariha", ["فَ", "رِ", "حَ"]),
+      w("kabura", ["كَ", "بُ", "رَ"]),
+    ],
+  },
+  {
+    id: "sukun",
+    title: { ar: "السُّكُون", en: "Sukun at the end" },
+    hint: { ar: "نقف على آخر حرف بالسُّكُون", en: "Stop on the last letter" },
+    words: [
+      w("qalam", ["قَ", "لَ", "مْ"]),
+      w("qamar", ["قَ", "مَ", "رْ"]),
+      w("jamal", ["جَ", "مَ", "لْ"]),
+      w("asad", ["أَ", "سَ", "دْ"]),
+      w("walad", ["وَ", "لَ", "دْ"]),
+    ],
+  },
+];
+
+/**
+ * Recorded syllable clips (e.g. "كَ" → "/audio/syllables/ka.mp3").
+ * Empty for now: syllables fall back to the device Arabic voice.
+ * Drop recordings in and map them here; nothing else changes.
+ */
+export const SYLLABLE_AUDIO: Record<string, string> = {};
