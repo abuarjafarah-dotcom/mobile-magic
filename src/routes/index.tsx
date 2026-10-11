@@ -38,18 +38,22 @@ const SeekAndFind = lazy(() => import("@/components/arabic/SeekAndFind").then((m
 const PalestinianKitchen = lazy(() => import("@/components/kitchen/PalestinianKitchen").then((m) => ({ default: m.PalestinianKitchen })));
 const MathQuest = lazy(() => import("@/components/math/MathQuest").then((m) => ({ default: m.MathQuest })));
 const MontessoriBeadChains = lazy(() => import("@/components/math/MontessoriBeadChains").then((m) => ({ default: m.MontessoriBeadChains })));
+const GoldenBeadWorkshop = lazy(() => import("@/components/math/golden/GoldenBeadWorkshop").then((m) => ({ default: m.GoldenBeadWorkshop })));
 const MathBowling = lazy(() => import("@/components/math/MathBowling").then((m) => ({ default: m.MathBowling })));
 import { GameButton } from "@/components/game/GameButton";
 import { surahs, type SurahData } from "@/data/surahs";
 import { juz29Surahs } from "@/data/surahsJuz29";
 import { juz27Surahs } from "@/data/surahsJuz27";
-import { juz28Surahs } from "@/data/surahsJuz28";
+import { juz28Surahs as juz28Base } from "@/data/surahsJuz28";
+import { juz28MoreSurahs } from "@/data/surahsJuz28b";
+import { juz21Surahs } from "@/data/surahsJuz21";
+const juz28Surahs = [...juz28Base, ...juz28MoreSurahs];
 import { juz22Surahs } from "@/data/surahsJuz22";
 import { juz15Surahs } from "@/data/surahsJuz15";
 import { juz3Surahs } from "@/data/surahsJuz3";
 import { juz1Surahs } from "@/data/surahsJuz1";
 
-const allSurahs: readonly SurahData[] = [...surahs, ...juz29Surahs, ...juz28Surahs, ...juz27Surahs, ...juz22Surahs, ...juz15Surahs, ...juz3Surahs, ...juz1Surahs];
+const allSurahs: readonly SurahData[] = [...surahs, ...juz29Surahs, ...juz28Surahs, ...juz27Surahs, ...juz22Surahs, ...juz21Surahs, ...juz15Surahs, ...juz3Surahs, ...juz1Surahs];
 import { units, allLessons, type Lesson } from "@/data/arabicCurriculum";
 import { FinishAyah } from "@/components/quran/FinishAyah";
 import { AlaqMemorize } from "@/components/quran/AlaqMemorize";
@@ -67,6 +71,7 @@ import hamadAsset from "@/assets/hamad.jpg.asset.json";
 import talalAsset from "@/assets/talal.jpg.asset.json";
 import yousefAsset from "@/assets/yousef.jpg.asset.json";
 import mosqueIcon from "@/assets/salah/mosque-icon.webp";
+import goldenBeadIcon from "@/assets/golden-workshop/unit-bead.webp";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -82,7 +87,7 @@ export const Route = createFileRoute("/")({
   component: MathAdventure,
 });
 
-type Screen = "picker" | "home" | "game" | "reward" | "parent" | "surah" | "ayah" | "arabic" | "geo" | "iq" | "aw" | "g1" | "ie" | "bowling" | "quest" | "build" | "lw" | "sci" | "kitchen" | "chess" | "memorize" | "seek" | "beads" | "ws" | "play";
+type Screen = "picker" | "home" | "game" | "reward" | "parent" | "surah" | "ayah" | "arabic" | "geo" | "iq" | "aw" | "g1" | "ie" | "bowling" | "quest" | "build" | "lw" | "sci" | "kitchen" | "chess" | "memorize" | "seek" | "beads" | "ws" | "golden" | "play";
 type GameMode = "multiplication" | "addition";
 type ActivityTab = GameMode | "grade1" | "bowling" | "surah" | "arabic" | "geo" | "iq" | "more";
 type Level = 1 | 2 | 3 | 4 | 5;
@@ -340,8 +345,9 @@ function MathAdventure() {
       {screen === "play" && <Suspense fallback={null}><ArabicPlayWorld onExit={() => setScreen("picker")} /></Suspense>}
       {screen === "kitchen" && <Suspense fallback={null}><PalestinianKitchen onExit={() => setScreen("picker")} /></Suspense>}
       {screen === "sci" && <Suspense fallback={null}><ScienceWorld onExit={() => setScreen("picker")} /></Suspense>}
-      {screen === "home" && <HomeScreen stats={stats} learning={learning} tab={homeTab} onBack={() => setScreen("picker")} onTab={setHomeTab} onStartBowling={() => setScreen("bowling")} onStartQuest={() => setScreen("quest")} onStartBeads={() => setScreen("beads")} onStartMultiplication={startMultiplication} onStartAddition={startAddition} onStartSurah={(surah) => { setSelectedSurah(surah); setScreen("surah"); }} onStartAyah={(surah) => { setSelectedSurah(surah); setScreen("ayah"); }} onStartMemorize={(surah) => { setSelectedSurah(surah); setScreen("memorize"); }} onStartArabic={(lesson) => { setArabicLesson(lesson); setScreen("arabic"); }} onProgress={updateLearning} onStartGeo={(lesson) => { setGeoLesson(lesson); setScreen("geo"); }} onStartIq={() => setScreen("iq")} onStartIe={() => setScreen("ie")} onOpenArabicWorld={(v) => { if (v === "lw") { setScreen("lw"); return; } if (v === "seek") { setScreen("seek"); return; } setAwView(v); setScreen("aw"); }} onStartG1={(l) => { setG1Lesson(l); setScreen("g1"); }} />}
+      {screen === "home" && <HomeScreen stats={stats} learning={learning} tab={homeTab} onBack={() => setScreen("picker")} onTab={setHomeTab} onStartBowling={() => setScreen("bowling")} onStartQuest={() => setScreen("quest")} onStartBeads={() => setScreen("beads")} onStartGolden={() => setScreen("golden")} onStartMultiplication={startMultiplication} onStartAddition={startAddition} onStartSurah={(surah) => { setSelectedSurah(surah); setScreen("surah"); }} onStartAyah={(surah) => { setSelectedSurah(surah); setScreen("ayah"); }} onStartMemorize={(surah) => { setSelectedSurah(surah); setScreen("memorize"); }} onStartArabic={(lesson) => { setArabicLesson(lesson); setScreen("arabic"); }} onProgress={updateLearning} onStartGeo={(lesson) => { setGeoLesson(lesson); setScreen("geo"); }} onStartIq={() => setScreen("iq")} onStartIe={() => setScreen("ie")} onOpenArabicWorld={(v) => { if (v === "lw") { setScreen("lw"); return; } if (v === "seek") { setScreen("seek"); return; } setAwView(v); setScreen("aw"); }} onStartG1={(l) => { setG1Lesson(l); setScreen("g1"); }} />}
       {screen === "build" && <Suspense fallback={null}><BuildingWorld onExit={() => setScreen("picker")} /></Suspense>}
+      {screen === "golden" && <Suspense fallback={null}><GoldenBeadWorkshop onExit={goHome} /></Suspense>}
       {screen === "beads" && <Suspense fallback={null}><MontessoriBeadChains onExit={goHome} /></Suspense>}
       {screen === "bowling" && <Suspense fallback={null}><MathBowling onExit={goHome} /></Suspense>}
       {screen === "quest" && <Suspense fallback={null}><MathQuest onExit={goHome} /></Suspense>}
@@ -442,7 +448,7 @@ function GamePicker({ stats, onOpenCategory, onStartIq, onStartIe, onStartBuild,
   );
 }
 
-function HomeScreen({ onStartQuest, onStartBeads, onBack, stats, learning, tab, onTab, onStartBowling, onStartMultiplication, onStartAddition, onStartSurah, onStartAyah, onStartMemorize, onStartArabic, onProgress, onStartGeo, onStartIq, onStartIe, onOpenArabicWorld, onStartG1 }: { onStartQuest: () => void; onStartBeads: () => void; onBack: () => void; onStartIe: () => void; onStartG1: (lesson: G1Lesson) => void; onStartBowling: () => void; onOpenArabicWorld: (view: string) => void; onProgress: (change: (p: LearningProgress) => LearningProgress) => void; onStartGeo: (lesson: GeoLesson) => void; onStartIq: () => void; stats: Stats; learning: LearningProgress; tab: ActivityTab; onTab: (mode: ActivityTab) => void; onStartMultiplication: (table: TimesTable) => void; onStartAddition: (level: Level) => void; onStartSurah: (surah: SurahData) => void; onStartAyah: (surah: SurahData) => void; onStartMemorize?: (surah: SurahData) => void; onStartArabic: (lesson: Lesson) => void }) {
+function HomeScreen({ onStartQuest, onStartBeads, onStartGolden, onBack, stats, learning, tab, onTab, onStartBowling, onStartMultiplication, onStartAddition, onStartSurah, onStartAyah, onStartMemorize, onStartArabic, onProgress, onStartGeo, onStartIq, onStartIe, onOpenArabicWorld, onStartG1 }: { onStartQuest: () => void; onStartBeads: () => void; onStartGolden: () => void; onBack: () => void; onStartIe: () => void; onStartG1: (lesson: G1Lesson) => void; onStartBowling: () => void; onOpenArabicWorld: (view: string) => void; onProgress: (change: (p: LearningProgress) => LearningProgress) => void; onStartGeo: (lesson: GeoLesson) => void; onStartIq: () => void; stats: Stats; learning: LearningProgress; tab: ActivityTab; onTab: (mode: ActivityTab) => void; onStartMultiplication: (table: TimesTable) => void; onStartAddition: (level: Level) => void; onStartSurah: (surah: SurahData) => void; onStartAyah: (surah: SurahData) => void; onStartMemorize?: (surah: SurahData) => void; onStartArabic: (lesson: Lesson) => void }) {
   const isMath = tab === "multiplication" || tab === "addition" || tab === "grade1" || tab === "bowling";
   return (
     <section className="mx-auto flex min-h-dvh w-full max-w-lg flex-col px-4 pb-[max(2rem,env(safe-area-inset-bottom))] pt-[max(4.5rem,env(safe-area-inset-top))] sm:px-6 min-[960px]:max-w-6xl min-[960px]:pb-8 min-[960px]:pt-8">
@@ -481,6 +487,10 @@ function HomeScreen({ onStartQuest, onStartBeads, onBack, stats, learning, tab, 
           </GameButton>
           <GameButton tone="neutral" className="min-h-12 text-sm" onClick={onStartBeads}>
             <span className="inline-flex items-center gap-2">📿 Bead Chains</span>
+          </GameButton>
+          <GameButton tone="sun" className="col-span-2 flex min-h-16 items-center justify-center gap-3 text-base" onClick={onStartGolden}>
+            <img src={goldenBeadIcon} alt="" className="h-9 w-auto drop-shadow" />
+            <span className="text-start leading-tight"><span className="block font-black">Golden Bead Workshop</span><span lang="ar" className="block font-arabic text-xs font-bold opacity-80">ورشة الخرز الذهبي · Living Numbers</span></span>
           </GameButton>
         </div>
       )}
@@ -555,21 +565,22 @@ function HomeScreen({ onStartQuest, onStartBeads, onBack, stats, learning, tab, 
 }
 
 function QuranPicker({ learning, onStartSurah, onStartAyah, onStartMemorize }: { learning: LearningProgress; onStartSurah: (s: SurahData) => void; onStartAyah: (s: SurahData) => void; onStartMemorize?: ((s: SurahData) => void) | undefined }) {
-  const [juz, setJuz] = useState<1 | 3 | 15 | 22 | 27 | 28 | 29 | 30>(30);
-  const list = juz === 30 ? surahs : juz === 29 ? juz29Surahs : juz === 28 ? juz28Surahs : juz === 27 ? juz27Surahs : juz === 22 ? juz22Surahs : juz === 15 ? juz15Surahs : juz === 3 ? juz3Surahs : juz1Surahs;
+  const [juz, setJuz] = useState<1 | 3 | 15 | 21 | 22 | 27 | 28 | 29 | 30>(30);
+  const list = juz === 30 ? surahs : juz === 29 ? juz29Surahs : juz === 28 ? juz28Surahs : juz === 27 ? juz27Surahs : juz === 22 ? juz22Surahs : juz === 21 ? juz21Surahs : juz === 15 ? juz15Surahs : juz === 3 ? juz3Surahs : juz1Surahs;
   const tabs = [
     { id: 30 as const, label: "Juz 30", ar: "جزء عمّ" },
     { id: 29 as const, label: "Juz 29", ar: "جزء تبارك" },
-    { id: 28 as const, label: "Juz 28", ar: "المجادلة" },
+    { id: 28 as const, label: "Juz 28", ar: "قد سمع" },
     { id: 27 as const, label: "Juz 27", ar: "الجزء ٢٧" },
     { id: 22 as const, label: "Juz 22", ar: "يس" },
+    { id: 21 as const, label: "Juz 21", ar: "اتل ما أوحي" },
     { id: 15 as const, label: "Juz 15", ar: "الكهف" },
     { id: 3 as const, label: "Juz 3", ar: "آل عمران" },
     { id: 1 as const, label: "Juz 1–2", ar: "البقرة" },
   ];
   return (
     <div className="mt-6" role="tabpanel">
-      <div className="mb-3 grid grid-cols-2 gap-2 min-[960px]:grid-cols-7" role="tablist" aria-label="Choose a Juz">
+      <div className="mb-3 grid grid-cols-2 gap-2 min-[960px]:grid-cols-5" role="tablist" aria-label="Choose a Juz">
         {tabs.map((t) => (
           <GameButton key={t.id} tone={juz === t.id ? "berry" : "neutral"} className="min-h-14" onClick={() => setJuz(t.id)} role="tab" aria-selected={juz === t.id}>
             <span className="inline-flex items-center gap-2">{t.label} <span lang="ar" dir="rtl" className="font-arabic font-black">{t.ar}</span></span>
