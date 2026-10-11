@@ -51,3 +51,7 @@
 - [x] Montessori Bead Garden L3: division by sharing apples into groups, chain verify, wooden ÷/= equations, reverse relationship
 - [x] Montessori Bead Garden L4: squares + cubes 2–10 (6–10 use layer stacking + exploded cube art)
 - [ ] Montessori Bead Garden audit: drag/snap/reset, chain proportions & colors, equations reject wrong, browser test
+
+- [x] Golden Bead Workshop: entry in Math, shared place-value engine + tests, Build a Number (target, puzzles, exchange/break, undo, drag/tap)
+- [x] Golden Bead Workshop: Multiplication Lab, Division Workshop, Factor Garden, Fraction Workshop, Free Workspace, Discover / Figure it out / Master it modes, garden rewards
+- [ ] Golden Bead Workshop: recorded Arabic voice clips for workshop lines (currently device voice via speak())
