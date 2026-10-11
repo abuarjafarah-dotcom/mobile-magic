@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState, type PointerEvent as RPE, type ReactNode } from "react";
-import { COOK_RECIPES, ING_NAME, kart, type Line, type Recipe, type Step, type Vessel } from "@/data/kitchenRecipes";
+import { COOK_RECIPES, ING_NAME, kart, type Cook, type Line, type Recipe, type Step, type Vessel, type VState } from "@/data/kitchenRecipes";
 import { INGREDIENTS } from "@/data/kitchen";
 import { speakEnglish, stopVoice } from "@/lib/voice";
 import { playClips, stopClips } from "@/lib/kitchenClips";
@@ -20,6 +20,7 @@ const ING_CLIP: Record<string, string> = {
   chicken: "chicken", eggplant: "eggplant", "eggplant-sliced": "eggplant", potato: "potato", "potato-cubed": "potato",
   rice: "rice", water: "water", salt: "salt", garlic: "garlic", "garlic-minced": "garlic", onion: "onion", "onion-sliced": "onion",
   parsley: "parsley", lemon: "lemon", "lemon-sliced": "lemon", bread: "bread", "arabic-bread": "bread", cabbage: "malfouf", molokhia: "molokhia",
+  "molokhia-chopped": "molokhia", "mloukhye-bowl": "molokhia", "chicken-cooked": "chicken",
 };
 export const ingName = (id: string): Line => ({ ...(ING_NAME[id] ?? { ar: INGREDIENTS[id]?.ar ?? id, en: INGREDIENTS[id]?.en ?? id }), v: ING_CLIP[id] ? [ING_CLIP[id]] : [] });
 
@@ -48,12 +49,15 @@ function sfx(kind: "plop" | "chop" | "splash" | "chime" | "sizzle" | "whoosh" | 
 }
 
 /* ---------- characters ---------- */
-function Buddy({ who, pose, hop, talking, side }: { who: "hamad" | "talal"; pose: Pose; hop: number; talking: boolean; side: "left" | "right" }) {
-  const src = kart(`cast/${who}-${pose === "taste" && who === "hamad" ? "cheer" : pose}`);
+const CAST_NAME: Record<Cook, string> = { hamad: "حمد", talal: "طلال", teta: "تيتا" };
+/** Pose picture with graceful fallbacks (taste → cheer → idle) so a missing pose never shows a broken image. */
+const castPic = (who: Cook, pose: Pose) => kart(`cast/${who}-${pose}`) || (pose === "taste" ? kart(`cast/${who}-cheer`) : "") || kart(`cast/${who}-idle`);
+function Buddy({ who, pose, hop, talking, side }: { who: Cook; pose: Pose; hop: number; talking: boolean; side: "left" | "right" }) {
+  const src = castPic(who, pose === "taste" && who === "hamad" ? "cheer" : pose);
   return (
     <div className={`pointer-events-none absolute bottom-2 z-20 h-[24%] min-h-28 max-h-64 ${side === "left" ? "left-1 sm:left-6" : "right-1 sm:right-6"}`}>
       <div key={hop} className={`h-full ${hop ? "k-hop" : ""}`}>
-        <img src={src} alt={who === "hamad" ? "حمد" : "طلال"} draggable={false}
+        <img src={src} alt={CAST_NAME[who]} draggable={false}
           className={`h-full w-auto object-contain drop-shadow-[0_6px_8px_oklch(0.2_0.03_60/.35)] ${talking ? "k-talk" : "k-breathe"} ${side === "right" ? "" : "-scale-x-100"}`}
           style={{ animationDelay: side === "left" ? "0s" : "1.1s" }} />
       </div>
@@ -62,7 +66,7 @@ function Buddy({ who, pose, hop, talking, side }: { who: "hamad" | "talal"; pose
 }
 
 /* ---------- draggable ingredient / tool ---------- */
-function DragItem({ img, label, target, onDrop }: { img: string; label: string; target: React.RefObject<HTMLDivElement | null>; onDrop: () => void }) {
+function DragItem({ img, label, target, onDrop, children }: { img: string; label: string; target: React.RefObject<HTMLDivElement | null>; onDrop: () => void; children?: ReactNode }) {
   const [d, setD] = useState<{ x: number; y: number } | null>(null);
   const start = useRef({ x: 0, y: 0, moved: false });
   const down = (e: RPE) => { (e.target as HTMLElement).setPointerCapture(e.pointerId); start.current = { x: e.clientX, y: e.clientY, moved: false }; setD({ x: 0, y: 0 }); };
@@ -75,7 +79,8 @@ function DragItem({ img, label, target, onDrop }: { img: string; label: string; 
   return (
     <button type="button" data-k="act" aria-label={label} onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={() => setD(null)}
       className="relative touch-none select-none" style={{ transform: d ? `translate(${d.x}px, ${d.y}px) scale(1.15)` : undefined, transition: d ? "none" : "transform .35s cubic-bezier(.3,1.4,.5,1)", zIndex: d ? 60 : 1 }}>
-      <img src={img} alt="" draggable={false} className={`h-24 w-24 object-contain sm:h-32 sm:w-32 ${d ? "" : "k-glow"}`} />
+      {children ? <div className={`h-24 w-32 sm:h-32 sm:w-40 ${d ? "" : "k-glow"}`}>{children}</div>
+        : <img src={img} alt="" draggable={false} className={`h-24 w-24 object-contain sm:h-32 sm:w-32 ${d ? "" : "k-glow"}`} />}
       {!d && <span className="k-hint absolute -top-7 left-1/2 -translate-x-1/2 text-3xl" aria-hidden>👇</span>}
     </button>
   );
@@ -83,8 +88,40 @@ function DragItem({ img, label, target, onDrop }: { img: string; label: string; 
 
 /* ---------- the vessel scene ---------- */
 const DOTS: Record<string, string> = { zaatar: "oklch(0.48 0.09 125)", sumac: "oklch(0.42 0.14 20)", sesame: "oklch(0.9 0.05 85)" };
-type VState = { layers: string[]; scatter: { img: string; x: number; y: number; r: number }[]; liquid?: string; cooked?: boolean };
 const emptyV = (): VState => ({ layers: [], scatter: [] });
+
+/** Small frying pan on a burner, drawn in code. Contents turn golden once `cooked`. */
+export function PanArt({ v, heat }: { v: VState; heat: boolean }) {
+  return (
+    <div className="absolute inset-0">
+      <div className="absolute bottom-[4%] left-[22%] h-[14%] w-[48%] rounded-[50%] bg-[oklch(0.35_0.02_60)]" />
+      {heat && <div className="absolute inset-x-[30%] bottom-[2%] flex justify-center gap-1 text-2xl" aria-hidden>{["🔥", "🔥", "🔥"].map((f, i) => <span key={i} style={{ animation: `k-flame .5s ${i * 0.15}s infinite` }}>{f}</span>)}</div>}
+      <div className="absolute right-[2%] top-[44%] h-[9%] w-[30%] -rotate-6 rounded-full bg-[oklch(0.3_0.02_60)] shadow-md" />
+      <div className="absolute left-[10%] top-[22%] h-[62%] w-[68%] rounded-[50%] bg-[oklch(0.28_0.015_60)] shadow-[inset_0_-10px_0_oklch(0.2_0.01_60),0_8px_14px_oklch(0.2_0.03_60/.35)]">
+        <div className="absolute inset-[9%] overflow-hidden rounded-[50%] bg-[oklch(0.36_0.015_60)]">
+          {v.liquid && <div className="absolute inset-0 transition-colors duration-700" style={{ background: v.liquid }} />}
+          {v.layers.map((l, i) => (
+            <img key={i} src={kart(l)} alt="" draggable={false} className="k-drop absolute h-[70%] w-auto object-contain"
+              style={{ left: `${10 + ((i * 31) % 50)}%`, top: `${12 + (i % 2) * 14}%`, filter: v.cooked ? "sepia(.7) saturate(1.6) brightness(1.05)" : undefined, transition: "filter .8s" }} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+const TABLE_SPOTS = [{ l: 30, b: 22, h: 52 }, { l: 6, b: 16, h: 40 }, { l: 62, b: 16, h: 40 }, { l: 44, b: 4, h: 26 }];
+function TableArt({ v }: { v: VState }) {
+  return (
+    <div className="absolute inset-0">
+      <div className="absolute inset-x-[2%] bottom-[2%] top-[18%] rounded-[2rem] bg-[linear-gradient(170deg,oklch(0.62_0.08_60),oklch(0.5_0.08_55))] shadow-[inset_0_-12px_0_oklch(0.42_0.07_50),0_10px_20px_oklch(0.2_0.03_60/.3)]" />
+      <div className="absolute inset-x-[2%] top-[42%] h-[18%] bg-[repeating-linear-gradient(90deg,oklch(0.45_0.17_25)_0_14px,oklch(0.25_0.03_30)_14px_18px,oklch(0.45_0.17_25)_18px_30px,oklch(0.85_0.05_80)_30px_33px)] opacity-90" />
+      {v.layers.map((l, i) => { const p = TABLE_SPOTS[i % TABLE_SPOTS.length]!; return (
+        <img key={i} src={kart(l)} alt="" draggable={false} className="k-drop absolute w-auto object-contain drop-shadow-[0_6px_6px_oklch(0.2_0.03_60/.35)]"
+          style={{ left: `${p.l}%`, bottom: `${p.b}%`, height: `${p.h}%`, zIndex: i === 0 ? 1 : 2 }} />
+      ); })}
+    </div>
+  );
+}
 
 function VesselArt({ vessel, recipe, v, step, count, heat, anim, served }: { vessel: Vessel; recipe: Recipe; v: VState; step: Step | undefined; count: number; heat: boolean; anim: string; served: boolean }) {
   const layers = (
@@ -109,8 +146,8 @@ function VesselArt({ vessel, recipe, v, step, count, heat, anim, served }: { ves
   }
   if (vessel === "bowl") return wrap(<>
     <img src={kart("tools/bowl")} alt="" className="absolute inset-0 h-full w-full object-contain" draggable={false} />
-    {step?.do.kind === "wash" && <img key={count} src={kart(step.do.item)} alt="" className="absolute left-[32%] top-[8%] h-[40%] w-[36%] object-contain" style={{ animation: "k-wiggle .4s" }} />}
-    {layers}
+    {step?.do.kind === "wash" && !v.layers.includes(step.do.item) && <img key={`w${count}`} src={kart(step.do.item)} alt="" className="absolute left-[32%] top-[8%] h-[40%] w-[36%] object-contain" style={{ animation: "k-wiggle .4s" }} />}
+    <div key={step?.do.kind === "wash" ? `l${count}` : "still"} className="absolute inset-0" style={step?.do.kind === "wash" && count ? { animation: "k-wiggle .4s" } : undefined}>{layers}</div>
   </>);
   if (vessel === "dough" || vessel === "tray") {
     const d = step?.do;
@@ -131,6 +168,8 @@ function VesselArt({ vessel, recipe, v, step, count, heat, anim, served }: { ves
       {layers}
     </>);
   }
+  if (vessel === "pan") return wrap(<PanArt v={v} heat />);
+  if (vessel === "table") return wrap(<TableArt v={v} />);
   if (vessel === "flip") return wrap(<img src={kart("maqluba/pot-full")} alt="" className="absolute inset-0 h-full w-full object-contain" draggable={false} />);
   if (vessel === "plate") return wrap(<img key={served ? "s" : "p"} src={kart(recipe.dish)} alt="" className={`absolute inset-0 h-full w-full object-contain ${served ? "k-hop" : "k-drop"}`} draggable={false} />);
   // pot
@@ -152,36 +191,40 @@ export function CookingStage({ recipe, lang, muted, onDone }: { recipe: Recipe; 
   const [heat, setHeat] = useState(0); // 0 off, 0..1 progress
   const [anim, setAnim] = useState("");
   const [served, setServed] = useState(false);
-  const [pose, setPose] = useState<{ hamad: Pose; talal: Pose; hop: { hamad: number; talal: number } }>({ hamad: "idle", talal: "idle", hop: { hamad: 0, talal: 0 } });
-  const [talking, setTalking] = useState<"hamad" | "talal" | null>(null);
+  const [pose, setPose] = useState<Record<Cook, Pose> & { hop: Record<Cook, number> }>({ hamad: "idle", talal: "idle", teta: "idle", hop: { hamad: 0, talal: 0, teta: 0 } });
+  const [talking, setTalking] = useState<Cook | null>(null);
   const [heard, setHeard] = useState<string[]>([]);
   const target = useRef<HTMLDivElement>(null);
+  const cookRef = useRef(-1);
   const step = i >= 0 && i < n ? recipe.steps[i] : undefined;
   const vessel: Vessel = step?.vessel ?? (i >= n ? "plate" : "pot");
-  const v = vs[vessel] ?? emptyV();
+  const slot = step?.slot ?? vessel;
+  const v = vs[slot] ?? emptyV();
+  const [left, right] = recipe.cast ?? ["hamad", "talal"];
   const L = (l: Line) => (lang === "ar" ? l.ar : l.en);
 
-  const talk = useCallback(async (l: Line, who: "hamad" | "talal") => { setTalking(who); await sayLine(l, lang, muted); setTalking(null); }, [lang, muted]);
-  const react = (who: "hamad" | "talal", p: Pose = "cheer") => setPose((s) => ({ ...s, [who]: p, hop: { ...s.hop, [who]: s.hop[who] + 1 } }));
+  const talk = useCallback(async (l: Line, who: Cook) => { setTalking(who); await sayLine(l, lang, muted); setTalking(null); }, [lang, muted]);
+  const react = (who: Cook, p: Pose = "cheer") => setPose((s) => ({ ...s, [who]: p, hop: { ...s.hop, [who]: s.hop[who] + 1 } }));
   const burst = (fx: Bit["fx"], k: number, img?: string) => {
     const nb: Bit[] = Array.from({ length: k }, () => ({ id: ++uid, x: 25 + Math.random() * 50, y: 20 + Math.random() * 40, fx, ...(img ? { img } : {}) }));
     setBits((b) => [...b, ...nb]); setTimeout(() => setBits((b) => b.filter((x) => !nb.includes(x))), 1600);
   };
-  const patch = (fn: (s: VState) => VState, key: Vessel = vessel) => setVs((all) => ({ ...all, [key]: fn(all[key] ?? emptyV()) }));
+  const patch = (fn: (s: VState) => VState, key: string = slot) => setVs((all) => ({ ...all, [key]: fn(all[key] ?? emptyV()) }));
 
   // speak each step once it appears
   useEffect(() => {
-    setCount(0); setAnim(""); setHeat(0); setPose((s) => ({ ...s, hamad: "idle", talal: "idle" }));
-    if (i === -1) void talk(recipe.intro, "hamad");
+    setCount(0); setAnim(""); setHeat(0); setPose((s) => ({ ...s, hamad: "idle", talal: "idle", teta: "idle" }));
+    if (i === -1) void talk(recipe.intro, left);
     else if (step) void talk(step.say, step.who);
-    else if (i >= n) { setPose((s) => ({ hamad: "cheer", talal: "cheer", hop: { hamad: s.hop.hamad + 1, talal: s.hop.talal + 1 } })); sfx("chime", muted); burst("spark", 14); void talk(recipe.done, "talal").then(() => setPose((s) => ({ ...s, talal: "taste" }))); onDone(); }
+    else if (i >= n) { setPose((s) => ({ ...s, [left]: "cheer", [right]: "cheer", hop: { ...s.hop, [left]: s.hop[left] + 1, [right]: s.hop[right] + 1 } })); sfx("chime", muted); burst("spark", 14); void talk(recipe.done, right).then(() => setPose((s) => ({ ...s, [left]: "taste" }))); onDone(); }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [i]);
   useEffect(() => () => stopVoice(), []);
 
   const finish = async () => {
     if (!step) return; setBusy(true); sfx("chime", muted); burst("spark", 8); react(step.who);
-    const other = step.who === "hamad" ? "talal" : "hamad"; setTimeout(() => react(other), 250);
+    if (step.after) { const a = step.after; patch((s) => ({ ...s, ...a })); }
+    const other = step.who === left ? right : left; setTimeout(() => react(other), 250);
     const t0 = Date.now(); await talk(step.cheer, step.who);
     await new Promise((r) => setTimeout(r, Math.max(300, 1300 - (Date.now() - t0))));
     setBusy(false); setI((x) => x + 1);
@@ -197,19 +240,23 @@ export function CookingStage({ recipe, lang, muted, onDone }: { recipe: Recipe; 
     else if (d.kind === "sprinkle") { sfx("whoosh", muted); patch((s) => ({ ...s, scatter: [...s.scatter, ...Array.from({ length: DOTS[d.item] ? 18 : 4 }, () => ({ img: d.item, x: 25 + Math.random() * 45, y: 15 + Math.random() * 35, r: Math.random() * 360 }))] })); }
     else if (d.kind === "flip") { sfx("whoosh", muted); setBusy(true); setAnim("[animation:k-flip_.9s_ease-in-out_both]"); setTimeout(() => { setBusy(false); setI((x) => x + 1); }, 1000); setVs((a) => ({ ...a, plate: emptyV() })); react("hamad"); react("talal"); void talk(step.cheer, step.who); return; }
     else if (d.kind === "serve") { sfx("plop", muted); setServed(true); }
+    else if (d.kind === "lift") { sfx("whoosh", muted); burst("spark", 1, d.show); patch((s) => ({ ...s, layers: s.layers.filter((l) => l !== d.item) })); react(step.who); }
     else return;
     setCount(c); if (c >= need) void finish();
   };
 
   const dropItem = () => {
     if (!step || busy) return; const d = step.do;
-    if (d.kind === "add") { sfx("plop", muted); patch((s) => ({ ...s, layers: [...s.layers, d.item] })); void finish(); }
+    if (d.kind === "add") { sfx("plop", muted); patch((s) => ({ ...s, layers: [...s.layers, d.into ?? d.item] })); void finish(); }
+    if (d.kind === "transfer") { sfx("sizzle", muted); burst("steam", 4); setVs((all) => ({ ...all, [d.from]: emptyV(), [slot]: { ...(all[slot] ?? emptyV()), layers: [...(all[slot]?.layers ?? []), d.item] } })); void finish(); }
     if (d.kind === "pour") { sfx("splash", muted); setBusy(true); setAnim("pour"); setTimeout(() => { patch((s) => ({ ...s, liquid: d.color })); setAnim(""); setBusy(false); void finish(); }, 1300); }
   };
 
   const light = () => {
-    if (!step || step.do.kind !== "cook" || heat || busy) return;
-    const secs = step.do.seconds, mode = step.do.mode; sfx("sizzle", muted); setPose((s) => ({ ...s, hamad: "stir" }));
+    // cookRef guards double-taps: heat only updates on the first tick, so a quick second tap used to start a second timer and skip a step
+    if (!step || step.do.kind !== "cook" || heat || busy || cookRef.current === i) return;
+    cookRef.current = i; setHeat(0.01);
+    const secs = step.do.seconds, mode = step.do.mode; sfx("sizzle", muted); setPose((s) => ({ ...s, [step.who]: "stir" }));
     const t0 = Date.now();
     const tick = setInterval(() => {
       const p = Math.min(1, (Date.now() - t0) / (secs * 1000)); setHeat(Math.max(0.01, p));
@@ -220,15 +267,15 @@ export function CookingStage({ recipe, lang, muted, onDone }: { recipe: Recipe; 
   };
 
   const d = step?.do;
-  const tapKinds = ["wash", "chop", "stir", "knead", "roll", "sprinkle", "flip", "serve"];
+  const tapKinds = ["wash", "chop", "stir", "knead", "roll", "sprinkle", "flip", "serve", "lift"];
   const tapping = !!d && tapKinds.includes(d.kind);
   const progress = d && "taps" in d ? count / d.taps : heat;
 
   return (
     <div className="relative flex min-h-0 flex-1 flex-col">
       {/* progress dots */}
-      <div className="flex justify-center gap-1.5 px-4 pt-1" aria-hidden>
-        {recipe.steps.map((_, k) => <span key={k} className={`h-2.5 rounded-full transition-all ${k < i ? "w-2.5 bg-success" : k === i ? "w-6 bg-primary" : "w-2.5 bg-card/80"}`} />)}
+      <div className={`flex justify-center px-4 pt-1 ${n > 14 ? "gap-1" : "gap-1.5"}`} aria-hidden>
+        {recipe.steps.map((_, k) => <span key={k} className={`${n > 14 ? "h-2" : "h-2.5"} rounded-full transition-all ${k < i ? `${n > 14 ? "w-2" : "w-2.5"} bg-success` : k === i ? "w-6 bg-primary" : `${n > 14 ? "w-2" : "w-2.5"} bg-card/80`}`} />)}
       </div>
 
       {/* instruction bubble */}
@@ -285,6 +332,7 @@ export function CookingStage({ recipe, lang, muted, onDone }: { recipe: Recipe; 
           </button>
         )}
         {d && (d.kind === "add" || d.kind === "pour") && !busy && anim !== "pour" && <DragItem key={i} img={kart(d.item)} label={L(ingName(d.item))} target={target} onDrop={dropItem} />}
+        {d?.kind === "transfer" && !busy && <DragItem key={i} img="" label={L(step!.say)} target={target} onDrop={dropItem}><div className="relative h-full w-full"><PanArt v={vs[d.from] ?? emptyV()} heat={false} /></div></DragItem>}
         {d?.kind === "sprinkle" && <img src={kart(d.item)} alt="" className="h-20 w-20 object-contain k-hint" />}
         {d?.kind === "cook" && (
           <button type="button" data-k="act" onClick={light} disabled={heat > 0} aria-label={L(step!.say)}
@@ -295,8 +343,8 @@ export function CookingStage({ recipe, lang, muted, onDone }: { recipe: Recipe; 
         {(progress > 0 && progress < 1) && <div className="absolute bottom-1 left-1/2 h-3 w-48 -translate-x-1/2 overflow-hidden rounded-full bg-card/70"><div className="h-full bg-success transition-all" style={{ width: `${progress * 100}%` }} /></div>}
       </div>
 
-      <Buddy who="hamad" side="left" pose={pose.hamad} hop={pose.hop.hamad} talking={talking === "hamad"} />
-      <Buddy who="talal" side="right" pose={pose.talal} hop={pose.hop.talal} talking={talking === "talal"} />
+      <Buddy who={left} side="left" pose={pose[left]} hop={pose.hop[left]} talking={talking === left} />
+      <Buddy who={right} side="right" pose={pose[right]} hop={pose.hop[right]} talking={talking === right} />
     </div>
   );
 }

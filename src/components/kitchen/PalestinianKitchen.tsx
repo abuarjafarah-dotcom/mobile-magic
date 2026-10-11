@@ -65,7 +65,7 @@ export function PalestinianKitchen({ onExit }: { onExit: () => void }) {
               <button key={r.id} type="button" onClick={() => pick(r)}
                 className="relative flex min-h-40 flex-col items-center justify-end gap-1 rounded-3xl border-2 border-foreground/10 bg-card/90 p-3 shadow-[0_5px_0_var(--neutral-shadow)] transition-transform active:translate-y-1">
                 {cooked.includes(r.id) && <span className="absolute start-2 top-2 text-2xl" aria-label="cooked">⭐</span>}
-                <img src={kitchenPic(`dish-${r.id}`) || kart(r.dish)} alt="" draggable={false} className="h-24 w-full object-contain drop-shadow-lg sm:h-32" />
+                <img src={(r.card && kart(r.card)) || kitchenPic(`dish-${r.id}`) || kart(r.dish)} alt="" draggable={false} className="h-24 w-full object-contain drop-shadow-lg sm:h-32" />
                 <span className="text-xl font-black">{ar ? r.name.ar : r.name.en}</span>
               </button>
             ))}
