@@ -4,6 +4,8 @@ import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } fro
 import { speakArabic } from "@/lib/arabicVoice";
 import { speakEnglish } from "@/lib/voice";
 import type { LearningLanguage } from "@/lib/learningLanguage";
+import { ArrowRight, RotateCcw, Volume2 } from "lucide-react";
+import { GameButton } from "@/components/game/GameButton";
 import { cn } from "@/lib/utils";
 import pickBlank from "@/assets/montessori/pick-blank.png";
 import symPlus from "@/assets/montessori/sym-plus.png";
@@ -46,6 +48,41 @@ export function sayTokens(tokens: Token[], lang: LearningLanguage) {
   void (lang === "ar" ? speakArabic(text) : speakEnglish(text));
 }
 export function sayText(lang: LearningLanguage, ar: string, en: string) { void (lang === "ar" ? speakArabic(ar) : speakEnglish(en)); }
+
+// ---------- visual-first layout helpers (the children can't read yet) ----------
+/** One bead size for the whole screen, scaled to the device. Never varies by chain number. */
+export function useBeadSize() {
+  const [w, setW] = useState(() => (typeof window === "undefined" ? 400 : window.innerWidth));
+  useEffect(() => {
+    const f = () => setW(window.innerWidth);
+    window.addEventListener("resize", f);
+    return () => window.removeEventListener("resize", f);
+  }, []);
+  return w < 420 ? 24 : w < 960 ? 28 : 34;
+}
+
+/** Spoken instruction: read aloud when it appears, tap the speaker to hear it again. Text stays small for grown-ups. */
+export function Hint({ lang, text }: { lang: LearningLanguage; text: string }) {
+  const speakIt = useCallback(() => { void (lang === "ar" ? speakArabic(text) : speakEnglish(text)); }, [lang, text]);
+  useEffect(() => { const id = setTimeout(speakIt, 250); return () => clearTimeout(id); }, [speakIt]);
+  return (
+    <button type="button" onClick={speakIt} className={cn("mx-auto flex max-w-full items-center gap-2 rounded-full bg-card/70 py-1 pe-3 ps-1 text-start text-xs font-bold text-muted-foreground shadow-sm", lang === "ar" && "font-arabic")}>
+      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground"><Volume2 className="h-5 w-5" /></span>
+      <span className="min-w-0">{text}</span>
+    </button>
+  );
+}
+
+/** Big round icon button; the label is spoken for screen readers only. */
+export function IconBtn({ label, onClick, tone = "mint", children, className, disabled }: { label: string; onClick: () => void; tone?: "mint" | "neutral" | "sky"; children: ReactNode; className?: string; disabled?: boolean }) {
+  return (
+    <GameButton tone={tone} aria-label={label} title={label} disabled={disabled} className={cn("inline-flex min-h-14 min-w-14 items-center justify-center gap-1.5 rounded-full px-4", className)} onClick={onClick}>
+      {children}
+    </GameButton>
+  );
+}
+export const NextIcon = () => <ArrowRight className="h-7 w-7 rtl:-scale-x-100" strokeWidth={3} />;
+export const AgainIcon = () => <RotateCcw className="h-6 w-6" strokeWidth={3} />;
 
 // ---------- materials ----------
 export type Op = "×" | "÷" | "=" | "+" | "−" | "²" | "³" | "(" | ")";
@@ -255,7 +292,7 @@ export function useGardenGrowth(): [number, () => void] {
 const PLANTS = [flower, rose, sunflower, flower, rose, sunflower, flower, rose, sunflower, flower];
 export function GardenBed({ growth }: { growth: number }) {
   return (
-    <div dir="ltr" className="relative flex h-20 items-end justify-around overflow-hidden rounded-2xl bg-gradient-to-t from-amber-900/50 to-transparent px-2" aria-label={`garden ${growth}`}>
+    <div dir="ltr" className="relative flex h-16 items-end justify-around overflow-hidden rounded-2xl bg-gradient-to-t from-amber-900/50 to-transparent px-2" aria-label={`garden ${growth}`}>
       {PLANTS.map((src, i) => {
         const stage = Math.max(0, Math.min(3, growth - i * 3 + 1)); // each plant matures over three works
         return <img key={i} src={src} alt="" draggable={false} className="origin-bottom transition-all duration-1000" style={{ height: [14, 30, 48, 66][stage], opacity: stage === 0 ? 0.35 : 1, filter: stage === 0 ? "grayscale(1)" : undefined }} />;
