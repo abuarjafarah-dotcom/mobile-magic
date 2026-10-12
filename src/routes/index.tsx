@@ -385,19 +385,14 @@ function MemorizeScreen({ surah, onExit }: { surah: SurahData; onExit: () => voi
   ];
 
   const RAHMAN_GROUPS: MemoryGroup[] = [
-    { from: 1, to: 6, video: rahmanGroup1Video },
-    { from: 7, to: 12, video: rahmanGroup2Video },
-    { from: 13, to: 18, video: rahmanGroup3Video },
-    { from: 19, to: 24, video: rahmanGroup4Video },
-    { from: 25, to: 30 },
-    { from: 31, to: 36 },
-    { from: 37, to: 42 },
-    { from: 43, to: 48 },
-    { from: 49, to: 54 },
-    { from: 55, to: 60 },
-    { from: 61, to: 66 },
-    { from: 67, to: 72 },
-    { from: 73, to: 78 },
+    { from: 1, to: 13, video: rahmanGroup1Video },
+    { from: 14, to: 25, video: rahmanGroup2Video },
+    { from: 26, to: 30, video: rahmanGroup3Video },
+    { from: 31, to: 36, video: rahmanGroup4Video },
+    { from: 37, to: 45 },
+    { from: 46, to: 61 },
+    { from: 62, to: 77 },
+    { from: 78, to: 78 },
   ];
 
   const BAYYINAH_GROUPS: MemoryGroup[] = [
