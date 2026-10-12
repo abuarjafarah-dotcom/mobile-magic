@@ -404,8 +404,8 @@ function MemorizeScreen({ surah, onExit }: { surah: SurahData; onExit: () => voi
   if (surah.id === "rahman") groups = RAHMAN_GROUPS;
   if (surah.id === "bayyinah") groups = BAYYINAH_GROUPS;
 
-  // Use AlaqMemorize for Al-Alaq (backward compatibility with existing videos)
-  if (surah.id === "alalaq") {
+  // Use AlaqMemorize for Al-Alaq (backward compatibility with existing videos) and An-Nasr
+  if (surah.id === "alalaq" || surah.id === "annasr") {
     return <AlaqMemorize surah={surah} onExit={onExit} />;
   }
 
@@ -610,7 +610,7 @@ function QuranPicker({ learning, onStartSurah, onStartAyah, onStartMemorize }: {
                   <span className="inline-flex items-center gap-2"><Sparkles className="h-5 w-5" />Finish the Ayah</span>
                 </GameButton>
               </div>
-              {(surah.id === "alalaq" || surah.id === "rahman" || surah.id === "bayyinah") && onStartMemorize && (
+              {(surah.id === "alalaq" || surah.id === "annasr" || surah.id === "rahman" || surah.id === "bayyinah") && onStartMemorize && (
                 <GameButton tone="sun" className="mt-2 min-h-12 w-full" onClick={() => onStartMemorize(surah)}>
                   <span className="inline-flex items-center gap-2"><Sparkles className="h-5 w-5" />Memorize with pictures</span>
                 </GameButton>

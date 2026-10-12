@@ -24,8 +24,15 @@ const GROUPS: Array<{ from: number; to: number; video?: string; poster?: string 
   { from: 13, to: 15 },
   { from: 16, to: 19 },
 ];
-const KEY = "alaq-memorize-v1";
-const AYAH_KEY = "alaq-memorize-ayahs-v1";
+/** Surah An-Nasr is three ayahs, so it is one memorization group (no memory-cue video yet). */
+const ANNASR_GROUPS: Array<{ from: number; to: number; video?: string; poster?: string }> = [{ from: 1, to: 3 }];
+const groupsFor = (surahId: string) => (surahId === "annasr" ? ANNASR_GROUPS : GROUPS);
+/** Al-Alaq keeps its original storage keys; every other surah gets its own so progress never mixes. */
+const keysFor = (surahId: string) =>
+  surahId === "alalaq"
+    ? { done: "alaq-memorize-v1", ayah: "alaq-memorize-ayahs-v1" }
+    : { done: `${surahId}-memorize-v1`, ayah: `${surahId}-memorize-ayahs-v1` };
+const SHORT_NAME: Record<string, string> = { alalaq: "Al-'Alaq", annasr: "An-Nasr" };
 /** 0 = Learn (unchanged). 1–4 = 🧠 Memorize levels with decreasing text support. */
 const LEVELS = [
   { id: 1, title: "Practice" },
@@ -66,6 +73,9 @@ const getRecognizer = (): (new () => Recognizer) | null =>
   typeof window === "undefined" ? null : ((window as any).SpeechRecognition ?? (window as any).webkitSpeechRecognition ?? null);
 
 export function AlaqMemorize({ surah, onExit }: { surah: SurahData; onExit: () => void }) {
+  const groups = groupsFor(surah.id);
+  const keys = keysFor(surah.id);
+  const title = SHORT_NAME[surah.id] ?? surah.name;
   const [g, setG] = useState(0);
   const [done, setDone] = useState<number[]>([]);
   const [ayah, setAyah] = useState(0); // index within group
@@ -81,7 +91,7 @@ export function AlaqMemorize({ surah, onExit }: { surah: SurahData; onExit: () =
   const [ayahsDone, setAyahsDone] = useState<number[]>([]);
   const [whole, setWhole] = useState(false);
 
-  const group = GROUPS[g]!;
+  const group = groups[g]!;
   const verses = surah.verses.slice(group.from - 1, group.to);
   const verse = verses[ayah]!;
   const vw = words(verse);
@@ -93,7 +103,7 @@ export function AlaqMemorize({ surah, onExit }: { surah: SurahData; onExit: () =
   const hintTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  useEffect(() => { setCanHear(!!getRecognizer()); try { setAyahsDone(JSON.parse(localStorage.getItem(AYAH_KEY) ?? "[]")); setDone(JSON.parse(localStorage.getItem(KEY) ?? "[]")); } catch { /* ignore */ } }, []);
+  useEffect(() => { setCanHear(!!getRecognizer()); try { setAyahsDone(JSON.parse(localStorage.getItem(keys.ayah) ?? "[]")); setDone(JSON.parse(localStorage.getItem(keys.done) ?? "[]")); } catch { /* ignore */ } }, []);
 
   const stopAudio = useCallback(() => {
     cancelAnimationFrame(rafRef.current);
@@ -157,13 +167,13 @@ export function AlaqMemorize({ surah, onExit }: { surah: SurahData; onExit: () =
     if (clamped >= vw.length) {
       stopMic(); setSuccess(true); markDone();
       const n = group.from + ayah;
-      setAyahsDone((d) => { const next = [...new Set([...d, n])]; localStorage.setItem(AYAH_KEY, JSON.stringify(next)); return next; });
+      setAyahsDone((d) => { const next = [...new Set([...d, n])]; localStorage.setItem(keys.ayah, JSON.stringify(next)); return next; });
     } else armHint();
   };
 
   const markDone = () => {
     if (ayah < verses.length - 1) return;
-    setDone((d) => { const next = [...new Set([...d, g])]; localStorage.setItem(KEY, JSON.stringify(next)); return next; });
+    setDone((d) => { const next = [...new Set([...d, g])]; localStorage.setItem(keys.done, JSON.stringify(next)); return next; });
   };
 
   const startTurn = () => {
@@ -194,13 +204,13 @@ export function AlaqMemorize({ surah, onExit }: { surah: SurahData; onExit: () =
   const nextAyah = () => {
     setSuccess(false); setTurn(false); stopMic();
     if (ayah + 1 < verses.length) setAyah(ayah + 1);
-    else if (g + 1 < GROUPS.length) setG(g + 1);
+    else if (g + 1 < groups.length) setG(g + 1);
   };
 
   if (whole) return <WholeSurah surah={surah} onExit={() => setWhole(false)} />;
 
   return (
-    <GameShell title="Memorize Al-'Alaq" current={done.length} total={GROUPS.length} onExit={onExit}>
+    <GameShell title={`Memorize ${title}`} current={done.length} total={groups.length} onExit={onExit}>
       <div className="mt-4 flex flex-1 flex-col gap-4">
         {/* 1. Visual memory cue. Groups without a video keep a clean, calm frame of the same size. */}
         <div className="mx-auto w-full max-w-xl overflow-hidden rounded-3xl bg-gradient-to-br from-secondary/60 via-card to-accent/40 shadow-md">
@@ -215,7 +225,7 @@ export function AlaqMemorize({ surah, onExit }: { surah: SurahData; onExit: () =
 
         {/* 2. Group indicator */}
         <div className="flex flex-wrap justify-center gap-2">
-          {GROUPS.map((x, i) => (
+          {groups.map((x, i) => (
             <button key={i} onClick={() => setG(i)} className={cn("relative min-h-11 rounded-full border-2 px-3 text-sm font-black", i === g ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card")} aria-label={`Ayahs ${x.from} to ${x.to}`}>
               {x.from}–{x.to}
               {done.includes(i) && <Check className="absolute -right-1 -top-1 h-4 w-4 rounded-full bg-success text-success-foreground" />}
@@ -306,7 +316,7 @@ export function AlaqMemorize({ surah, onExit }: { surah: SurahData; onExit: () =
         {/* 6. Progress */}
         <div className="mt-auto">
           <div className="h-3 overflow-hidden rounded-full bg-muted"><div className="h-full rounded-full bg-success transition-all" style={{ width: `${(ayahsDone.length / surah.verses.length) * 100}%` }} /></div>
-          <p className="mt-1 text-center text-xs font-black text-muted-foreground">{done.length} / {GROUPS.length} groups · {ayahsDone.length} / {surah.verses.length} ayahs</p>
+          <p className="mt-1 text-center text-xs font-black text-muted-foreground">{done.length} / {groups.length} groups · {ayahsDone.length} / {surah.verses.length} ayahs</p>
         </div>
       </div>
     </GameShell>
@@ -315,6 +325,9 @@ export function AlaqMemorize({ surah, onExit }: { surah: SurahData; onExit: () =
 
 /** Final activity: recite all ayahs in order. The group's video (if any) follows along as the child moves through. */
 function WholeSurah({ surah, onExit }: { surah: SurahData; onExit: () => void }) {
+  const groups = groupsFor(surah.id);
+  const keys = keysFor(surah.id);
+  const title = SHORT_NAME[surah.id] ?? surah.name;
   const total = surah.verses.length;
   const [idx, setIdx] = useState(0);
   const [said, setSaid] = useState(0);
@@ -331,8 +344,8 @@ function WholeSurah({ surah, onExit }: { surah: SurahData; onExit: () => void })
 
   const verse = surah.verses[idx]!;
   const vw = words(verse);
-  const gi = GROUPS.findIndex((x) => idx + 1 >= x.from && idx + 1 <= x.to);
-  const group = GROUPS[gi]!;
+  const gi = groups.findIndex((x) => idx + 1 >= x.from && idx + 1 <= x.to);
+  const group = groups[gi]!;
 
   useEffect(() => setCanHear(!!getRecognizer()), []);
 
@@ -361,8 +374,8 @@ function WholeSurah({ surah, onExit }: { surah: SurahData; onExit: () => void })
       stopMic(); setFinished(true);
       try {
         const all = surah.verses.map((_, i) => i + 1);
-        localStorage.setItem(AYAH_KEY, JSON.stringify(all));
-        localStorage.setItem(KEY, JSON.stringify(GROUPS.map((_, i) => i)));
+        localStorage.setItem(keys.ayah, JSON.stringify(all));
+        localStorage.setItem(keys.done, JSON.stringify(groups.map((_, i) => i)));
       } catch { /* ignore */ }
       return;
     }
@@ -411,7 +424,7 @@ function WholeSurah({ surah, onExit }: { surah: SurahData; onExit: () => void })
           </div>
           <div className="flex gap-1">{(["R", "Y", "B", "G", "R"] as const).map((c, i) => <Block key={i} color={c} className="h-9 w-11 animate-bw-snap" />)}</div>
           <h2 className="text-3xl font-black">You did it!</h2>
-          <p className="text-lg font-black text-muted-foreground">You memorized Surat Al-’Alaq!</p>
+          <p className="text-lg font-black text-muted-foreground">You memorized Surat {title}!</p>
           <p dir="rtl" lang="ar" className="font-quran text-3xl">{surah.arabicName}</p>
           <div className="grid w-full grid-cols-2 gap-3">
             <GameButton tone="neutral" className="min-h-16" onClick={onExit}>Back</GameButton>
