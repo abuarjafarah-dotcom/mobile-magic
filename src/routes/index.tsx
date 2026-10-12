@@ -62,6 +62,7 @@ import { SurahMemorize } from "@/components/quran/SurahMemorize";
 import type { MemoryGroup } from "@/components/quran/SurahMemorize";
 import rahmanGroup1Video from "@/assets/rahman/group-1.mp4";
 import rahmanGroup2Video from "@/assets/rahman/group-2.mp4";
+import rahmanGroup4Video from "@/assets/rahman/group-4.mp4";
 import rahmanGroup3Video from "@/assets/rahman/group-3.mp4";
 import { ArabicLesson, ArabicMap } from "@/components/arabic/ArabicPath";
 import { ArabicWorld, ArabicWorldHub } from "@/components/arabic/ArabicWorld";
@@ -387,7 +388,7 @@ function MemorizeScreen({ surah, onExit }: { surah: SurahData; onExit: () => voi
     { from: 1, to: 6, video: rahmanGroup1Video },
     { from: 7, to: 12, video: rahmanGroup2Video },
     { from: 13, to: 18, video: rahmanGroup3Video },
-    { from: 19, to: 24 },
+    { from: 19, to: 24, video: rahmanGroup4Video },
     { from: 25, to: 30 },
     { from: 31, to: 36 },
     { from: 37, to: 42 },
