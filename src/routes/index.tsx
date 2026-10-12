@@ -62,6 +62,8 @@ import { SurahMemorize } from "@/components/quran/SurahMemorize";
 import type { MemoryGroup } from "@/components/quran/SurahMemorize";
 import rahmanGroup1Video from "@/assets/rahman/group-1.mp4";
 import rahmanGroup2Video from "@/assets/rahman/group-2.mp4";
+import bayyinahGroup1Video from "@/assets/bayyinah/group-1.mp4";
+import bayyinahGroup2Video from "@/assets/bayyinah/group-2.mp4";
 import rahmanGroup4Video from "@/assets/rahman/group-4.mp4";
 import rahmanGroup3Video from "@/assets/rahman/group-3.mp4";
 import { ArabicLesson, ArabicMap } from "@/components/arabic/ArabicPath";
@@ -396,8 +398,8 @@ function MemorizeScreen({ surah, onExit }: { surah: SurahData; onExit: () => voi
   ];
 
   const BAYYINAH_GROUPS: MemoryGroup[] = [
-    { from: 1, to: 4 },
-    { from: 5, to: 8 },
+    { from: 1, to: 4, video: bayyinahGroup1Video },
+    { from: 5, to: 8, video: bayyinahGroup2Video },
   ];
 
   let groups: MemoryGroup[] = ALAQ_GROUPS;
