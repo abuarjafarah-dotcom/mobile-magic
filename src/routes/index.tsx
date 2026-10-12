@@ -332,7 +332,7 @@ function MathAdventure() {
   };
 
   return (
-    <main className="min-h-dvh bg-background text-foreground">
+    <main className="min-h-dvh text-foreground">
       {screen !== "parent" && (
         <div className="fixed right-[max(1rem,env(safe-area-inset-right))] top-[max(1rem,env(safe-area-inset-top))] z-30">
           <GameButton tone="neutral" className="grid h-12 w-12 place-items-center rounded-full p-0" onClick={openSettings} aria-label="Parent settings">
