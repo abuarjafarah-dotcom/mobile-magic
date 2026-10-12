@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { isChunkLoadError, reloadForNewVersion } from "../lib/lazyReload";
 
 function NotFoundComponent() {
   return (
@@ -39,6 +40,8 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
+    // A new version was deployed while this tab was open: load it instead of erroring.
+    if (isChunkLoadError(error) && reloadForNewVersion()) return;
     reportLovableError(error, { boundary: "tanstack_root_error_component" });
   }, [error]);
 
@@ -54,6 +57,7 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
             onClick={() => {
+              if (isChunkLoadError(error)) { window.location.reload(); return; }
               router.invalidate();
               reset();
             }}
@@ -119,6 +123,12 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  // Vite fires this when a preloaded file from an older deploy is missing.
+  useEffect(() => {
+    const onPreloadError = (e: Event) => { if (reloadForNewVersion()) e.preventDefault(); };
+    window.addEventListener("vite:preloadError", onPreloadError);
+    return () => window.removeEventListener("vite:preloadError", onPreloadError);
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
