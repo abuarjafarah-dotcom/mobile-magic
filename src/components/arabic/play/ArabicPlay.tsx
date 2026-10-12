@@ -50,6 +50,8 @@ function useProgress() {
 
 const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const say = (t: string) => speakArabic(t, SYLLABLE_AUDIO[t]);
+/** The "yay" cheer lasts ~0.65s; speaking over it gets the word dropped on iPad/iPhone. */
+const YAY_MS = 750;
 
 /* ---------------- shell ---------------- */
 
@@ -178,7 +180,7 @@ function SlotGame({ done, onWin }: { done: readonly string[]; onWin: (id: string
     sfx("yay");
     setWon(true);
     onWin(word.id);
-    await wait(250);
+    await wait(YAY_MS); // let the cheer finish so it doesn't swallow the word
     if (run.current === id) await say(word.ar);
   };
 
@@ -218,7 +220,7 @@ function SlotGame({ done, onWin }: { done: readonly string[]; onWin: (id: string
     sfx("yay");
     setWon(true);
     onWin(next.id);
-    await wait(250);
+    await wait(YAY_MS); // let the cheer finish so it doesn't swallow the word
     if (run.current === id) await say(next.ar);
     setBusy(false);
   };

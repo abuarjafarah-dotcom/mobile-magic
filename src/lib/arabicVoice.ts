@@ -51,11 +51,21 @@ export function speakArabic(text: string, preferredUrl?: string): Promise<void> 
       utterance.rate = 0.8;
       const v = arabicVoice(); if (v) utterance.voice = v;
       let done = false;
+      let started = false;
       const end = () => { if (!done) { done = true; resolve(); } };
+      utterance.onstart = () => { started = true; };
       utterance.onend = end;
       utterance.onerror = end;
       // Safety: never hang the flow if the browser drops the utterance.
       setTimeout(end, Math.max(4000, clean.length * 180));
+      // Safari/Chrome sometimes silently drop an utterance (e.g. right after a
+      // cancel or while a sound effect plays). If it never started, say it once more.
+      setTimeout(() => {
+        const s = window.speechSynthesis;
+        if (done || started || ownRequest !== requestId || s.speaking || s.pending) return;
+        s.cancel();
+        s.speak(utterance);
+      }, 1200);
       // Start inside the tap/click event. Mobile browsers can reject speech
       // once user activation is lost, which made only pre-recorded words play.
       if (ownRequest === requestId) {
