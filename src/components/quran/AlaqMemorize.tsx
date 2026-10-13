@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Check, Lightbulb, Mic, RotateCcw, Square, Volume2 } from "lucide-react";
 import { GameButton } from "@/components/game/GameButton";
 import { GameShell } from "@/components/learn/shared";
-import type { SurahData, SurahVerse } from "@/data/surahs";
+import { surahs as juz30, type SurahData, type SurahVerse } from "@/data/surahs";
 import { cn } from "@/lib/utils";
 import { Block } from "@/components/building/BuildingWorld";
 import hamadCelebrating from "@/assets/building/hamad-celebrating.png";
@@ -13,19 +13,37 @@ import p1 from "@/assets/alaq/g1.jpg.asset.json";
 import p2 from "@/assets/alaq/g2.jpg.asset.json";
 
 /**
- * Memorization groups for Surah Al-'Alaq. To add or replace a group's memory-cue video later,
+ * Memorization setups, one per surah, sharing the same game. To add or replace a group's memory-cue video later,
  * set `video` (and optionally `poster`) on that group only — nothing else needs to change.
  */
-const GROUPS: Array<{ from: number; to: number; video?: string; poster?: string }> = [
-  { from: 1, to: 3, video: v1.url, poster: p1.url },
-  { from: 4, to: 6, video: v2.url, poster: p2.url },
-  { from: 7, to: 9 },
-  { from: 10, to: 12 },
-  { from: 13, to: 15 },
-  { from: 16, to: 19 },
-];
-const KEY = "alaq-memorize-v1";
-const AYAH_KEY = "alaq-memorize-ayahs-v1";
+type Group = { from: number; to: number; video?: string; poster?: string };
+type MemorizeSetup = { groups: Group[]; key: string; ayahKey: string; title: string; done: string };
+const g = (pairs: Array<[number, number]>): Group[] => pairs.map(([from, to]) => ({ from, to }));
+export const MEMORIZE: Record<string, MemorizeSetup> = {
+  alalaq: {
+    groups: [
+      { from: 1, to: 3, video: v1.url, poster: p1.url },
+      { from: 4, to: 6, video: v2.url, poster: p2.url },
+      { from: 7, to: 9 },
+      { from: 10, to: 12 },
+      { from: 13, to: 15 },
+      { from: 16, to: 19 },
+    ],
+    key: "alaq-memorize-v1", ayahKey: "alaq-memorize-ayahs-v1", title: "Memorize Al-'Alaq", done: "You memorized Surat Al-’Alaq!",
+  },
+};
+
+/** Every other Juz 30 surah gets the same game with automatic groups of ~3–4 ayahs.
+ *  Al-Bayyinah keeps its own memorize setup (SurahMemorize, routed in index.tsx), so it is skipped here. */
+for (const s of juz30) {
+  if (MEMORIZE[s.id] || s.id === "bayyinah") continue;
+  const n = s.verses.length;
+  const size = n <= 5 ? n <= 3 ? n : Math.ceil(n / 2) : n <= 12 ? 3 : 4;
+  const pairs: Array<[number, number]> = [];
+  for (let from = 1; from <= n; from += size) pairs.push([from, Math.min(n, from + size - 1)]);
+  const short = s.name.replace(/^Surah /, "");
+  MEMORIZE[s.id] = { groups: g(pairs), key: `${s.id}-memorize-v1`, ayahKey: `${s.id}-memorize-ayahs-v1`, title: `Memorize ${short}`, done: `You memorized Surat ${short}!` };
+}
 /** 0 = Learn (unchanged). 1–4 = 🧠 Memorize levels with decreasing text support. */
 const LEVELS = [
   { id: 1, title: "Practice" },
@@ -39,14 +57,14 @@ const masked = (level: number, k: number, count: number) =>
 const HINT_AFTER_MS = 5000;
 
 // Waqf marks stay on screen but are never counted as words (same rule as Finish the Ayah).
-const isMark = (t: string) => /^[\u06D6-\u06ED]+$/.test(t);
+const isMark = (t: string) => /^[ۖ-ۭ]+$/.test(t);
 const words = (v: SurahVerse) => v.arabic.split(/\s+/).filter((t) => t && !isMark(t));
 
 /** Strip harakat/Quranic marks and unify letter variants so recognition is forgiving. */
 const norm = (s: string) =>
-  s.replace(/[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED\u0640]/g, "")
+  s.replace(/[ؐ-ًؚ-ٰٟۖ-ۭـ]/g, "")
     .replace(/[ٱأإآ]/g, "ا").replace(/ى/g, "ي").replace(/ة/g, "ه").replace(/ؤ/g, "و").replace(/ئ/g, "ي")
-    .replace(/[^\u0621-\u064A]/g, "");
+    .replace(/[^ء-ي]/g, "");
 
 function close(a: string, b: string) {
   if (!a || !b) return false;
@@ -66,6 +84,7 @@ const getRecognizer = (): (new () => Recognizer) | null =>
   typeof window === "undefined" ? null : ((window as any).SpeechRecognition ?? (window as any).webkitSpeechRecognition ?? null);
 
 export function AlaqMemorize({ surah, onExit }: { surah: SurahData; onExit: () => void }) {
+  const { groups: GROUPS, key: KEY, ayahKey: AYAH_KEY, title } = MEMORIZE[surah.id] ?? MEMORIZE["alalaq"]!;
   const [g, setG] = useState(0);
   const [done, setDone] = useState<number[]>([]);
   const [ayah, setAyah] = useState(0); // index within group
@@ -200,7 +219,7 @@ export function AlaqMemorize({ surah, onExit }: { surah: SurahData; onExit: () =
   if (whole) return <WholeSurah surah={surah} onExit={() => setWhole(false)} />;
 
   return (
-    <GameShell title="Memorize Al-'Alaq" current={done.length} total={GROUPS.length} onExit={onExit}>
+    <GameShell title={title} current={done.length} total={GROUPS.length} onExit={onExit}>
       <div className="mt-4 flex flex-1 flex-col gap-4">
         {/* 1. Visual memory cue. Groups without a video keep a clean, calm frame of the same size. */}
         <div className="mx-auto w-full max-w-xl overflow-hidden rounded-3xl bg-gradient-to-br from-secondary/60 via-card to-accent/40 shadow-md">
@@ -217,7 +236,7 @@ export function AlaqMemorize({ surah, onExit }: { surah: SurahData; onExit: () =
         <div className="flex flex-wrap justify-center gap-2">
           {GROUPS.map((x, i) => (
             <button key={i} onClick={() => setG(i)} className={cn("relative min-h-11 rounded-full border-2 px-3 text-sm font-black", i === g ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card")} aria-label={`Ayahs ${x.from} to ${x.to}`}>
-              {x.from}–{x.to}
+              {x.from === x.to ? x.from : `${x.from}–${x.to}`}
               {done.includes(i) && <Check className="absolute -right-1 -top-1 h-4 w-4 rounded-full bg-success text-success-foreground" />}
             </button>
           ))}
@@ -315,6 +334,7 @@ export function AlaqMemorize({ surah, onExit }: { surah: SurahData; onExit: () =
 
 /** Final activity: recite all ayahs in order. The group's video (if any) follows along as the child moves through. */
 function WholeSurah({ surah, onExit }: { surah: SurahData; onExit: () => void }) {
+  const { groups: GROUPS, key: KEY, ayahKey: AYAH_KEY, done: doneText } = MEMORIZE[surah.id] ?? MEMORIZE["alalaq"]!;
   const total = surah.verses.length;
   const [idx, setIdx] = useState(0);
   const [said, setSaid] = useState(0);
@@ -411,7 +431,7 @@ function WholeSurah({ surah, onExit }: { surah: SurahData; onExit: () => void })
           </div>
           <div className="flex gap-1">{(["R", "Y", "B", "G", "R"] as const).map((c, i) => <Block key={i} color={c} className="h-9 w-11 animate-bw-snap" />)}</div>
           <h2 className="text-3xl font-black">You did it!</h2>
-          <p className="text-lg font-black text-muted-foreground">You memorized Surat Al-’Alaq!</p>
+          <p className="text-lg font-black text-muted-foreground">{doneText}</p>
           <p dir="rtl" lang="ar" className="font-quran text-3xl">{surah.arabicName}</p>
           <div className="grid w-full grid-cols-2 gap-3">
             <GameButton tone="neutral" className="min-h-16" onClick={onExit}>Back</GameButton>

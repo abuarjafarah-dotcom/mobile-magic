@@ -57,7 +57,7 @@ import { juz1Surahs } from "@/data/surahsJuz1";
 const allSurahs: readonly SurahData[] = [...surahs, ...juz29Surahs, ...juz28Surahs, ...juz27Surahs, ...juz22Surahs, ...juz21Surahs, ...juz15Surahs, ...juz3Surahs, ...juz1Surahs];
 import { units, allLessons, type Lesson } from "@/data/arabicCurriculum";
 import { FinishAyah } from "@/components/quran/FinishAyah";
-import { AlaqMemorize } from "@/components/quran/AlaqMemorize";
+import { AlaqMemorize, MEMORIZE } from "@/components/quran/AlaqMemorize";
 import { SurahMemorize } from "@/components/quran/SurahMemorize";
 import type { MemoryGroup } from "@/components/quran/SurahMemorize";
 import rahmanGroup1Video from "@/assets/rahman/group-1.mp4";
@@ -404,8 +404,8 @@ function MemorizeScreen({ surah, onExit }: { surah: SurahData; onExit: () => voi
   if (surah.id === "rahman") groups = RAHMAN_GROUPS;
   if (surah.id === "bayyinah") groups = BAYYINAH_GROUPS;
 
-  // Use AlaqMemorize for Al-Alaq (backward compatibility with existing videos)
-  if (surah.id === "alalaq") {
+  // Use AlaqMemorize for every surah with a MEMORIZE setup (Al-'Alaq and all of Juz 30 except Al-Bayyinah)
+  if (MEMORIZE[surah.id]) {
     return <AlaqMemorize surah={surah} onExit={onExit} />;
   }
 
@@ -610,7 +610,7 @@ function QuranPicker({ learning, onStartSurah, onStartAyah, onStartMemorize }: {
                   <span className="inline-flex items-center gap-2"><Sparkles className="h-5 w-5" />Finish the Ayah</span>
                 </GameButton>
               </div>
-              {(surah.id === "alalaq" || surah.id === "rahman" || surah.id === "bayyinah") && onStartMemorize && (
+              {(MEMORIZE[surah.id] || surah.id === "rahman" || surah.id === "bayyinah") && onStartMemorize && (
                 <GameButton tone="sun" className="mt-2 min-h-12 w-full" onClick={() => onStartMemorize(surah)}>
                   <span className="inline-flex items-center gap-2"><Sparkles className="h-5 w-5" />Memorize with pictures</span>
                 </GameButton>
