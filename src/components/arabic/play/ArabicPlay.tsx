@@ -1,8 +1,9 @@
 /**
  * Harakat & Tracing (لعبة الحركات) — homepage section, screen "play".
  *
- *   Harakat Slot Machine: pull the lever, three reels land on a 3-letter word,
- *   Mama sounds each syllable, then the letters join into the word + picture.
+ *   Harakat Slot Machine: pull the lever, three reels land on a 3-letter word.
+ *   The child reads it aloud (mic); a correct read celebrates and the word + picture appear.
+ *   Hear / show-next buttons help, and a tap-to-finish fallback covers devices without speech recognition.
  *   Build mode: see the picture, tap each reel to the right haraka, check.
  *
  *   Sand Tracing: trace a big letter in the sand tray. Coverage-based check
@@ -13,12 +14,13 @@
  * Own localStorage key arabic-play-v1 so it never touches other progress.
  */
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { ArrowLeft, ArrowRight, Check, RotateCcw, Volume2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Lightbulb, Mic, RotateCcw, Volume2 } from "lucide-react";
 import { GameButton } from "@/components/game/GameButton";
 import { shuffle } from "@/components/learn/shared";
 import { cn } from "@/lib/utils";
 import { sfx } from "@/lib/explorerSfx";
 import { speakArabic, stopArabicVoice } from "@/lib/arabicVoice";
+import { getRecognizer, heardMatches, unlockVoice, type Recognizer } from "@/lib/arabicRecite";
 import { LETTER_CARDS, SLOT_LEVELS, SYLLABLE_AUDIO, type SlotWord } from "@/data/arabicPlayArt";
 import { Lever, SandTray, SlotMachine, StarBurst, StartDot, TraceTrail, type Pt } from "./PlayArt";
 
@@ -52,6 +54,8 @@ const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const say = (t: string) => speakArabic(t, SYLLABLE_AUDIO[t]);
 /** The "yay" cheer lasts ~0.65s; speaking over it gets the word dropped on iPad/iPhone. */
 const YAY_MS = 750;
+/** Child seems stuck reading: reveal the next syllable after this long. */
+const HINT_AFTER_MS = 6000;
 
 /* ---------------- shell ---------------- */
 
@@ -144,6 +148,16 @@ function SlotGame({ done, onWin }: { done: readonly string[]; onWin: (id: string
   const [won, setWon] = useState(false);
   const [busy, setBusy] = useState(false);
   const run = useRef(0);
+  // reading (spin mode): the child reads the landed word aloud
+  const [ready, setReady] = useState(false);
+  const [listening, setListening] = useState(false);
+  const [canHear, setCanHear] = useState(true);
+  const readingRef = useRef(false);
+  const targetRef = useRef<SlotWord>(order[0]);
+  const revealRef = useRef(0);
+  const recRef = useRef<Recognizer | null>(null);
+  const hintTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  useEffect(() => { setCanHear(!!getRecognizer()); }, []);
 
   // build state
   const [pick, setPick] = useState<number[]>([0, 0, 0]);
@@ -153,9 +167,18 @@ function SlotGame({ done, onWin }: { done: readonly string[]; onWin: (id: string
   );
   const [wrong, setWrong] = useState<number | undefined>();
 
+  const stopMic = useCallback(() => {
+    clearTimeout(hintTimer.current);
+    const r = recRef.current; recRef.current = null;
+    if (r) { r.onend = null; try { r.stop(); } catch { /* ignore */ } }
+    setListening(false);
+  }, []);
+
   const resetFor = useCallback((w: SlotWord, m: Mode) => {
     run.current++;
-    stopArabicVoice();
+    stopArabicVoice(); stopMic();
+    readingRef.current = false;
+    setReady(false);
     setWon(false); setHl(undefined); setWrong(undefined); setBusy(false);
     if (m === "spin") setReels(w.reels);
     else {
@@ -169,11 +192,11 @@ function SlotGame({ done, onWin }: { done: readonly string[]; onWin: (id: string
       setPick(start);
       setReels(start.map((k, i) => o[i][k]));
     }
-  }, [level.id]);
+  }, [level.id, stopMic]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { resetFor(mode === "spin" ? spinWord : word, mode); }, [word, mode, resetFor]);
-  useEffect(() => () => { run.current++; stopArabicVoice(); }, []);
+  useEffect(() => () => { run.current++; stopMic(); stopArabicVoice(); }, [stopMic]);
 
   const celebrate = async (id: number) => {
     setHl(undefined);
@@ -193,10 +216,63 @@ function SlotGame({ done, onWin }: { done: readonly string[]; onWin: (id: string
     }
   };
 
+  const armHint = (target: SlotWord) => {
+    clearTimeout(hintTimer.current);
+    hintTimer.current = setTimeout(() => revealNext(target), HINT_AFTER_MS);
+  };
+
+  /** Show the next syllable (highlight + say it). Used by the hint timer and the lightbulb button. */
+  const revealNext = (target: SlotWord) => {
+    if (!readingRef.current) return;
+    const k = revealRef.current;
+    if (k >= 3) return;
+    revealRef.current = k + 1;
+    setHl(k);
+    void say(target.reels[k]);
+    armHint(target);
+  };
+
+  /** Mic: recognise the child's reading; a match finishes the round straight away. */
+  const startListening = (target: SlotWord) => {
+    unlockVoice();
+    stopMic();
+    const R = getRecognizer();
+    if (!R) { setCanHear(false); return; }
+    const rec = new R(); recRef.current = rec;
+    rec.lang = "ar-SA"; rec.continuous = true; rec.interimResults = true;
+    rec.onresult = (e: any) => {
+      if (recRef.current !== rec) return;
+      let text = "";
+      for (let i = 0; i < e.results.length; i++) text += " " + e.results[i][0].transcript;
+      if (heardMatches(text, target.ar)) { stopMic(); void finishRead(target); }
+      else armHint(target);
+    };
+    rec.onerror = () => { /* stay calm; the tap fallback still works */ };
+    rec.onend = () => { if (recRef.current === rec) { try { rec.start(); } catch { stopMic(); } } };
+    try { rec.start(); setListening(true); armHint(target); } catch { stopMic(); setCanHear(false); }
+  };
+
+  /** The child read it (or tapped ✓): celebrate immediately, then say the full word. */
+  const finishRead = async (target: SlotWord) => {
+    if (!readingRef.current) return;
+    readingRef.current = false;
+    stopMic();
+    const id = run.current;
+    setReady(false); setHl(undefined);
+    sfx("yay");
+    setWon(true);
+    onWin(target.id);
+    await wait(YAY_MS); // let the cheer finish so it doesn't swallow the word
+    if (run.current === id) await say(target.ar);
+  };
+
   const pull = async () => {
     if (spinning || busy) return;
+    unlockVoice(); // inside the tap, so speech stays allowed on iPad/iPhone
     const id = ++run.current;
-    setBusy(true); setWon(false); setHl(undefined);
+    stopMic();
+    readingRef.current = false;
+    setBusy(true); setWon(false); setHl(undefined); setReady(false); setWrong(undefined);
     sfx("click");
     setPulled(true); setSpinning(true);
     setTimeout(() => setPulled(false), 380);
@@ -208,21 +284,13 @@ function SlotGame({ done, onWin }: { done: readonly string[]; onWin: (id: string
     setReels(next.reels);
     setSpinning(false);
     sfx("coin");
-    await wait(900); // reels finish landing right → left
-    for (let i = 0; i < 3; i++) {
-      if (run.current !== id) return;
-      setHl(i);
-      await say(next.reels[i]);
-      await wait(250);
-    }
+    await wait(250); // reels stop; the child's turn starts right away
     if (run.current !== id) return;
-    setHl(undefined);
-    sfx("yay");
-    setWon(true);
-    onWin(next.id);
-    await wait(YAY_MS); // let the cheer finish so it doesn't swallow the word
-    if (run.current === id) await say(next.ar);
+    targetRef.current = next;
+    revealRef.current = 0;
+    readingRef.current = true;
     setBusy(false);
+    setReady(true);
   };
 
   const tapReel = (i: number) => {
@@ -239,6 +307,7 @@ function SlotGame({ done, onWin }: { done: readonly string[]; onWin: (id: string
   };
 
   const check = async () => {
+    unlockVoice();
     const id = ++run.current;
     const bad = reels.findIndex((r, i) => r !== word.reels[i]);
     if (bad >= 0) {
@@ -314,8 +383,42 @@ function SlotGame({ done, onWin }: { done: readonly string[]; onWin: (id: string
           <Check className="h-5 w-5" /> Check · <span lang="ar" className="font-arabic">تحقّق</span>
         </GameButton>
       )}
-      {mode === "spin" && !won && !busy && (
+      {mode === "spin" && !won && !ready && !busy && (
         <p className="text-center font-black">Pull the lever! · <span lang="ar" className="font-arabic">اسحب الذراع</span></p>
+      )}
+
+      {/* the child reads the word the reels landed on */}
+      {mode === "spin" && ready && !won && (
+        <div className="grid gap-3 rounded-3xl border-2 border-primary/30 bg-card p-4 text-center shadow-md animate-pop-in">
+          <p className="text-xl font-black">
+            Read the word! · <span lang="ar" dir="rtl" className="font-arabic">اقرأ الكلمة</span>
+          </p>
+          <p className="text-sm font-bold text-muted-foreground">
+            {!canHear ? "Read it, then tap ✓" : listening ? "I’m listening… read the whole word" : "Tap the mic, then read the word"}
+          </p>
+          <div className="grid grid-cols-3 gap-3">
+            {canHear ? (
+              <GameButton tone="berry" className="min-h-16" onClick={() => startListening(targetRef.current)} aria-label="Start reading">
+                <Mic className={cn("mx-auto h-7 w-7", listening && "animate-pulse")} />
+              </GameButton>
+            ) : (
+              <GameButton tone="mint" className="min-h-16" onClick={() => void finishRead(targetRef.current)} aria-label="I read it">
+                <Check className="mx-auto h-7 w-7" />
+              </GameButton>
+            )}
+            <GameButton tone="sky" className="min-h-16" onClick={() => { unlockVoice(); void say(targetRef.current.ar); }} aria-label="Hear the word">
+              <Volume2 className="mx-auto h-7 w-7" />
+            </GameButton>
+            <GameButton tone="sun" className="min-h-16" onClick={() => { unlockVoice(); revealNext(targetRef.current); }} aria-label="Show the next part">
+              <Lightbulb className="mx-auto h-7 w-7" />
+            </GameButton>
+          </div>
+          {canHear && (
+            <button type="button" onClick={() => void finishRead(targetRef.current)} className="text-sm font-black text-muted-foreground underline">
+              I read it ✓
+            </button>
+          )}
+        </div>
       )}
 
       {/* result card */}

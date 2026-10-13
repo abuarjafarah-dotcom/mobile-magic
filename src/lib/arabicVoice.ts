@@ -26,6 +26,9 @@ function arabicVoice() {
   return ar.find((v) => FEMALE_AR.test(v.name) && !/maged|tarik|hamed|male/i.test(v.name)) ?? ar.find((v) => !/maged|tarik|hamed/i.test(v.name)) ?? ar[0];
 }
 
+/** Call synchronously inside a tap or click so later speech is allowed on iPad/iPhone (see arabicRecite.ts). */
+export { unlockVoice } from "@/lib/arabicRecite";
+
 export function stopArabicVoice() {
   requestId += 1;
   currentAudio?.pause();
