@@ -28,6 +28,7 @@ import {
   useWorkshop,
   type ChallengeStep,
 } from "./shared";
+import { numberColor } from "@/data/numberColors";
 import flowerArt from "@/assets/golden-workshop/reward-flower.webp";
 import sproutArt from "@/assets/golden-workshop/reward-sprout.webp";
 import crystalArt from "@/assets/golden-workshop/reward-crystal.webp";
@@ -37,15 +38,22 @@ const COMPOSITES = [12, 16, 18, 20, 24, 28, 30, 32, 36, 40, 42, 45, 48];
 
 function FactorTree({ n }: { n: number }): ReactNode {
   const split = splitOnce(n);
+  const color = numberColor(n);
   if (!split)
     return (
-      <span className="inline-grid h-10 min-w-10 place-items-center rounded-full bg-emerald-600 px-2 text-lg font-black text-white shadow">
+      <span
+        className={color ? "inline-grid h-10 min-w-10 place-items-center rounded-full px-2 text-lg font-black shadow" : "inline-grid h-10 min-w-10 place-items-center rounded-full bg-emerald-600 px-2 text-lg font-black text-white shadow"}
+        style={color ? { background: color.bg, color: color.text } : undefined}
+      >
         {n}
       </span>
     );
   return (
     <span className="inline-grid justify-items-center gap-1">
-      <span className="inline-grid h-10 min-w-10 place-items-center rounded-xl bg-amber-200 px-2 text-lg font-black shadow">
+      <span
+        className={color ? "inline-grid h-10 min-w-10 place-items-center rounded-xl px-2 text-lg font-black shadow" : "inline-grid h-10 min-w-10 place-items-center rounded-xl bg-amber-200 px-2 text-lg font-black shadow"}
+        style={color ? { background: color.bg, color: color.text } : undefined}
+      >
         {n}
       </span>
       <span className="flex items-start gap-3 border-t-2 border-amber-900/40 pt-1">
