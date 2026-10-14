@@ -5,60 +5,62 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>STARDUST LANES — league night</title>
 <link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Nunito:wght@800;900&display=swap" rel="stylesheet">
 <style>
   html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#050403;
-    font-family:"Lucida Console",Monaco,monospace;color:#ffb45e;-webkit-user-select:none;user-select:none;touch-action:none}
+    font-family:"Nunito",ui-rounded,system-ui,sans-serif;color:#2b2a21;-webkit-user-select:none;user-select:none;touch-action:none}
   #c{position:fixed;inset:0;display:block}
-  .panel{background:rgba(12,8,4,.72);border:1px solid rgba(255,170,80,.35);border-radius:6px;
-    box-shadow:0 0 14px rgba(255,140,40,.12) inset,0 2px 10px rgba(0,0,0,.5);backdrop-filter:blur(2px)}
+  .panel{background:#fff8e6;border:3px solid #2b2a21;border-radius:16px;
+    box-shadow:3px 3px 0 #2b2a21;backdrop-filter:none}
   #hud{position:fixed;inset:0;pointer-events:none;z-index:5}
   #hud .clickable{pointer-events:auto;cursor:pointer}
-  #topLeft{position:absolute;top:10px;left:10px;padding:8px 10px;font-size:12px;line-height:1.5}
-  #topLeft b{color:#ffd9a0}
-  .wbtn{display:inline-block;margin:2px 3px 0 0;padding:3px 8px;border:1px solid #7a5a33;border-radius:4px;
-    color:#caa26a;background:#191006;font-size:11px}
-  .wbtn.sel{color:#111;background:#ffb45e;border-color:#ffd9a0;text-shadow:none}
+  #topLeft{position:absolute;top:10px;left:10px;padding:8px 12px;font-size:13px;line-height:1.5;color:#2b2a21}
+  #topLeft b{color:#2b2a21;font-weight:900}
+  .wbtn{display:inline-block;margin:2px 4px 0 0;padding:4px 10px;border:2px solid #2b2a21;border-radius:10px;
+    color:#2b2a21;background:#fff;font-size:12px;font-weight:800;box-shadow:2px 2px 0 #2b2a21}
+  .wbtn.sel{color:#2b2a21;background:#ffd84a}
   #stats{display:none}
-  #stats .v{color:#8dffb0;font-weight:bold}
-  #roundScoreboard{position:absolute;top:10px;left:50%;transform:translateX(-50%);padding:8px 16px;font-size:13px;text-align:center;line-height:1.5}
-  #fps{position:absolute;bottom:6px;right:10px;font-size:10px;color:rgba(255,180,94,.4)}
-  #msg{position:absolute;top:26%;left:50%;transform:translate(-50%,-50%) scale(.6);font-size:56px;font-weight:bold;
-    letter-spacing:4px;color:#ffe9c4;text-shadow:0 0 18px #ff8c1a,0 0 40px #ff5e00,2px 2px 0 #4a1e00;
+  #stats .v{color:#2b2a21;font-weight:900}
+  #roundScoreboard{position:absolute;top:10px;left:50%;transform:translateX(-50%);padding:8px 18px;font-size:14px;text-align:center;line-height:1.5;color:#2b2a21}
+  #fps{position:absolute;bottom:6px;right:10px;font-size:10px;color:rgba(255,248,230,.6)}
+  #msg{position:absolute;top:26%;left:50%;transform:translate(-50%,-50%) scale(.6);font-size:56px;font-weight:900;
+    letter-spacing:2px;color:#fff8e6;text-shadow:3px 3px 0 #2b2a21,-2px -2px 0 #2b2a21,2px -2px 0 #2b2a21,-2px 2px 0 #2b2a21;
     opacity:0;transition:opacity .18s,transform .18s;white-space:nowrap;text-align:center}
   #msg.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
-  #msg small{display:block;font-size:18px;letter-spacing:8px;color:#ffb45e;margin-top:6px}
+  #msg small{display:block;font-size:18px;letter-spacing:6px;color:#ffd84a;margin-top:6px;text-shadow:2px 2px 0 #2b2a21}
   #meterWrap{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);width:380px;display:none}
-  #meterWrap .lbl{font-size:11px;letter-spacing:2px;margin-bottom:3px;color:#ffd9a0;text-align:center}
-  .meterBar{position:relative;height:22px;border:1px solid #7a5a33;border-radius:4px;overflow:hidden;
-    background:linear-gradient(90deg,#1a1108,#241608)}
+  #meterWrap .lbl{font-size:12px;letter-spacing:1px;margin-bottom:4px;color:#fff8e6;font-weight:900;text-align:center;text-shadow:1px 1px 0 #2b2a21}
+  .meterBar{position:relative;height:22px;border:3px solid #2b2a21;border-radius:12px;overflow:hidden;
+    background:#fff8e6;box-shadow:2px 2px 0 #2b2a21}
   #powFill{position:absolute;top:0;left:0;bottom:0;width:0%;
-    background:linear-gradient(90deg,#3fae5a,#ffe45e 60%,#ff5e3a);opacity:.92}
+    background:linear-gradient(90deg,#3fd67c,#ffd84a 60%,#ff7a4a);opacity:.95}
   #spinBar{margin-top:8px}
-  #spinNeedle{position:absolute;top:-2px;bottom:-2px;width:4px;left:50%;background:#8dffb0;box-shadow:0 0 8px #4dff8a}
-  .meterTick{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,220,160,.35)}
-  #hint{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);font-size:11px;color:rgba(255,200,140,.75);
-    letter-spacing:1px;text-align:center;text-shadow:0 1px 2px #000}
-  #foulLamp{position:absolute;top:14%;left:50%;transform:translateX(-50%);padding:10px 26px;font-size:30px;
-    color:#fff;background:#c11;border-radius:6px;box-shadow:0 0 30px #f00;display:none;letter-spacing:6px}
+  #spinNeedle{position:absolute;top:-2px;bottom:-2px;width:5px;left:50%;background:#2b2a21;border-radius:3px}
+  .meterTick{position:absolute;top:0;bottom:0;width:2px;background:rgba(43,42,33,.35)}
+  #hint{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);font-size:13px;color:#fff8e6;font-weight:800;
+    letter-spacing:.5px;text-align:center;text-shadow:2px 2px 0 #2b2a21}
+  #foulLamp{position:absolute;top:14%;left:50%;transform:translateX(-50%);padding:10px 26px;font-size:30px;font-weight:900;
+    color:#fff8e6;background:#d6452e;border:3px solid #2b2a21;border-radius:14px;box-shadow:4px 4px 0 #2b2a21;display:none;letter-spacing:4px}
   #boot{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    background:radial-gradient(ellipse at 50% 35%,#241206 0%,#0a0503 60%,#020101 100%);cursor:pointer}
-  #boot h1{font-size:64px;margin:0;color:#ffe2b0;letter-spacing:6px;
-    text-shadow:0 0 12px #ff9a2a,0 0 46px #ff6a00,0 0 90px #ff3800}
-  #boot h2{font-size:14px;letter-spacing:10px;color:#7fd6ff;text-shadow:0 0 12px #2ab6ff;margin:8px 0 30px 0;font-weight:normal}
-  #boot .go{font-size:20px;color:#8dffb0;text-shadow:0 0 10px #37ff7d;animation:blink 1.1s steps(2) infinite;margin:22px 0 8px}
-  @keyframes blink{50%{opacity:.25}}
-  #boot table{font-size:12px;color:#c9a06a;border-spacing:14px 3px}
-  #boot td:first-child{color:#ffd9a0;text-align:right}
-  #boot #selftest{margin-top:18px;font-size:11px;color:#6ea}
-  #boot #loadmsg{font-size:12px;color:#a86;margin-top:10px}
-  #boot .err{color:#ff7a6a;max-width:80%;white-space:pre-wrap;font-size:11px}
-  #muteBtn,#modeBtn,#camBtn,#viewBtn,#helpBtn{position:absolute;bottom:34px;font-size:11px;padding:5px 10px;
-    border:1px solid #7a5a33;border-radius:4px;background:#191006;color:#caa26a}
+    background:radial-gradient(ellipse at 50% 35%,#fff3cc 0%,#fbf3de 60%,#f3e6c4 100%);cursor:pointer}
+  #boot h1{font-family:"Bagel Fat One","Nunito",sans-serif;font-size:64px;margin:0;color:#2b2a21;letter-spacing:2px;
+    text-shadow:4px 4px 0 #ffd84a,6px 6px 0 #2b2a21}
+  #boot h2{font-size:14px;letter-spacing:8px;color:#3a5bd9;font-weight:900;margin:12px 0 30px 0}
+  #boot .go{font-size:20px;color:#2b2a21;font-weight:900;background:#ffd84a;border:3px solid #2b2a21;border-radius:14px;
+    padding:6px 18px;box-shadow:3px 3px 0 #2b2a21;animation:blink 1.1s steps(2) infinite;margin:22px 0 8px}
+  @keyframes blink{50%{opacity:.35}}
+  #boot table{font-size:13px;color:#2b2a21;border-spacing:14px 3px}
+  #boot td:first-child{color:#2b2a21;font-weight:900;text-align:right}
+  #boot #selftest{margin-top:18px;font-size:12px;color:#2b7a4b;font-weight:800}
+  #boot #loadmsg{font-size:12px;color:#7a6a4f;margin-top:10px}
+  #boot .err{color:#d6452e;max-width:80%;white-space:pre-wrap;font-size:12px;font-weight:800}
+  #muteBtn,#modeBtn,#camBtn,#viewBtn,#helpBtn{position:absolute;bottom:34px;font-size:12px;font-weight:800;padding:5px 12px;
+    border:2px solid #2b2a21;border-radius:10px;background:#fff;color:#2b2a21;box-shadow:2px 2px 0 #2b2a21}
   #muteBtn{right:12px} #modeBtn{right:110px} #camBtn{right:236px} #viewBtn{right:336px} #helpBtn{right:430px;display:none}
-  #leftAimBtn,#rightAimBtn{position:fixed;bottom:50px;width:60px;height:60px;border-radius:50%;background:rgba(255,107,157,0.7);border:3px solid #FFD700;color:#fff;font-size:24px;font-weight:bold;cursor:pointer;z-index:19;box-shadow:0 2px 8px rgba(0,0,0,0.4)}
+  #leftAimBtn,#rightAimBtn{position:fixed;bottom:50px;width:60px;height:60px;border-radius:50%;background:#ff6b9d;border:3px solid #2b2a21;color:#fff8e6;font-size:24px;font-weight:900;cursor:pointer;z-index:19;box-shadow:3px 3px 0 #2b2a21}
   #leftAimBtn{left:20px} #rightAimBtn{right:20px}
-  #leftAimBtn:active,#rightAimBtn:active{transform:scale(0.9);background:rgba(255,107,157,0.9)}
-  @media (max-width:760px){ #msg{font-size:34px} #boot h1{font-size:34px} #meterWrap{width:82vw} #topLeft{font-size:10px} }
+  #leftAimBtn:active,#rightAimBtn:active{transform:scale(0.92);background:#ff4f8a}
+  @media (max-width:760px){ #msg{font-size:34px} #boot h1{font-size:40px} #meterWrap{width:82vw} #topLeft{font-size:11px} }
 </style>
 </head>
 <body>
