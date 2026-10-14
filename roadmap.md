@@ -55,3 +55,12 @@
 - [x] Golden Bead Workshop: entry in Math, shared place-value engine + tests, Build a Number (target, puzzles, exchange/break, undo, drag/tap)
 - [x] Golden Bead Workshop: Multiplication Lab, Division Workshop, Factor Garden, Fraction Workshop, Free Workspace, Discover / Figure it out / Master it modes, garden rewards
 - [ ] Golden Bead Workshop: recorded Arabic voice clips for workshop lines (currently device voice via speak())
+- [x] Noorani Qaida foundation: data model, per-child mastery + spaced review, 7 reusable activity engines, Unit 1 (single letters, 6 groups)
+- [x] Noorani: Unit 1 checked against the PDF (order, rows, names, both ya forms)
+- [ ] Noorani: record Qaida-style letter names (بَا not بَاء) into nooraniClips
+- [x] Noorani Level 2: letters with harakat (Meet, Same letter/different sound, Listen & choose, Add the harakah, Read it, Harakah challenge)
+- [x] Noorani Level 3: blending (Read together, order cards ×3, Read without audio, Find the correct reading)
+- [ ] Noorani: recordings for syllables beyond ب ت م and for every Level 3 blend
+- [x] Noorani Level 4: sukoon (meet, vowel-or-sukoon, spot, hear the difference, closed syllables, choose the ending, add the mark, listen→build, read + I read it, mixed review)
+- [x] Noorani Level 5: tanween (meet, vowel vs tanween, identify, add the mark, exact form, sort, sound↔symbol, + sukoon mix, read units, Qaida lesson-6 words, mixed mastery)
+- [ ] Noorani Levels 6–12 from the PDF, one level at a time (data only)
