@@ -9,6 +9,7 @@
  *   <Lever pulled={p} onPull={...} />                        animated pull lever
  *   <StarBurst show={won} />                                 stars + coins win burst
  *   <SandTray>…</SandTray>                                   Montessori sand tray (wood frame, grainy sand)
+ *   <SandTray variant="sandpaper">…</SandTray>             smooth board for sandpaper letters
  *   <TraceTrail points={pts} />                              glowing finger trail + sparkles
  *   <StartDot x={..} y={..} angle={..} />                    pulsing "start here" marker with direction arrow
  */
@@ -405,8 +406,13 @@ export function Coin({ className }: { className?: string }) {
    SAND TRAY — Montessori tracing surface (wood frame + fine sand)
    ================================================================ */
 
-export function SandTray({ children, className }: { children?: ReactNode; className?: string }) {
+/**
+ * variant "sand": Montessori sand tray (default).
+ * variant "sandpaper": smooth light board for sandpaper letters.
+ */
+export function SandTray({ children, className, variant = "sand" }: { children?: ReactNode; className?: string; variant?: "sand" | "sandpaper" }) {
   const id = sid(useId());
+  const paper = variant === "sandpaper";
   return (
     <div className={cn("relative aspect-square w-full overflow-hidden rounded-[6%] shadow-xl", className)}>
       <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 h-full w-full" aria-hidden>
@@ -437,12 +443,21 @@ export function SandTray({ children, className }: { children?: ReactNode; classN
         <rect width="400" height="400" fill={`url(#${id}wood)`} />
         <rect width="400" height="400" fill={`url(#${id}grain)`} />
         {/* sand bed */}
-        <rect x="26" y="26" width="348" height="348" rx="14" fill={`url(#${id}sand)`} />
-        <rect x="26" y="26" width="348" height="348" rx="14" filter={`url(#${id}grit)`} opacity=".9" />
-        {/* soft raked ripples */}
-        {[90, 150, 250, 310].map((y, i) => (
-          <path key={y} d={`M40 ${y} Q120 ${y - 8 + i * 3} 200 ${y} T360 ${y}`} fill="none" stroke="#c9a364" strokeOpacity=".22" strokeWidth="3" strokeLinecap="round" />
-        ))}
+        {paper ? (
+          <>
+            <rect x="26" y="26" width="348" height="348" rx="14" fill="#f3e4c4" />
+            <rect x="26" y="26" width="348" height="348" rx="14" fill="none" stroke="#e9d5a8" strokeWidth="2" />
+          </>
+        ) : (
+          <>
+            <rect x="26" y="26" width="348" height="348" rx="14" fill={`url(#${id}sand)`} />
+            <rect x="26" y="26" width="348" height="348" rx="14" filter={`url(#${id}grit)`} opacity=".9" />
+            {/* soft raked ripples */}
+            {[90, 150, 250, 310].map((y, i) => (
+              <path key={y} d={`M40 ${y} Q120 ${y - 8 + i * 3} 200 ${y} T360 ${y}`} fill="none" stroke="#c9a364" strokeOpacity=".22" strokeWidth="3" strokeLinecap="round" />
+            ))}
+          </>
+        )}
         {/* inner shadow where sand meets frame */}
         <rect x="26" y="26" width="348" height="348" rx="14" fill="none" stroke="#5a3418" strokeOpacity=".45" strokeWidth="10" filter={`url(#${id}inner)`} />
         <rect x="24" y="24" width="352" height="352" rx="15" fill="none" stroke="#4a2a12" strokeOpacity=".6" strokeWidth="2" />

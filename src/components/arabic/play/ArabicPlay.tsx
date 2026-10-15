@@ -6,7 +6,7 @@
  *   Hear / show-next buttons help, and a tap-to-finish fallback covers devices without speech recognition.
  *   Build mode: see the picture, tap each reel to the right haraka, check.
  *
- *   Sand Tracing: trace a big letter in the sand tray. Coverage-based check
+ *   Sandpaper Letters: trace a rough letter on a smooth board. The letter sound plays first. Coverage-based check
  *   (works for all 28 letters, dots included); a picture card rewards each letter.
  *
  * Data: src/data/arabicPlayArt.ts (words, levels, pictures, syllable audio map).
@@ -20,6 +20,7 @@ import { shuffle } from "@/components/learn/shared";
 import { cn } from "@/lib/utils";
 import { sfx } from "@/lib/explorerSfx";
 import { speakArabic, stopArabicVoice } from "@/lib/arabicVoice";
+import { orderLetters, playLetterSound } from "@/lib/letterSounds";
 import { getRecognizer, heardMatches, unlockVoice, type Recognizer } from "@/lib/arabicRecite";
 import { LETTER_CARDS, SLOT_LEVELS, SYLLABLE_AUDIO, type SlotWord } from "@/data/arabicPlayArt";
 import { Lever, SandTray, SlotMachine, StarBurst, StartDot, TraceTrail, type Pt } from "./PlayArt";
@@ -76,10 +77,10 @@ export function ArabicPlayWorld({ onExit }: { onExit: () => void }) {
         </GameButton>
         <div className="min-w-0">
           <p lang="ar" dir="rtl" className="font-arabic text-xl font-black leading-tight">
-            {screen === "slot" ? "آلة الحركات" : screen === "trace" ? "أكتب على الرمل" : "لعبة الحركات"}
+            {screen === "slot" ? "آلة الحركات" : screen === "trace" ? "حروف ورق الصنفرة" : "لعبة الحركات"}
           </p>
           <p className="text-sm font-bold text-muted-foreground">
-            {screen === "slot" ? "Harakat Slot Machine" : screen === "trace" ? "Sand Tracing" : "Harakat & Tracing"}
+            {screen === "slot" ? "Harakat Slot Machine" : screen === "trace" ? "Sandpaper Letters" : "Harakat & Tracing"}
           </p>
         </div>
       </header>
@@ -99,9 +100,9 @@ export function ArabicPlayWorld({ onExit }: { onExit: () => void }) {
               <span lang="ar" className="grid h-full place-items-center font-arabic text-[7rem] font-bold leading-none text-[#b8925a] opacity-70">ب</span>
             </SandTray>
             <span>
-              <span lang="ar" dir="rtl" className="block font-arabic text-2xl font-black">أكتب على الرمل</span>
-              <span className="block text-lg font-black">Sand Tracing</span>
-              <span className="block text-sm font-bold text-muted-foreground">Trace every letter · {progress.trace.length}/28 letters</span>
+              <span lang="ar" dir="rtl" className="block font-arabic text-2xl font-black">حروف ورق الصنفرة</span>
+              <span className="block text-lg font-black">Sandpaper Letters</span>
+              <span className="block text-sm font-bold text-muted-foreground">Trace every letter · {progress.trace.length}/{TRACE_CARDS.length} letters</span>
             </span>
           </button>
         </div>
@@ -447,6 +448,7 @@ const M = 200; // mask resolution (logical units)
 const CELL = 2; // coverage grid cell size
 const BRUSH = 13; // finger radius in mask units
 const FONT = '"Noto Naskh Arabic", "Amiri Quran", serif';
+const TRACE_CARDS = orderLetters(LETTER_CARDS);
 
 type Glyph = { cells: Set<number>; total: number; start: Pt; angle: number; fontPx: number; x: number; y: number };
 
@@ -486,10 +488,28 @@ function measureGlyph(letter: string): Glyph {
   return { cells, total: cells.size, start: { x: sx / 2, y: sy / 2 }, angle: tall ? 90 : 180, fontPx, x, y };
 }
 
+/** A grainy pattern for the sandpaper letter (tan grit on darker and lighter specks). */
+function sandpaperGrain(ctx: CanvasRenderingContext2D): CanvasPattern | string {
+  if (typeof document === "undefined") return "#c9a46a";
+  const c = document.createElement("canvas");
+  c.width = c.height = 64;
+  const g = c.getContext("2d");
+  if (!g) return "#c9a46a";
+  g.fillStyle = "#cfa96e";
+  g.fillRect(0, 0, 64, 64);
+  const colors = ["#a87a40", "#e2c28c", "#8a5f2e", "#f0d9a8"];
+  for (let i = 0; i < 260; i++) {
+    g.fillStyle = colors[i % colors.length]!;
+    g.globalAlpha = 0.35 + ((i * 37) % 60) / 100;
+    g.fillRect((i * 53) % 64, (i * 29) % 64, 1 + (i % 2), 1);
+  }
+  return ctx.createPattern(c, "repeat") ?? "#c9a46a";
+}
+
 function TraceGame({ done, onWin }: { done: readonly string[]; onWin: (id: string) => void }) {
-  const firstTodo = Math.max(0, LETTER_CARDS.findIndex((c) => !done.includes(c.letter)));
+  const firstTodo = Math.max(0, TRACE_CARDS.findIndex((c) => !done.includes(c.letter)));
   const [li, setLi] = useState(firstTodo);
-  const card = LETTER_CARDS[li];
+  const card = TRACE_CARDS[li];
   const [glyph, setGlyph] = useState<Glyph | null>(null);
   const [pts, setPts] = useState<Pt[]>([]);
   const [strokes, setStrokes] = useState<Pt[][]>([]);
@@ -519,7 +539,10 @@ function TraceGame({ done, onWin }: { done: readonly string[]; onWin: (id: strin
     stripRef.current?.querySelector(`[data-i="${li}"]`)?.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
   }, [li]);
 
-  // draw the ghost letter into the sand at full resolution
+  // say the letter's sound when a letter opens
+  useEffect(() => { void playLetterSound(card.letter); }, [card.letter]);
+
+  // draw the sandpaper letter on the board at full resolution
   const paint = useCallback(() => {
     const cv = canvas.current, box = area.current;
     if (!cv || !box || !glyph) return;
@@ -532,11 +555,15 @@ function TraceGame({ done, onWin }: { done: readonly string[]; onWin: (id: strin
     ctx.clearRect(0, 0, M, M);
     ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
     ctx.font = `700 ${glyph.fontPx}px ${FONT}`;
-    // pressed groove: darker offset + lighter body
-    ctx.fillStyle = "rgba(120, 84, 36, 0.35)";
-    ctx.fillText(card.letter, glyph.x + 0.8, glyph.y + 1.2);
-    ctx.fillStyle = "rgba(201, 163, 100, 0.85)";
+    // rough sandpaper letter, raised: soft shadow under a grainy fill
+    ctx.save();
+    ctx.shadowColor = "rgba(70, 42, 16, 0.35)";
+    ctx.shadowOffsetX = 1.4;
+    ctx.shadowOffsetY = 1.8;
+    ctx.shadowBlur = 1.6;
+    ctx.fillStyle = sandpaperGrain(ctx);
     ctx.fillText(card.letter, glyph.x, glyph.y);
+    ctx.restore();
   }, [glyph, card.letter]);
 
   useEffect(() => {
@@ -577,7 +604,7 @@ function TraceGame({ done, onWin }: { done: readonly string[]; onWin: (id: strin
       setHint(false);
       sfx("yay");
       onWin(card.letter);
-      void speakArabic(card.word);
+      void playLetterSound(card.letter).then(() => speakArabic(card.word));
     }
   };
 
@@ -620,14 +647,14 @@ function TraceGame({ done, onWin }: { done: readonly string[]; onWin: (id: strin
     setPts([]); setStrokes([]); setWon(false); setHint(false);
     sfx("rustle");
   };
-  const go = (d: number) => { sfx("click"); setLi((i) => (i + d + LETTER_CARDS.length) % LETTER_CARDS.length); };
+  const go = (d: number) => { sfx("click"); setLi((i) => (i + d + TRACE_CARDS.length) % TRACE_CARDS.length); };
   const progressPct = glyph ? Math.min(100, Math.round((covered.current.size / glyph.total / 0.72) * 100)) : 0;
 
   return (
     <div className="mt-4 grid gap-4">
       {/* letter strip */}
       <div ref={stripRef} dir="rtl" className="flex gap-2 overflow-x-auto pb-1" role="tablist" aria-label="Letters">
-        {LETTER_CARDS.map((c, i) => (
+        {TRACE_CARDS.map((c, i) => (
           <button
             key={c.letter}
             data-i={i}
@@ -648,7 +675,7 @@ function TraceGame({ done, onWin }: { done: readonly string[]; onWin: (id: strin
 
       {/* tray */}
       <div className="relative mx-auto w-full max-w-[440px]">
-        <SandTray>
+        <SandTray variant="sandpaper">
           <div
             ref={area}
             className="absolute inset-0 touch-none select-none"
