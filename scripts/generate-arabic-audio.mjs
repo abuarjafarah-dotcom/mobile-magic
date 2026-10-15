@@ -9,8 +9,11 @@
  * Usage (from the repo root):
  *   export ELEVENLABS_API_KEY="your-key"     # never commit this
  *   node scripts/generate-arabic-audio.mjs --dry-run      # count only, no API calls
- *   node scripts/generate-arabic-audio.mjs --limit 5      # test a few first
+ *   node scripts/generate-arabic-audio.mjs --limit 80     # first 80 phrases (letter sounds + tracing words)
+ *   node scripts/generate-arabic-audio.mjs --max-chars 4500  # stop before this many characters
  *   node scripts/generate-arabic-audio.mjs                # all phrases
+ *
+ * The phrase file is ordered by priority: letter sounds, tracing words, Arabic World words, the rest.
  *
  * Optional: ELEVENLABS_VOICE_ID overrides the default voice below.
  */
@@ -33,6 +36,8 @@ const args = new Set(process.argv.slice(2));
 const limitArg = process.argv.indexOf("--limit");
 const LIMIT = limitArg > -1 ? Number(process.argv[limitArg + 1]) : Infinity;
 const DRY_RUN = args.has("--dry-run");
+const maxCharsArg = process.argv.indexOf("--max-chars");
+const MAX_CHARS = maxCharsArg > -1 ? Number(process.argv[maxCharsArg + 1]) : Infinity;
 
 const phrases = [...new Set(
   readFileSync(PHRASES, "utf8").split("\n").map((l) => l.trim()).filter(Boolean),
@@ -43,8 +48,17 @@ const fileFor = (text) => `${createHash("sha1").update(text).digest("hex").slice
 mkdirSync(OUT_DIR, { recursive: true });
 const manifest = existsSync(MANIFEST) ? JSON.parse(readFileSync(MANIFEST, "utf8")) : {};
 
-const todo = phrases.filter((t) => !existsSync(join(OUT_DIR, fileFor(t))));
-console.log(`Phrases: ${phrases.length} · already done: ${phrases.length - todo.length} · to generate: ${todo.length}`);
+const pending = phrases.filter((t) => !existsSync(join(OUT_DIR, fileFor(t))));
+const todo = [];
+let spent = 0;
+for (const t of pending) {
+  const n = [...t].length;
+  if (spent + n > MAX_CHARS) break; // phrases are in priority order, so stop at the budget
+  spent += n;
+  todo.push(t);
+}
+console.log(`Phrases: ${phrases.length} · already done: ${phrases.length - pending.length} · to generate: ${todo.length}`);
+console.log(`Characters to send: ${spent}${MAX_CHARS < Infinity ? ` (budget ${MAX_CHARS})` : ""}`);
 console.log(`Voice: ${VOICE_ID} · model: ${MODEL_ID}`);
 
 if (DRY_RUN) process.exit(0);
