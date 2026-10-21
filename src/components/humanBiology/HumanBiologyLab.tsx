@@ -20,9 +20,9 @@ import {
   type OrganId,
 } from "@/data/humanBiology";
 import {
-  BODY_EDGE,
-  BODY_FILL,
-  BODY_SILHOUETTE,
+  BODY_BACKDROP,
+  BODY_LIMBS,
+  BODY_PARTS,
   BODY_VIEWBOX,
   INK,
   ORGAN_DRAW_ORDER,
@@ -172,6 +172,7 @@ function LabHub({ onExit, onOpenAtlas }: { onExit: () => void; onOpenAtlas: () =
 /* ---------------- body diagram ---------------- */
 
 function ShapeEl({ shape, color, selected }: { shape: Shape; color: string; selected: boolean }) {
+  const fillColor = shape.color ?? color;
   if (shape.kind === "ellipse") {
     return (
       <ellipse
@@ -179,7 +180,7 @@ function ShapeEl({ shape, color, selected }: { shape: Shape; color: string; sele
         cy={shape.cy}
         rx={shape.rx}
         ry={shape.ry}
-        fill={color}
+        fill={fillColor}
         fillOpacity={0.92}
         stroke={selected ? INK : "none"}
         strokeWidth={2.5}
@@ -187,7 +188,7 @@ function ShapeEl({ shape, color, selected }: { shape: Shape; color: string; sele
     );
   }
   if (shape.kind === "fill") {
-    return <path d={shape.d} fill={color} stroke={selected ? INK : "none"} strokeWidth={2.5} />;
+    return <path d={shape.d} fill={fillColor} stroke={selected ? INK : "none"} strokeWidth={2.5} />;
   }
   return (
     <>
@@ -202,7 +203,7 @@ function ShapeEl({ shape, color, selected }: { shape: Shape; color: string; sele
       <path
         d={shape.d}
         fill="none"
-        stroke={color}
+        stroke={fillColor}
         strokeWidth={shape.width + (selected ? 1.5 : 0)}
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -301,15 +302,29 @@ function BodyDiagram({
       aria-label="Simplified front view of the body. Tap an organ to learn about it."
       className="mx-auto h-auto w-full max-w-[380px] select-none"
     >
-      {BODY_SILHOUETTE.map((d, i) => (
+      <rect
+        x={-100}
+        y={0}
+        width={500}
+        height={520}
+        rx={28}
+        fill={BODY_BACKDROP}
+        pointerEvents="none"
+      />
+      {BODY_LIMBS.map((l, i) => (
         <path
-          key={i}
-          d={d}
-          fill={BODY_FILL}
-          stroke={BODY_EDGE}
-          strokeWidth={1.5}
+          key={`limb-${i}`}
+          d={l.d}
+          fill="none"
+          stroke={l.color}
+          strokeWidth={l.width}
+          strokeLinecap="round"
+          strokeLinejoin="round"
           pointerEvents="none"
         />
+      ))}
+      {BODY_PARTS.map((p, i) => (
+        <path key={`part-${i}`} d={p.d} fill={p.fill} pointerEvents="none" />
       ))}
       {ORGAN_DRAW_ORDER.map((id) => (
         <OrganHotspot

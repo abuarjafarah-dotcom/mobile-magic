@@ -1,67 +1,138 @@
 /**
- * Anatomy Atlas — schematic front-view body and hotspot geometry (data only).
+ * Anatomy Atlas — flat, colour-blocked front-view body and hotspot geometry (data only).
  *
- * This is a SIMPLIFIED schematic drawn in code, not a finished anatomical illustration.
- * Each organ's shapes are positioned at its approximate real location, so
- * the hotspot for each structure sits on that structure. When the Gemini artwork is
- * ready, replace the schematic geometry with a layered image (see ASSET-MANIFEST.md)
- * and update the coordinates here. Keep the same organ ids.
+ * Style: bold flat colour fills with simple labelled cutaways, in the spirit of an
+ * encyclopedia page. The shapes are drawn in code for this app. They are NOT traced from,
+ * and do not reproduce, any published artwork. They are a stand-in until final art exists
+ * (see src/assets/human-biology/ASSET-MANIFEST.md). Keep the organ ids and hotspot data
+ * stable so that real layered art can replace these shapes without changing the logic.
  *
- * Coordinate space: viewBox 0 0 300 520. The child's left is on the screen's right.
+ * Coordinate space: viewBox "-100 0 500 520". The child's left is on the screen's right.
  */
 import type { OrganId } from "@/data/humanBiology";
 
 export const BODY_VIEWBOX = "-100 0 500 520";
 export const INK = "#2d2a24";
-export const BODY_FILL = "#efe6d6";
-export const BODY_EDGE = "#cbbca4";
 
-/** Non-interactive body outline. */
-export const BODY_SILHOUETTE: string[] = [
+/** Soft backdrop behind the figure (keeps organ colours readable). */
+export const BODY_BACKDROP = "#fdeecb";
+export const BODY_FILL = "#e9a47c"; // skin
+export const BODY_EDGE = "#c97f57";
+const SKIN = BODY_FILL;
+const SHIRT = "#2f7f86";
+const PANTS = "#e96a4a";
+const SHOE = "#3b3b5c";
+
+/** Filled body parts, drawn in order. */
+export const BODY_PARTS: { d: string; fill: string }[] = [
   // head
-  "M150 14 C178 14 186 40 186 60 C186 84 172 102 150 102 C128 102 114 84 114 60 C114 40 122 14 150 14 Z",
-  // neck, torso, arms and legs
-  "M136 100 L164 100 L164 118 C200 122 226 128 232 150 L244 226 L236 230 L220 176 L214 300 L210 336 L220 512 L192 514 L166 360 L150 330 L134 360 L108 514 L80 512 L90 336 L86 300 L80 176 L64 230 L56 226 L68 150 C74 128 100 122 136 118 Z",
+  {
+    d: "M150 12 C180 12 196 34 196 62 C196 92 176 108 150 108 C124 108 104 92 104 62 C104 34 120 12 150 12 Z",
+    fill: SKIN,
+  },
+  // neck
+  { d: "M136 102 L164 102 L166 124 L134 124 Z", fill: SKIN },
+  // torso (shirt)
+  { d: "M104 124 C124 116 176 116 196 124 L210 300 C180 312 120 312 90 300 Z", fill: SHIRT },
+  // trousers
+  {
+    d: "M92 298 C120 306 180 306 208 298 L212 352 L186 352 L160 330 L140 330 L114 352 L88 352 Z",
+    fill: PANTS,
+  },
+];
+
+/** Stroked limbs (drawn with round caps). */
+export const BODY_LIMBS: { d: string; width: number; color: string }[] = [
+  // arms: sleeves, then forearms and hands
+  { d: "M112 136 L72 226", width: 28, color: SHIRT },
+  { d: "M188 136 L228 226", width: 28, color: SHIRT },
+  { d: "M72 226 L60 300", width: 22, color: SKIN },
+  { d: "M228 226 L240 300", width: 22, color: SKIN },
+  // legs and shoes
+  { d: "M122 336 L116 466", width: 30, color: PANTS },
+  { d: "M178 336 L184 466", width: 30, color: PANTS },
+  { d: "M116 466 L104 490", width: 28, color: SHOE },
+  { d: "M184 466 L196 490", width: 28, color: SHOE },
 ];
 
 export type Shape =
-  | { kind: "ellipse"; cx: number; cy: number; rx: number; ry: number }
-  | { kind: "fill"; d: string }
+  | { kind: "ellipse"; cx: number; cy: number; rx: number; ry: number; color?: string }
+  | { kind: "fill"; d: string; color?: string }
   /** Open path, such as a bone or the intestine. Hit area is at least 14 units wide. */
-  | { kind: "line"; d: string; width: number };
+  | { kind: "line"; d: string; width: number; color?: string };
 
 export const ORGAN_SHAPES: Record<OrganId, { color: string; shapes: Shape[] }> = {
   lungs: {
-    color: "#eea59f",
+    color: "#f08aa0",
     shapes: [
-      { kind: "ellipse", cx: 118, cy: 168, rx: 24, ry: 42 },
-      { kind: "ellipse", cx: 182, cy: 168, rx: 24, ry: 42 },
+      // left and right lungs (the child's left is on the screen's right)
+      {
+        kind: "fill",
+        d: "M96 132 C78 140 74 178 80 206 C86 226 108 226 116 210 C124 190 120 146 96 132 Z",
+      },
+      {
+        kind: "fill",
+        d: "M204 132 C222 140 226 178 220 206 C214 226 192 226 184 210 C176 190 180 146 204 132 Z",
+      },
+      // windpipe and bronchi
+      { kind: "line", d: "M150 110 L150 140", width: 8, color: "#c9d6e8" },
+      { kind: "line", d: "M150 140 L126 168 M150 140 L174 168", width: 4, color: "#c9d6e8" },
     ],
   },
   heart: {
-    color: "#c9473f",
-    shapes: [{ kind: "ellipse", cx: 162, cy: 176, rx: 14, ry: 17 }],
+    color: "#d6323a",
+    shapes: [
+      // heart body
+      {
+        kind: "fill",
+        d: "M162 196 C150 186 146 170 152 164 C156 160 160 162 162 166 C164 162 170 160 174 164 C180 170 176 186 162 196 Z",
+      },
+      // right atrium (blue, as on the body's side that receives blood from the body)
+      { kind: "ellipse", cx: 152, cy: 172, rx: 5, ry: 5, color: "#3b6fd6" },
+      // aorta (going up to the body)
+      { kind: "line", d: "M162 166 L168 140 L180 132", width: 7, color: "#b22329" },
+    ],
   },
   stomach: {
-    color: "#e0a84a",
-    shapes: [{ kind: "ellipse", cx: 184, cy: 240, rx: 22, ry: 17 }],
+    color: "#f2a33a",
+    shapes: [
+      {
+        kind: "fill",
+        d: "M190 222 C210 216 222 232 214 248 C208 258 196 254 194 262 C190 272 176 268 178 254 C180 240 176 226 190 222 Z",
+      },
+    ],
   },
   smallIntestine: {
-    color: "#d97b5c",
+    color: "#e8735a",
     shapes: [
       {
         kind: "line",
         d: "M112 276 C128 258 146 294 164 276 S196 258 190 290 S132 302 138 322 S186 318 196 338",
-        width: 12,
+        width: 16,
+        color: "#b5482f",
+      },
+      {
+        kind: "line",
+        d: "M112 276 C128 258 146 294 164 276 S196 258 190 290 S132 302 138 322 S186 318 196 338",
+        width: 10,
       },
     ],
   },
   brain: {
-    color: "#e6a0b4",
-    shapes: [{ kind: "ellipse", cx: 150, cy: 52, rx: 26, ry: 22 }],
+    color: "#e5484d",
+    shapes: [
+      // frontal lobe (front of the head: screen's left)
+      { kind: "ellipse", cx: 130, cy: 50, rx: 17, ry: 15, color: "#e5484d" },
+      // parietal lobe (top back)
+      { kind: "ellipse", cx: 158, cy: 40, rx: 15, ry: 13, color: "#e86fb0" },
+      // occipital lobe (back of the head: screen's right)
+      { kind: "ellipse", cx: 170, cy: 60, rx: 13, ry: 13, color: "#3fa35b" },
+      // temporal lobe (side, low)
+      { kind: "ellipse", cx: 148, cy: 72, rx: 18, ry: 8, color: "#f4c430" },
+    ],
   },
   skeleton: {
-    color: "#8c7a62",
+    color: "#f4ecd8",
     shapes: [
       // skull outline
       {
@@ -86,12 +157,12 @@ export const ORGAN_SHAPES: Record<OrganId, { color: string; shapes: Shape[] }> =
         d: "M118 320 Q150 300 182 320 Q178 344 150 348 Q122 344 118 320 Z",
         width: 4,
       },
-      // arms
-      { kind: "line", d: "M104 130 L70 228 L56 300", width: 4 },
-      { kind: "line", d: "M196 130 L230 228 L244 300", width: 4 },
+      // arms (same line as the arm limbs)
+      { kind: "line", d: "M112 136 L72 226 L60 300", width: 4 },
+      { kind: "line", d: "M188 136 L228 226 L240 300", width: 4 },
       // legs
-      { kind: "line", d: "M130 344 L112 430 L108 512", width: 4 },
-      { kind: "line", d: "M170 344 L188 430 L192 512", width: 4 },
+      { kind: "line", d: "M130 344 L120 430 L116 466", width: 4 },
+      { kind: "line", d: "M170 344 L180 430 L184 466", width: 4 },
     ],
   },
 };
@@ -125,16 +196,27 @@ export type Callout = {
   ay: number;
 };
 export const CALLOUTS: Record<OrganId, Callout> = {
-  brain: { text: "BRAIN", tx: 388, ty: 44, anchor: "end", lx: 384, ly: 40, ax: 172, ay: 50 },
-  heart: { text: "HEART", tx: 388, ty: 184, anchor: "end", lx: 384, ly: 180, ax: 176, ay: 178 },
-  stomach: { text: "STOMACH", tx: 388, ty: 246, anchor: "end", lx: 384, ly: 242, ax: 206, ay: 240 },
-  lungs: { text: "LUNGS", tx: -92, ty: 156, anchor: "start", lx: -40, ly: 152, ax: 96, ay: 160 },
+  // right-hand labels: text starts at x=318; the leader starts just left of the text
+  brain: { text: "BRAIN", tx: 306, ty: 44, anchor: "start", lx: 298, ly: 40, ax: 150, ay: 50 },
+  heart: { text: "HEART", tx: 306, ty: 184, anchor: "start", lx: 298, ly: 180, ax: 162, ay: 178 },
+  stomach: {
+    text: "STOMACH",
+    tx: 306,
+    ty: 246,
+    anchor: "start",
+    lx: 298,
+    ly: 242,
+    ax: 206,
+    ay: 240,
+  },
+  // left-hand labels: the leader starts just right of the text
+  lungs: { text: "LUNGS", tx: -92, ty: 156, anchor: "start", lx: -20, ly: 152, ax: 80, ay: 170 },
   smallIntestine: {
     text: "SMALL INTESTINE",
     tx: -92,
     ty: 326,
     anchor: "start",
-    lx: 38,
+    lx: 74,
     ly: 322,
     ax: 136,
     ay: 318,
@@ -144,9 +226,9 @@ export const CALLOUTS: Record<OrganId, Callout> = {
     tx: -92,
     ty: 430,
     anchor: "start",
-    lx: -18,
+    lx: 8,
     ly: 426,
-    ax: 110,
+    ax: 116,
     ay: 430,
   },
 };
