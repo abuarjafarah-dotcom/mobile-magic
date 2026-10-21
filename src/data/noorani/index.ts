@@ -11,6 +11,7 @@ import { unit4Sukoon } from "./unit4Sukoon";
 import { unit5Tanween } from "./unit5Tanween";
 import { unit7Small } from "./unit7Small";
 import { unit8Madd } from "./unit8Madd";
+import { unit9Shadda, unit10DoubleShadda, unit11ShaddaMadd } from "./shaddaUnits";
 
 export * from "./types";
 export {
@@ -35,6 +36,9 @@ export const nooraniUnits: NooraniUnit[] = [
   unit5Tanween,
   unit7Small,
   unit8Madd,
+  unit9Shadda,
+  unit10DoubleShadda,
+  unit11ShaddaMadd,
 ];
 
 /**
@@ -81,20 +85,20 @@ export const nooraniLevels: NooraniLevel[] = [
     unitIds: ["u7-small"],
   },
   { level: 8, ar: "حُرُوفُ الْمَدِّ وَاللِّين", en: "Madd & leen", lessons: [8, 9], unitIds: ["u8-madd"] },
-  { level: 9, ar: "الشَّدَّة", en: "Shadda + drills", lessons: [12, 13], unitIds: [] },
+  { level: 9, ar: "الشَّدَّة", en: "Shadda + drills", lessons: [12, 13], unitIds: ["u9-shadda"] },
   {
     level: 10,
     ar: "الشَّدَّةُ وَالسُّكُون",
     en: "Shadda & sukoon, two shaddas",
     lessons: [14, 15],
-    unitIds: [],
+    unitIds: ["u10-double-shadda"],
   },
   {
     level: 11,
     ar: "الشَّدَّةُ وَالسُّكُونُ مَعَ الْمَدّ",
     en: "Shadda & sukoon with madd",
     lessons: [16],
-    unitIds: [],
+    unitIds: ["u11-shadda-madd"],
   },
   {
     level: 12,
