@@ -9,6 +9,7 @@ import { unit2Harakat } from "./unit2Harakat";
 import { unit3Blending } from "./unit3Blending";
 import { unit4Sukoon } from "./unit4Sukoon";
 import { unit5Tanween } from "./unit5Tanween";
+import { unit7Small } from "./unit7Small";
 import { unit8Madd } from "./unit8Madd";
 
 export * from "./types";
@@ -32,6 +33,7 @@ export const nooraniUnits: NooraniUnit[] = [
   unit3Blending,
   unit4Sukoon,
   unit5Tanween,
+  unit7Small,
   unit8Madd,
 ];
 
@@ -76,7 +78,7 @@ export const nooraniLevels: NooraniLevel[] = [
     ar: "الْأَلِفُ وَالْيَاءُ وَالْوَاوُ الصَّغِيرَة",
     en: "Small alif, ya, waw",
     lessons: [7],
-    unitIds: [],
+    unitIds: ["u7-small"],
   },
   { level: 8, ar: "حُرُوفُ الْمَدِّ وَاللِّين", en: "Madd & leen", lessons: [8, 9], unitIds: ["u8-madd"] },
   { level: 9, ar: "الشَّدَّة", en: "Shadda + drills", lessons: [12, 13], unitIds: [] },
