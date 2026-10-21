@@ -9,6 +9,10 @@ import { unit2Harakat } from "./unit2Harakat";
 import { unit3Blending } from "./unit3Blending";
 import { unit4Sukoon } from "./unit4Sukoon";
 import { unit5Tanween } from "./unit5Tanween";
+import { unit6Joined } from "./unit6Joined";
+import { unit7Small } from "./unit7Small";
+import { unit8Madd } from "./unit8Madd";
+import { unit9Shadda, unit10DoubleShadda, unit11ShaddaMadd } from "./shaddaUnits";
 
 export * from "./types";
 export {
@@ -31,6 +35,12 @@ export const nooraniUnits: NooraniUnit[] = [
   unit3Blending,
   unit4Sukoon,
   unit5Tanween,
+  unit6Joined,
+  unit7Small,
+  unit8Madd,
+  unit9Shadda,
+  unit10DoubleShadda,
+  unit11ShaddaMadd,
 ];
 
 /**
@@ -67,30 +77,30 @@ export const nooraniLevels: NooraniLevel[] = [
     ar: "الْحُرُوفُ الْمُرَكَّبَة وَالْمُقَطَّعَة",
     en: "Joined letters · Muqattaʿat",
     lessons: [2, 3],
-    unitIds: [],
+    unitIds: ["u6-joined"],
   },
   {
     level: 7,
     ar: "الْأَلِفُ وَالْيَاءُ وَالْوَاوُ الصَّغِيرَة",
     en: "Small alif, ya, waw",
     lessons: [7],
-    unitIds: [],
+    unitIds: ["u7-small"],
   },
-  { level: 8, ar: "حُرُوفُ الْمَدِّ وَاللِّين", en: "Madd & leen", lessons: [8, 9], unitIds: [] },
-  { level: 9, ar: "الشَّدَّة", en: "Shadda + drills", lessons: [12, 13], unitIds: [] },
+  { level: 8, ar: "حُرُوفُ الْمَدِّ وَاللِّين", en: "Madd & leen", lessons: [8, 9], unitIds: ["u8-madd"] },
+  { level: 9, ar: "الشَّدَّة", en: "Shadda + drills", lessons: [12, 13], unitIds: ["u9-shadda"] },
   {
     level: 10,
     ar: "الشَّدَّةُ وَالسُّكُون",
     en: "Shadda & sukoon, two shaddas",
     lessons: [14, 15],
-    unitIds: [],
+    unitIds: ["u10-double-shadda"],
   },
   {
     level: 11,
     ar: "الشَّدَّةُ وَالسُّكُونُ مَعَ الْمَدّ",
     en: "Shadda & sukoon with madd",
     lessons: [16],
-    unitIds: [],
+    unitIds: ["u11-shadda-madd"],
   },
   {
     level: 12,
