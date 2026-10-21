@@ -57,3 +57,22 @@ files are required. Narration text for each organ is in the `narration` field.
   Cells and Experiments. Each shows as "Coming soon" with no content behind it.
 - Book-derived content. The Dr. Ranj book has not been used as a source. Content
   is general physiology and needs expert review before publication.
+
+## 5. Brain and Senses Lab (status for each entry)
+
+Status key: **missing** = no file in the repo, a labelled placeholder is shown instead.
+The engine does not read these paths yet. Replacing a file will not change the logic.
+
+| Asset ID | Expected path | Used in | Dimensions | Status | Hotspots / overlay |
+|---|---|---|---|---|---|
+| `brain-side` | `src/assets/human-biology/brain-senses/brain-side.webp` | The Brain Control Room | 1000 × 825 (approx. 1.2:1), transparent | **missing** (code-drawn placeholder shown) | Cerebrum, cerebellum, brainstem and spinal cord hotspots in `BrainSideRegions` (`BrainSensesLab.tsx`) |
+| `signal-body` | `src/assets/human-biology/brain-senses/signal-body.webp` | Follow a Signal | 1000 × 2000 (portrait), transparent | **missing** (uses the Atlas body shapes for now) | Skin, nerve, spinal cord and brain stop points; pathway paths `SENSORY_PATH`, `SPINE_PATH`, `MOTOR_PATH`, `OPTIC_PATH` |
+| `senses-vision` | `src/assets/human-biology/brain-senses/senses-vision.webp` | Five Senses, Vision | 1000 × 800, transparent | **missing** (placeholder) | Cornea, pupil, lens, retina, optic nerve |
+| `senses-hearing` | `src/assets/human-biology/brain-senses/senses-hearing.webp` | Five Senses, Hearing | 1000 × 800, transparent | **missing** (placeholder) | Outer ear, eardrum, middle-ear bones, cochlea, auditory nerve |
+| `senses-smell` | `src/assets/human-biology/brain-senses/senses-smell.webp` | Five Senses, Smell | 1000 × 800, transparent | **missing** (placeholder) | Nose, smell receptors, olfactory nerve |
+| `senses-taste` | `src/assets/human-biology/brain-senses/senses-taste.webp` | Five Senses, Taste | 1000 × 800, transparent | **missing** (placeholder) | Taste buds on the tongue |
+| `senses-touch` | `src/assets/human-biology/brain-senses/senses-touch.webp` | Five Senses, Touch | 1000 × 800, transparent | **missing** (placeholder) | Touch, pressure, temperature and pain receptors |
+
+Audio (all brain and senses narration) is **placeholder**: it uses the device's English voice through `speak()` in `src/lib/voice.ts`, the same as the Atlas. No prerecorded clip exists yet. Clip IDs should follow the pattern in `src/lib/kitchenClips.ts` once recordings exist.
+
+Animations (not played yet): the signal pulses and moving markers are drawn in SVG. No video files are needed for them.

@@ -216,7 +216,7 @@ export const LABS: LabEntry[] = [
     title: "Brain and Senses Lab",
     detail: "Signals, eyes and ears",
     emoji: "👁️",
-    status: "coming-soon",
+    status: "ready",
   },
   {
     id: "movement",

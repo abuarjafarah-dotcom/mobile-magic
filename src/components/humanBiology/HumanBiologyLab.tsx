@@ -9,6 +9,7 @@ import {
   VolumeX,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { BrainSensesWorld } from "./BrainSensesLab";
 import { isVoiceOn, setVoiceOn, speak, stopVoice } from "@/lib/voice";
 import {
   LABS,
@@ -51,7 +52,7 @@ function loadSave(): Save {
 /* ---------------- top level ---------------- */
 
 export function HumanBiologyWorld({ onExit }: { onExit: () => void }) {
-  const [view, setView] = useState<"labs" | "atlas">("labs");
+  const [view, setView] = useState<"labs" | "atlas" | "brain">("labs");
   const [save, setSave] = useState<Save>(() =>
     typeof window === "undefined" ? { explored: [], correct: 0 } : loadSave(),
   );
@@ -69,7 +70,10 @@ export function HumanBiologyWorld({ onExit }: { onExit: () => void }) {
   if (view === "atlas") {
     return <AnatomyAtlas save={save} setSave={setSave} onBack={() => setView("labs")} />;
   }
-  return <LabHub onExit={onExit} onOpenAtlas={() => setView("atlas")} />;
+  if (view === "brain") {
+    return <BrainSensesWorld onBack={() => setView("labs")} />;
+  }
+  return <LabHub onExit={onExit} onOpen={(id) => setView(id === "brain" ? "brain" : "atlas")} />;
 }
 
 /* ---------------- shared bits ---------------- */
@@ -99,7 +103,7 @@ function say(text: string) {
 
 /* ---------------- lab hub ---------------- */
 
-function LabHub({ onExit, onOpenAtlas }: { onExit: () => void; onOpenAtlas: () => void }) {
+function LabHub({ onExit, onOpen }: { onExit: () => void; onOpen: (id: string) => void }) {
   return (
     <section className="mx-auto min-h-dvh w-full max-w-5xl px-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[max(3.75rem,env(safe-area-inset-top))] sm:px-6">
       <header className="flex items-center justify-between gap-3">
@@ -146,7 +150,7 @@ function LabHub({ onExit, onOpenAtlas }: { onExit: () => void; onOpenAtlas: () =
             <button
               key={lab.id}
               type="button"
-              onClick={onOpenAtlas}
+              onClick={() => onOpen(lab.id)}
               className="flex min-h-[88px] items-center gap-3 rounded-3xl border-2 border-foreground bg-card p-4 text-left shadow-sm motion-safe:transition-transform active:scale-[0.99]"
             >
               {body}

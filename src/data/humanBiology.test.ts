@@ -58,10 +58,10 @@ describe("Human Biology Lab content", () => {
     expect(organById("smallIntestine").investigate).toMatch(/villi/i);
   });
 
-  test("only the Anatomy Atlas is ready; the other five labs are clearly marked as coming soon", () => {
+  test("the Anatomy Atlas and Brain and Senses Lab are ready; the other four are clearly marked as coming soon", () => {
     expect(LABS.length).toBe(6);
-    expect(LABS.filter((l) => l.status === "ready").map((l) => l.id)).toEqual(["anatomy"]);
-    expect(LABS.filter((l) => l.status === "coming-soon").length).toBe(5);
+    expect(LABS.filter((l) => l.status === "ready").map((l) => l.id)).toEqual(["anatomy", "brain"]);
+    expect(LABS.filter((l) => l.status === "coming-soon").length).toBe(4);
   });
 });
 
