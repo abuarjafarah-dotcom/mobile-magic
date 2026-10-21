@@ -63,6 +63,8 @@ export type NooraniItem = {
   build?: BuildSpec;
   /** Ids of items that look or sound alike — preferred distractors. */
   confusable?: string[];
+  /** Explicit distractors (Level 8 madd): the same letter with another long vowel. Overrides harakah variants. */
+  alternates?: NooraniItem[];
   /** Syllables (Level 2+): the bare letter and its harakah. */
   letter?: string;
   haraka?: Haraka;
