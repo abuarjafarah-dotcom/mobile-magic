@@ -281,6 +281,10 @@ export function choicesFor(
   n: number,
   mark?: Haraka | Haraka[],
 ): NooraniItem[] {
+  if (target.alternates?.length) {
+    const alt = [...target.alternates].sort(() => Math.random() - 0.5).slice(0, n - 1);
+    return [target, ...alt].sort(() => Math.random() - 0.5);
+  }
   if (target.haraka || target.segments) {
     const marks = mark === undefined ? [] : Array.isArray(mark) ? mark : [mark];
     const variants = harakahVariants(target, marks).sort(() => Math.random() - 0.5);
