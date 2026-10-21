@@ -9,6 +9,7 @@ import { unit2Harakat } from "./unit2Harakat";
 import { unit3Blending } from "./unit3Blending";
 import { unit4Sukoon } from "./unit4Sukoon";
 import { unit5Tanween } from "./unit5Tanween";
+import { unit6Joined } from "./unit6Joined";
 import { unit7Small } from "./unit7Small";
 import { unit8Madd } from "./unit8Madd";
 import { unit9Shadda, unit10DoubleShadda, unit11ShaddaMadd } from "./shaddaUnits";
@@ -34,6 +35,7 @@ export const nooraniUnits: NooraniUnit[] = [
   unit3Blending,
   unit4Sukoon,
   unit5Tanween,
+  unit6Joined,
   unit7Small,
   unit8Madd,
   unit9Shadda,
@@ -75,7 +77,7 @@ export const nooraniLevels: NooraniLevel[] = [
     ar: "الْحُرُوفُ الْمُرَكَّبَة وَالْمُقَطَّعَة",
     en: "Joined letters · Muqattaʿat",
     lessons: [2, 3],
-    unitIds: [],
+    unitIds: ["u6-joined"],
   },
   {
     level: 7,
