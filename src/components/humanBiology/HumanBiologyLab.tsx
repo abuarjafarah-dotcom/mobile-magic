@@ -15,7 +15,6 @@ import {
   LABS,
   ORGANS,
   ORGAN_IDS,
-  matchOptions,
   organById,
   type OrganEntry,
   type OrganId,
@@ -348,7 +347,6 @@ function BodyDiagram({
 
 type Mode = "discover" | "investigate";
 type Tab = "explore" | "challenge";
-type ChallengeKind = "find" | "match";
 type Feedback = { ok: boolean; text: string } | null;
 
 function pickOther(current: OrganId | null): OrganId {
@@ -370,20 +368,14 @@ function AnatomyAtlas({
   const [mode, setMode] = useState<Mode>("discover");
 
   // Find-the-organ challenge state
-  const [challenge, setChallenge] = useState<ChallengeKind>("find");
   const [findTarget, setFindTarget] = useState<OrganId>(() => pickOther(null));
   const [findSolved, setFindSolved] = useState(false);
-
-  // Match-function challenge state
-  const [matchIndex, setMatchIndex] = useState(0);
-  const [matchSolved, setMatchSolved] = useState(false);
-  const [matchPick, setMatchPick] = useState<number | null>(null);
 
   const [attempts, setAttempts] = useState(0);
   const [hintOpen, setHintOpen] = useState(false);
   const [feedback, setFeedback] = useState<Feedback>(null);
 
-  const interactiveDiagram = tab === "explore" || (tab === "challenge" && challenge === "find");
+  const interactiveDiagram = true;
   const organ = selected ? organById(selected) : null;
 
   const markExplored = (id: OrganId) => {
@@ -403,14 +395,8 @@ function AnatomyAtlas({
     resetFeedback();
   };
 
-  const switchChallenge = (next: ChallengeKind) => {
-    setChallenge(next);
-    stopVoice();
-    resetFeedback();
-  };
-
   const tapOrgan = (id: OrganId) => {
-    if (tab === "challenge" && challenge === "find") {
+    if (tab === "challenge") {
       if (findSolved) return;
       if (id === findTarget) {
         const name = organById(id).name;
@@ -441,49 +427,13 @@ function AnatomyAtlas({
     resetFeedback();
   };
 
-  const current = ORGANS[matchIndex];
-  const { options, correctIndex } = matchOptions(matchIndex);
-
-  const pickMatch = (i: number) => {
-    if (matchSolved) return;
-    setMatchPick(i);
-    if (i === correctIndex) {
-      setMatchSolved(true);
-      setFeedback({
-        ok: true,
-        text: `Yes! The ${current.name} ${current.functionShort.charAt(0).toLowerCase()}${current.functionShort.slice(1)}.`,
-      });
-      addCorrect();
-      say(`Yes! The ${current.name} does this job.`);
-    } else {
-      setAttempts((n) => n + 1);
-      const msg = "Not quite. Think about where this organ is, and try another choice.";
-      setFeedback({ ok: false, text: msg });
-      say(msg);
-    }
-  };
-
-  const nextMatch = () => {
-    setMatchIndex((i) => (i + 1) % ORGANS.length);
-    setMatchSolved(false);
-    setMatchPick(null);
-    resetFeedback();
-  };
-
   useEffect(() => {
-    if (tab === "challenge" && challenge === "find" && !findSolved) {
+    if (tab === "challenge" && !findSolved) {
       say(`Find the ${organById(findTarget).name}.`);
     }
     // Speak only when the target changes.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [findTarget, tab, challenge]);
-
-  useEffect(() => {
-    if (tab === "challenge" && challenge === "match" && !matchSolved) {
-      say(`What does the ${current.name} do?`);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [matchIndex, tab, challenge]);
+  }, [findTarget, tab]);
 
   return (
     <section className="mx-auto min-h-dvh w-full max-w-6xl px-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[max(3.5rem,env(safe-area-inset-top))] sm:px-6">
@@ -565,17 +515,9 @@ function AnatomyAtlas({
             />
           ) : (
             <ChallengePanel
-              challenge={challenge}
-              onChangeChallenge={switchChallenge}
               findTarget={organById(findTarget)}
               findSolved={findSolved}
               onNextFind={nextFind}
-              matchOrgan={current}
-              options={options}
-              matchPick={matchPick}
-              matchSolved={matchSolved}
-              onPickMatch={pickMatch}
-              onNextMatch={nextMatch}
               attempts={attempts}
               hintOpen={hintOpen}
               onToggleHint={() => setHintOpen((h) => !h)}
@@ -692,99 +634,29 @@ function ExplorePanel({
 }
 
 function ChallengePanel(props: {
-  challenge: ChallengeKind;
-  onChangeChallenge: (c: ChallengeKind) => void;
   findTarget: OrganEntry;
   findSolved: boolean;
   onNextFind: () => void;
-  matchOrgan: OrganEntry;
-  options: string[];
-  matchPick: number | null;
-  matchSolved: boolean;
-  onPickMatch: (i: number) => void;
-  onNextMatch: () => void;
   attempts: number;
   hintOpen: boolean;
   onToggleHint: () => void;
   feedback: Feedback;
   correct: number;
 }) {
-  const { challenge, onChangeChallenge, attempts, hintOpen, onToggleHint, feedback, correct } =
-    props;
-  const hint = challenge === "find" ? props.findTarget.hint : props.matchOrgan.location;
+  const { findSolved, attempts, hintOpen, onToggleHint, feedback, correct } = props;
   const showHint = attempts >= 1 || hintOpen;
 
   return (
     <div className="rounded-3xl border-2 border-foreground bg-card p-5 sm:p-6">
-      <div
-        role="group"
-        aria-label="Challenge type"
-        className="grid grid-cols-2 gap-2 rounded-2xl bg-background p-1"
+      <p className="text-sm font-black uppercase text-muted-foreground">Tap the body</p>
+      <p className="mt-1 font-display text-3xl leading-tight">Find the {props.findTarget.name}</p>
+      <button
+        type="button"
+        onClick={() => say(`Find the ${props.findTarget.name}.`)}
+        className="mt-3 inline-flex h-12 items-center gap-2 rounded-2xl border-2 border-foreground px-4 font-black"
       >
-        {(["find", "match"] as ChallengeKind[]).map((c) => (
-          <button
-            key={c}
-            type="button"
-            aria-pressed={challenge === c}
-            onClick={() => onChangeChallenge(c)}
-            className={cn(
-              "h-12 rounded-xl text-base font-black",
-              challenge === c ? "bg-foreground text-background" : "",
-            )}
-          >
-            {c === "find" ? "Find the organ" : "Match the job"}
-          </button>
-        ))}
-      </div>
-
-      {challenge === "find" ? (
-        <div className="mt-5">
-          <p className="text-sm font-black uppercase text-muted-foreground">Tap the body</p>
-          <p className="mt-1 font-display text-3xl leading-tight">
-            Find the {props.findTarget.name}
-          </p>
-          <button
-            type="button"
-            onClick={() => say(`Find the ${props.findTarget.name}.`)}
-            className="mt-3 inline-flex h-12 items-center gap-2 rounded-2xl border-2 border-foreground px-4 font-black"
-          >
-            <Volume2 className="h-5 w-5" /> Hear it again
-          </button>
-        </div>
-      ) : (
-        <div className="mt-5">
-          <p className="text-sm font-black uppercase text-muted-foreground">
-            Which job does it do?
-          </p>
-          <p className="mt-1 font-display text-3xl leading-tight">
-            {props.matchOrgan.emoji} {props.matchOrgan.name}
-          </p>
-          <div role="group" aria-label="Choices" className="mt-4 grid gap-2">
-            {props.options.map((opt, i) => {
-              const picked = props.matchPick === i;
-              const isRight = props.matchSolved && opt === props.matchOrgan.functionShort;
-              return (
-                <button
-                  key={opt}
-                  type="button"
-                  onClick={() => props.onPickMatch(i)}
-                  disabled={props.matchSolved}
-                  className={cn(
-                    "min-h-14 rounded-2xl border-2 px-4 py-3 text-left text-base font-bold",
-                    isRight
-                      ? "border-foreground bg-foreground text-background"
-                      : picked
-                        ? "border-foreground bg-background"
-                        : "border-foreground/40 bg-background",
-                  )}
-                >
-                  {opt}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      )}
+        <Volume2 className="h-5 w-5" /> Hear it again
+      </button>
 
       <div aria-live="polite" className="mt-4 min-h-[3rem]">
         {feedback && (
@@ -802,15 +674,15 @@ function ChallengePanel(props: {
         )}
       </div>
 
-      {showHint && !(challenge === "find" ? props.findSolved : props.matchSolved) && (
+      {showHint && !findSolved && (
         <p className="mt-2 flex items-start gap-2 text-base font-bold">
           <Lightbulb className="mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
-          <span>Hint: {hint}</span>
+          <span>Hint: {props.findTarget.hint}</span>
         </p>
       )}
 
       <div className="mt-4 flex flex-wrap items-center gap-2">
-        {!(challenge === "find" ? props.findSolved : props.matchSolved) && (
+        {!findSolved && (
           <button
             type="button"
             onClick={onToggleHint}
@@ -819,10 +691,10 @@ function ChallengePanel(props: {
             <Lightbulb className="h-5 w-5" /> {hintOpen ? "Hide hint" : "Show hint"}
           </button>
         )}
-        {(challenge === "find" ? props.findSolved : props.matchSolved) && (
+        {findSolved && (
           <button
             type="button"
-            onClick={challenge === "find" ? props.onNextFind : props.onNextMatch}
+            onClick={props.onNextFind}
             className="inline-flex h-12 items-center gap-2 rounded-2xl border-2 border-foreground bg-foreground px-4 font-black text-background"
           >
             Next <ArrowRight className="h-5 w-5" />

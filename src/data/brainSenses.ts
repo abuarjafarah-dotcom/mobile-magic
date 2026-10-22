@@ -1,23 +1,10 @@
 /**
- * Brain and Senses Lab — content (data only, no UI).
- * Written for curious children ages 5–8. Science is kept accurate:
- * many brain functions depend on networks of regions, not a single spot.
- * Needs expert review before publication.
+ * Brain and Senses Lab — content for children aged about 3 to 4½.
+ * Short spoken lines, no reading needed, no quizzes. Each line is kept to one simple idea.
+ * Grown-up notes hold the fuller science. They need expert review before publication.
  */
 
-/* ---------------- shared helpers ---------------- */
-
-export type Choice = { options: string[]; correctIndex: number };
-
-/** Put the correct answer among distractors at a rotating position so it is not always first. */
-export function rotateOptions(correct: string, distractors: string[], offset: number): Choice {
-  const all = [...distractors];
-  const pos = ((offset % (all.length + 1)) + (all.length + 1)) % (all.length + 1);
-  all.splice(pos, 0, correct);
-  return { options: all, correctIndex: pos };
-}
-
-/* ---------------- A. Brain Control Room ---------------- */
+/* ---------------- Brain Parts ---------------- */
 
 export type BrainRegionId = "cerebrum" | "cerebellum" | "brainstem" | "spinalCord";
 
@@ -25,419 +12,156 @@ export type BrainRegion = {
   id: BrainRegionId;
   name: string;
   emoji: string;
-  discover: string;
-  investigate: string;
-  injury: string;
-  mainRole: string;
-  narration: string;
+  say: string;
+  grownUp: string;
 };
 
 export const BRAIN_REGIONS: BrainRegion[] = [
   {
     id: "cerebrum",
-    name: "Cerebrum",
+    name: "Big thinking part",
     emoji: "🧠",
-    discover:
-      "The biggest part of the brain. It helps with thinking, language, memory, and moving your body on purpose.",
-    investigate:
-      "The cerebrum has two halves and several lobes. Areas toward the back work with what your eyes and skin sense. Areas toward the front help plan and make choices. Most tasks use several areas together.",
-    injury:
-      "If one part of the cerebrum is hurt, the brain can sometimes adapt, and doctors and therapists help the body learn new ways to do things with practice.",
-    mainRole: "Thinking, senses, language, memory and planned movement",
-    narration:
-      "The cerebrum is the biggest part of your brain. It helps you think, talk, remember, and move on purpose.",
+    say: "This is your big thinking part! It helps you think, talk and remember.",
+    grownUp:
+      "The cerebrum handles thinking, language, memory and planned movement. Many jobs use several areas together.",
   },
   {
     id: "cerebellum",
-    name: "Cerebellum",
+    name: "Balance part",
     emoji: "🤸",
-    discover:
-      "A smaller part at the back of the brain, under the cerebrum. It helps you keep your balance and move smoothly.",
-    investigate:
-      "The cerebellum compares what your muscles and inner ears are doing and makes small corrections. This is why running, writing, and catching a ball can feel smooth.",
-    injury:
-      "If this area is hurt, balance and smooth movements can be harder for a while. Practice and therapy help many people learn new ways to move.",
-    mainRole: "Balance and smooth, coordinated movement",
-    narration:
-      "The cerebellum sits at the back of your brain. It helps you balance and makes your movements smooth.",
+    say: "This part helps you balance, like standing on one foot!",
+    grownUp:
+      "The cerebellum helps coordinate movement and balance, so running and catching feel smooth.",
   },
   {
     id: "brainstem",
-    name: "Brainstem",
+    name: "Breathing part",
     emoji: "💓",
-    discover:
-      "The stalk at the bottom of the brain. It joins the brain to the spinal cord and helps control breathing and heartbeat without you thinking about them.",
-    investigate:
-      "Many nerve pathways pass through the brainstem. It helps set your breathing and heart rate, and it helps control sleeping and waking.",
-    injury:
-      "The brainstem does very important jobs, so any injury here needs urgent medical care straight away.",
-    mainRole: "Breathing, heart rate and other automatic body jobs",
-    narration:
-      "The brainstem connects your brain to your spinal cord. It helps you breathe and keeps your heart beating.",
+    say: "This part helps you breathe, and keeps your heart beating.",
+    grownUp:
+      "The brainstem helps control breathing and heart rate. It connects the brain to the spinal cord. Any injury here needs urgent medical care.",
   },
   {
     id: "spinalCord",
-    name: "Spinal cord",
+    name: "Message cord",
     emoji: "🦴",
-    discover:
-      "A long bundle of nerves inside your spine. It carries messages between the brain and the rest of your body.",
-    investigate:
-      "Touch messages travel up it, and movement messages travel down it. Some reflex circuits are coordinated right inside the spinal cord, before the brain has finished deciding anything.",
-    injury:
-      "The bones of the spine protect the spinal cord. This is why we take care when we play and move.",
-    mainRole: "Messages between the brain and the body, and reflex circuits",
-    narration:
-      "Your spinal cord is a long bundle of nerves inside your back. It carries messages between your brain and your body.",
+    say: "This long cord carries messages between your brain and your body.",
+    grownUp:
+      "The spinal cord carries messages up and down, and some reflexes are coordinated inside it. It is protected by the bones of the spine.",
   },
 ];
 
-export const BRAIN_NETWORK_NOTE =
-  "Many brain jobs need networks. Several regions work together, so one area rarely does a whole job alone.";
+export const BRAIN_NOTE =
+  "Many brain jobs use networks of connected parts. One part rarely does a whole job alone.";
 
-/** Distractor roles for the match challenge, one per region. */
-export const BRAIN_ROLE_DISTRACTORS: Record<BrainRegionId, string[]> = {
-  // Each wrong option is another region's exact role, so the choices are clearly different.
-  cerebrum: [
-    "Balance and smooth, coordinated movement",
-    "Breathing, heart rate and other automatic body jobs",
-  ],
-  cerebellum: [
-    "Thinking, senses, language, memory and planned movement",
-    "Breathing, heart rate and other automatic body jobs",
-  ],
-  brainstem: [
-    "Thinking, senses, language, memory and planned movement",
-    "Balance and smooth, coordinated movement",
-  ],
-  spinalCord: [
-    "Thinking, senses, language, memory and planned movement",
-    "Balance and smooth, coordinated movement",
-  ],
-};
-
-/* ---------------- B. Follow a Signal ---------------- */
-
-export type SignalStage = {
-  title: string;
-  text: string;
-  stop: "skin" | "nerve" | "spine" | "brain" | "muscle";
-};
-
-export const TOUCH_JOURNEY: SignalStage[] = [
-  {
-    title: "Skin notices",
-    text: "Receptors in your skin detect the cold. Each receptor is tuned to a kind of feeling.",
-    stop: "skin",
-  },
-  {
-    title: "Nerves carry it",
-    text: "Sensory nerves carry an electrical signal up the arm toward the spinal cord.",
-    stop: "nerve",
-  },
-  {
-    title: "Spinal cord passes it on",
-    text: "The spinal cord and brainstem pass the message up toward the brain, and the nervous system begins sorting the information.",
-    stop: "spine",
-  },
-  {
-    title: "Brain interprets",
-    text: "The brain helps you understand the sensation: “This feels cold.”",
-    stop: "brain",
-  },
-  {
-    title: "Body may respond",
-    text: "Motor signals travel down to muscles, which can pull your hand away. Some of this quick response can start in the spinal cord before the brain has finished interpreting the feeling.",
-    stop: "muscle",
-  },
+/** Find-the-part rounds: a child taps the right part on the brain picture. */
+export const BRAIN_FIND_ROUNDS: { target: BrainRegionId; ask: string }[] = [
+  { target: "cerebellum", ask: "Find the balance part! Tap it." },
+  { target: "brainstem", ask: "Find the breathing part! Tap it." },
+  { target: "cerebrum", ask: "Find the thinking part! Tap it." },
 ];
 
-export const VISION_JOURNEY: SignalStage[] = [
-  {
-    title: "Light enters the eye",
-    text: "Light passes through the cornea and the pupil, and the lens focuses it onto the back of the eye.",
-    stop: "skin",
-  },
-  {
-    title: "Retina detects light",
-    text: "The retina is a layer of light-sensitive cells at the back of the eye. It turns light into electrical signals.",
-    stop: "nerve",
-  },
-  {
-    title: "Optic nerve carries signals",
-    text: "The optic nerve carries these signals to the back of the brain. It carries signals, not a finished picture.",
-    stop: "spine",
-  },
-  {
-    title: "Brain processes what you see",
-    text: "The brain interprets the signals. The eye does not see a complete picture the way a camera does. The brain builds what you experience.",
-    stop: "brain",
-  },
-];
+/* ---------------- Send a Message (signals) ---------------- */
 
-/* ---------------- C. The Five Senses ---------------- */
-
-export type SenseStructure = { name: string; text: string };
-
-export type SenseStation = {
-  id: "vision" | "hearing" | "smell" | "taste" | "touch";
-  name: string;
-  emoji: string;
-  discover: string;
-  investigate: string;
-  structures: SenseStructure[];
-  narration: string;
-  question: { prompt: string; choice: Choice; explanation: string };
+export const TOUCH_MESSAGE = {
+  title: "Touch the ice",
+  emoji: "🧊",
+  say: "Brrr, that ice is cold! A message zooms up your arm to your brain.",
+  after: "Brrr! Cold! Let's pull the hand away.",
+  grownUp:
+    "Receptors in the skin send a signal along sensory nerves to the spinal cord and brain. The brain helps you feel cold. The quick move away can start in the spinal cord.",
 };
 
-export const SENSE_STATIONS: SenseStation[] = [
+export const SEE_MESSAGE = {
+  title: "See a red ball",
+  emoji: "🔴",
+  say: "Light goes into your eye. A message zooms to the back of your brain!",
+  after: "I see the red ball!",
+  grownUp:
+    "Light is focused onto the retina. The optic nerve carries signals to the brain, which builds what you see. The eye does not send a finished picture.",
+};
+
+/* ---------------- Five Sense Friends ---------------- */
+
+export type SenseFriendId = "eye" | "ear" | "nose" | "tongue" | "hand";
+
+export const SENSE_FRIENDS: { id: SenseFriendId; emoji: string; say: string; grownUp: string }[] = [
   {
-    id: "vision",
-    name: "Vision",
-    emoji: "👁️",
-    discover:
-      "Your eyes respond to light. Light goes in, and signals travel to your brain so you can see.",
-    investigate:
-      "Light is focused by the cornea and lens onto the retina. Light-sensitive cells in the retina send signals through the optic nerve. The brain then processes those signals into what you see.",
-    structures: [
-      { name: "Cornea", text: "The clear front window. It bends light as it enters the eye." },
-      {
-        name: "Pupil",
-        text: "The dark opening that lets light in. It gets bigger in dim light and smaller in bright light.",
-      },
-      { name: "Lens", text: "Changes shape to help focus light, near or far." },
-      {
-        name: "Retina",
-        text: "The light-sensitive layer at the back of the eye. It turns light into signals.",
-      },
-      { name: "Optic nerve", text: "Carries the signals from the eye to the brain." },
-    ],
-    narration:
-      "Light enters your eye through the cornea and pupil. The retina detects it, and your optic nerve carries signals to your brain.",
-    question: {
-      prompt: "Which part of the eye detects light?",
-      choice: rotateOptions("Retina", ["Eyelid", "Eardrum"], 0),
-      explanation: "The retina is the light-sensitive layer at the back of the eye.",
-    },
+    id: "eye",
+    emoji: "👀",
+    say: "I see with my eyes! Light comes in through the pupil.",
+    grownUp:
+      "Cornea, pupil, lens, retina and optic nerve. The retina detects light and the brain interprets it. The pupil gets bigger in dim light and smaller in bright light.",
   },
   {
-    id: "hearing",
-    name: "Hearing",
+    id: "ear",
     emoji: "👂",
-    discover:
-      "Sound is made of tiny air vibrations. Your ears collect them and turn them into signals your brain can hear.",
-    investigate:
-      "Vibrations move the eardrum and three tiny bones in the middle ear. The cochlea turns these vibrations into nerve signals, and the auditory nerve carries them to the brain.",
-    structures: [
-      { name: "Outer ear", text: "Collects sound vibrations from the air and guides them inward." },
-      { name: "Eardrum", text: "A thin membrane that vibrates when sound reaches it." },
-      {
-        name: "Tiny middle-ear bones",
-        text: "Three small bones that pass the vibrations along to the inner ear.",
-      },
-      {
-        name: "Cochlea",
-        text: "A snail-shaped part of the inner ear that turns vibrations into nerve signals.",
-      },
-      { name: "Auditory nerve", text: "Carries the signals from the cochlea to the brain." },
-    ],
-    narration:
-      "Sound is made of tiny air vibrations. Your ear turns them into signals, and the brain works out what you hear.",
-    question: {
-      prompt: "Where do sound vibrations become nerve signals?",
-      choice: rotateOptions("Cochlea", ["Nostril", "Tongue"], 1),
-      explanation:
-        "The cochlea, in the inner ear, turns vibrations into signals the brain can use.",
-    },
+    say: "I hear with my ears! Sounds are tiny wiggles in the air.",
+    grownUp:
+      "Sound vibrates the eardrum and tiny bones. The cochlea turns vibrations into nerve signals, and the brain hears them.",
   },
   {
-    id: "smell",
-    name: "Smell",
+    id: "nose",
     emoji: "👃",
-    discover:
-      "Tiny smell molecules float into your nose and reach special receptors high inside it.",
-    investigate:
-      "Smell receptors send signals along nerves to the brain. Smell is a big part of flavour, which is why food can taste dull when your nose is blocked.",
-    structures: [
-      { name: "Nose", text: "Lets air and smell molecules in." },
-      {
-        name: "Smell receptors",
-        text: "Cells high inside the nose that react to smell molecules.",
-      },
-      { name: "Olfactory nerve", text: "Carries smell signals from the nose toward the brain." },
-    ],
-    narration:
-      "Smell molecules float into your nose and reach receptors. Those receptors send signals to your brain.",
-    question: {
-      prompt: "What do smell molecules interact with inside the nose?",
-      choice: rotateOptions("Smell receptors", ["Teeth", "Bones"], 2),
-      explanation: "Smell molecules interact with receptors, and those send signals to the brain.",
-    },
+    say: "I smell with my nose! Tiny smell bits float up and tickle the smell cells.",
+    grownUp:
+      "Smell molecules react with receptors high in the nose, which send signals to the brain. Smell also adds to flavour.",
   },
   {
-    id: "taste",
-    name: "Taste",
+    id: "tongue",
     emoji: "👅",
-    discover:
-      "Taste buds on your tongue detect five basic tastes: sweet, sour, salty, bitter and umami.",
-    investigate:
-      "Taste is only one part of flavour. Smell, texture, temperature and even how food looks all add to the flavour you experience.",
-    structures: [
-      { name: "Taste buds", text: "Groups of cells on the tongue that react to tastes." },
-      { name: "Sweet and sour", text: "Two of the five basic tastes." },
-      {
-        name: "Salty, bitter and umami",
-        text: "Three more of the five basic tastes. Umami is a savoury taste, found in foods like cooked meat and mushrooms.",
-      },
-    ],
-    narration:
-      "Taste buds detect five basic tastes. Flavour is more than taste, because smell adds a lot too.",
-    question: {
-      prompt: "Which of these is one of the five basic tastes?",
-      choice: rotateOptions("Umami", ["Loudness", "Warmth"], 0),
-      explanation:
-        "Umami is one of the five basic tastes. Warmth is temperature, and loudness is about sound.",
-    },
+    say: "I taste with my tongue! Sweet, sour, salty, bitter and yummy umami.",
+    grownUp:
+      "Taste buds detect five basic tastes. Flavour is more than taste, because smell, texture and temperature add to it.",
   },
   {
-    id: "touch",
-    name: "Touch",
+    id: "hand",
     emoji: "✋",
-    discover:
-      "Your skin has many kinds of receptors. Some feel light touch, some feel pressure, some feel temperature, and some feel pain.",
-    investigate:
-      "Different receptors and nerve pathways respond to different stimuli. There is not one single receptor that feels everything.",
-    structures: [
-      { name: "Touch receptors", text: "Respond to light touch and to movement across the skin." },
-      { name: "Pressure receptors", text: "Respond when skin is pushed or squeezed." },
-      { name: "Temperature receptors", text: "Respond to warm and cold." },
-      {
-        name: "Pain receptors",
-        text: "Respond to things that could harm the skin, and send a warning signal.",
-      },
-    ],
-    narration:
-      "Your skin has many different receptors. Some feel touch, some feel pressure, some feel temperature, and some feel pain.",
-    question: {
-      prompt: "What do different skin receptors respond to?",
-      choice: rotateOptions(
-        "Different kinds of touch, pressure and temperature",
-        ["Only colours", "Only sounds"],
-        1,
-      ),
-      explanation:
-        "Different receptors respond to different stimuli. There is no single universal receptor.",
-    },
+    say: "I feel with my hands! Some feel soft, some feel hot, and some feel pain.",
+    grownUp:
+      "Skin has many kinds of receptors for touch, pressure, temperature and pain. There is not one universal receptor.",
   },
 ];
 
-/** "Identify the sense" challenge: a scenario and the sense that picks it up. */
-export const SENSE_SCENARIOS: { scenario: string; sense: SenseStation["id"] }[] = [
-  { scenario: "A song is playing in the next room.", sense: "hearing" },
-  { scenario: "A bright rainbow appears after the rain.", sense: "vision" },
-  { scenario: "Warm bread is coming out of the oven.", sense: "smell" },
-  { scenario: "A slice of lemon makes your mouth pucker.", sense: "taste" },
+/** Tap-the-friend rounds. */
+export const SENSE_FIND_ROUNDS: { target: SenseFriendId; ask: string }[] = [
+  { target: "ear", ask: "Who hears the music? Tap the ear!" },
+  { target: "nose", ask: "Who can smell the cookies? Tap the nose!" },
+  { target: "eye", ask: "Who sees the rainbow? Tap the eye!" },
 ];
 
-/* ---------------- D. Reflex Lab ---------------- */
+/* ---------------- Knee Kick (reflex) ---------------- */
 
-export const REFLEX_STEPS: { title: string; text: string }[] = [
-  {
-    title: "Sensory signal",
-    text: "A tap just below the knee stretches a sensor in the thigh muscle. This sends a signal into the nervous system.",
-  },
-  {
-    title: "Spinal cord circuit",
-    text: "The sensory nerve connects to the spinal cord, where a short circuit passes the message on to a motor nerve. The brain is not needed to make this quick link.",
-  },
-  {
-    title: "Motor signal",
-    text: "The motor nerve sends a signal to the thigh muscle, which tightens and makes the lower leg kick.",
-  },
-  {
-    title: "The brain also hears about it",
-    text: "The brain receives information about the tap too, so you can notice it. The kick happened before any decision was made.",
-  },
-];
+export const KNEE_SAY =
+  "Kick! Your body did that by itself, very quickly, before you even thought about it.";
+export const WAVE_SAY = "You chose to wave! Your brain decided to do that.";
+export const KNEE_NOTE =
+  "This is a simple simulation. Never tap your own knee hard. Real reflexes use more complex circuits than this picture.";
 
-export const REFLEX_NOTE =
-  "This is a simple simulation. Real reflexes and voluntary movements involve more complicated circuits than this picture. Never tap your own knee hard to test it. Watch the simulation instead.";
+/* ---------------- Copy Me (memory) ---------------- */
 
-export const REFLEX_COMPARE: { action: string; automatic: boolean; why: string }[] = [
-  {
-    action: "Pulling your hand away from a hot cup",
-    automatic: true,
-    why: "A fast reflex. A spinal circuit can start the response.",
-  },
-  {
-    action: "Blinking when something flies towards your eye",
-    automatic: true,
-    why: "A quick protective reflex that does not wait for a plan.",
-  },
-  {
-    action: "Choosing to lift your arm to wave",
-    automatic: false,
-    why: "A deliberate choice. The brain plans and starts the movement.",
-  },
-  {
-    action: "Deciding which book to read next",
-    automatic: false,
-    why: "A choice that involves thinking and remembering what you like.",
-  },
-];
+export const PADS = [
+  { name: "red", colour: "#e5484d", freq: 262 },
+  { name: "yellow", colour: "#f4c430", freq: 330 },
+  { name: "green", colour: "#3fa35b", freq: 392 },
+  { name: "blue", colour: "#4a7fb0", freq: 523 },
+] as const;
 
-/* ---------------- E. Memory and Learning ---------------- */
-
-export const MEMORY_FACTS: string[] = [
-  "The brain can change as we learn and practise. This is called learning and adapting.",
-  "Attention, repetition, meaningful connections and sleep can all help learning and memory.",
-  "Different brain networks help with different kinds of memory. Remembering a song is not the same job as remembering where you left your shoes.",
-  "Memories are not stored as tiny files in one folder in the brain. They are spread across connected networks.",
-];
-
-export const OBSERVATION_ITEMS = ["🍎", "🚲", "🐶", "🌳", "🎈", "⚽", "🐟", "🎸"];
-
-/** Pick a deterministic observation question from a seed: one present item and one absent item. */
-export function observationQuestion(scene: string[], seed: number): Choice & { answer: string } {
-  const pool = OBSERVATION_ITEMS.filter((i) => !scene.includes(i));
-  const answer = scene[seed % scene.length];
-  const absent = pool[seed % pool.length];
-  const distractor = pool.length > 1 ? pool[(seed + 1) % pool.length] : absent;
-  const choice = rotateOptions(
-    answer,
-    [absent, distractor].filter((v, i, a) => v !== answer && a.indexOf(v) === i),
-    seed,
-  );
-  return { ...choice, answer };
-}
-
-/** Compare a recalled pattern with the shown pattern. */
-export function patternMatches(shown: number[], given: number[]): boolean {
-  return shown.length === given.length && shown.every((v, i) => v === given[i]);
-}
-
-/** Deterministic pattern of tile indexes (0–8) of a given length. */
-export function makePattern(length: number, seed: number): number[] {
+/** A deterministic sequence of pad indexes (0–3) for a given length and seed. */
+export function makeSequence(length: number, seed: number): number[] {
   const out: number[] = [];
   let x = seed * 9973 + 17;
   for (let i = 0; i < length; i++) {
     x = (x * 1103515245 + 12345) & 0x7fffffff;
-    out.push(x % 9);
+    out.push(x % PADS.length);
   }
   return out;
 }
 
-/* ---------------- challenge ids (for progress) ---------------- */
+/** True when the child's taps match the sequence exactly. */
+export function sequenceMatches(shown: number[], given: number[]): boolean {
+  return shown.length === given.length && shown.every((v, i) => v === given[i]);
+}
 
-export const CHALLENGE_IDS = [
-  "control-match-cerebrum",
-  "control-match-cerebellum",
-  "control-match-brainstem",
-  "signal-order",
-  "signal-together",
-  "senses-identify",
-  ...SENSE_STATIONS.map((s) => `senses-${s.id}`),
-  "reflex-compare",
-  "memory-pattern",
-  "memory-observation",
-] as const;
-export type ChallengeId = (typeof CHALLENGE_IDS)[number];
+export const MEMORY_NOTE =
+  "Brains get better at things with practice. Trying again is how learning works.";

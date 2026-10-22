@@ -58,21 +58,16 @@ files are required. Narration text for each organ is in the `narration` field.
 - Book-derived content. The Dr. Ranj book has not been used as a source. Content
   is general physiology and needs expert review before publication.
 
-## 5. Brain and Senses Lab (status for each entry)
+## 5. Brain and Senses Lab (ages about 3 to 4½: play, not quizzes)
 
-Status key: **missing** = no file in the repo, a labelled placeholder is shown instead.
-The engine does not read these paths yet. Replacing a file will not change the logic.
+Status key: **missing** = no file in the repo. A simple drawing is shown until the artwork exists.
+The engine does not read these paths yet. Replacing a file will not change the game logic.
 
-| Asset ID | Expected path | Used in | Dimensions | Status | Hotspots / overlay |
+| Asset ID | Expected path | Used in | Dimensions | Status | Tap targets |
 |---|---|---|---|---|---|
-| `brain-side` | `src/assets/human-biology/brain-senses/brain-side.webp` | The Brain Control Room | 1000 × 825 (approx. 1.2:1), transparent | **missing** (code-drawn placeholder shown) | Cerebrum, cerebellum, brainstem and spinal cord hotspots in `BrainSideRegions` (`BrainSensesLab.tsx`) |
-| `signal-body` | `src/assets/human-biology/brain-senses/signal-body.webp` | Follow a Signal | 1000 × 2000 (portrait), transparent | **missing** (uses the Atlas body shapes for now) | Skin, nerve, spinal cord and brain stop points; pathway paths `SENSORY_PATH`, `SPINE_PATH`, `MOTOR_PATH`, `OPTIC_PATH` |
-| `senses-vision` | `src/assets/human-biology/brain-senses/senses-vision.webp` | Five Senses, Vision | 1000 × 800, transparent | **missing** (placeholder) | Cornea, pupil, lens, retina, optic nerve |
-| `senses-hearing` | `src/assets/human-biology/brain-senses/senses-hearing.webp` | Five Senses, Hearing | 1000 × 800, transparent | **missing** (placeholder) | Outer ear, eardrum, middle-ear bones, cochlea, auditory nerve |
-| `senses-smell` | `src/assets/human-biology/brain-senses/senses-smell.webp` | Five Senses, Smell | 1000 × 800, transparent | **missing** (placeholder) | Nose, smell receptors, olfactory nerve |
-| `senses-taste` | `src/assets/human-biology/brain-senses/senses-taste.webp` | Five Senses, Taste | 1000 × 800, transparent | **missing** (placeholder) | Taste buds on the tongue |
-| `senses-touch` | `src/assets/human-biology/brain-senses/senses-touch.webp` | Five Senses, Touch | 1000 × 800, transparent | **missing** (placeholder) | Touch, pressure, temperature and pain receptors |
+| `brain-side` | `src/assets/human-biology/brain-senses/brain-side.webp` | Brain Parts | 1000 × 825, transparent | **missing** (drawn placeholder) | Four parts in `BrainPicture` (`BrainSensesLab.tsx`) |
+| `senses-friends` | `src/assets/human-biology/brain-senses/senses-friends.webp` | Sense Friends | 1000 × 1000, transparent | **missing** (emoji placeholder) | Five friends: eye, ear, nose, tongue, hand |
+| `signal-body` | `src/assets/human-biology/brain-senses/signal-body.webp` | Send a Message | 1000 × 2000, transparent | **missing** (uses the Atlas body shapes) | Paths `SENSORY_PATH` and `EYE_PATH` in `BrainSensesLab.tsx` |
+| `knee-leg` | `src/assets/human-biology/brain-senses/knee-leg.webp` | Knee Kick | 1000 × 1000, transparent | **missing** (drawn placeholder) | Knee button and wave button |
 
-Audio (all brain and senses narration) is **placeholder**: it uses the device's English voice through `speak()` in `src/lib/voice.ts`, the same as the Atlas. No prerecorded clip exists yet. Clip IDs should follow the pattern in `src/lib/kitchenClips.ts` once recordings exist.
-
-Animations (not played yet): the signal pulses and moving markers are drawn in SVG. No video files are needed for them.
+**Audio is placeholder.** All narration uses the device English voice through `speak()` in `src/lib/voice.ts`, which is the robotic voice the spec asks us to avoid. The Kitchen game's Farah recordings exist as `KITCHEN_VOICE` clips, but they are hosted on Lovable URLs and only cover Kitchen phrases. New recordings for this lab are needed. Sound effects come from `sfx()` in `src/lib/explorerSfx.ts`, and the Copy Me notes are synthesized in the component.

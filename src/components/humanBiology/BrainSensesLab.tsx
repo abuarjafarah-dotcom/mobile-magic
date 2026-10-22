@@ -1,62 +1,93 @@
-import { useEffect, useState, type KeyboardEvent, type ReactNode } from "react";
-import {
-  ArrowLeft,
-  CheckCircle2,
-  ChevronLeft,
-  ChevronRight,
-  Lightbulb,
-  RotateCcw,
-  Volume2,
-  VolumeX,
-} from "lucide-react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { ArrowLeft, Volume2, VolumeX } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { sfx } from "@/lib/explorerSfx";
 import { isVoiceOn, setVoiceOn, speak, stopVoice } from "@/lib/voice";
 import { BODY_BACKDROP, BODY_LIMBS, BODY_PARTS, BODY_VIEWBOX, INK } from "@/data/humanBiologyBody";
 import {
-  BRAIN_NETWORK_NOTE,
+  BRAIN_FIND_ROUNDS,
+  BRAIN_NOTE,
   BRAIN_REGIONS,
-  BRAIN_ROLE_DISTRACTORS,
-  CHALLENGE_IDS,
-  MEMORY_FACTS,
-  OBSERVATION_ITEMS,
-  REFLEX_COMPARE,
-  REFLEX_NOTE,
-  REFLEX_STEPS,
-  SENSE_SCENARIOS,
-  SENSE_STATIONS,
-  TOUCH_JOURNEY,
-  VISION_JOURNEY,
-  makePattern,
-  observationQuestion,
-  patternMatches,
-  rotateOptions,
+  KNEE_NOTE,
+  KNEE_SAY,
+  MEMORY_NOTE,
+  PADS,
+  SEE_MESSAGE,
+  SENSE_FIND_ROUNDS,
+  SENSE_FRIENDS,
+  TOUCH_MESSAGE,
+  WAVE_SAY,
+  makeSequence,
+  sequenceMatches,
   type BrainRegionId,
-  type Choice,
-  type ChallengeId,
-  type SignalStage,
+  type SenseFriendId,
 } from "@/data/brainSenses";
-
-/* ---------------- progress (own key; never gates access) ---------------- */
-
-const KEY = "brain-senses-lab-v1";
-
-function loadDone(): ChallengeId[] {
-  try {
-    const s = JSON.parse(localStorage.getItem(KEY) || "[]");
-    return Array.isArray(s)
-      ? s.filter((id: unknown): id is ChallengeId => CHALLENGE_IDS.includes(id as ChallengeId))
-      : [];
-  } catch {
-    return [];
-  }
-}
 
 /* ---------------- shared ---------------- */
 
-type Screen = "home" | "control" | "signal" | "senses" | "reflex" | "memory";
+// Animations are short and respect reduced motion (the .bhl-anim class is switched off for those users).
+const CSS = `
+@keyframes bhl-pop { 0% { transform: scale(1) } 40% { transform: scale(1.2) } 100% { transform: scale(1) } }
+@keyframes bhl-wiggle { 0%,100% { transform: translateX(0) } 25% { transform: translateX(-10px) rotate(-4deg) } 75% { transform: translateX(10px) rotate(4deg) } }
+@keyframes bhl-float { 0% { transform: translateY(0) scale(0.6); opacity: 1 } 100% { transform: translateY(-140px) scale(1.3); opacity: 0 } }
+@keyframes bhl-kick { 0% { transform: rotate(0deg) } 30% { transform: rotate(-38deg) } 60% { transform: rotate(8deg) } 100% { transform: rotate(0deg) } }
+@keyframes bhl-wave { 0%,100% { transform: rotate(0deg) } 50% { transform: rotate(-75deg) } }
+@keyframes bhl-glow { 0%,100% { opacity: 0.4 } 50% { opacity: 1 } }
+@media (prefers-reduced-motion: reduce) { .bhl-anim { animation: none !important } }
+`;
+
+const BIG =
+  "min-h-[72px] min-w-[72px] rounded-3xl border-4 border-foreground font-black motion-safe:transition-transform active:scale-95";
 
 function say(text: string) {
   void speak(text, "en");
+}
+
+function Anim({
+  name,
+  run,
+  children,
+  className,
+}: {
+  name: string;
+  run: number;
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <span
+      key={run}
+      className={cn("bhl-anim inline-block", className)}
+      style={
+        run > 0
+          ? { animation: `${name} 0.6s ease`, transformBox: "fill-box", transformOrigin: "center" }
+          : undefined
+      }
+    >
+      {children}
+    </span>
+  );
+}
+
+function Confetti({ run }: { run: number }) {
+  if (run === 0) return null;
+  return (
+    <div
+      key={run}
+      className="pointer-events-none fixed inset-x-0 top-1/3 z-10 flex justify-center gap-4 text-5xl"
+      aria-hidden="true"
+    >
+      {["⭐", "🎉", "⭐", "🌟"].map((e, i) => (
+        <span
+          key={i}
+          className="bhl-anim"
+          style={{ animation: `bhl-float 1.2s ease ${i * 0.1}s both` }}
+        >
+          {e}
+        </span>
+      ))}
+    </div>
+  );
 }
 
 function VoiceToggle() {
@@ -71,1357 +102,903 @@ function VoiceToggle() {
       }}
       aria-pressed={on}
       aria-label={on ? "Turn voice off" : "Turn voice on"}
-      className="grid h-12 w-12 place-items-center rounded-2xl border-2 border-foreground bg-card shadow-sm"
+      className="grid h-16 w-16 place-items-center rounded-3xl border-4 border-foreground bg-card"
     >
-      {on ? <Volume2 className="h-6 w-6" /> : <VolumeX className="h-6 w-6" />}
+      {on ? <Volume2 className="h-8 w-8" /> : <VolumeX className="h-8 w-8" />}
     </button>
   );
 }
 
-function Header({
+function Shell({
   title,
-  backLabel,
   onBack,
+  children,
+  stars,
 }: {
   title: string;
-  backLabel: string;
   onBack: () => void;
+  children: ReactNode;
+  stars?: number;
 }) {
   return (
-    <>
+    <section className="mx-auto min-h-dvh w-full max-w-4xl px-4 pb-[max(2rem,env(safe-area-inset-bottom))] pt-[max(3.5rem,env(safe-area-inset-top))]">
+      <style>{CSS}</style>
       <header className="flex items-center justify-between gap-3">
         <button
           type="button"
           onClick={onBack}
-          className="inline-flex h-12 items-center gap-2 rounded-2xl border-2 border-foreground bg-card px-4 font-black shadow-sm"
+          aria-label="Back"
+          className={cn(BIG, "grid h-16 w-16 place-items-center bg-card text-3xl")}
         >
-          <ArrowLeft className="h-5 w-5" /> {backLabel}
+          <ArrowLeft className="h-8 w-8" />
         </button>
+        {stars !== undefined && (
+          <p
+            className="rounded-3xl border-4 border-foreground bg-card px-4 py-2 text-2xl font-black"
+            aria-label={`${stars} stars`}
+          >
+            ⭐ {stars}
+          </p>
+        )}
         <VoiceToggle />
       </header>
-      <div className="mt-4 text-center">
-        <p className="text-sm font-black uppercase text-muted-foreground">Human Biology Lab</p>
-        <h2 className="mt-1 font-display text-3xl leading-tight sm:text-4xl">{title}</h2>
-      </div>
-    </>
+      <h2 className="mt-4 text-center font-display text-4xl leading-tight">{title}</h2>
+      <div className="mt-5">{children}</div>
+    </section>
   );
 }
 
-function Panel({ children, className }: { children: ReactNode; className?: string }) {
+function GrownUp({ text }: { text: string }) {
+  const [open, setOpen] = useState(false);
   return (
-    <div
-      className={cn(
-        "rounded-3xl border-2 border-foreground bg-card p-4 shadow-sm sm:p-5",
-        className,
+    <div className="mt-4 text-center">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className="min-h-[44px] font-bold text-muted-foreground underline"
+      >
+        {open ? "Hide grown-up note" : "Grown-up note"}
+      </button>
+      {open && (
+        <p className="mx-auto mt-2 max-w-xl rounded-2xl bg-card/80 p-3 text-left text-base font-bold">
+          {text}
+        </p>
       )}
-    >
-      {children}
     </div>
   );
 }
 
-function Pill({
+/** Big tap target with a bounce on each press. */
+function Friend({
+  emoji,
+  label,
+  onTap,
   active,
-  onClick,
-  children,
 }: {
-  active: boolean;
-  onClick: () => void;
-  children: ReactNode;
+  emoji: string;
+  label: string;
+  onTap: () => void;
+  active?: boolean;
 }) {
+  const [run, setRun] = useState(0);
   return (
     <button
       type="button"
-      onClick={onClick}
-      aria-pressed={active}
+      aria-label={label}
+      onClick={() => {
+        setRun((r) => r + 1);
+        onTap();
+      }}
       className={cn(
-        "min-h-[48px] rounded-2xl border-2 px-4 py-2 font-black motion-safe:transition-colors",
-        active ? "border-foreground bg-foreground text-background" : "border-foreground/40 bg-card",
+        BIG,
+        "grid h-28 w-28 place-items-center bg-card text-6xl sm:h-32 sm:w-32",
+        active && "bg-yellow-200",
       )}
     >
-      {children}
+      <Anim name="bhl-pop" run={run} className="text-6xl">
+        {emoji}
+      </Anim>
     </button>
-  );
-}
-
-function HearButton({ text }: { text: string }) {
-  return (
-    <button
-      type="button"
-      onClick={() => say(text)}
-      className="inline-flex min-h-[48px] items-center gap-2 rounded-2xl border-2 border-foreground bg-card px-4 font-black"
-    >
-      <Volume2 className="h-5 w-5" /> Hear it again
-    </button>
-  );
-}
-
-function Placeholder({ file }: { file: string }) {
-  return (
-    <p className="rounded-2xl border border-dashed border-foreground/40 px-3 py-2 text-sm font-bold text-muted-foreground">
-      Placeholder drawing. Detailed artwork is still to come (manifest: {file}).
-    </p>
-  );
-}
-
-/** One question. Wrong answers get gentle feedback and can be retried. Correct answers call onRight. */
-function QuizCard({
-  prompt,
-  choice,
-  explanation,
-  hint,
-  onRight,
-}: {
-  prompt: string;
-  choice: Choice;
-  explanation: string;
-  hint?: string;
-  onRight: () => void;
-}) {
-  const [picked, setPicked] = useState<number | null>(null);
-  const [right, setRight] = useState(false);
-  const [hintOn, setHintOn] = useState(false);
-
-  const pick = (i: number) => {
-    if (right) return;
-    setPicked(i);
-    if (i === choice.correctIndex) {
-      setRight(true);
-      say(explanation);
-      onRight();
-    }
-  };
-
-  return (
-    <Panel>
-      <p className="font-display text-xl leading-snug">{prompt}</p>
-      <div role="group" aria-label="Choices" className="mt-3 grid gap-2">
-        {choice.options.map((o, i) => (
-          <button
-            key={`${o}-${i}`}
-            type="button"
-            onClick={() => pick(i)}
-            aria-pressed={picked === i}
-            className={cn(
-              "min-h-[56px] rounded-2xl border-2 px-4 py-3 text-left text-lg font-black motion-safe:transition-colors",
-              picked === i && !right && "border-destructive bg-destructive/10",
-              right && i === choice.correctIndex && "border-emerald-700 bg-emerald-100",
-              !(picked === i && !right) &&
-                !(right && i === choice.correctIndex) &&
-                "border-foreground/40 bg-card",
-            )}
-          >
-            {o}
-          </button>
-        ))}
-      </div>
-      <div aria-live="polite" className="mt-3 min-h-[28px] text-base font-bold">
-        {right ? (
-          <span className="flex items-start gap-2 text-emerald-900">
-            <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0" /> {explanation}
-          </span>
-        ) : picked !== null ? (
-          <span className="text-foreground">Not quite. Have another look, then try again.</span>
-        ) : null}
-      </div>
-      {hint && !right && (
-        <div className="mt-2">
-          <button
-            type="button"
-            onClick={() => setHintOn((v) => !v)}
-            className="inline-flex min-h-[44px] items-center gap-2 font-black underline"
-          >
-            <Lightbulb className="h-5 w-5" /> {hintOn ? "Hide hint" : "Show hint"}
-          </button>
-          {hintOn && <p className="mt-1 text-base font-bold text-muted-foreground">Hint: {hint}</p>}
-        </div>
-      )}
-    </Panel>
   );
 }
 
 /* ---------------- top level ---------------- */
 
+type Screen = "home" | "parts" | "message" | "friends" | "knee" | "copy";
+
 export function BrainSensesWorld({ onBack }: { onBack: () => void }) {
   const [screen, setScreen] = useState<Screen>("home");
-  const [done, setDone] = useState<ChallengeId[]>(() =>
-    typeof window === "undefined" ? [] : loadDone(),
-  );
+  const [stars, setStars] = useState(0);
+  const [confettiRun, setConfettiRun] = useState(0);
 
-  useEffect(() => {
-    try {
-      localStorage.setItem(KEY, JSON.stringify(done));
-    } catch {
-      /* storage unavailable: keep playing without saving */
-    }
-  }, [done]);
-
-  // Stop narration whenever the child moves to another investigation, so audio never overlaps.
+  // Stop narration when moving between games, so voices never overlap.
   useEffect(() => {
     stopVoice();
     return () => stopVoice();
   }, [screen]);
 
-  const markDone = (id: ChallengeId) => setDone((d) => (d.includes(id) ? d : [...d, id]));
-  const go = (s: Screen) => setScreen(s);
+  const star = () => {
+    setStars((s) => s + 1);
+    setConfettiRun((r) => r + 1);
+    sfx("yay");
+  };
 
-  if (screen === "control") return <ControlRoom onBack={() => go("home")} markDone={markDone} />;
-  if (screen === "signal") return <FollowSignal onBack={() => go("home")} markDone={markDone} />;
-  if (screen === "senses") return <FiveSenses onBack={() => go("home")} markDone={markDone} />;
-  if (screen === "reflex") return <ReflexLab onBack={() => go("home")} markDone={markDone} />;
-  if (screen === "memory") return <MemoryLab onBack={() => go("home")} markDone={markDone} />;
+  const back = () => setScreen("home");
+  const props = { stars, onStar: star, onBack: back };
 
-  return <BrainHome onBack={onBack} onOpen={go} done={done.length} total={CHALLENGE_IDS.length} />;
+  let body: ReactNode;
+  if (screen === "parts") body = <BrainParts {...props} />;
+  else if (screen === "message") body = <SendMessage {...props} />;
+  else if (screen === "friends") body = <SenseFriends {...props} />;
+  else if (screen === "knee") body = <KneeKick {...props} />;
+  else if (screen === "copy") body = <CopyMe {...props} />;
+  else return <Home onBack={onBack} onOpen={setScreen} stars={stars} />;
+
+  return (
+    <>
+      <Confetti run={confettiRun} />
+      {body}
+    </>
+  );
 }
 
 /* ---------------- home ---------------- */
 
-const INVESTIGATIONS: { id: Screen; title: string; detail: string; emoji: string }[] = [
+const GAMES: { id: Screen; title: string; emoji: string; say: string }[] = [
+  { id: "parts", title: "Brain Parts", emoji: "🧠", say: "Let's find the brain parts!" },
   {
-    id: "control",
-    title: "The Brain Control Room",
-    detail: "Cerebrum, cerebellum and brainstem",
-    emoji: "🧠",
-  },
-  {
-    id: "signal",
-    title: "Follow a Signal",
-    detail: "From a cold touch to your brain",
+    id: "message",
+    title: "Send a Message",
     emoji: "⚡",
+    say: "Let's send a message to the brain!",
   },
-  {
-    id: "senses",
-    title: "The Five Senses",
-    detail: "Sight, hearing, smell, taste and touch",
-    emoji: "👀",
-  },
-  {
-    id: "reflex",
-    title: "Reflex Lab",
-    detail: "Automatic or chosen? See the difference",
-    emoji: "🦵",
-  },
-  {
-    id: "memory",
-    title: "Memory and Learning",
-    detail: "Patterns, pictures and practice",
-    emoji: "🧩",
-  },
+  { id: "friends", title: "Sense Friends", emoji: "👀", say: "Let's meet the sense friends!" },
+  { id: "knee", title: "Knee Kick", emoji: "🦵", say: "Let's try a knee kick!" },
+  { id: "copy", title: "Copy Me", emoji: "🎵", say: "Let's play copy me!" },
 ];
 
-function BrainHome({
+function Home({
   onBack,
   onOpen,
-  done,
-  total,
+  stars,
 }: {
   onBack: () => void;
   onOpen: (s: Screen) => void;
-  done: number;
-  total: number;
+  stars: number;
 }) {
   return (
-    <section className="mx-auto min-h-dvh w-full max-w-5xl px-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[max(3.75rem,env(safe-area-inset-top))] sm:px-6">
-      <Header title="Brain and Senses Lab" backLabel="Labs" onBack={onBack} />
-      <p className="mt-3 text-center text-base font-bold text-muted-foreground">
-        Pick any investigation. You can explore in any order.
-      </p>
-      <div className="mt-5 grid gap-3 sm:grid-cols-2">
-        {INVESTIGATIONS.map((x) => (
+    <section className="mx-auto min-h-dvh w-full max-w-4xl px-4 pb-[max(2rem,env(safe-area-inset-bottom))] pt-[max(3.5rem,env(safe-area-inset-top))]">
+      <style>{CSS}</style>
+      <header className="flex items-center justify-between gap-3">
+        <button
+          type="button"
+          onClick={onBack}
+          aria-label="Back to labs"
+          className={cn(BIG, "grid h-16 w-16 place-items-center bg-card text-3xl")}
+        >
+          <ArrowLeft className="h-8 w-8" />
+        </button>
+        <p className="rounded-3xl border-4 border-foreground bg-card px-4 py-2 text-2xl font-black">
+          ⭐ {stars}
+        </p>
+        <VoiceToggle />
+      </header>
+      <h2 className="mt-4 text-center font-display text-4xl">Brain and Senses</h2>
+      <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3">
+        {GAMES.map((g) => (
           <button
-            key={x.id}
+            key={g.id}
             type="button"
-            onClick={() => onOpen(x.id)}
-            className="flex min-h-[88px] items-center gap-3 rounded-3xl border-2 border-foreground bg-card p-4 text-left shadow-sm motion-safe:transition-transform active:scale-[0.99]"
+            onClick={() => {
+              say(g.say);
+              onOpen(g.id);
+            }}
+            className="flex min-h-[150px] flex-col items-center justify-center gap-2 rounded-3xl border-4 border-foreground bg-card p-3 text-center font-black motion-safe:transition-transform active:scale-95"
           >
-            <span className="text-4xl leading-none" aria-hidden="true">
-              {x.emoji}
+            <span className="text-6xl" aria-hidden="true">
+              {g.emoji}
             </span>
-            <span className="min-w-0 flex-1">
-              <span className="block text-lg font-black leading-snug">{x.title}</span>
-              <span className="block text-sm font-bold text-muted-foreground">{x.detail}</span>
-            </span>
+            <span className="text-lg leading-tight">{g.title}</span>
           </button>
         ))}
       </div>
-      <p className="mt-6 text-center text-sm font-bold text-muted-foreground">
-        Challenges finished: {done} of {total}. Nothing is locked, and no mistake costs anything.
+      <p className="mt-6 text-center text-base font-bold text-muted-foreground">
+        Tap anything to play. Nothing is locked.
       </p>
     </section>
   );
 }
 
-/* ---------------- A. Brain Control Room ---------------- */
+/* ---------------- Brain Parts: tap to pop, then find ---------------- */
 
-const REGION_COLOURS: Record<BrainRegionId, string> = {
+const REGION_COLOUR: Record<BrainRegionId, string> = {
   cerebrum: "#e86f74",
   cerebellum: "#7b4fb8",
   brainstem: "#f4a340",
   spinalCord: "#f4ecd8",
 };
 
-function BrainSide({
-  selected,
-  onPick,
+function BrainPicture({
+  onTap,
+  popping,
+  shake,
 }: {
-  selected: BrainRegionId | null;
-  onPick: (id: BrainRegionId) => void;
+  onTap: (id: BrainRegionId) => void;
+  popping: { id: BrainRegionId; run: number } | null;
+  shake: number;
 }) {
-  const ring = (id: BrainRegionId) =>
-    selected === id ? { stroke: INK, strokeWidth: 4 } : { stroke: "none" };
-  const key = (id: BrainRegionId) => (e: KeyboardEvent<SVGGElement>) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      onPick(id);
-    }
-  };
-  const group = (id: BrainRegionId, name: string, children: ReactNode) => (
+  const part = (id: BrainRegionId, name: string, el: ReactNode) => (
     <g
       role="button"
       aria-label={name}
-      aria-pressed={selected === id}
       tabIndex={0}
-      onClick={() => onPick(id)}
-      onKeyDown={key(id)}
+      onClick={() => onTap(id)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onTap(id);
+        }
+      }}
       className="cursor-pointer focus:outline-none"
+      style={
+        popping?.id === id
+          ? { animation: "bhl-pop 0.5s ease", transformBox: "fill-box", transformOrigin: "center" }
+          : undefined
+      }
+      key={`${id}-${popping?.id === id ? popping.run : 0}`}
     >
-      <title>{name}</title>
-      {children}
+      {el}
     </g>
   );
   return (
-    <svg
-      viewBox="0 0 400 330"
-      className="mx-auto h-auto w-full max-w-[420px]"
-      role="group"
-      aria-label="Side view of the brain. Tap a region to learn about it."
+    <div
+      key={shake}
+      className="bhl-anim"
+      style={shake ? { animation: "bhl-wiggle 0.4s ease" } : undefined}
     >
-      <rect
-        x="0"
-        y="0"
-        width="400"
-        height="330"
-        rx="28"
-        fill={BODY_BACKDROP}
-        pointerEvents="none"
-      />
-      {group(
-        "spinalCord",
-        "Spinal cord",
-        <path
-          d="M200 262 L200 318"
-          stroke={selected === "spinalCord" ? INK : REGION_COLOURS.spinalCord}
-          strokeWidth={selected === "spinalCord" ? 16 : 12}
-          strokeLinecap="round"
-          fill="none"
-        />,
-      )}
-      {group(
-        "brainstem",
-        "Brainstem",
-        <path
-          d="M184 196 L216 196 L222 268 L178 268 Z"
-          fill={REGION_COLOURS.brainstem}
-          {...ring("brainstem")}
-        />,
-      )}
-      {group(
-        "cerebellum",
-        "Cerebellum",
-        <ellipse
-          cx="282"
-          cy="224"
-          rx="46"
-          ry="28"
-          fill={REGION_COLOURS.cerebellum}
-          {...ring("cerebellum")}
-        />,
-      )}
-      {group(
-        "cerebrum",
-        "Cerebrum",
-        <path
-          d="M84 150 C78 88 128 48 200 52 C272 56 326 98 322 150 C320 196 280 206 226 204 L142 206 C108 206 88 190 84 150 Z"
-          fill={REGION_COLOURS.cerebrum}
-          {...ring("cerebrum")}
-        />,
-      )}
-      <path
-        d="M120 120 C150 96 200 92 236 110"
-        stroke="#ffffff"
-        strokeOpacity={0.35}
-        strokeWidth={6}
-        fill="none"
-        strokeLinecap="round"
-        pointerEvents="none"
-      />
-    </svg>
-  );
-}
-
-function ControlRoom({
-  onBack,
-  markDone,
-}: {
-  onBack: () => void;
-  markDone: (id: ChallengeId) => void;
-}) {
-  const [sel, setSel] = useState<BrainRegionId | null>(null);
-  const [mode, setMode] = useState<"discover" | "investigate">("discover");
-  const [showInjury, setShowInjury] = useState(false);
-  const region = BRAIN_REGIONS.find((r) => r.id === sel) ?? null;
-
-  const pick = (id: BrainRegionId) => {
-    setSel(id);
-    setMode("discover");
-    setShowInjury(false);
-    say(BRAIN_REGIONS.find((r) => r.id === id)!.narration);
-  };
-
-  const matchable = BRAIN_REGIONS.filter((r) => r.id !== "spinalCord");
-
-  return (
-    <section className="mx-auto min-h-dvh w-full max-w-5xl px-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[max(3.75rem,env(safe-area-inset-top))] sm:px-6">
-      <Header title="The Brain Control Room" backLabel="Investigations" onBack={onBack} />
-      <div className="mt-5 grid gap-4 md:grid-cols-2">
-        <div className="space-y-3">
-          <BrainSide selected={sel} onPick={pick} />
-          <Placeholder file="brain-senses/brain-side.webp" />
-          <div className="flex flex-wrap gap-2" aria-label="Regions">
-            {BRAIN_REGIONS.map((r) => (
-              <Pill key={r.id} active={sel === r.id} onClick={() => pick(r.id)}>
-                {r.emoji} {r.name}
-              </Pill>
-            ))}
-          </div>
-          <p className="text-base font-bold text-muted-foreground">{BRAIN_NETWORK_NOTE}</p>
-        </div>
-
-        <div className="space-y-3">
-          {region ? (
-            <Panel>
-              <div className="flex flex-wrap gap-2">
-                <Pill active={mode === "discover"} onClick={() => setMode("discover")}>
-                  Discover
-                </Pill>
-                <Pill active={mode === "investigate"} onClick={() => setMode("investigate")}>
-                  Investigate
-                </Pill>
-              </div>
-              <h3 className="mt-4 font-display text-2xl">{region.name}</h3>
-              <p className="mt-2 text-lg font-bold leading-relaxed">
-                {mode === "discover" ? region.discover : region.investigate}
-              </p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                <HearButton text={mode === "discover" ? region.discover : region.investigate} />
-                <button
-                  type="button"
-                  onClick={() => setShowInjury((v) => !v)}
-                  className="min-h-[48px] rounded-2xl border-2 border-foreground/40 px-4 font-black"
-                >
-                  {showInjury ? "Hide" : "What if this area is hurt?"}
-                </button>
-              </div>
-              {showInjury && (
-                <p className="mt-3 rounded-2xl bg-muted/50 p-3 text-base font-bold">
-                  {region.injury}
-                </p>
-              )}
-            </Panel>
-          ) : (
-            <Panel>
-              <p className="font-display text-xl">Tap a part of the brain</p>
-              <p className="mt-2 text-lg font-bold text-muted-foreground">
-                Tap the cerebrum, cerebellum or brainstem to learn what each one does. You can
-                explore in any order.
-              </p>
-            </Panel>
-          )}
-
-          <div className="space-y-3">
-            <p className="text-sm font-black uppercase text-muted-foreground">
-              Challenge: match each part to its job
-            </p>
-            {matchable.map((r, i) => (
-              <QuizCard
-                key={r.id}
-                prompt={`Which job belongs to the ${r.name.toLowerCase()}?`}
-                choice={rotateOptions(r.mainRole, BRAIN_ROLE_DISTRACTORS[r.id], i + 1)}
-                explanation={`${r.name}: ${r.mainRole}.`}
-                hint={r.discover}
-                onRight={() => markDone(`control-match-${r.id}` as ChallengeId)}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---------------- B. Follow a Signal ---------------- */
-
-const SENSORY_PATH = "M240 300 L228 226 L188 136 L160 130 L150 150";
-const SPINE_PATH = "M150 150 L150 62";
-const MOTOR_PATH = "M150 62 L150 150 L160 130 L188 136 L228 226 L240 300";
-const OPTIC_PATH = "M132 62 L150 54 L174 60";
-
-/** Path and marker positions for each stage of each journey. */
-function stageVisual(journey: "touch" | "vision", stage: SignalStage, index: number) {
-  if (journey === "touch") {
-    if (stage.stop === "skin") return { path: null, pulse: { x: 240, y: 300 } };
-    if (stage.stop === "nerve") return { path: SENSORY_PATH, pulse: null };
-    if (stage.stop === "spine") return { path: SPINE_PATH, pulse: null };
-    if (stage.stop === "brain") return { path: null, pulse: { x: 150, y: 56 } };
-    return { path: MOTOR_PATH, pulse: null };
-  }
-  void index;
-  if (stage.stop === "skin" || stage.stop === "nerve")
-    return { path: null, pulse: { x: 132, y: 62 } };
-  if (stage.stop === "spine") return { path: OPTIC_PATH, pulse: null };
-  return { path: null, pulse: { x: 174, y: 60 } };
-}
-
-function SignalBody({ visual, cycle }: { visual: ReturnType<typeof stageVisual>; cycle: number }) {
-  return (
-    <svg
-      viewBox={BODY_VIEWBOX}
-      className="mx-auto h-auto w-full max-w-[380px]"
-      role="img"
-      aria-label="Body diagram showing the path of the signal"
-    >
-      {BODY_LIMBS.map((l, i) => (
-        <path
-          key={`l${i}`}
-          d={l.d}
-          fill="none"
-          stroke={l.color}
-          strokeWidth={l.width}
-          strokeLinecap="round"
+      <svg
+        viewBox="0 0 400 330"
+        className="mx-auto h-auto w-full max-w-[460px]"
+        role="group"
+        aria-label="Brain picture. Tap a part."
+      >
+        <rect
+          x="0"
+          y="0"
+          width="400"
+          height="330"
+          rx="32"
+          fill={BODY_BACKDROP}
           pointerEvents="none"
         />
-      ))}
-      {BODY_PARTS.map((p, i) => (
-        <path key={`p${i}`} d={p.d} fill={p.fill} pointerEvents="none" />
-      ))}
-      {visual.path && (
-        <path
-          d={visual.path}
-          fill="none"
-          stroke={INK}
-          strokeOpacity={0.35}
-          strokeWidth={3}
-          strokeDasharray="6 6"
-          strokeLinecap="round"
-        />
-      )}
-      {visual.path && (
-        <g key={`m-${cycle}-${visual.path}`}>
-          <circle r={7} fill="#fff200" stroke={INK} strokeWidth={2}>
-            <animateMotion dur="1.6s" fill="freeze" path={visual.path} />
-          </circle>
-        </g>
-      )}
-      {visual.pulse && (
-        <circle
-          key={`p-${cycle}`}
-          cx={visual.pulse.x}
-          cy={visual.pulse.y}
-          r={8}
-          fill="#fff200"
-          stroke={INK}
-          strokeWidth={2}
-        >
-          <animate attributeName="r" values="8;15;8" dur="1.2s" repeatCount="indefinite" />
-        </circle>
-      )}
-    </svg>
+        {part(
+          "spinalCord",
+          "Message cord",
+          <path
+            d="M200 262 L200 318"
+            stroke={REGION_COLOUR.spinalCord}
+            strokeWidth={16}
+            strokeLinecap="round"
+            fill="none"
+          />,
+        )}
+        {part(
+          "brainstem",
+          "Breathing part",
+          <path d="M184 196 L216 196 L222 268 L178 268 Z" fill={REGION_COLOUR.brainstem} />,
+        )}
+        {part(
+          "cerebellum",
+          "Balance part",
+          <ellipse cx="282" cy="224" rx="46" ry="28" fill={REGION_COLOUR.cerebellum} />,
+        )}
+        {part(
+          "cerebrum",
+          "Big thinking part",
+          <path
+            d="M84 150 C78 88 128 48 200 52 C272 56 326 98 322 150 C320 196 280 206 226 204 L142 206 C108 206 88 190 84 150 Z"
+            fill={REGION_COLOUR.cerebrum}
+          />,
+        )}
+      </svg>
+    </div>
   );
 }
 
-function FollowSignal({
+function BrainParts({
+  stars,
+  onStar,
   onBack,
-  markDone,
 }: {
+  stars: number;
+  onStar: () => void;
   onBack: () => void;
-  markDone: (id: ChallengeId) => void;
 }) {
-  const [journey, setJourney] = useState<"touch" | "vision">("touch");
-  const [stage, setStage] = useState(0);
-  const [cycle, setCycle] = useState(0);
-  const [order, setOrder] = useState<number[]>([]);
-  const [wrongTap, setWrongTap] = useState(false);
-  const stages = journey === "touch" ? TOUCH_JOURNEY : VISION_JOURNEY;
-  const current = stages[stage];
-  const visual = stageVisual(journey, current, stage);
+  const [round, setRound] = useState(0);
+  const [popping, setPopping] = useState<{ id: BrainRegionId; run: number } | null>(null);
+  const [shake, setShake] = useState(0);
+  const [explored, setExplored] = useState(false);
+  const [wait, setWait] = useState(false);
+  const runRef = useRef(0);
+  const finished = round >= BRAIN_FIND_ROUNDS.length;
 
-  // Shuffled order for the sequencing challenge (fixed so it is the same each time).
-  const SHUFFLED = [2, 4, 0, 3, 1];
-  const ordering = SHUFFLED.filter((i) => i < TOUCH_JOURNEY.length);
-
-  const switchJourney = (j: "touch" | "vision") => {
-    setJourney(j);
-    setStage(0);
-    setCycle((c) => c + 1);
-    stopVoice();
+  const tap = (id: BrainRegionId) => {
+    runRef.current += 1;
+    setPopping({ id, run: runRef.current });
+    sfx("pop");
+    if (!explored) {
+      setExplored(true);
+      say("Tap each part to hear what it does!");
+    }
+    const region = BRAIN_REGIONS.find((r) => r.id === id)!;
+    if (wait) return;
+    if (!finished) {
+      const target = BRAIN_FIND_ROUNDS[round].target;
+      if (id === target) {
+        setWait(true);
+        onStar();
+        say("Yes! Great finding!");
+        setTimeout(() => {
+          setRound((r) => r + 1);
+          setWait(false);
+        }, 1400);
+        return;
+      }
+      setShake((s) => s + 1);
+      say("Almost! Try another part.");
+      return;
+    }
+    say(region.say);
   };
 
-  const tapOrder = (i: number) => {
-    const expected = TOUCH_JOURNEY.map((_, k) => k)[order.length];
-    if (i === expected) {
-      const next = [...order, i];
-      setOrder(next);
-      setWrongTap(false);
-      if (next.length === TOUCH_JOURNEY.length) markDone("signal-order");
-    } else {
-      setWrongTap(true);
+  const region = (id: BrainRegionId) => BRAIN_REGIONS.find((r) => r.id === id)!;
+
+  return (
+    <Shell title="Brain Parts" onBack={onBack} stars={stars}>
+      <BrainPicture onTap={tap} popping={popping} shake={shake} />
+      <div className="mt-5 text-center">
+        {!finished ? (
+          <>
+            <p className="font-display text-3xl">{BRAIN_FIND_ROUNDS[round].ask}</p>
+            <button
+              type="button"
+              onClick={() => say(BRAIN_FIND_ROUNDS[round].ask)}
+              className={cn(BIG, "mt-3 bg-card px-6 text-2xl")}
+            >
+              🔊 Say it again
+            </button>
+          </>
+        ) : (
+          <>
+            <p className="font-display text-3xl">You found them all! 🎉</p>
+            <p className="mt-2 text-xl font-bold">Tap any part to hear about it.</p>
+            <div className="mt-3 flex flex-wrap justify-center gap-3">
+              {(["cerebrum", "cerebellum", "brainstem", "spinalCord"] as BrainRegionId[]).map(
+                (id) => (
+                  <button
+                    key={id}
+                    type="button"
+                    onClick={() => say(region(id).say)}
+                    className={cn(BIG, "bg-card px-4 text-lg")}
+                  >
+                    {region(id).emoji} {region(id).name}
+                  </button>
+                ),
+              )}
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                setRound(0);
+                setExplored(false);
+              }}
+              className={cn(BIG, "mt-4 bg-card px-6 text-xl")}
+            >
+              Play again
+            </button>
+          </>
+        )}
+      </div>
+      <GrownUp text={BRAIN_NOTE} />
+    </Shell>
+  );
+}
+
+/* ---------------- Send a Message: watch the signal travel ---------------- */
+
+const SENSORY_PATH = "M240 300 L228 226 L188 136 L160 130 L150 150 L150 62";
+const EYE_PATH = "M132 62 L150 54 L174 60";
+
+function SendMessage({
+  stars,
+  onStar,
+  onBack,
+}: {
+  stars: number;
+  onStar: () => void;
+  onBack: () => void;
+}) {
+  const [mode, setMode] = useState<"touch" | "see" | null>(null);
+  const [run, setRun] = useState(0);
+  const [landed, setLanded] = useState(false);
+  const [timer, setTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
+
+  const start = (m: "touch" | "see") => {
+    if (timer) clearTimeout(timer);
+    setMode(m);
+    setRun((r) => r + 1);
+    setLanded(false);
+    say(m === "touch" ? TOUCH_MESSAGE.say : SEE_MESSAGE.say);
+    const t = setTimeout(() => {
+      setLanded(true);
+      sfx("chime");
+      say(m === "touch" ? TOUCH_MESSAGE.after : SEE_MESSAGE.after);
+      onStar();
+    }, 2200);
+    setTimer(t);
+  };
+
+  useEffect(
+    () => () => {
+      if (timer) clearTimeout(timer);
+    },
+    [timer],
+  );
+
+  const path = mode === "see" ? EYE_PATH : SENSORY_PATH;
+
+  return (
+    <Shell title="Send a Message" onBack={onBack} stars={stars}>
+      <svg
+        viewBox={BODY_VIEWBOX}
+        className="mx-auto h-auto w-full max-w-[380px]"
+        role="img"
+        aria-label="Body picture with a message travelling to the brain"
+      >
+        <rect x="-100" y="0" width="500" height="520" rx="28" fill={BODY_BACKDROP} />
+        {BODY_LIMBS.map((l, i) => (
+          <path
+            key={`l${i}`}
+            d={l.d}
+            fill="none"
+            stroke={l.color}
+            strokeWidth={l.width}
+            strokeLinecap="round"
+          />
+        ))}
+        {BODY_PARTS.map((p, i) => (
+          <path key={`p${i}`} d={p.d} fill={p.fill} />
+        ))}
+        {mode && (
+          <path
+            d={path}
+            fill="none"
+            stroke={INK}
+            strokeOpacity={0.25}
+            strokeWidth={3}
+            strokeDasharray="6 8"
+            strokeLinecap="round"
+          />
+        )}
+        {mode && !landed && (
+          <g key={`run-${run}`}>
+            <circle r={9} fill="#fff200" stroke={INK} strokeWidth={2}>
+              <animateMotion dur="2s" fill="freeze" path={path} />
+            </circle>
+          </g>
+        )}
+        {mode && landed && (
+          <circle
+            cx={path === EYE_PATH ? 174 : 150}
+            cy={path === EYE_PATH ? 60 : 56}
+            r={12}
+            fill="#fff200"
+            stroke={INK}
+            strokeWidth={2}
+          >
+            <animate attributeName="r" values="10;20;10" dur="0.9s" repeatCount="indefinite" />
+          </circle>
+        )}
+      </svg>
+      <div className="mt-6 grid grid-cols-2 gap-4">
+        <button
+          type="button"
+          onClick={() => start("touch")}
+          className={cn(BIG, "min-h-[120px] bg-card text-2xl")}
+        >
+          <span className="block text-5xl">{TOUCH_MESSAGE.emoji}</span>
+          {TOUCH_MESSAGE.title}
+        </button>
+        <button
+          type="button"
+          onClick={() => start("see")}
+          className={cn(BIG, "min-h-[120px] bg-card text-2xl")}
+        >
+          <span className="block text-5xl">{SEE_MESSAGE.emoji}</span>
+          {SEE_MESSAGE.title}
+        </button>
+      </div>
+      <GrownUp text={`${TOUCH_MESSAGE.grownUp} ${SEE_MESSAGE.grownUp}`} />
+    </Shell>
+  );
+}
+
+/* ---------------- Five Sense Friends: tap, then find ---------------- */
+
+function SenseFriends({
+  stars,
+  onStar,
+  onBack,
+}: {
+  stars: number;
+  onStar: () => void;
+  onBack: () => void;
+}) {
+  const [round, setRound] = useState(0);
+  const [active, setActive] = useState<SenseFriendId | null>(null);
+  const [wait, setWait] = useState(false);
+  const [shake, setShake] = useState(0);
+  const [bright, setBright] = useState(true);
+  const finished = round >= SENSE_FIND_ROUNDS.length;
+
+  const tap = (id: SenseFriendId) => {
+    const friend = SENSE_FRIENDS.find((f) => f.id === id)!;
+    setActive(id);
+    sfx("pop");
+    if (wait) return;
+    if (!finished && id !== SENSE_FIND_ROUNDS[round].target) {
+      setShake((s) => s + 1);
+      say("Almost! Try another friend.");
+      return;
+    }
+    say(friend.say);
+    if (!finished) {
+      setWait(true);
+      onStar();
+      setTimeout(() => {
+        setRound((r) => r + 1);
+        setWait(false);
+        setActive(null);
+      }, 2200);
     }
   };
 
-  const remaining = TOUCH_JOURNEY.length - order.length;
-
   return (
-    <section className="mx-auto min-h-dvh w-full max-w-5xl px-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[max(3.75rem,env(safe-area-inset-top))] sm:px-6">
-      <Header title="Follow a Signal" backLabel="Investigations" onBack={onBack} />
-      <div className="mt-5 grid gap-4 md:grid-cols-2">
-        <div className="space-y-3">
-          <div className="flex flex-wrap gap-2">
-            <Pill active={journey === "touch"} onClick={() => switchJourney("touch")}>
-              Cold touch
-            </Pill>
-            <Pill active={journey === "vision"} onClick={() => switchJourney("vision")}>
-              Seeing a colour
-            </Pill>
-          </div>
-          <SignalBody visual={visual} cycle={cycle} />
-          <Placeholder file="brain-senses/signal-body.webp (shares the Atlas body for now)" />
-        </div>
-
-        <div className="space-y-3">
-          <Panel>
-            <p className="text-sm font-black uppercase text-muted-foreground">
-              Stage {stage + 1} of {stages.length}
-            </p>
-            <h3 className="mt-1 font-display text-2xl">{current.title}</h3>
-            <p className="mt-2 text-lg font-bold leading-relaxed">{current.text}</p>
-            <div className="mt-4 flex flex-wrap gap-2">
-              <button
-                type="button"
-                onClick={() => setStage((s) => Math.max(0, s - 1))}
-                disabled={stage === 0}
-                className="inline-flex min-h-[48px] items-center gap-2 rounded-2xl border-2 border-foreground bg-card px-4 font-black disabled:opacity-40"
-              >
-                <ChevronLeft className="h-5 w-5" /> Back
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  if (stage < stages.length - 1) setStage((s) => s + 1);
-                  setCycle((c) => c + 1);
-                }}
-                disabled={stage >= stages.length - 1}
-                className="inline-flex min-h-[48px] items-center gap-2 rounded-2xl border-2 border-foreground bg-foreground px-4 font-black text-background disabled:opacity-40"
-              >
-                Next <ChevronRight className="h-5 w-5" />
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setStage(0);
-                  setCycle((c) => c + 1);
-                }}
-                className="inline-flex min-h-[48px] items-center gap-2 rounded-2xl border-2 border-foreground/40 px-4 font-black"
-              >
-                <RotateCcw className="h-5 w-5" /> Replay journey
-              </button>
-            </div>
-            <div className="mt-3 flex flex-wrap gap-2">
-              <HearButton text={current.text} />
-            </div>
-          </Panel>
-
-          {journey === "vision" && (
-            <p className="rounded-2xl bg-muted/50 p-3 text-base font-bold">
-              The eye does not make a finished picture that is sent to the brain. The brain uses the
-              signals to work out what you see.
-            </p>
-          )}
-
-          <Panel>
-            <p className="font-display text-xl">Challenge: put the cold-touch stages in order</p>
-            <p className="mt-1 text-base font-bold text-muted-foreground">
-              Tap the stages from first to last.{" "}
-              {remaining === 0 ? "Well done!" : `${remaining} to go.`}
-            </p>
-            <div className="mt-3 grid gap-2">
-              {ordering.map((i) => {
-                const done = order.includes(i);
-                return (
-                  <button
-                    key={i}
-                    type="button"
-                    disabled={done}
-                    onClick={() => tapOrder(i)}
-                    className={cn(
-                      "min-h-[52px] rounded-2xl border-2 px-4 py-2 text-left text-lg font-black",
-                      done ? "border-emerald-700 bg-emerald-100" : "border-foreground/40 bg-card",
-                    )}
-                  >
-                    {done ? `${order.indexOf(i) + 1}. ` : ""}
-                    {TOUCH_JOURNEY[i].title}
-                  </button>
-                );
-              })}
-            </div>
-            <div aria-live="polite" className="mt-2 min-h-[24px] text-base font-bold">
-              {wrongTap
-                ? "Not that one yet. Think about which stage comes next."
-                : remaining === 0
-                  ? "Nice work. You followed the whole signal."
-                  : ""}
-            </div>
-            {order.length > 0 && (
-              <button
-                type="button"
-                onClick={() => {
-                  setOrder([]);
-                  setWrongTap(false);
-                }}
-                className="mt-1 inline-flex min-h-[44px] items-center gap-2 font-black underline"
-              >
-                <RotateCcw className="h-4 w-4" /> Start the order again
-              </button>
-            )}
-          </Panel>
-
-          <QuizCard
-            prompt="Which two structures work together for seeing?"
-            choice={rotateOptions("Eyes and brain", ["Ears and knees", "Nose and elbows"], 1)}
-            explanation="The eyes detect light, and the brain interprets the signals."
-            hint="Think about what detects light and what makes sense of the signals."
-            onRight={() => markDone("signal-together")}
+    <Shell title="Sense Friends" onBack={onBack} stars={stars}>
+      <div
+        key={shake}
+        className="bhl-anim flex flex-wrap justify-center gap-4"
+        style={shake ? { animation: "bhl-wiggle 0.4s ease" } : undefined}
+      >
+        {SENSE_FRIENDS.map((f) => (
+          <Friend
+            key={f.id}
+            emoji={f.emoji}
+            label={f.id}
+            active={active === f.id}
+            onTap={() => tap(f.id)}
           />
-        </div>
+        ))}
       </div>
-    </section>
-  );
-}
+      <div className="mt-6 text-center">
+        {!finished ? (
+          <>
+            <p className="font-display text-3xl">{SENSE_FIND_ROUNDS[round].ask}</p>
+            <button
+              type="button"
+              onClick={() => say(SENSE_FIND_ROUNDS[round].ask)}
+              className={cn(BIG, "mt-3 bg-card px-6 text-2xl")}
+            >
+              🔊 Say it again
+            </button>
+          </>
+        ) : (
+          <>
+            <p className="font-display text-3xl">Sense friends, all met! 🎉</p>
+            <button
+              type="button"
+              onClick={() => setRound(0)}
+              className={cn(BIG, "mt-3 bg-card px-6 text-xl")}
+            >
+              Play again
+            </button>
+          </>
+        )}
+      </div>
 
-/* ---------------- C. The Five Senses ---------------- */
-
-function PupilDemo() {
-  const [light, setLight] = useState(30);
-  const pupil = 8 + (1 - light / 100) * 26;
-  return (
-    <Panel>
-      <p className="font-display text-xl">Pupil demo: change the light</p>
-      <div className="mt-3 flex flex-col items-center gap-3 sm:flex-row sm:items-center">
+      <div className="mx-auto mt-8 max-w-sm rounded-3xl border-4 border-foreground bg-card p-4 text-center">
+        <p className="text-xl font-black">Pupil friend 👀</p>
         <svg
           viewBox="0 0 120 120"
-          className="h-36 w-36 shrink-0"
+          className="mx-auto mt-2 h-32 w-32"
           role="img"
-          aria-label={`Pupil size ${Math.round(pupil)} units`}
+          aria-label={bright ? "Small pupil in bright light" : "Big pupil in the dark"}
         >
           <circle cx="60" cy="60" r="54" fill="#f6f1e7" stroke={INK} strokeWidth="2" />
           <circle cx="60" cy="60" r="40" fill="#4a7fb0" />
-          <circle cx="60" cy="60" r={pupil} fill="#1b1b1b" />
+          <circle
+            cx="60"
+            cy="60"
+            r={bright ? 10 : 30}
+            fill="#1b1b1b"
+            style={{ transition: "r 0.8s ease" }}
+          />
         </svg>
-        <div className="w-full">
-          <label htmlFor="light" className="block text-lg font-black">
-            Light level: {light < 35 ? "dim" : light > 70 ? "bright" : "medium"}
-          </label>
-          <input
-            id="light"
-            type="range"
-            min={0}
-            max={100}
-            value={light}
-            onChange={(e) => setLight(Number(e.target.value))}
-            className="mt-2 h-12 w-full"
-          />
-          <p className="mt-2 text-base font-bold">
-            In dim light the pupil opens wider to let in more light. In bright light it gets smaller
-            so less light gets in.
-          </p>
+        <div className="mt-3 flex justify-center gap-3">
+          <button
+            type="button"
+            onClick={() => {
+              setBright(true);
+              say("Bright light! The pupil gets small.");
+            }}
+            className={cn(BIG, "bg-yellow-200 px-4 text-lg")}
+          >
+            ☀️ Bright
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setBright(false);
+              say("Dark room! The pupil gets big.");
+            }}
+            className={cn(BIG, "bg-card px-4 text-lg")}
+          >
+            🌙 Dark
+          </button>
         </div>
       </div>
-    </Panel>
+      <GrownUp text={SENSE_FRIENDS.map((f) => f.grownUp).join(" ")} />
+    </Shell>
   );
 }
 
-function FiveSenses({
+/* ---------------- Knee Kick: a reflex and a choice ---------------- */
+
+function KneeKick({
+  stars,
+  onStar,
   onBack,
-  markDone,
 }: {
+  stars: number;
+  onStar: () => void;
   onBack: () => void;
-  markDone: (id: ChallengeId) => void;
 }) {
-  const [idx, setIdx] = useState(0);
-  const [mode, setMode] = useState<"discover" | "investigate">("discover");
-  const [openStructure, setOpenStructure] = useState<number | null>(null);
-  const [scenario, setScenario] = useState(0);
-  const station = SENSE_STATIONS[idx];
-
-  const choose = (i: number) => {
-    setIdx(i);
-    setMode("discover");
-    setOpenStructure(null);
-    say(SENSE_STATIONS[i].narration);
-  };
-
-  const sc = SENSE_SCENARIOS[scenario];
-  const scenarioStation = SENSE_STATIONS.find((s) => s.id === sc.sense)!;
-  const scenarioChoice = rotateOptions(
-    scenarioStation.name,
-    SENSE_STATIONS.filter((s) => s.id !== sc.sense)
-      .slice(0, 2)
-      .map((s) => s.name),
-    scenario,
-  );
+  const [kick, setKick] = useState(0);
+  const [wave, setWave] = useState(0);
 
   return (
-    <section className="mx-auto min-h-dvh w-full max-w-5xl px-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[max(3.75rem,env(safe-area-inset-top))] sm:px-6">
-      <Header title="The Five Senses" backLabel="Investigations" onBack={onBack} />
-      <div className="mt-5 flex flex-wrap gap-2" role="tablist" aria-label="Senses">
-        {SENSE_STATIONS.map((s, i) => (
-          <Pill key={s.id} active={idx === i} onClick={() => choose(i)}>
-            {s.emoji} {s.name}
-          </Pill>
-        ))}
-      </div>
-
-      <div className="mt-5 grid gap-4 md:grid-cols-2">
-        <div className="space-y-3">
-          {station.id === "vision" && <PupilDemo />}
-          <Placeholder file={`brain-senses/senses-${station.id}.webp`} />
-          <Panel>
-            <div className="flex flex-wrap gap-2">
-              <Pill active={mode === "discover"} onClick={() => setMode("discover")}>
-                Discover
-              </Pill>
-              <Pill active={mode === "investigate"} onClick={() => setMode("investigate")}>
-                Investigate
-              </Pill>
-            </div>
-            <h3 className="mt-4 font-display text-2xl">{station.name}</h3>
-            <p className="mt-2 text-lg font-bold leading-relaxed">
-              {mode === "discover" ? station.discover : station.investigate}
-            </p>
-            <div className="mt-3">
-              <HearButton text={mode === "discover" ? station.discover : station.investigate} />
-            </div>
-          </Panel>
-        </div>
-
-        <div className="space-y-3">
-          <Panel>
-            <p className="font-display text-xl">Tap a part to explore</p>
-            <div className="mt-3 grid gap-2">
-              {station.structures.map((s, i) => (
-                <button
-                  key={s.name}
-                  type="button"
-                  onClick={() => setOpenStructure(openStructure === i ? null : i)}
-                  aria-expanded={openStructure === i}
-                  className={cn(
-                    "min-h-[52px] rounded-2xl border-2 px-4 py-2 text-left text-lg font-black",
-                    openStructure === i
-                      ? "border-foreground bg-muted/50"
-                      : "border-foreground/40 bg-card",
-                  )}
-                >
-                  {s.name}
-                  {openStructure === i && (
-                    <span className="mt-1 block text-base font-bold">{s.text}</span>
-                  )}
-                </button>
-              ))}
-            </div>
-          </Panel>
-
-          <QuizCard
-            key={station.id}
-            prompt={station.question.prompt}
-            choice={station.question.choice}
-            explanation={station.question.explanation}
-            onRight={() => markDone(`senses-${station.id}` as ChallengeId)}
+    <Shell title="Knee Kick" onBack={onBack} stars={stars}>
+      <div className="mx-auto max-w-sm rounded-3xl border-4 border-foreground bg-card p-4">
+        <svg
+          viewBox="0 0 300 300"
+          className="mx-auto h-auto w-full"
+          role="img"
+          aria-label="A leg picture"
+        >
+          <rect x="0" y="0" width="300" height="300" rx="24" fill={BODY_BACKDROP} />
+          {/* arm (rotates when you wave) */}
+          <g
+            style={{
+              transformOrigin: "220px 70px",
+              transformBox: "view-box",
+              transform: `rotate(${wave % 2 ? -70 : 0}deg)`,
+              transition: "transform 0.6s ease",
+            }}
+          >
+            <line
+              x1="220"
+              y1="70"
+              x2="220"
+              y2="150"
+              stroke="#2f7f86"
+              strokeWidth="22"
+              strokeLinecap="round"
+            />
+          </g>
+          <line
+            x1="150"
+            y1="30"
+            x2="150"
+            y2="150"
+            stroke={INK}
+            strokeWidth="22"
+            strokeLinecap="round"
           />
-
-          <Panel>
-            <p className="font-display text-xl">Challenge: which sense is it?</p>
-            <p className="mt-2 text-lg font-bold">{sc.scenario}</p>
-            <div className="mt-2">
-              <QuizCard
-                key={`scenario-${scenario}`}
-                prompt="Which sense picks this up?"
-                choice={scenarioChoice}
-                explanation={`${scenarioStation.name} picks this up.`}
-                onRight={() => {
-                  if (scenario === SENSE_SCENARIOS.length - 1) markDone("senses-identify");
-                }}
-              />
-            </div>
-            <button
-              type="button"
-              onClick={() => setScenario((s) => (s + 1) % SENSE_SCENARIOS.length)}
-              className="mt-2 inline-flex min-h-[48px] items-center gap-2 rounded-2xl border-2 border-foreground/40 px-4 font-black"
-            >
-              Next example <ChevronRight className="h-5 w-5" />
-            </button>
-          </Panel>
-        </div>
+          <g
+            key={kick}
+            style={
+              kick
+                ? {
+                    animation: "bhl-kick 0.7s ease",
+                    transformBox: "view-box",
+                    transformOrigin: "150px 150px",
+                  }
+                : undefined
+            }
+          >
+            <line
+              x1="150"
+              y1="150"
+              x2="150"
+              y2="270"
+              stroke={INK}
+              strokeWidth="22"
+              strokeLinecap="round"
+            />
+          </g>
+          <circle cx="150" cy="150" r="12" fill="#e86f74" stroke={INK} strokeWidth="2" />
+        </svg>
       </div>
-    </section>
+      <div className="mt-6 grid grid-cols-2 gap-4">
+        <button
+          type="button"
+          onClick={() => {
+            setKick((k) => k + 1);
+            sfx("pop");
+            say(KNEE_SAY);
+            onStar();
+          }}
+          className={cn(BIG, "min-h-[120px] bg-card text-2xl")}
+        >
+          <span className="block text-5xl">🦵</span>
+          Tap the knee!
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setWave((w) => w + 1);
+            sfx("chime");
+            say(WAVE_SAY);
+            onStar();
+          }}
+          className={cn(BIG, "min-h-[120px] bg-card text-2xl")}
+        >
+          <span className="block text-5xl">👋</span>
+          Wave hello!
+        </button>
+      </div>
+      <GrownUp text={KNEE_NOTE} />
+    </Shell>
   );
 }
 
-/* ---------------- D. Reflex Lab ---------------- */
+/* ---------------- Copy Me: listen, then copy ---------------- */
 
-function ReflexLab({
+let noteCtx: AudioContext | null = null;
+function playNote(freq: number) {
+  try {
+    noteCtx ??= new AudioContext();
+    const c = noteCtx;
+    const o = c.createOscillator();
+    const g = c.createGain();
+    o.type = "triangle";
+    o.frequency.value = freq;
+    g.gain.setValueAtTime(0.0001, c.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.15, c.currentTime + 0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001, c.currentTime + 0.5);
+    o.connect(g).connect(c.destination);
+    o.start();
+    o.stop(c.currentTime + 0.55);
+  } catch {
+    /* audio unavailable */
+  }
+}
+
+function CopyMe({
+  stars,
+  onStar,
   onBack,
-  markDone,
 }: {
+  stars: number;
+  onStar: () => void;
   onBack: () => void;
-  markDone: (id: ChallengeId) => void;
 }) {
-  const [step, setStep] = useState(0);
-  const [answers, setAnswers] = useState<Record<number, boolean | null>>({});
-  const kicked = step >= 3;
-  const lowerAngle = kicked ? 28 : 0;
-
-  const answer = (i: number, automatic: boolean) => {
-    const correct = REFLEX_COMPARE[i].automatic === automatic;
-    setAnswers((a) => {
-      const next = { ...a, [i]: correct };
-      if (REFLEX_COMPARE.every((_, k) => next[k] === true)) markDone("reflex-compare");
-      return next;
-    });
-  };
-
-  return (
-    <section className="mx-auto min-h-dvh w-full max-w-5xl px-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[max(3.75rem,env(safe-area-inset-top))] sm:px-6">
-      <Header title="Reflex Lab" backLabel="Investigations" onBack={onBack} />
-      <div className="mt-5 grid gap-4 md:grid-cols-2">
-        <div className="space-y-3">
-          <Panel>
-            <svg
-              viewBox="0 0 300 300"
-              className="mx-auto h-auto w-full max-w-[280px]"
-              role="img"
-              aria-label={`Simulated knee reflex, step ${step} of 4`}
-            >
-              <rect x="0" y="0" width="300" height="300" rx="24" fill={BODY_BACKDROP} />
-              <line
-                x1="150"
-                y1="30"
-                x2="150"
-                y2="150"
-                stroke={INK}
-                strokeWidth="18"
-                strokeLinecap="round"
-              />
-              <g
-                style={{
-                  transform: `rotate(${lowerAngle}deg)`,
-                  transformOrigin: "150px 150px",
-                  transition: "transform 450ms ease",
-                }}
-              >
-                <line
-                  x1="150"
-                  y1="150"
-                  x2="150"
-                  y2="268"
-                  stroke={INK}
-                  strokeWidth="18"
-                  strokeLinecap="round"
-                />
-              </g>
-              <circle cx="150" cy="150" r="10" fill="#e86f74" stroke={INK} strokeWidth="2" />
-              {step >= 2 && (
-                <circle cx="150" cy="90" r="14" fill="#fff200" stroke={INK} strokeWidth="2" />
-              )}
-              {step >= 1 && (
-                <text x="170" y="95" fontSize="16" fontWeight="800" fill={INK}>
-                  spinal cord
-                </text>
-              )}
-              {step >= 1 && (
-                <text x="160" y="150" fontSize="14" fontWeight="800" fill={INK}>
-                  knee
-                </text>
-              )}
-            </svg>
-          </Panel>
-          <div className="flex flex-wrap gap-2">
-            <button
-              type="button"
-              onClick={() => setStep((s) => Math.min(4, s + 1))}
-              disabled={step >= 4}
-              className="inline-flex min-h-[52px] items-center gap-2 rounded-2xl border-2 border-foreground bg-foreground px-4 font-black text-background disabled:opacity-40"
-            >
-              Simulate the tap
-            </button>
-            <button
-              type="button"
-              onClick={() => setStep(0)}
-              className="inline-flex min-h-[52px] items-center gap-2 rounded-2xl border-2 border-foreground/40 px-4 font-black"
-            >
-              <RotateCcw className="h-5 w-5" /> Reset
-            </button>
-          </div>
-          <Panel>
-            <p className="text-sm font-black uppercase text-muted-foreground">
-              {step === 0 ? "Press the button to start" : `Step ${step} of 4`}
-            </p>
-            {step > 0 && (
-              <>
-                <h3 className="mt-1 font-display text-2xl">{REFLEX_STEPS[step - 1].title}</h3>
-                <p className="mt-2 text-lg font-bold leading-relaxed">
-                  {REFLEX_STEPS[step - 1].text}
-                </p>
-              </>
-            )}
-          </Panel>
-          <p className="rounded-2xl bg-muted/50 p-3 text-base font-bold">{REFLEX_NOTE}</p>
-        </div>
-
-        <div className="space-y-3">
-          <Panel>
-            <p className="font-display text-xl">Challenge: automatic or a choice?</p>
-            <div className="mt-3 space-y-3">
-              {REFLEX_COMPARE.map((c, i) => {
-                const a = answers[i];
-                return (
-                  <div key={c.action} className="rounded-2xl border-2 border-foreground/30 p-3">
-                    <p className="text-lg font-black">{c.action}</p>
-                    <div className="mt-2 flex flex-wrap gap-2">
-                      <button
-                        type="button"
-                        onClick={() => answer(i, true)}
-                        className={cn(
-                          "min-h-[48px] rounded-2xl border-2 px-4 font-black",
-                          a === true &&
-                            REFLEX_COMPARE[i].automatic &&
-                            "border-emerald-700 bg-emerald-100",
-                          "border-foreground/40",
-                        )}
-                      >
-                        Automatic
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => answer(i, false)}
-                        className={cn(
-                          "min-h-[48px] rounded-2xl border-2 px-4 font-black",
-                          a === true &&
-                            !REFLEX_COMPARE[i].automatic &&
-                            "border-emerald-700 bg-emerald-100",
-                          "border-foreground/40",
-                        )}
-                      >
-                        A choice
-                      </button>
-                    </div>
-                    {a !== undefined && (
-                      <p aria-live="polite" className="mt-2 text-base font-bold">
-                        {a
-                          ? `Yes. ${c.why}`
-                          : "Not quite. Think about whether you could choose to stop it."}
-                      </p>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </Panel>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---------------- E. Memory and Learning ---------------- */
-
-const TILE_COLOURS = [
-  "#e86f74",
-  "#f4a340",
-  "#fff200",
-  "#3fa35b",
-  "#4a7fb0",
-  "#7b4fb8",
-  "#e86fb0",
-  "#2f7f86",
-  "#c97f57",
-];
-
-function PatternMemory({
-  onAttempt,
-  markDone,
-}: {
-  onAttempt: (length: number, ok: boolean) => void;
-  markDone: (id: ChallengeId) => void;
-}) {
-  const [length, setLength] = useState(3);
+  const [length, setLength] = useState(2);
   const [seed, setSeed] = useState(1);
-  const [phase, setPhase] = useState<"idle" | "show" | "input" | "ok" | "wrong">("idle");
-  const [showIdx, setShowIdx] = useState(0);
+  const [phase, setPhase] = useState<"listen" | "copy" | "yes" | "oops">("listen");
+  const [showIdx, setShowIdx] = useState(-1);
   const [input, setInput] = useState<number[]>([]);
-  const pattern = makePattern(length, seed);
+  const [flash, setFlash] = useState<number | null>(null);
+  const seq = useMemo(() => makeSequence(length, seed), [length, seed]);
 
-  // Light each tile in turn, then hand over to the child.
+  // Light and sound each pad in turn while listening.
   useEffect(() => {
-    if (phase !== "show") return;
-    if (showIdx >= pattern.length) {
-      setPhase("input");
-      return;
+    if (phase !== "listen") return;
+    if (showIdx < 0) {
+      const t = setTimeout(() => setShowIdx(0), 600);
+      return () => clearTimeout(t);
     }
-    const t = setTimeout(() => setShowIdx((i) => i + 1), 700);
+    if (showIdx >= seq.length) {
+      const t = setTimeout(() => {
+        setFlash(null);
+        setPhase("copy");
+        say("Your turn! Copy me.");
+      }, 500);
+      return () => clearTimeout(t);
+    }
+    setFlash(seq[showIdx]);
+    playNote(PADS[seq[showIdx]].freq);
+    const t = setTimeout(() => {
+      setFlash(null);
+      setShowIdx((i) => i + 1);
+    }, 700);
     return () => clearTimeout(t);
-  }, [phase, showIdx, pattern.length]);
+  }, [phase, showIdx, seq]);
 
-  const lit = phase === "show" && showIdx < pattern.length ? pattern[showIdx] : null;
-
-  const start = (newSeed: boolean) => {
-    if (newSeed) setSeed((s) => s + 1);
+  const listen = (nextSeed: number, len: number) => {
+    setSeed(nextSeed);
+    setLength(len);
     setInput([]);
-    setShowIdx(0);
-    setPhase("show");
+    setShowIdx(-1);
+    setPhase("listen");
+    say("Listen carefully!");
   };
 
   const tap = (i: number) => {
-    if (phase !== "input") return;
+    if (phase !== "copy") return;
+    playNote(PADS[i].freq);
+    setFlash(i);
+    setTimeout(() => setFlash(null), 250);
     const next = [...input, i];
     setInput(next);
-    if (next.length === pattern.length) {
-      const ok = patternMatches(pattern, next);
-      setPhase(ok ? "ok" : "wrong");
-      onAttempt(length, ok);
-      if (ok) {
-        say("You remembered the whole pattern. Mistakes help learning too, so keep practising.");
-        if (length >= 4) markDone("memory-pattern");
+    if (next.length === seq.length) {
+      if (sequenceMatches(seq, next)) {
+        setPhase("yes");
+        onStar();
+        sfx("yay");
+        say("You did it! Super copying!");
+        setTimeout(() => listen(seed + 1, Math.min(4, length + 1)), 1800);
+      } else {
+        setPhase("oops");
+        say("Oops! Let's listen again.");
+        setTimeout(() => listen(seed, length), 1800);
       }
     }
   };
 
   const message =
-    phase === "show"
-      ? "Watch the tiles light up in order."
-      : phase === "input"
-        ? `Tap the tiles in the same order. ${input.length} of ${pattern.length} so far.`
-        : phase === "ok"
-          ? "You remembered the whole pattern! Try a longer one."
-          : phase === "wrong"
-            ? "Not this time, and that is part of learning. Watch it again and try once more."
-            : "Press start to see a pattern.";
+    phase === "listen"
+      ? "Listen and watch!"
+      : phase === "copy"
+        ? "Your turn! Tap the colours."
+        : phase === "yes"
+          ? "Yes! 🎉"
+          : "Oops! Let's try again.";
 
   return (
-    <Panel>
-      <p className="font-display text-xl">Pattern Memory</p>
-      <p className="mt-1 text-lg font-bold" aria-live="polite">
+    <Shell title="Copy Me" onBack={onBack} stars={stars}>
+      <p className="text-center text-2xl font-black" aria-live="polite">
         {message}
       </p>
-      <div
-        className="mx-auto mt-4 grid max-w-[300px] grid-cols-3 gap-2"
-        role="group"
-        aria-label="Pattern tiles"
-      >
-        {Array.from({ length: 9 }).map((_, i) => (
+      <div className="mx-auto mt-5 grid max-w-sm grid-cols-2 gap-4">
+        {PADS.map((p, i) => (
           <button
-            key={i}
+            key={p.name}
             type="button"
+            aria-label={p.name}
             onClick={() => tap(i)}
-            disabled={phase !== "input"}
-            aria-label={`Tile ${i + 1}`}
-            className="aspect-square min-h-[64px] rounded-2xl border-2 border-foreground motion-safe:transition-opacity disabled:cursor-default"
+            disabled={phase !== "copy"}
+            className="aspect-square min-h-[120px] rounded-3xl border-4 border-foreground motion-safe:transition-transform active:scale-95 disabled:cursor-default"
             style={{
-              background: TILE_COLOURS[i],
-              opacity: lit === i ? 1 : phase === "show" ? 0.25 : 0.7,
+              background: p.colour,
+              filter: flash === i ? "brightness(1.35)" : "none",
+              transform: flash === i ? "scale(1.06)" : "scale(1)",
             }}
           />
         ))}
       </div>
-      <div className="mt-4 flex flex-wrap gap-2">
-        {(phase === "idle" || phase === "ok") && (
+      {phase === "listen" && showIdx < 0 && (
+        <div className="mt-6 text-center">
           <button
             type="button"
-            onClick={() => {
-              if (phase === "ok") setLength((l) => Math.min(6, l + 1));
-              start(true);
-            }}
-            className="min-h-[52px] rounded-2xl border-2 border-foreground bg-foreground px-4 font-black text-background"
+            onClick={() => listen(seed, length)}
+            className={cn(BIG, "bg-card px-6 text-xl")}
           >
-            {phase === "ok" ? "Next, a longer pattern" : "Start"}
+            Start
           </button>
-        )}
-        {phase === "wrong" && (
-          <button
-            type="button"
-            onClick={() => start(false)}
-            className="min-h-[52px] rounded-2xl border-2 border-foreground bg-foreground px-4 font-black text-background"
-          >
-            Watch it again
-          </button>
-        )}
-        <p className="self-center text-sm font-bold text-muted-foreground">
-          Pattern length: {length}
-        </p>
-      </div>
-    </Panel>
-  );
-}
-
-function ObservationMemory({ markDone }: { markDone: (id: ChallengeId) => void }) {
-  const [round, setRound] = useState(0);
-  const [phase, setPhase] = useState<"look" | "ask">("look");
-  const scene = OBSERVATION_ITEMS.filter((_, i) => (i + round) % 3 !== 0).slice(0, 5);
-
-  useEffect(() => {
-    if (phase !== "look") return;
-    const t = setTimeout(() => setPhase("ask"), 6000);
-    return () => clearTimeout(t);
-  }, [phase, round]);
-
-  const q = observationQuestion(scene, round);
-
-  return (
-    <div className="space-y-3">
-      <Panel>
-        <p className="font-display text-xl">Observation Memory</p>
-        {phase === "look" ? (
-          <>
-            <p className="mt-1 text-lg font-bold">Look carefully. It will hide in a few seconds.</p>
-            <div
-              className="mt-3 flex flex-wrap justify-center gap-3 text-5xl"
-              role="img"
-              aria-label="Scene to remember"
-            >
-              {scene.map((s, i) => (
-                <span key={i}>{s}</span>
-              ))}
-            </div>
-            <button
-              type="button"
-              onClick={() => setPhase("ask")}
-              className="mt-4 min-h-[48px] rounded-2xl border-2 border-foreground px-4 font-black"
-            >
-              Hide the scene
-            </button>
-          </>
-        ) : (
-          <p className="mt-1 text-lg font-bold">The scene is hidden. Which one was in it?</p>
-        )}
-      </Panel>
-      {phase === "ask" && (
-        <QuizCard
-          key={round}
-          prompt="Which of these was in the scene?"
-          choice={{ options: q.options, correctIndex: q.correctIndex }}
-          explanation={`Yes, ${q.answer} was in the scene.`}
-          hint="Try to picture the scene. Which item stood out?"
-          onRight={() => markDone("memory-observation")}
-        />
-      )}
-      {phase === "ask" && (
-        <button
-          type="button"
-          onClick={() => {
-            setRound((r) => r + 1);
-            setPhase("look");
-          }}
-          className="inline-flex min-h-[48px] items-center gap-2 rounded-2xl border-2 border-foreground/40 px-4 font-black"
-        >
-          New scene <ChevronRight className="h-5 w-5" />
-        </button>
-      )}
-    </div>
-  );
-}
-
-function MemoryLab({
-  onBack,
-  markDone,
-}: {
-  onBack: () => void;
-  markDone: (id: ChallengeId) => void;
-}) {
-  const [tab, setTab] = useState<"pattern" | "observation" | "practice">("pattern");
-  const [attempts, setAttempts] = useState<{ length: number; ok: boolean }[]>([]);
-
-  return (
-    <section className="mx-auto min-h-dvh w-full max-w-5xl px-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[max(3.75rem,env(safe-area-inset-top))] sm:px-6">
-      <Header title="Memory and Learning" backLabel="Investigations" onBack={onBack} />
-      <div className="mt-5 flex flex-wrap gap-2">
-        <Pill active={tab === "pattern"} onClick={() => setTab("pattern")}>
-          Pattern Memory
-        </Pill>
-        <Pill active={tab === "observation"} onClick={() => setTab("observation")}>
-          Observation Memory
-        </Pill>
-        <Pill active={tab === "practice"} onClick={() => setTab("practice")}>
-          Practice Changes Performance
-        </Pill>
-      </div>
-      <div className="mt-5 grid gap-4 md:grid-cols-2">
-        <div className="space-y-3">
-          {tab === "pattern" && (
-            <PatternMemory
-              onAttempt={(length, ok) => setAttempts((a) => [...a, { length, ok }])}
-              markDone={markDone}
-            />
-          )}
-          {tab === "observation" && <ObservationMemory markDone={markDone} />}
-          {tab === "practice" && (
-            <Panel>
-              <p className="font-display text-xl">Practice Changes Performance</p>
-              <p className="mt-2 text-lg font-bold">
-                Each try is practice. Your results can change as you practise, and this is a normal
-                part of learning.
-              </p>
-              <p className="mt-2 text-base font-bold text-muted-foreground">
-                These notes show your own practice. They do not measure intelligence.
-              </p>
-            </Panel>
-          )}
         </div>
-        <div className="space-y-3">
-          <Panel>
-            <p className="font-display text-xl">Things to know about memory</p>
-            <ul className="mt-3 space-y-2 text-base font-bold leading-relaxed">
-              {MEMORY_FACTS.map((f) => (
-                <li key={f}>• {f}</li>
-              ))}
-            </ul>
-          </Panel>
-          {tab === "practice" && (
-            <Panel>
-              <p className="font-black">Your Pattern Memory tries</p>
-              {attempts.length === 0 ? (
-                <p className="mt-2 text-base font-bold text-muted-foreground">
-                  Try a pattern first, then come back here to compare.
-                </p>
-              ) : (
-                <ol className="mt-2 space-y-1 text-base font-bold">
-                  {attempts.map((a, i) => (
-                    <li key={i}>
-                      Try {i + 1}: length {a.length} {a.ok ? "remembered" : "not this time"}
-                    </li>
-                  ))}
-                </ol>
-              )}
-              {attempts.length > 0 && (
-                <button
-                  type="button"
-                  onClick={() => setAttempts([])}
-                  className="mt-3 inline-flex min-h-[44px] items-center gap-2 font-black underline"
-                >
-                  <RotateCcw className="h-4 w-4" /> Clear these notes
-                </button>
-              )}
-            </Panel>
-          )}
-        </div>
-      </div>
-    </section>
+      )}
+      <GrownUp text={MEMORY_NOTE} />
+    </Shell>
   );
 }
