@@ -1,4 +1,5 @@
 import { arabicWorldAudio } from "@/data/arabicWorldAudio";
+import { phraseClipFor } from "@/lib/phraseVoice";
 
 let currentAudio: HTMLAudioElement | null = null;
 let requestId = 0;
@@ -77,8 +78,11 @@ export function speakArabic(text: string, preferredUrl?: string): Promise<void> 
       } else end();
     };
 
-    const mappedUrl = audioKeyVariants(text).map((key) => arabicWorldAudio[key]).find(Boolean);
-    const url = preferredUrl || mappedUrl;
+    // Old Lovable CDN links (/__l5e/…) don't exist on Vercel, so skip them instead of waiting for an error.
+    const usable = (u?: string) => (u && !u.startsWith("/__l5e/") ? u : undefined);
+    // A working game-specific clip wins; then Farah's shared phrase library; then older Arabic World clips.
+    const mappedUrl = phraseClipFor(text) ?? audioKeyVariants(text).map((key) => usable(arabicWorldAudio[key])).find(Boolean);
+    const url = usable(preferredUrl) || mappedUrl;
     if (url) {
       const audio = new Audio(url);
       currentAudio = audio;
