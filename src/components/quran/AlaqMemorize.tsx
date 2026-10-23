@@ -3,6 +3,11 @@ import { Check, Lightbulb, Mic, RotateCcw, Square, Volume2 } from "lucide-react"
 import { GameButton } from "@/components/game/GameButton";
 import { GameShell } from "@/components/learn/shared";
 import { surahs as juz30, type SurahData, type SurahVerse } from "@/data/surahs";
+import { juz23Surahs } from "@/data/surahsJuz23";
+import { juz24Surahs } from "@/data/surahsJuz24";
+import { juz25Surahs } from "@/data/surahsJuz25";
+import { juz26Surahs } from "@/data/surahsJuz26";
+import { automaticMemorization } from "@/lib/quranMemorization";
 import { cn } from "@/lib/utils";
 import { Block } from "@/components/building/BuildingWorld";
 import hamadCelebrating from "@/assets/building/hamad-celebrating.png";
@@ -33,16 +38,11 @@ export const MEMORIZE: Record<string, MemorizeSetup> = {
   },
 };
 
-/** Every other Juz 30 surah gets the same game with automatic groups of ~3–4 ayahs.
+/** Juz 23–26 and Juz 30 share the existing automatic small-group game.
  *  Al-Bayyinah keeps its own memorize setup (SurahMemorize, routed in index.tsx), so it is skipped here. */
-for (const s of juz30) {
+for (const s of [...juz30, ...juz23Surahs, ...juz24Surahs, ...juz25Surahs, ...juz26Surahs]) {
   if (MEMORIZE[s.id] || s.id === "bayyinah") continue;
-  const n = s.verses.length;
-  const size = n <= 5 ? n <= 3 ? n : Math.ceil(n / 2) : n <= 12 ? 3 : 4;
-  const pairs: Array<[number, number]> = [];
-  for (let from = 1; from <= n; from += size) pairs.push([from, Math.min(n, from + size - 1)]);
-  const short = s.name.replace(/^Surah /, "");
-  MEMORIZE[s.id] = { groups: g(pairs), key: `${s.id}-memorize-v1`, ayahKey: `${s.id}-memorize-ayahs-v1`, title: `Memorize ${short}`, done: `You memorized Surat ${short}!` };
+  MEMORIZE[s.id] = automaticMemorization(s);
 }
 /** 0 = Learn (unchanged). 1–4 = 🧠 Memorize levels with decreasing text support. */
 const LEVELS = [
