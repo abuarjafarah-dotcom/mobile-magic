@@ -128,14 +128,14 @@ export function NooraniWorld({ onExit }: { onExit: () => void }) {
       <div className="mt-6 min-[960px]:grid min-[960px]:grid-cols-[1fr_24rem] min-[960px]:gap-6">
         <div>
           {nooraniUnits.map((unit) => (
-            <div key={unit.id}>
-              <div className="flex items-baseline justify-between gap-2" dir="rtl">
-                <Ar className="text-2xl font-black">{unit.ar}</Ar>
+            <div key={unit.id} className="mt-8 first:mt-0">
+              <div className="flex flex-wrap items-baseline justify-between gap-x-2 gap-y-1" dir="rtl">
+                <Ar className="text-2xl font-black leading-[1.7]">{unit.ar}</Ar>
                 <span className="text-xs font-bold text-muted-foreground">
                   Level {unit.level} · Qaida lesson {unit.source.lesson}
                 </span>
               </div>
-              <div dir="rtl" className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
+              <div dir="rtl" className="mt-3 flex flex-wrap justify-center gap-3">
                 {unit.skills.map((s, i) => {
                   const m = skillMastery(me, s);
                   return (
@@ -143,13 +143,13 @@ export function NooraniWorld({ onExit }: { onExit: () => void }) {
                       key={s.id}
                       onClick={() => setOpen({ unit, skill: s })}
                       className={cn(
-                        "flex min-h-36 flex-col items-center justify-center gap-1 rounded-[2rem] border-4 border-card bg-gradient-to-b to-card p-3 shadow-[0_6px_0_var(--neutral-shadow)] transition-transform active:translate-y-1 active:shadow-none",
+                        "flex min-h-36 w-[calc(50%-0.375rem)] flex-col items-center justify-center gap-1 rounded-[2rem] border-4 border-card bg-gradient-to-b to-card p-3 shadow-[0_6px_0_var(--neutral-shadow)] transition-transform active:translate-y-1 active:shadow-none sm:w-[calc(33.333%-0.5rem)]",
                         STONE_TINTS[i % STONE_TINTS.length],
                         open?.skill.id === s.id && "ring-4 ring-primary",
                       )}
                       aria-label={`${s.en} — ${m}`}
                     >
-                      <Glyph className="whitespace-nowrap text-[1.7rem] leading-tight sm:text-3xl">
+                      <Glyph className="max-w-full whitespace-nowrap text-[1.3rem] leading-tight sm:text-3xl">
                         {s.ar}
                       </Glyph>
                       <Stars value={MASTERY_STARS[m]} />
