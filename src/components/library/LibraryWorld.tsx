@@ -1,8 +1,11 @@
 import { useEffect, useState, type FormEvent } from "react";
-import { ArrowLeft, BookOpen, Lock } from "lucide-react";
-import { LIBRARY_BOOKS } from "@/data/library";
+import { ArrowLeft, BookOpen, Lock, Plus } from "lucide-react";
+import { LIBRARY_BOOKS, type LibraryBook } from "@/data/library";
+import { fetchUploadedBooks, libraryUploadsEnabled, uploadBook } from "@/lib/libraryBooks";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 // Only a salted SHA-256 hash of the password is stored here, never the password itself.
 const SALT = "990e308b1535e0f0df03ede680480f7a";
@@ -109,32 +112,180 @@ function LibraryGate({ onExit, onUnlocked }: { onExit: () => void; onUnlocked: (
 }
 
 function Shelf({ onExit }: { onExit: () => void }) {
+  const [uploaded, setUploaded] = useState<LibraryBook[]>([]);
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const [adding, setAdding] = useState(false);
+  const uploadsOn = libraryUploadsEnabled();
+
+  useEffect(() => {
+    let cancelled = false;
+    fetchUploadedBooks()
+      .then((books) => {
+        if (!cancelled) setUploaded(books);
+      })
+      .catch(() => {
+        if (!cancelled) setLoadError("Uploaded books could not be loaded right now.");
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const books = [...LIBRARY_BOOKS, ...uploaded];
+
   return (
     <section className="mx-auto flex min-h-dvh w-full max-w-lg flex-col px-4 pb-[max(2rem,env(safe-area-inset-bottom))] pt-[max(1rem,env(safe-area-inset-top))] sm:px-6 min-[960px]:max-w-6xl">
-      <Header onExit={onExit} />
+      <div className="flex items-center justify-between">
+        <Header onExit={onExit} />
+        <Button
+          onClick={() => setAdding(true)}
+          disabled={!uploadsOn}
+          aria-label="Add a PDF to the shelf"
+          title={uploadsOn ? "Add a PDF" : "Uploads are not set up yet"}
+          className="h-12 w-12 rounded-full p-0 text-2xl font-black"
+        >
+          <Plus className="h-6 w-6" />
+        </Button>
+      </div>
       <header className="mt-4 text-center">
         <p className="text-sm font-black uppercase text-muted-foreground">Our shelf</p>
         <h1 className="mt-1 text-3xl font-black leading-tight sm:text-4xl">Library</h1>
       </header>
-      {LIBRARY_BOOKS.length === 0 ? (
+      {loadError && <p role="alert" className="mt-4 text-center text-sm font-bold text-destructive">{loadError}</p>}
+      {books.length === 0 ? (
         <div className="mt-8 rounded-3xl border-2 border-dashed border-border p-8 text-center">
           <BookOpen className="mx-auto h-10 w-10 text-muted-foreground" />
           <p className="mt-3 font-black">The shelf is empty.</p>
-          <p className="mt-1 text-sm font-bold text-muted-foreground">Books will appear here once they are added.</p>
+          <p className="mt-1 text-sm font-bold text-muted-foreground">Tap + to add a PDF.</p>
         </div>
       ) : (
         <ul className="mt-6 grid grid-cols-2 gap-3 min-[960px]:grid-cols-4 min-[960px]:gap-4">
-          {LIBRARY_BOOKS.map((book) => (
-            <li key={book.id} className={`rounded-3xl p-4 shadow-sm ${TONE[book.tone]}`}>
-              <BookOpen className="h-8 w-8" />
-              <h2 className="mt-3 text-lg font-black leading-tight">{book.title}</h2>
-              {book.author && <p className="text-sm font-bold text-muted-foreground">{book.author}</p>}
-              <p className="mt-2 text-sm font-bold">{book.blurb}</p>
-            </li>
-          ))}
+          {books.map((book) => {
+            const body = (
+              <>
+                <BookOpen className="h-8 w-8" />
+                <h2 className="mt-3 text-lg font-black leading-tight">{book.title}</h2>
+                {book.author && <p className="text-sm font-bold text-muted-foreground">{book.author}</p>}
+                {book.blurb && <p className="mt-2 text-sm font-bold">{book.blurb}</p>}
+              </>
+            );
+            return (
+              <li key={book.id} className={`rounded-3xl shadow-sm ${TONE[book.tone]}`}>
+                {book.pdf ? (
+                  <a href={book.pdf} target="_blank" rel="noopener noreferrer" className="block rounded-3xl p-4 focus-visible:outline-2 focus-visible:outline-offset-2">
+                    {body}
+                  </a>
+                ) : (
+                  <div className="p-4">{body}</div>
+                )}
+              </li>
+            );
+          })}
         </ul>
       )}
+      <AddBookDialog
+        open={adding}
+        onOpenChange={setAdding}
+        onAdded={(book) => setUploaded((prev) => [...prev, book])}
+      />
     </section>
+  );
+}
+
+function AddBookDialog({
+  open,
+  onOpenChange,
+  onAdded,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  onAdded: (book: LibraryBook) => void;
+}) {
+  const [file, setFile] = useState<File | null>(null);
+  const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState("");
+  const [blurb, setBlurb] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+
+  function reset() {
+    setFile(null);
+    setTitle("");
+    setAuthor("");
+    setBlurb("");
+    setError(null);
+  }
+
+  function handleOpenChange(next: boolean) {
+    if (busy) return;
+    if (!next) reset();
+    onOpenChange(next);
+  }
+
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!file) {
+      setError("Choose a PDF first.");
+      return;
+    }
+    setBusy(true);
+    setError(null);
+    try {
+      const book = await uploadBook({ file, title, author, blurb });
+      onAdded(book);
+      setBusy(false);
+      reset();
+      onOpenChange(false);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong. Try again.");
+      setBusy(false);
+    }
+  }
+
+  return (
+    <Dialog open={open} onOpenChange={handleOpenChange}>
+      <DialogContent className="max-w-md rounded-3xl">
+        <DialogHeader>
+          <DialogTitle className="text-2xl font-black">Add a book</DialogTitle>
+          <DialogDescription className="font-bold">Choose a PDF and it will appear on the shelf.</DialogDescription>
+        </DialogHeader>
+        <form onSubmit={submit} className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="book-file" className="font-black">PDF file</Label>
+            <Input
+              id="book-file"
+              type="file"
+              accept="application/pdf,.pdf"
+              disabled={busy}
+              onChange={(event) => {
+                const chosen = event.target.files?.[0] ?? null;
+                setFile(chosen);
+                setError(null);
+                if (chosen && !title) setTitle(chosen.name.replace(/\.pdf$/i, "").replace(/[_-]+/g, " "));
+              }}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="book-title" className="font-black">Title</Label>
+            <Input id="book-title" value={title} disabled={busy} onChange={(event) => setTitle(event.target.value)} />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="book-author" className="font-black">Author (optional)</Label>
+            <Input id="book-author" value={author} disabled={busy} onChange={(event) => setAuthor(event.target.value)} />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="book-blurb" className="font-black">One line about it (optional)</Label>
+            <Input id="book-blurb" value={blurb} disabled={busy} onChange={(event) => setBlurb(event.target.value)} />
+          </div>
+          {error && <p role="alert" className="text-sm font-bold text-destructive">{error}</p>}
+          <DialogFooter>
+            <Button type="submit" disabled={!file || busy} className="h-12 w-full rounded-2xl text-base font-black">
+              {busy ? "Uploading…" : "Add to shelf"}
+            </Button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
   );
 }
 
