@@ -61,24 +61,8 @@ const SPACES: Space[] = [
       { id: "minaret", e: "🕌", ar: "المئذنة", en: "Minaret", sfx: "chime" },
       { id: "bell", e: "🔔", ar: "الجرس", en: "Chime", sfx: "bell" },
     ],
-    games: [
-      { id: "wudu", kind: "order", ar: "خطوات الوضوء", en: "Wudu steps", prompt: "Tap the wudu steps in order", scene: { start: "wudu-ready", done: "wudu-done" }, items: [
-        { e: "🙌", ar: "غسل الكفين", en: "Hands", img: "wudu-hands", focus: "78% 30%" },
-        { e: "👄", ar: "المضمضة", en: "Mouth", img: "wudu-mouth", focus: "78% 12%" },
-        { e: "👃", ar: "الاستنشاق", en: "Nose", img: "wudu-nose", focus: "78% 12%" },
-        { e: "😊", ar: "غسل الوجه", en: "Face", img: "wudu-face", focus: "78% 12%" },
-        { e: "💪", ar: "غسل اليدين إلى المرفقين", en: "Arms to elbows", img: "wudu-arms", full: true },
-        { e: "💆", ar: "مسح الرأس", en: "Wipe head", img: "wudu-head", focus: "78% 8%" },
-        { e: "🦶", ar: "غسل القدمين", en: "Feet", img: "wudu-feet", focus: "70% 70%" },
-      ], wrong: "Try again — we start by washing our hands 🙌", right: "Clean and ready to pray! ما شاء الله" },
-      { id: "postures", kind: "order", ar: "وضعيات الصلاة", en: "Prayer postures", prompt: "Tap in prayer order", scene: { start: "mat", mosque: true }, items: [
-        { e: "🙌", ar: "تكبيرة الإحرام", en: "Allahu Akbar", img: "salah-takbir" },
-        { e: "🙇", ar: "الركوع", en: "Bowing", img: "salah-ruku" },
-        { e: "🧍", ar: "الرفع من الركوع", en: "Stand up", img: "salah-standing" },
-        { e: "🧎", ar: "السجود", en: "Prostrating", img: "salah-sujood" },
-        { e: "🪑", ar: "الجلوس", en: "Sitting", img: "salah-sitting" },
-      ], wrong: "Almost! We start with Allahu Akbar 🙌", right: "Excellent prayer posture! ما شاء الله" },
-    ], surahs: ["fatiha", "nas"] },
+    // Wudu steps and prayer postures are taught in the Wudu & Salah world (homepage), so they are not repeated here.
+    games: [], surahs: ["fatiha", "nas"] },
   { id: "home", ar: "البيت", en: "Home", e: "🏠", bg: "bg-space-home", guide: "talal", hello: "Welcome home! Let's help the family.", trayLabel: "Items in basket",
     toys: [
       { id: "kitchen", e: "🍳", ar: "المطبخ", en: "Kitchen", sfx: "pop", add: ["🍞", "🍯", "🫒", "🥛"] },
@@ -182,12 +166,14 @@ function SpaceView({ space, onGame, onSurah, onStory }: { space: Space; onGame: 
             <span className="text-4xl">{s.e}</span><span><span lang="ar" className="block font-arabic text-2xl font-black">{s.ar}</span><span className="font-black">{s.en} — {s.desc}</span></span>
           </button>))}</div>
       ) : <Playground space={space} />}
-      <div>
-        <h2 className="mb-2 font-black">Mini-games · ألعاب</h2>
-        <div className="grid grid-cols-2 gap-3">{space.games.map((g) => (
-          <GameButton key={g.id} tone="sky" className="min-h-20 px-3" onClick={() => onGame(g.id)}><span><span lang="ar" className="block font-arabic text-lg">{g.ar}</span><span className="text-sm">{g.en}</span></span></GameButton>
-        ))}</div>
-      </div>
+      {space.games.length > 0 && (
+        <div>
+          <h2 className="mb-2 font-black">Mini-games · ألعاب</h2>
+          <div className="grid grid-cols-2 gap-3">{space.games.map((g) => (
+            <GameButton key={g.id} tone="sky" className="min-h-20 px-3" onClick={() => onGame(g.id)}><span><span lang="ar" className="block font-arabic text-lg">{g.ar}</span><span className="text-sm">{g.en}</span></span></GameButton>
+          ))}</div>
+        </div>
+      )}
       <div>
         <h2 className="mb-2 font-black">Listen · استمع</h2>
         <div className="grid gap-2">{space.surahs.map((id) => (
