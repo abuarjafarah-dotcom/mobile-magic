@@ -4,6 +4,8 @@ import { GameButton } from "@/components/game/GameButton";
 import { GameShell } from "@/components/learn/shared";
 import type { SurahData, SurahVerse } from "@/data/surahs";
 import { cn } from "@/lib/utils";
+import { normAr, progressFromResults, speechRecognitionAvailable, type RecognitionResults } from "@/lib/quranRecognition";
+import { MicCheck } from "@/components/quran/MicCheck";
 import { Block } from "@/components/building/BuildingWorld";
 import hamadCelebrating from "@/assets/building/hamad-celebrating.png";
 import talalCelebrating from "@/assets/building/talal-celebrating.png";
@@ -30,26 +32,7 @@ interface SurahMemorizeProps {
 const isMark = (t: string) => /^[ۖ-ۭ]+$/.test(t);
 const words = (v: SurahVerse) => v.arabic.split(/\s+/).filter((t) => t && !isMark(t));
 
-/** Strip harakat/Quranic marks and unify letter variants so recognition is forgiving. */
-const norm = (s: string) =>
-  s.replace(/[ؐ-ًؚ-ٰٟۖ-ۭـ]/g, "")
-    .replace(/[ٱأإآ]/g, "ا").replace(/ى/g, "ي").replace(/ة/g, "ه").replace(/ؤ/g, "و").replace(/ئ/g, "ي")
-    .replace(/[^ء-ي]/g, "");
-
-function close(a: string, b: string) {
-  if (!a || !b) return false;
-  if (a === b || a.includes(b) || b.includes(a)) return true;
-  const ta = a.replace(/^(ال|و|ف|ب)/, ""), tb = b.replace(/^(ال|و|ف|ب)/, "");
-  if (ta && (ta === tb || ta.includes(tb) || tb.includes(ta))) return true;
-  // small edit distance, scaled to word length
-  const m = a.length, n = b.length, d = Array.from({ length: m + 1 }, (_, i) => [i, ...Array(n).fill(0)] as number[]);
-  for (let j = 1; j <= n; j++) d[0]![j] = j;
-  for (let i = 1; i <= m; i++) for (let j = 1; j <= n; j++)
-    d[i]![j] = Math.min(d[i - 1]![j]! + 1, d[i]![j - 1]! + 1, d[i - 1]![j - 1]! + (a[i - 1] === b[j - 1] ? 0 : 1));
-  return d[m]![n]! <= Math.max(1, Math.floor(Math.max(m, n) / 3));
-}
-
-type Recognizer = { lang: string; continuous: boolean; interimResults: boolean; start: () => void; stop: () => void; onresult: ((e: any) => void) | null; onend: (() => void) | null; onerror: (() => void) | null };
+type Recognizer = { lang: string; continuous: boolean; interimResults: boolean; maxAlternatives: number; start: () => void; stop: () => void; onresult: ((e: any) => void) | null; onend: (() => void) | null; onerror: (() => void) | null };
 const getRecognizer = (): (new () => Recognizer) | null =>
   typeof window === "undefined" ? null : ((window as any).SpeechRecognition ?? (window as any).webkitSpeechRecognition ?? null);
 
@@ -82,6 +65,8 @@ export function SurahMemorize({ surah, groups, onExit }: SurahMemorizeProps) {
   const [level, setLevel] = useState(0);
   const [ayahsDone, setAyahsDone] = useState<number[]>([]);
   const [whole, setWhole] = useState(false);
+  const [showMicTools, setShowMicTools] = useState(false); // parent-only, via ?micCheck in the address
+  const [micCheck, setMicCheck] = useState(false);
 
   const group = groups[g]!;
   const verses = surah.verses.slice(group.from - 1, group.to);
@@ -95,6 +80,7 @@ export function SurahMemorize({ surah, groups, onExit }: SurahMemorizeProps) {
   const hintTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  useEffect(() => { setShowMicTools(new URLSearchParams(window.location.search).has("micCheck")); }, []);
   useEffect(() => { setCanHear(!!getRecognizer()); try { setAyahsDone(JSON.parse(localStorage.getItem(AYAH_KEY) ?? "[]")); setDone(JSON.parse(localStorage.getItem(KEY) ?? "[]")); } catch { /* ignore */ } }, [AYAH_KEY, KEY]);
 
   const stopAudio = useCallback(() => {
@@ -174,17 +160,11 @@ export function SurahMemorize({ surah, groups, onExit }: SurahMemorizeProps) {
     const R = getRecognizer();
     if (!R) return; // no mic support: child taps "next word" instead
     const rec = new R(); recRef.current = rec;
-    rec.lang = "ar-SA"; rec.continuous = true; rec.interimResults = true;
-    const targets = vw.map(norm);
+    rec.lang = "ar-SA"; rec.continuous = true; rec.interimResults = true; rec.maxAlternatives = 5;
+    const targets = vw.map(normAr);
     rec.onresult = (e: any) => {
-      let text = "";
-      for (let i = 0; i < e.results.length; i++) text += " " + e.results[i][0].transcript;
-      const heard = text.split(/\s+/).map(norm).filter(Boolean);
-      // Walk heard words forward; each match moves the pointer. Look a couple of words ahead so one miss never blocks.
-      let p = 0;
-      for (const h of heard) {
-        for (let k = p; k < Math.min(p + 3, targets.length); k++) if (close(h, targets[k]!)) { p = k + 1; break; }
-      }
+      // Furthest ayah word reached. Looks a couple of words ahead so one miss never blocks.
+      const p = progressFromResults(e.results as RecognitionResults, targets);
       if (p > saidRef.current) advanceTo(p);
       else armHint();
     };
@@ -305,6 +285,13 @@ export function SurahMemorize({ surah, groups, onExit }: SurahMemorizeProps) {
           <span className="inline-flex items-center gap-2 text-base font-black"><Mic className="h-6 w-6" />🎤 Recite the Whole Surah</span>
         </GameButton>
 
+        {showMicTools && (
+          <button type="button" onClick={() => setMicCheck(true)} className="self-end text-xs font-black text-muted-foreground underline">
+            Parent: microphone check
+          </button>
+        )}
+        {micCheck && <MicCheck speechAvailable={speechRecognitionAvailable()} onClose={() => setMicCheck(false)} />}
+
         {/* 6. Progress */}
         <div className="mt-auto">
           <div className="h-3 overflow-hidden rounded-full bg-muted"><div className="h-full rounded-full bg-success transition-all" style={{ width: `${(ayahsDone.length / surah.verses.length) * 100}%` }} /></div>
@@ -381,18 +368,13 @@ function WholeSurah({ surah, groups, onExit, KEY, AYAH_KEY }: { surah: SurahData
     const R = getRecognizer();
     if (!R) return;
     const rec = new R(); recRef.current = rec;
-    rec.lang = "ar-SA"; rec.continuous = true; rec.interimResults = true;
+    rec.lang = "ar-SA"; rec.continuous = true; rec.interimResults = true; rec.maxAlternatives = 5;
     offset.current = 0;
     rec.onresult = (e: any) => {
-      let text = "";
-      for (let i = 0; i < e.results.length; i++) text += " " + e.results[i][0].transcript;
-      const heard = text.split(/\s+/).map(norm).filter(Boolean);
-      if (resetHeard.current) { offset.current = heard.length; resetHeard.current = false; }
-      const targets = words(surah.verses[idxRef.current]!).map(norm);
-      let p = 0;
-      for (const h of heard.slice(offset.current)) {
-        for (let k = p; k < Math.min(p + 3, targets.length); k++) if (close(h, targets[k]!)) { p = k + 1; break; }
-      }
+      // Results before the current ayah began are ignored (offset counts results, not words).
+      if (resetHeard.current) { offset.current = e.results.length; resetHeard.current = false; }
+      const targets = words(surah.verses[idxRef.current]!).map(normAr);
+      const p = progressFromResults(Array.from(e.results as RecognitionResults).slice(offset.current), targets);
       if (p > saidRef.current) advanceTo(p); else armHint();
     };
     rec.onerror = () => {};
