@@ -17,6 +17,7 @@ import salahRuku from "@/assets/salah/salah-ruku.webp";
 import salahSujud from "@/assets/salah/salah-sujud.webp";
 import salahJalsah from "@/assets/salah/salah-jalsah.webp";
 import salahTashahhud from "@/assets/salah/salah-tashahhud.webp";
+import masjidRoom from "@/assets/salah/masjid-room.webp";
 import wuduVideoUrl from "@/assets/salah/wudu-video.mp4";
 
 export type Bi = { ar: string; en: string };
@@ -32,6 +33,8 @@ export type Step = {
   how: Bi;
   hint: Bi;
   say?: Bi;
+  /** Optional teaching note shown under the picture (used where two stages share one image). */
+  note?: Bi;
 };
 
 export const WUDU_STEPS: readonly Step[] = [
@@ -124,6 +127,20 @@ export const WUDU_STEPS: readonly Step[] = [
   },
 ];
 
+/** Closing du'a after wudu. Shown as the last Learn card only (not part of Arrange/Practice/Identify). */
+export const WUDU_CLOSING: Step = {
+  id: "closing-dua",
+  kind: "say",
+  img: masjidRoom,
+  title: { ar: "الدُّعَاءُ بَعْدَ الوُضُوء", en: "Du'a after wudu" },
+  how: { ar: "نَقُولُ بَعْدَ أَنْ نَنْتَهِيَ مِنَ الوُضُوء", en: "We say this when we finish wudu" },
+  hint: { ar: "آخِرُ شَيْءٍ بَعْدَ الوُضُوء: الدُّعَاء", en: "The last thing after wudu is the du'a" },
+  say: {
+    ar: "أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللهُ، وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُه",
+    en: "I bear witness that there is no god but Allah, and Muhammad is His servant and messenger",
+  },
+};
+
 /** Stages of the prayer. Some images repeat on purpose (e.g. standing after ruku' looks like qiyam). */
 export const SALAH_STAGES = {
   takbir: {
@@ -145,6 +162,7 @@ export const SALAH_STAGES = {
     title: { ar: "القِيَام", en: "Standing (qiyam)" },
     how: { ar: "نَقِفُ وَنَقْرَأُ الفَاتِحَة", en: "Stand and recite Al-Fatiha" },
     hint: { ar: "نَقِفُ وَنَقْرَأُ قَبْلَ الرُّكُوع", en: "We stand and recite before bowing" },
+    note: { ar: "هَذَا القِيَامُ قَبْلَ الرُّكُوع", en: "This standing is BEFORE bowing" },
   },
   ruku: {
     id: "ruku",
@@ -164,6 +182,7 @@ export const SALAH_STAGES = {
     title: { ar: "الرَّفْعُ مِنَ الرُّكُوع", en: "Rising (qawmah)" },
     how: { ar: "نَرْفَعُ وَنَقِفُ مُسْتَقِيمِين", en: "Rise and stand up straight" },
     hint: { ar: "بَعْدَ الرُّكُوعِ نَقِفُ مِنْ جَدِيد", en: "After bowing, we stand up again" },
+    note: { ar: "هَذَا القِيَامُ بَعْدَ الرُّكُوع", en: "This standing is AFTER bowing" },
   },
   sujud: {
     id: "sujud",

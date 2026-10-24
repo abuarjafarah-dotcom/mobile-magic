@@ -15,6 +15,7 @@ import {
   T,
   TOPICS,
   TRY_AGAIN,
+  WUDU_CLOSING,
   WUDU_STEPS,
   WUDU_VIDEO,
   arNum,
@@ -197,7 +198,7 @@ function VideoCard({ src, poster }: { src: string | null; poster: string }) {
 function Learn({ topic, ctx, onFinish }: { topic: Topic; ctx: Ctx; onFinish: () => void }) {
   const [prayer, setPrayer] = useState<Prayer>(PRAYERS[0]!);
   const steps = useMemo<(Step & { rakah?: number })[]>(
-    () => (topic === "wudu" ? [...WUDU_STEPS] : buildPrayer(prayer.rakahs)),
+    () => (topic === "wudu" ? [...WUDU_STEPS, WUDU_CLOSING] : buildPrayer(prayer.rakahs)),
     [topic, prayer],
   );
   const [i, setI] = useState(-1); // -1 = the video card
@@ -309,6 +310,14 @@ function Learn({ topic, ctx, onFinish }: { topic: Topic; ctx: Ctx; onFinish: () 
           )}
           <BiText t={step.title} size="xl" className="text-center" />
           <BiText t={step.how} size="md" className="text-center" />
+          {step.note && (
+            <p className="mx-auto rounded-full bg-secondary px-4 py-1 text-center text-sm font-black text-secondary-foreground">
+              <span lang="ar" dir="rtl" className="font-arabic">
+                {step.note.ar}
+              </span>{" "}
+              · {step.note.en}
+            </p>
+          )}
           <div className="grid grid-cols-[1fr_auto_1fr] gap-2">
             <GameButton
               tone="neutral"
