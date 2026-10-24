@@ -47,6 +47,7 @@ const MontessoriBeadChains = lazyReload(() => import("@/components/math/Montesso
 const GoldenBeadWorkshop = lazyReload(() => import("@/components/math/golden/GoldenBeadWorkshop").then((m) => ({ default: m.GoldenBeadWorkshop })));
 const MathBowling = lazyReload(() => import("@/components/math/MathBowling").then((m) => ({ default: m.MathBowling })));
 const NooraniWorld = lazyReload(() => import("@/components/noorani/NooraniWorld").then((m) => ({ default: m.NooraniWorld })));
+const NeighborhoodWorld = lazyReload(() => import("@/components/world/NeighborhoodWorld").then((m) => ({ default: m.NeighborhoodWorld })));
 import { GameButton } from "@/components/game/GameButton";
 import { surahs, type SurahData } from "@/data/surahs";
 import { juz29Surahs } from "@/data/surahsJuz29";
@@ -103,7 +104,7 @@ export const Route = createFileRoute("/")({
   component: MathAdventure,
 });
 
-type Screen = "picker" | "home" | "game" | "reward" | "parent" | "surah" | "ayah" | "arabic" | "geo" | "iq" | "aw" | "g1" | "ie" | "bowling" | "quest" | "build" | "lw" | "sci" | "kitchen" | "chess" | "memorize" | "seek" | "beads" | "ws" | "golden" | "play" | "noorani" | "hbl" | "library";
+type Screen = "picker" | "home" | "game" | "reward" | "parent" | "surah" | "ayah" | "arabic" | "geo" | "iq" | "aw" | "g1" | "ie" | "bowling" | "quest" | "build" | "lw" | "sci" | "kitchen" | "chess" | "memorize" | "seek" | "beads" | "ws" | "golden" | "play" | "noorani" | "hbl" | "library" | "world";
 type GameMode = "multiplication" | "addition";
 type ActivityTab = GameMode | "grade1" | "bowling" | "surah" | "arabic" | "geo" | "iq" | "more";
 type Level = 1 | 2 | 3 | 4 | 5;
@@ -355,10 +356,11 @@ function MathAdventure() {
           </GameButton>
         </div>
       )}
-      {screen === "picker" && <GamePicker stats={stats} onOpenCategory={openCategory} onStartIq={() => setScreen("iq")} onStartIe={() => setScreen("ie")} onStartBuild={() => setScreen("build")} onStartScience={() => setScreen("sci")} onStartKitchen={() => setScreen("kitchen")} onStartChess={() => setScreen("chess")} onStartWs={() => setScreen("ws")} onStartPlay={() => setScreen("play")} onStartHbl={() => setScreen("hbl")} onStartLibrary={() => setScreen("library")} />}
+      {screen === "picker" && <GamePicker stats={stats} onOpenCategory={openCategory} onStartIq={() => setScreen("iq")} onStartIe={() => setScreen("ie")} onStartBuild={() => setScreen("build")} onStartScience={() => setScreen("sci")} onStartKitchen={() => setScreen("kitchen")} onStartChess={() => setScreen("chess")} onStartWs={() => setScreen("ws")} onStartPlay={() => setScreen("play")} onStartHbl={() => setScreen("hbl")} onStartLibrary={() => setScreen("library")} onStartWorld={() => setScreen("world")} />}
       {screen === "chess" && <Suspense fallback={null}><ChessWorld onExit={() => setScreen("picker")} /></Suspense>}
       {screen === "library" && <LibraryWorld onExit={() => setScreen("picker")} />}
       {screen === "ws" && <Suspense fallback={null}><WuduSalahWorld onExit={() => setScreen("picker")} /></Suspense>}
+      {screen === "world" && <Suspense fallback={null}><NeighborhoodWorld onExit={() => setScreen("picker")} onEnterGame={(target) => setScreen(target)} /></Suspense>}
       {screen === "play" && <Suspense fallback={null}><ArabicPlayWorld onExit={() => setScreen("picker")} /></Suspense>}
       {screen === "kitchen" && <Suspense fallback={null}><PalestinianKitchen onExit={() => setScreen("picker")} /></Suspense>}
       {screen === "sci" && <Suspense fallback={null}><ScienceWorld onExit={() => setScreen("picker")} /></Suspense>}
@@ -431,8 +433,9 @@ function MemorizeScreen({ surah, onExit }: { surah: SurahData; onExit: () => voi
   return <SurahMemorize surah={surah} groups={groups} onExit={onExit} />;
 }
 
-function GamePicker({ stats, onOpenCategory, onStartIq, onStartIe, onStartBuild, onStartScience, onStartKitchen, onStartChess, onStartWs, onStartPlay, onStartHbl, onStartLibrary }: { onStartLibrary: () => void; onStartKitchen: () => void; onStartChess: () => void; onStartWs: () => void; onStartPlay: () => void; onStartHbl: () => void; stats: Stats; onOpenCategory: (tab: ActivityTab) => void; onStartIq: () => void; onStartIe: () => void; onStartBuild: () => void; onStartScience: () => void }) {
+function GamePicker({ stats, onOpenCategory, onStartIq, onStartIe, onStartBuild, onStartScience, onStartKitchen, onStartChess, onStartWs, onStartPlay, onStartHbl, onStartLibrary, onStartWorld }: { onStartWorld: () => void; onStartLibrary: () => void; onStartKitchen: () => void; onStartChess: () => void; onStartWs: () => void; onStartPlay: () => void; onStartHbl: () => void; stats: Stats; onOpenCategory: (tab: ActivityTab) => void; onStartIq: () => void; onStartIe: () => void; onStartBuild: () => void; onStartScience: () => void }) {
   const choices: Array<{ label: string; detail: string; icon: ReactNode; tone: "sun" | "mint" | "sky" | "berry"; action: () => void }> = [
+    { label: "Our Neighborhood", detail: "حينا · walk & pick a place", icon: <span className="text-4xl leading-none">🏘️</span>, tone: "sun", action: onStartWorld },
     { label: "Math", detail: "Numbers, tables & bowling", icon: <Grid3X3 className="h-9 w-9" />, tone: "mint", action: () => onOpenCategory("multiplication") },
     { label: "Qur’an", detail: "Listen & finish the ayah", icon: <Moon className="h-9 w-9" />, tone: "berry", action: () => onOpenCategory("surah") },
     { label: "Geography", detail: "Explore our world", icon: <Globe2 className="h-9 w-9" />, tone: "sky", action: () => onOpenCategory("geo") },
