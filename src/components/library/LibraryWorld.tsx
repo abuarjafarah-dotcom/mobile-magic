@@ -3,32 +3,7 @@ import { ArrowLeft, BookOpen, Lock } from "lucide-react";
 import { LIBRARY_BOOKS } from "@/data/library";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-
-// Only a salted SHA-256 hash of the password is stored here, never the password itself.
-const SALT = "990e308b1535e0f0df03ede680480f7a";
-const HASH = "e95c842b4bf20615c327ccd1989739187ca8710d9477dcf866e5e1179a16da42";
-const UNLOCK_KEY = "library-unlock-v1";
-
-async function sha256Hex(text: string): Promise<string> {
-  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
-  return Array.from(new Uint8Array(digest)).map((b) => b.toString(16).padStart(2, "0")).join("");
-}
-
-function readUnlocked(): boolean {
-  try {
-    return sessionStorage.getItem(UNLOCK_KEY) === "yes";
-  } catch {
-    return false;
-  }
-}
-
-function writeUnlocked(): void {
-  try {
-    sessionStorage.setItem(UNLOCK_KEY, "yes");
-  } catch {
-    /* private mode: the library simply asks again next time */
-  }
-}
+import { checkFamilyPassword, readFamilyUnlocked, writeFamilyUnlocked } from "@/lib/familyPassword";
 
 const TONE: Record<string, string> = {
   sun: "bg-primary/15",
@@ -42,7 +17,7 @@ export function LibraryWorld({ onExit }: { onExit: () => void }) {
   const [checked, setChecked] = useState(false);
 
   useEffect(() => {
-    setUnlocked(readUnlocked());
+    setUnlocked(readFamilyUnlocked());
     setChecked(true);
   }, []);
 
@@ -61,9 +36,9 @@ function LibraryGate({ onExit, onUnlocked }: { onExit: () => void; onUnlocked: (
     setBusy(true);
     setError(null);
     try {
-      const ok = (await sha256Hex(SALT + password)) === HASH;
+      const ok = await checkFamilyPassword(password);
       if (ok) {
-        writeUnlocked();
+        writeFamilyUnlocked();
         onUnlocked();
       } else {
         setError("That password is not right. Try again.");
