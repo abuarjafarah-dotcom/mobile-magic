@@ -78,11 +78,10 @@ export function speakArabic(text: string, preferredUrl?: string): Promise<void> 
       } else end();
     };
 
-    // Old Lovable CDN links (/__l5e/…) don't exist on Vercel, so skip them instead of waiting for an error.
-    const usable = (u?: string) => (u && !u.startsWith("/__l5e/") ? u : undefined);
-    // A working game-specific clip wins; then Farah's shared phrase library; then older Arabic World clips.
-    const mappedUrl = phraseClipFor(text) ?? audioKeyVariants(text).map((key) => usable(arabicWorldAudio[key])).find(Boolean);
-    const url = usable(preferredUrl) || mappedUrl;
+    // A game-specific clip wins; then Farah's shared phrase library; then the Arabic World clips.
+    // (Lovable-hosted clips work on Vercel: vite.config.ts points them at the published Lovable site.)
+    const mappedUrl = phraseClipFor(text) ?? audioKeyVariants(text).map((key) => arabicWorldAudio[key]).find(Boolean);
+    const url = preferredUrl || mappedUrl;
     if (url) {
       const audio = new Audio(url);
       currentAudio = audio;
