@@ -232,3 +232,86 @@ export const CALLOUTS: Record<OrganId, Callout> = {
     ay: 430,
   },
 };
+
+/* ---------------- Atlas artwork (illustrated body) ----------------
+ * The Anatomy Atlas draws public/human-biology/body-organs.png and places tap areas
+ * over it. Coordinates are in the image's own pixels (1154 × 2364), read from a
+ * gridded render of that file. Taps are transparent until an organ is selected.
+ * Brain & Senses keeps its own drawing above and is not affected.
+ */
+export const ATLAS_IMAGE = "/human-biology/body-organs.png";
+export const ATLAS_IMAGE_SIZE = { w: 1154, h: 2364 };
+/** Labels sit beside the figure, so the viewBox is wider than the image. */
+export const ATLAS_VIEWBOX = "-380 0 1794 2364";
+
+export type Hotspot =
+  | { kind: "ellipse"; cx: number; cy: number; rx: number; ry: number }
+  | { kind: "capsule"; x1: number; y1: number; x2: number; y2: number; width: number };
+
+export const ATLAS_HOTSPOTS: Record<OrganId, Hotspot[]> = {
+  brain: [{ kind: "ellipse", cx: 583, cy: 144, rx: 112, ry: 100 }],
+  lungs: [
+    { kind: "ellipse", cx: 473, cy: 642, rx: 93, ry: 152 },
+    { kind: "ellipse", cx: 679, cy: 642, rx: 97, ry: 152 },
+  ],
+  heart: [{ kind: "ellipse", cx: 600, cy: 667, rx: 68, ry: 76 }],
+  stomach: [{ kind: "ellipse", cx: 615, cy: 890, rx: 95, ry: 55 }],
+  smallIntestine: [{ kind: "ellipse", cx: 507, cy: 1098, rx: 101, ry: 93 }],
+  // The skeleton is a backdrop target: drawn first, so organs above it win taps.
+  skeleton: [
+    { kind: "ellipse", cx: 580, cy: 225, rx: 110, ry: 150 },
+    { kind: "ellipse", cx: 583, cy: 650, rx: 195, ry: 160 },
+    { kind: "ellipse", cx: 580, cy: 1280, rx: 215, ry: 60 },
+    { kind: "capsule", x1: 346, y1: 490, x2: 76, y2: 1351, width: 70 },
+    { kind: "capsule", x1: 811, y1: 507, x2: 1081, y2: 1351, width: 70 },
+    { kind: "capsule", x1: 405, y1: 1284, x2: 439, y2: 2179, width: 80 },
+    { kind: "capsule", x1: 684, y1: 1284, x2: 667, y2: 2179, width: 80 },
+  ],
+};
+
+/** Draw order for Atlas hotspots: skeleton under the organs. */
+export const ATLAS_DRAW_ORDER: OrganId[] = [
+  "skeleton",
+  "lungs",
+  "heart",
+  "stomach",
+  "smallIntestine",
+  "brain",
+];
+
+/** Labels with leader lines to the organ, in image pixels. Right side labels sit at x ≥ 1180. */
+export const ATLAS_CALLOUTS: Record<OrganId, Callout> = {
+  brain: { text: "BRAIN", tx: 1180, ty: 150, anchor: "start", lx: 1172, ly: 146, ax: 650, ay: 144 },
+  heart: { text: "HEART", tx: 1180, ty: 670, anchor: "start", lx: 1172, ly: 666, ax: 640, ay: 667 },
+  stomach: {
+    text: "STOMACH",
+    tx: 1180,
+    ty: 890,
+    anchor: "start",
+    lx: 1172,
+    ly: 886,
+    ax: 690,
+    ay: 890,
+  },
+  lungs: { text: "LUNGS", tx: -360, ty: 640, anchor: "start", lx: -215, ly: 636, ax: 430, ay: 650 },
+  smallIntestine: {
+    text: "SMALL INTESTINE",
+    tx: -360,
+    ty: 1110,
+    anchor: "start",
+    lx: 20,
+    ly: 1106,
+    ax: 420,
+    ay: 1110,
+  },
+  skeleton: {
+    text: "SKELETON",
+    tx: -360,
+    ty: 1700,
+    anchor: "start",
+    lx: -150,
+    ly: 1696,
+    ax: 440,
+    ay: 1690,
+  },
+};

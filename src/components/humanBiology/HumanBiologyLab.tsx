@@ -21,15 +21,16 @@ import {
   type OrganId,
 } from "@/data/humanBiology";
 import {
-  BODY_BACKDROP,
-  BODY_LIMBS,
-  BODY_PARTS,
-  BODY_VIEWBOX,
+  ATLAS_CALLOUTS,
+  ATLAS_DRAW_ORDER,
+  ATLAS_HOTSPOTS,
+  ATLAS_IMAGE,
+  ATLAS_IMAGE_SIZE,
+  ATLAS_VIEWBOX,
   INK,
-  ORGAN_DRAW_ORDER,
   ORGAN_SHAPES,
-  type Shape,
-  CALLOUTS,
+  type Callout as CalloutSpec,
+  type Hotspot,
 } from "@/data/humanBiologyBody";
 
 /* ---------------- progress (own key; never gates access) ---------------- */
@@ -175,8 +176,71 @@ function LabHub({ onExit, onOpen }: { onExit: () => void; onOpen: (id: string) =
 
 /* ---------------- body diagram ---------------- */
 
-function ShapeEl({ shape, color, selected }: { shape: Shape; color: string; selected: boolean }) {
-  const fillColor = shape.color ?? color;
+type SystemView = "organs" | "skeleton" | "muscles" | "outside";
+
+/** Illustrated views. Only "organs" has tap areas; the others are for looking at. */
+const SYSTEM_VIEWS: { id: SystemView; label: string; src: string; alt: string }[] = [
+  {
+    id: "organs",
+    label: "Organs",
+    src: ATLAS_IMAGE,
+    alt: "Front view of the body showing the organs",
+  },
+  {
+    id: "skeleton",
+    label: "Skeleton",
+    src: "/human-biology/body-skeleton.png",
+    alt: "Front view of the skeleton",
+  },
+  {
+    id: "muscles",
+    label: "Muscles",
+    src: "/human-biology/body-muscles.png",
+    alt: "Front view of the muscles",
+  },
+  {
+    id: "outside",
+    label: "Outside",
+    src: "/human-biology/body-external.png",
+    alt: "Front view of the body from outside",
+  },
+];
+
+function ViewSwitch({ view, onChange }: { view: SystemView; onChange: (v: SystemView) => void }) {
+  return (
+    <div
+      role="group"
+      aria-label="Body view"
+      className="mx-auto mb-3 grid max-w-md grid-cols-4 gap-1 rounded-2xl bg-background p-1"
+    >
+      {SYSTEM_VIEWS.map((v) => (
+        <button
+          key={v.id}
+          type="button"
+          aria-pressed={view === v.id}
+          onClick={() => onChange(v.id)}
+          className={cn(
+            "h-11 rounded-xl text-sm font-black",
+            view === v.id ? "bg-foreground text-background" : "",
+          )}
+        >
+          {v.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function HotspotShape({
+  shape,
+  fill,
+  selected,
+}: {
+  shape: Hotspot;
+  fill: string;
+  selected: boolean;
+}) {
+  // Transparent until selected, so the illustration stays visible. Transparent paint still takes taps.
   if (shape.kind === "ellipse") {
     return (
       <ellipse
@@ -184,61 +248,40 @@ function ShapeEl({ shape, color, selected }: { shape: Shape; color: string; sele
         cy={shape.cy}
         rx={shape.rx}
         ry={shape.ry}
-        fill={fillColor}
-        fillOpacity={0.92}
-        stroke={selected ? INK : "none"}
-        strokeWidth={2.5}
+        fill={selected ? fill : "transparent"}
+        fillOpacity={selected ? 0.35 : 1}
+        stroke={selected ? INK : "transparent"}
+        strokeWidth={selected ? 4 : 0}
       />
     );
   }
-  if (shape.kind === "fill") {
-    return <path d={shape.d} fill={fillColor} stroke={selected ? INK : "none"} strokeWidth={2.5} />;
-  }
   return (
-    <>
-      <path
-        d={shape.d}
-        fill="none"
-        stroke="transparent"
-        strokeWidth={Math.max(shape.width, 14)}
-        strokeLinecap="round"
-        pointerEvents="stroke"
-      />
-      <path
-        d={shape.d}
-        fill="none"
-        stroke={fillColor}
-        strokeWidth={shape.width + (selected ? 1.5 : 0)}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        pointerEvents="none"
-      />
-    </>
+    <line
+      x1={shape.x1}
+      y1={shape.y1}
+      x2={shape.x2}
+      y2={shape.y2}
+      stroke={selected ? fill : "transparent"}
+      strokeOpacity={selected ? 0.35 : 1}
+      strokeWidth={shape.width}
+      strokeLinecap="round"
+    />
   );
 }
 
-function Callout({ id }: { id: OrganId }) {
-  const k = CALLOUTS[id];
+function OrganCallout({ k }: { k: CalloutSpec }) {
   return (
-    <g>
-      <line
-        pointerEvents="none"
-        x1={k.lx}
-        y1={k.ly}
-        x2={k.ax}
-        y2={k.ay}
-        stroke={INK}
-        strokeWidth={1.2}
-      />
-      <circle pointerEvents="none" cx={k.ax} cy={k.ay} r={2.6} fill={INK} />
+    <g pointerEvents="none">
+      <line x1={k.lx} y1={k.ly} x2={k.ax} y2={k.ay} stroke={INK} strokeWidth={5} />
+      <circle cx={k.ax} cy={k.ay} r={9} fill={INK} />
       <text
         x={k.tx}
         y={k.ty}
         textAnchor={k.anchor}
-        fontSize={17}
+        fontSize={40}
         fontWeight={900}
         fill={INK}
-        letterSpacing="0.6"
+        letterSpacing="1"
       >
         {k.text}
       </text>
@@ -249,17 +292,15 @@ function Callout({ id }: { id: OrganId }) {
 function OrganHotspot({
   id,
   selected,
-  dim,
   interactive,
   onPick,
 }: {
   id: OrganId;
   selected: boolean;
-  dim: boolean;
   interactive: boolean;
   onPick: (id: OrganId) => void;
 }) {
-  const { color, shapes } = ORGAN_SHAPES[id];
+  const color = ORGAN_SHAPES[id].color;
   const name = organById(id).name;
   const onKey = (e: KeyboardEvent<SVGGElement>) => {
     if (e.key === "Enter" || e.key === " ") {
@@ -275,17 +316,12 @@ function OrganHotspot({
       tabIndex={interactive ? 0 : undefined}
       onClick={interactive ? () => onPick(id) : undefined}
       onKeyDown={interactive ? onKey : undefined}
-      className={cn(
-        "motion-safe:transition-opacity",
-        interactive && "cursor-pointer focus:outline-none",
-        dim ? "opacity-40" : "opacity-100",
-      )}
+      className={cn(interactive && "cursor-pointer focus:outline-none")}
     >
       <title>{name}</title>
-      {shapes.map((s, i) => (
-        <ShapeEl key={i} shape={s} color={color} selected={selected} />
+      {ATLAS_HOTSPOTS[id].map((shape, i) => (
+        <HotspotShape key={i} shape={shape} fill={color} selected={selected} />
       ))}
-      <Callout id={id} />
     </g>
   );
 }
@@ -301,48 +337,58 @@ function BodyDiagram({
 }) {
   return (
     <svg
-      viewBox={BODY_VIEWBOX}
+      viewBox={ATLAS_VIEWBOX}
       role="group"
-      aria-label="Simplified front view of the body. Tap an organ to learn about it."
-      className="mx-auto h-auto w-full max-w-[380px] select-none"
+      aria-label="Front view of the body. Tap an organ to learn about it."
+      className="mx-auto h-auto w-full max-w-[520px] select-none"
     >
-      <rect
-        x={-100}
+      <image
+        href={ATLAS_IMAGE}
+        x={0}
         y={0}
-        width={500}
-        height={520}
-        rx={28}
-        fill={BODY_BACKDROP}
+        width={ATLAS_IMAGE_SIZE.w}
+        height={ATLAS_IMAGE_SIZE.h}
+        preserveAspectRatio="xMidYMid meet"
         pointerEvents="none"
       />
-      {BODY_LIMBS.map((l, i) => (
-        <path
-          key={`limb-${i}`}
-          d={l.d}
-          fill="none"
-          stroke={l.color}
-          strokeWidth={l.width}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          pointerEvents="none"
-        />
-      ))}
-      {BODY_PARTS.map((p, i) => (
-        <path key={`part-${i}`} d={p.d} fill={p.fill} pointerEvents="none" />
-      ))}
-      {ORGAN_DRAW_ORDER.map((id) => (
+      {ATLAS_DRAW_ORDER.map((id) => (
         <OrganHotspot
           key={id}
           id={id}
           selected={selected === id}
-          dim={selected !== null && selected !== id}
           interactive={interactive}
           onPick={onPick}
         />
       ))}
+      {ATLAS_DRAW_ORDER.map((id) => (
+        <OrganCallout key={`c-${id}`} k={ATLAS_CALLOUTS[id]} />
+      ))}
     </svg>
   );
 }
+
+function SystemImage({ view }: { view: SystemView }) {
+  const v = SYSTEM_VIEWS.find((x) => x.id === view) ?? SYSTEM_VIEWS[0];
+  return (
+    <img
+      src={v.src}
+      alt={v.alt}
+      draggable={false}
+      className="mx-auto h-auto max-h-[72vh] w-auto max-w-full select-none"
+    />
+  );
+}
+
+/** Organ illustrations shown in the detail panel. Brain and heart have no file yet. */
+const ORGAN_IMAGE: Partial<Record<OrganId, { src: string; alt: string }>> = {
+  lungs: { src: "/human-biology/organ-lungs.png", alt: "Illustration of the lungs and windpipe" },
+  stomach: { src: "/human-biology/organ-stomach.png", alt: "Illustration of the stomach" },
+  smallIntestine: {
+    src: "/human-biology/organ-small-intestine.png",
+    alt: "Illustration of the small intestine",
+  },
+  skeleton: { src: "/human-biology/system-skeleton.png", alt: "Illustration of the skeleton" },
+};
 
 /* ---------------- atlas ---------------- */
 
@@ -368,6 +414,7 @@ function AnatomyAtlas({
   const [tab, setTab] = useState<Tab>("explore");
   const [selected, setSelected] = useState<OrganId | null>(null);
   const [mode, setMode] = useState<Mode>("discover");
+  const [view, setView] = useState<SystemView>("organs");
 
   // Find-the-organ challenge state
   const [challenge, setChallenge] = useState<ChallengeKind>("find");
@@ -384,6 +431,8 @@ function AnatomyAtlas({
   const [feedback, setFeedback] = useState<Feedback>(null);
 
   const interactiveDiagram = tab === "explore" || (tab === "challenge" && challenge === "find");
+  // The find-the-organ challenge always uses the organ view, since its taps need the hotspots.
+  const effectiveView: SystemView = tab === "challenge" && challenge === "find" ? "organs" : view;
   const organ = selected ? organById(selected) : null;
 
   const markExplored = (id: OrganId) => {
@@ -428,6 +477,7 @@ function AnatomyAtlas({
       return;
     }
     if (tab === "explore") {
+      setView("organs");
       setSelected(id);
       setMode("discover");
       markExplored(id);
@@ -526,11 +576,16 @@ function AnatomyAtlas({
 
       <div className="mt-5 grid gap-5 min-[960px]:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] min-[960px]:items-start">
         <div className="rounded-3xl border-2 border-foreground bg-[#dcefe6] p-4">
-          <BodyDiagram
-            selected={tab === "explore" ? selected : null}
-            interactive={interactiveDiagram}
-            onPick={tapOrgan}
-          />
+          {tab === "explore" && <ViewSwitch view={view} onChange={setView} />}
+          {effectiveView === "organs" ? (
+            <BodyDiagram
+              selected={tab === "explore" ? selected : null}
+              interactive={interactiveDiagram}
+              onPick={tapOrgan}
+            />
+          ) : (
+            <SystemImage view={effectiveView} />
+          )}
           {tab === "explore" && (
             <div className="mt-3 flex flex-wrap justify-center gap-2" aria-label="Organ list">
               {ORGANS.map((o) => (
@@ -617,11 +672,20 @@ function ExplorePanel({
     );
   }
   const text = mode === "discover" ? organ.discover : organ.investigate;
+  const art = ORGAN_IMAGE[organ.id];
   return (
     <article
       aria-live="polite"
       className="rounded-3xl border-2 border-foreground bg-card p-5 sm:p-6"
     >
+      {art && (
+        <img
+          src={art.src}
+          alt={art.alt}
+          className="mx-auto mb-4 h-auto max-h-64 w-auto max-w-full select-none"
+          draggable={false}
+        />
+      )}
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="text-sm font-black uppercase text-muted-foreground">{organ.category}</p>
