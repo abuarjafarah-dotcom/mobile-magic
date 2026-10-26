@@ -633,12 +633,20 @@ function QuranPicker({ learning, onStartSurah, onStartAyah, onStartMemorize }: {
     { id: 3 as const, label: "Juz 3", ar: "آل عمران" },
     { id: 1 as const, label: "Juz 1–2", ar: "البقرة" },
   ];
+  const tablistRef = useRef<HTMLDivElement>(null);
+  // Keep the selected Juz visible in the sideways strip (phones).
+  useEffect(() => {
+    tablistRef.current?.querySelector<HTMLElement>('[aria-selected="true"]')?.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
+  }, [juz]);
   return (
     <div className="mt-6" role="tabpanel">
-      <div className="mb-3 grid grid-cols-2 gap-2 min-[960px]:grid-cols-5" role="tablist" aria-label="Choose a Juz">
+      <div ref={tablistRef} className="-mx-4 mb-3 flex snap-x gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] min-[960px]:mx-0 min-[960px]:flex-wrap min-[960px]:overflow-visible min-[960px]:px-0 [&::-webkit-scrollbar]:hidden" role="tablist" aria-label="Choose a Juz">
         {tabs.map((t) => (
-          <GameButton key={t.id} tone={juz === t.id ? "berry" : "neutral"} className="min-h-14" onClick={() => setJuz(t.id)} role="tab" aria-selected={juz === t.id}>
-            <span className="inline-flex items-center gap-2">{t.label} <span lang="ar" dir="rtl" className="font-arabic font-black">{t.ar}</span></span>
+          <GameButton key={t.id} tone={juz === t.id ? "berry" : "neutral"} className="min-h-14 min-w-[5.5rem] shrink-0 snap-center px-3 py-2 min-[960px]:min-w-0 min-[960px]:shrink" onClick={() => setJuz(t.id)} role="tab" aria-selected={juz === t.id}>
+            <span className="flex flex-col items-center leading-tight">
+              <span className="text-base font-black">{t.label}</span>
+              <span lang="ar" dir="rtl" className="font-arabic text-xs font-bold opacity-80">{t.ar}</span>
+            </span>
           </GameButton>
         ))}
       </div>
