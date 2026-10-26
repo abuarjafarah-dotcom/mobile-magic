@@ -89,6 +89,9 @@ import talalAsset from "@/assets/talal.jpg.asset.json";
 import yousefAsset from "@/assets/yousef.jpg.asset.json";
 import mosqueIcon from "@/assets/salah/mosque-icon.webp";
 import goldenBeadIcon from "@/assets/golden-workshop/unit-bead.webp";
+import hamadIdle from "@/assets/kitchen/cast/hamad-idle.png";
+import talalIdle from "@/assets/kitchen/cast/talal-idle.png";
+import yousefHappy from "@/assets/science/yousef-happy.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -115,13 +118,8 @@ type Problem = { first: number; second: number; answer: number };
 const STORAGE_KEY = "math-adventure-progress";
 const DEFAULT_STATS: Stats = { games: 0, correct: 0, stars: 0 };
 const QUESTIONS = 10;
-// Fallback SVG placeholders for character avatars (images not available in self-hosted version)
-const characterSvgs = {
-  hamad: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23FFD966'/%3E%3Ccircle cx='50' cy='35' r='15' fill='%23F4A460'/%3E%3Crect x='35' y='50' width='30' height='25' fill='%234169E1'/%3E%3C/svg%3E",
-  talal: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%2390EE90'/%3E%3Ccircle cx='50' cy='35' r='15' fill='%23DEB887'/%3E%3Crect x='35' y='50' width='30' height='25' fill='%23FF6347'/%3E%3C/svg%3E",
-  yousef: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23FFB6C1'/%3E%3Ccircle cx='50' cy='35' r='12' fill='%23FDBCB4'/%3E%3Crect x='38' y='50' width='24' height='20' fill='%238A2BE2'/%3E%3C/svg%3E",
-};
-const characterImages = { hamad: characterSvgs.hamad, talal: characterSvgs.talal, yousef: characterSvgs.yousef };
+// Transparent cut-outs of the family (same art as the game cast). Replaces the earlier colored placeholders.
+const characterImages = { hamad: hamadIdle, talal: talalIdle, yousef: yousefHappy };
 
 const levels: Array<{ id: Level; title: string; detail: string; tone: "sun" | "mint" | "sky" | "berry" }> = [
   { id: 1, title: "Little Numbers", detail: "Add up to 5 · Ages 3–4", tone: "sun" },
@@ -231,7 +229,7 @@ function Character({ name, size = "large", className = "" }: { name: keyof typeo
       src={characterImages[name]}
       alt={name.charAt(0).toUpperCase() + name.slice(1)}
       draggable={false}
-      className={`${size === "large" ? "h-24 w-24 rounded-2xl border-4 sm:h-28 sm:w-28" : "h-12 w-12 shrink-0 rounded-xl border-2"} border-card object-cover shadow-lg ${className}`}
+      className={`${size === "large" ? "h-24 w-24 rounded-2xl border-4 sm:h-28 sm:w-28" : "h-12 w-12 shrink-0 rounded-xl border-2"} border-card bg-card object-contain shadow-lg ${className}`}
     />
   );
 }
@@ -826,7 +824,7 @@ function MultiplicationQuestion({ problem, feedback, sound }: { problem: Problem
     <div className="flex min-h-0 flex-1 flex-col">
       <div className="mt-4 flex items-center gap-3">
         <GameButton tone="neutral" className={`relative h-20 w-20 shrink-0 overflow-hidden rounded-2xl p-0 ${feedback === "right" ? "animate-hamad-cheer" : ""}`} onClick={tapHamad} aria-label="Tap Hamad for encouragement">
-          <img src={characterImages.hamad} alt="Hamad" draggable={false} className="h-full w-full object-cover" />
+          <img src={characterImages.hamad} alt="Hamad" draggable={false} className="h-full w-full bg-card object-contain" />
           <Sparkles className="absolute right-1 top-1 h-5 w-5 fill-primary text-primary" />
         </GameButton>
         <p className="min-h-16 flex-1 rounded-2xl rounded-bl-sm bg-card px-4 py-3 text-sm font-black shadow-sm">{coachText}</p>
