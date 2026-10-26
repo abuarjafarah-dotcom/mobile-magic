@@ -102,6 +102,7 @@ import goldenBeadIcon from "@/assets/golden-workshop/unit-bead.webp";
 import hamadIdle from "@/assets/kitchen/cast/hamad-idle.png";
 import talalIdle from "@/assets/kitchen/cast/talal-idle.png";
 import yousefHappy from "@/assets/science/yousef-happy.png";
+import { FamilyStrip } from "@/components/family/FamilyStrip";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -470,6 +471,7 @@ function GamePicker({ stats, onOpenCategory, onStartIq, onStartIe, onStartBuild,
       <header className="text-center">
         <p className="text-sm font-black uppercase text-muted-foreground">Learn with Hamad &amp; Talal</p>
         <h1 className="mt-1 text-3xl font-black leading-tight sm:text-5xl">Choose an adventure</h1>
+        <FamilyStrip className="mt-4" />
         {stats.stars > 0 && <p className="mt-2 inline-flex items-center gap-1 text-sm font-black text-muted-foreground"><Star className="h-4 w-4 fill-primary text-primary" />{stats.stars} stars collected</p>}
       </header>
       <div className="mt-5 grid grid-cols-2 gap-3 min-[960px]:mt-8 min-[960px]:grid-cols-4 min-[960px]:gap-4">

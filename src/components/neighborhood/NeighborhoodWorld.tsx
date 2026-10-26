@@ -3,8 +3,7 @@ import { ArrowLeft, Lock, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { checkFamilyPassword, readFamilyUnlocked, writeFamilyUnlocked } from "@/lib/familyPassword";
-import hamadIdle from "@/assets/kitchen/cast/hamad-idle.png";
-import talalIdle from "@/assets/kitchen/cast/talal-idle.png";
+import { FamilyStrip } from "@/components/family/FamilyStrip";
 
 type Game = { screen: string; label: string; icon: string };
 type Location = { id: string; name: string; detail: string; tone: string; games: Game[] };
@@ -143,13 +142,10 @@ function Map({ onExit, onOpen }: { onExit: () => void; onOpen: (screen: string) 
   return (
     <section className="mx-auto flex min-h-dvh w-full max-w-lg flex-col px-4 pb-[max(2rem,env(safe-area-inset-bottom))] pt-[max(1rem,env(safe-area-inset-top))] sm:px-6 min-[960px]:max-w-6xl">
       <Header onExit={onExit} />
-      <header className="mt-4 flex items-end justify-center gap-4 text-center">
-        <img src={hamadIdle} alt="" aria-hidden="true" draggable={false} className="h-24 w-auto object-contain drop-shadow-md sm:h-28" />
-        <div>
-          <p className="text-sm font-black uppercase text-muted-foreground">Our world</p>
-          <h1 className="mt-1 text-3xl font-black leading-tight sm:text-4xl">Neighborhood</h1>
-        </div>
-        <img src={talalIdle} alt="" aria-hidden="true" draggable={false} className="h-24 w-auto object-contain drop-shadow-md sm:h-28" />
+      <header className="mt-4 text-center">
+        <FamilyStrip />
+        <p className="mt-3 text-sm font-black uppercase text-muted-foreground">Our world</p>
+        <h1 className="mt-1 text-3xl font-black leading-tight sm:text-4xl">Neighborhood</h1>
       </header>
       <ul className="mt-6 grid grid-cols-1 gap-3 min-[600px]:grid-cols-2 min-[960px]:grid-cols-3 min-[960px]:gap-4">
         {NEIGHBORHOOD_LOCATIONS.map((loc) => (
