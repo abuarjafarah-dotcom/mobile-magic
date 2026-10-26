@@ -111,7 +111,7 @@ function Shelf({ onExit }: { onExit: () => void }) {
 
   return (
     <section className="mx-auto flex min-h-dvh w-full max-w-lg flex-col px-4 pb-[max(2rem,env(safe-area-inset-bottom))] pt-[max(1rem,env(safe-area-inset-top))] sm:px-6 min-[960px]:max-w-6xl">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between pr-16">
         <Header onExit={onExit} />
         <Button
           onClick={() => setAdding((v) => !v)}
