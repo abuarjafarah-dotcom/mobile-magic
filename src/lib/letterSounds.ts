@@ -28,9 +28,9 @@ const FATHA = "َ";
 
 /** Placeholder read by the device voice: the letter with a fatha, so it sounds like its sound. */
 export const LETTER_SOUND_PLACEHOLDER: Record<string, string> = {
-  "ا": "أَ",
-  "و": "وَ",
-  "ي": "يَ",
+  ا: "أَ",
+  و: "وَ",
+  ي: "يَ",
 };
 
 export function letterSoundText(letter: string): string {
@@ -50,7 +50,10 @@ export function playLetterSound(letter: string): Promise<void> {
       current?.pause();
       const audio = new Audio(url);
       current = audio;
-      const done = () => { if (current === audio) current = null; resolve(); };
+      const done = () => {
+        if (current === audio) current = null;
+        resolve();
+      };
       audio.onended = done;
       audio.onerror = done;
       audio.play().catch(done);

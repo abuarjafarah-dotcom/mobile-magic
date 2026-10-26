@@ -222,5 +222,5 @@ export const curriculumAudio: Record<string, string> = {
   "prompt-read": "/__l5e/assets-v1/629e8a13-4dd2-4a4a-a40d-fc44e9a7af0a/ar2-173.mp3",
   "prompt-sound": "/__l5e/assets-v1/f006b4b2-bd3c-4ce9-84e5-6d19e6ec9c33/ar2-174.mp3",
   "prompt-great": "/__l5e/assets-v1/aa732e31-141b-437a-aded-da0d0f32b998/ar2-175.mp3",
-  "prompt-again": "/__l5e/assets-v1/05cecb67-1b57-4fd5-871f-b532a2a4ffc6/ar2-176.mp3"
+  "prompt-again": "/__l5e/assets-v1/05cecb67-1b57-4fd5-871f-b532a2a4ffc6/ar2-176.mp3",
 };

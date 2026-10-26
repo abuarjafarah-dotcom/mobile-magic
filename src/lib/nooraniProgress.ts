@@ -99,7 +99,8 @@ export function skillMastery(p: PlayerProgress, skill: NooraniSkill): Mastery {
   const offered = new Set(skill.activities.map((x) => x.type).filter((t) => t !== "meet")).size;
   const needsRead = skill.activities.some((x) => x.type === "readAloud");
   const solid = stats.every((s) => s && s.c >= 5 && s.box >= 3 && accuracy(s) >= 0.75);
-  if (solid && kinds >= Math.min(5, offered) && (!needsRead || (sk?.read ?? 0) >= 1)) return "mastered";
+  if (solid && kinds >= Math.min(5, offered) && (!needsRead || (sk?.read ?? 0) >= 1))
+    return "mastered";
   if (stats.every((s) => s && s.c >= 2) && kinds >= Math.min(3, offered)) return "practicing";
   return "learning";
 }

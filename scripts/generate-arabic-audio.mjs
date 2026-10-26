@@ -39,9 +39,14 @@ const DRY_RUN = args.has("--dry-run");
 const maxCharsArg = process.argv.indexOf("--max-chars");
 const MAX_CHARS = maxCharsArg > -1 ? Number(process.argv[maxCharsArg + 1]) : Infinity;
 
-const phrases = [...new Set(
-  readFileSync(PHRASES, "utf8").split("\n").map((l) => l.trim()).filter(Boolean),
-)].slice(0, LIMIT);
+const phrases = [
+  ...new Set(
+    readFileSync(PHRASES, "utf8")
+      .split("\n")
+      .map((l) => l.trim())
+      .filter(Boolean),
+  ),
+].slice(0, LIMIT);
 
 const fileFor = (text) => `${createHash("sha1").update(text).digest("hex").slice(0, 16)}.mp3`;
 
@@ -57,7 +62,9 @@ for (const t of pending) {
   spent += n;
   todo.push(t);
 }
-console.log(`Phrases: ${phrases.length} · already done: ${phrases.length - pending.length} · to generate: ${todo.length}`);
+console.log(
+  `Phrases: ${phrases.length} · already done: ${phrases.length - pending.length} · to generate: ${todo.length}`,
+);
 console.log(`Characters to send: ${spent}${MAX_CHARS < Infinity ? ` (budget ${MAX_CHARS})` : ""}`);
 console.log(`Voice: ${VOICE_ID} · model: ${MODEL_ID}`);
 
@@ -65,7 +72,9 @@ if (DRY_RUN) process.exit(0);
 
 const apiKey = process.env.ELEVENLABS_API_KEY;
 if (!apiKey) {
-  console.error("Missing ELEVENLABS_API_KEY. Set it in your terminal first (see the instructions).");
+  console.error(
+    "Missing ELEVENLABS_API_KEY. Set it in your terminal first (see the instructions).",
+  );
   process.exit(1);
 }
 
@@ -114,4 +123,6 @@ async function worker(queue) {
 const queue = [...todo];
 await Promise.all(Array.from({ length: CONCURRENCY }, () => worker(queue)));
 writeFileSync(MANIFEST, JSON.stringify(manifest, null, 2));
-console.log(`Finished. Generated ${done}, failed ${failed}. Manifest: public/audio/ar/manifest.json`);
+console.log(
+  `Finished. Generated ${done}, failed ${failed}. Manifest: public/audio/ar/manifest.json`,
+);

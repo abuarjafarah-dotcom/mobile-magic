@@ -15,6 +15,7 @@ let last: { text: string; lang: VoiceLang } | null = null;
 export function cleanSpeechText(raw: string, lang: VoiceLang): string {
   let t = String(raw ?? "")
     .replace(/<[^>]*>/g, " ")
+    // eslint-disable-next-line no-misleading-character-class -- intentional: strip each emoji code point, including joiners
     .replace(/[\p{Extended_Pictographic}\u{FE0F}\u{200D}\u{20E3}]/gu, " ")
     .replace(/[←→↑↓⇐⇒•·|/\\_*#@^~`{}[\]<>()"“”«»=+]/g, " ");
   if (lang === "ar") t = t.replace(/[A-Za-z0-9]+/g, " ").replace(/[,;:!?.،؛؟…—–-]+/g, " ");
@@ -31,7 +32,8 @@ export function setVoiceOn(on: boolean) {
   if (!on) stopVoice();
 }
 
-const FEMALE = /female|woman|samantha|karen|victoria|zira|susan|serena|tessa|moira|fiona|allison|ava|lana|laila|mariam|hoda|salma|zeina|amira|google us english/i;
+const FEMALE =
+  /female|woman|samantha|karen|victoria|zira|susan|serena|tessa|moira|fiona|allison|ava|lana|laila|mariam|hoda|salma|zeina|amira|google us english/i;
 function englishVoice() {
   const vs = window.speechSynthesis?.getVoices() ?? [];
   const en = vs.filter((v) => v.lang.toLowerCase().startsWith("en"));
@@ -57,13 +59,29 @@ export function speakEnglish(raw: string): Promise<void> {
   const text = cleanSpeechText(raw, "en");
   stopArabicVoice();
   return new Promise((resolve) => {
-    if (typeof window === "undefined" || !text) { resolve(); return; }
-    if (!window.speechSynthesis) { resolve(); return; }
+    if (typeof window === "undefined" || !text) {
+      resolve();
+      return;
+    }
+    if (!window.speechSynthesis) {
+      resolve();
+      return;
+    }
     const u = new SpeechSynthesisUtterance(text);
-    u.lang = "en-US"; u.rate = 0.9; u.pitch = 1.1;
-    const v = englishVoice(); if (v) u.voice = v;
-    let done = false; const end = () => { if (!done) { done = true; resolve(); } };
-    u.onend = end; u.onerror = end;
+    u.lang = "en-US";
+    u.rate = 0.9;
+    u.pitch = 1.1;
+    const v = englishVoice();
+    if (v) u.voice = v;
+    let done = false;
+    const end = () => {
+      if (!done) {
+        done = true;
+        resolve();
+      }
+    };
+    u.onend = end;
+    u.onerror = end;
     setTimeout(end, Math.max(3500, text.length * 110));
     window.speechSynthesis.speak(u);
   });

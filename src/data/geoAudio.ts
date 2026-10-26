@@ -183,5 +183,5 @@ export const geoAudio: Record<string, string> = {
   "gp-again-en": "/__l5e/assets-v1/f7867d2e-a7d5-4697-86b6-4e5aa85d4cd0/geo-178.mp3",
   "gp-again-ar": "/__l5e/assets-v1/d7893a34-c0c6-4438-826f-86c2f5662a9a/geo-179.mp3",
   "gp-translate-en": "/__l5e/assets-v1/872d43d7-640e-491d-8f7c-0753f55248d6/geo-180.mp3",
-  "gp-translate-ar": "/__l5e/assets-v1/ab881513-e4b2-4b7f-8d3e-bda3ac4b03cb/geo-181.mp3"
+  "gp-translate-ar": "/__l5e/assets-v1/ab881513-e4b2-4b7f-8d3e-bda3ac4b03cb/geo-181.mp3",
 };

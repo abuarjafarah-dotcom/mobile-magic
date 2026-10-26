@@ -57,7 +57,10 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
             onClick={() => {
-              if (isChunkLoadError(error)) { window.location.reload(); return; }
+              if (isChunkLoadError(error)) {
+                window.location.reload();
+                return;
+              }
               router.invalidate();
               reset();
             }}
@@ -93,7 +96,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Nunito:wght@600;700;800;900&family=Amiri+Quran&family=Noto+Naskh+Arabic:wght@500;700&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Nunito:wght@600;700;800;900&family=Amiri+Quran&family=Noto+Naskh+Arabic:wght@500;700&display=swap",
+      },
       {
         rel: "stylesheet",
         href: appCss,
@@ -125,7 +131,9 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   // Vite fires this when a preloaded file from an older deploy is missing.
   useEffect(() => {
-    const onPreloadError = (e: Event) => { if (reloadForNewVersion()) e.preventDefault(); };
+    const onPreloadError = (e: Event) => {
+      if (reloadForNewVersion()) e.preventDefault();
+    };
     window.addEventListener("vite:preloadError", onPreloadError);
     return () => window.removeEventListener("vite:preloadError", onPreloadError);
   }, []);

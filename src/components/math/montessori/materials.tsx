@@ -32,22 +32,52 @@ let ctx: AudioContext | null = null;
 function tone(freq: number, dur: number, vol: number) {
   try {
     ctx ??= new AudioContext();
-    const o = ctx.createOscillator(); const g = ctx.createGain();
-    o.type = "sine"; o.frequency.value = freq;
-    g.gain.setValueAtTime(vol, ctx.currentTime); g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + dur);
-    o.connect(g).connect(ctx.destination); o.start(); o.stop(ctx.currentTime + dur);
-  } catch { /* audio unavailable */ }
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type = "sine";
+    o.frequency.value = freq;
+    g.gain.setValueAtTime(vol, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + dur);
+    o.connect(g).connect(ctx.destination);
+    o.start();
+    o.stop(ctx.currentTime + dur);
+  } catch {
+    /* audio unavailable */
+  }
 }
 export const snapSound = () => tone(520, 0.09, 0.05);
-export const successSound = () => { tone(660, 0.25, 0.04); setTimeout(() => tone(880, 0.35, 0.03), 140); };
+export const successSound = () => {
+  tone(660, 0.25, 0.04);
+  setTimeout(() => tone(880, 0.35, 0.03), 140);
+};
 const arDigits = (n: number) => n.toLocaleString("ar-EG");
-const WORDS: Record<string, [string, string]> = { "×": ["ضرب", "times"], "÷": ["تقسيم", "divided by"], "=": ["يساوي", "equals"], "+": ["زائد", "plus"], "−": ["ناقص", "minus"], "²": ["تربيع", "squared"], "³": ["تكعيب", "cubed"] };
-export function sayNum(n: number, lang: LearningLanguage) { void (lang === "ar" ? speakArabic(arDigits(n)) : speakEnglish(String(n))); }
+const WORDS: Record<string, [string, string]> = {
+  "×": ["ضرب", "times"],
+  "÷": ["تقسيم", "divided by"],
+  "=": ["يساوي", "equals"],
+  "+": ["زائد", "plus"],
+  "−": ["ناقص", "minus"],
+  "²": ["تربيع", "squared"],
+  "³": ["تكعيب", "cubed"],
+};
+export function sayNum(n: number, lang: LearningLanguage) {
+  void (lang === "ar" ? speakArabic(arDigits(n)) : speakEnglish(String(n)));
+}
 export function sayTokens(tokens: Token[], lang: LearningLanguage) {
-  const text = tokens.map((x) => (typeof x === "number" ? (lang === "ar" ? arDigits(x) : String(x)) : WORDS[x]?.[lang === "ar" ? 0 : 1] ?? "")).join(" ");
+  const text = tokens
+    .map((x) =>
+      typeof x === "number"
+        ? lang === "ar"
+          ? arDigits(x)
+          : String(x)
+        : (WORDS[x]?.[lang === "ar" ? 0 : 1] ?? ""),
+    )
+    .join(" ");
   void (lang === "ar" ? speakArabic(text) : speakEnglish(text));
 }
-export function sayText(lang: LearningLanguage, ar: string, en: string) { void (lang === "ar" ? speakArabic(ar) : speakEnglish(en)); }
+export function sayText(lang: LearningLanguage, ar: string, en: string) {
+  void (lang === "ar" ? speakArabic(ar) : speakEnglish(en));
+}
 
 // ---------- visual-first layout helpers (the children can't read yet) ----------
 /** One bead size for the whole screen, scaled to the device. Never varies by chain number. */
@@ -63,20 +93,58 @@ export function useBeadSize() {
 
 /** Spoken instruction: read aloud when it appears, tap the speaker to hear it again. Text stays small for grown-ups. */
 export function Hint({ lang, text }: { lang: LearningLanguage; text: string }) {
-  const speakIt = useCallback(() => { void (lang === "ar" ? speakArabic(text) : speakEnglish(text)); }, [lang, text]);
-  useEffect(() => { const id = setTimeout(speakIt, 250); return () => clearTimeout(id); }, [speakIt]);
+  const speakIt = useCallback(() => {
+    void (lang === "ar" ? speakArabic(text) : speakEnglish(text));
+  }, [lang, text]);
+  useEffect(() => {
+    const id = setTimeout(speakIt, 250);
+    return () => clearTimeout(id);
+  }, [speakIt]);
   return (
-    <button type="button" onClick={speakIt} className={cn("mx-auto flex max-w-full items-center gap-2 rounded-full bg-card/70 py-1 pe-3 ps-1 text-start text-xs font-bold text-muted-foreground shadow-sm", lang === "ar" && "font-arabic")}>
-      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground"><Volume2 className="h-5 w-5" /></span>
+    <button
+      type="button"
+      onClick={speakIt}
+      className={cn(
+        "mx-auto flex max-w-full items-center gap-2 rounded-full bg-card/70 py-1 pe-3 ps-1 text-start text-xs font-bold text-muted-foreground shadow-sm",
+        lang === "ar" && "font-arabic",
+      )}
+    >
+      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground">
+        <Volume2 className="h-5 w-5" />
+      </span>
       <span className="min-w-0">{text}</span>
     </button>
   );
 }
 
 /** Big round icon button; the label is spoken for screen readers only. */
-export function IconBtn({ label, onClick, tone = "mint", children, className, disabled }: { label: string; onClick: () => void; tone?: "mint" | "neutral" | "sky"; children: ReactNode; className?: string; disabled?: boolean }) {
+export function IconBtn({
+  label,
+  onClick,
+  tone = "mint",
+  children,
+  className,
+  disabled,
+}: {
+  label: string;
+  onClick: () => void;
+  tone?: "mint" | "neutral" | "sky";
+  children: ReactNode;
+  className?: string;
+  disabled?: boolean;
+}) {
   return (
-    <GameButton tone={tone} aria-label={label} title={label} disabled={disabled} className={cn("inline-flex min-h-14 min-w-14 items-center justify-center gap-1.5 rounded-full px-4", className)} onClick={onClick}>
+    <GameButton
+      tone={tone}
+      aria-label={label}
+      title={label}
+      disabled={disabled}
+      className={cn(
+        "inline-flex min-h-14 min-w-14 items-center justify-center gap-1.5 rounded-full px-4",
+        className,
+      )}
+      onClick={onClick}
+    >
       {children}
     </GameButton>
   );
@@ -87,14 +155,33 @@ export const AgainIcon = () => <RotateCcw className="h-6 w-6" strokeWidth={3} />
 // ---------- materials ----------
 export type Op = "×" | "÷" | "=" | "+" | "−" | "²" | "³" | "(" | ")";
 export type Token = number | Op;
-const OP_IMG: Record<Op, string> = { "×": symTimes, "÷": symDivide, "=": symEquals, "+": symPlus, "−": symMinus, "²": symSq, "³": symCube, "(": symParenL, ")": symParenR };
+const OP_IMG: Record<Op, string> = {
+  "×": symTimes,
+  "÷": symDivide,
+  "=": symEquals,
+  "+": symPlus,
+  "−": symMinus,
+  "²": symSq,
+  "³": symCube,
+  "(": symParenL,
+  ")": symParenR,
+};
 
 export function WoodNum({ n, size = 56, faint }: { n: number; size?: number; faint?: boolean }) {
   const digits = String(n).length;
   return (
-    <span className={cn("relative inline-block shrink-0 select-none", faint && "opacity-35 grayscale")} style={{ width: size, height: size * 1.29 }}>
+    <span
+      className={cn("relative inline-block shrink-0 select-none", faint && "opacity-35 grayscale")}
+      style={{ width: size, height: size * 1.29 }}
+    >
       <img src={pickBlank} alt="" draggable={false} className="h-full w-full drop-shadow-md" />
-      <span className="absolute inset-x-[12%] top-[6%] grid h-[44%] place-items-center font-black leading-none text-amber-950/85" style={{ fontSize: size * (digits >= 4 ? 0.21 : digits >= 3 ? 0.27 : digits === 2 ? 0.36 : 0.44), textShadow: "0 1px 0 rgba(255,235,200,.6)" }}>
+      <span
+        className="absolute inset-x-[12%] top-[6%] grid h-[44%] place-items-center font-black leading-none text-amber-950/85"
+        style={{
+          fontSize: size * (digits >= 4 ? 0.21 : digits >= 3 ? 0.27 : digits === 2 ? 0.36 : 0.44),
+          textShadow: "0 1px 0 rgba(255,235,200,.6)",
+        }}
+      >
         {n}
       </span>
       <span className="sr-only">{n}</span>
@@ -105,36 +192,94 @@ export function WoodNum({ n, size = 56, faint }: { n: number; size?: number; fai
 export function WoodOp({ op, size = 52 }: { op: Op; size?: number }) {
   const small = op === "²" || op === "³";
   const s = small ? size * 0.55 : op === "(" || op === ")" ? size * 0.9 : size;
-  return <img src={OP_IMG[op]} alt={op} draggable={false} className="shrink-0 select-none object-contain drop-shadow-md" style={{ width: op === "(" || op === ")" ? s * 0.4 : s, height: s }} />;
+  return (
+    <img
+      src={OP_IMG[op]}
+      alt={op}
+      draggable={false}
+      className="shrink-0 select-none object-contain drop-shadow-md"
+      style={{ width: op === "(" || op === ")" ? s * 0.4 : s, height: s }}
+    />
+  );
 }
 
 export function WoodToken({ token, size = 52 }: { token: Token; size?: number }) {
-  return typeof token === "number" ? <WoodNum n={token} size={size} /> : <WoodOp op={token} size={size} />;
+  return typeof token === "number" ? (
+    <WoodNum n={token} size={size} />
+  ) : (
+    <WoodOp op={token} size={size} />
+  );
 }
 
-const beadImgs = import.meta.glob("@/assets/beads/bead-*.png", { eager: true, import: "default" }) as Record<string, string>;
-const beadFile = (i: number) => Object.entries(beadImgs).find(([k]) => k.endsWith(`/bead-${i}.png`))?.[1] ?? "";
+const beadImgs = import.meta.glob("@/assets/beads/bead-*.png", {
+  eager: true,
+  import: "default",
+}) as Record<string, string>;
+const beadFile = (i: number) =>
+  Object.entries(beadImgs).find(([k]) => k.endsWith(`/bead-${i}.png`))?.[1] ?? "";
 // Montessori chain colours: 2=red, 3=pink, 4=blue, 5=light-blue, 6=purple, 7=white, 8=brown, 9=dark-blue, 10=gold.
 // Each chain uses its own numbered bead file for proper Montessori color sequence
-const CHAIN_FILE: Record<number, number> = { 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9, 10: 10 };
+const CHAIN_FILE: Record<number, number> = {
+  1: 1,
+  2: 2,
+  3: 3,
+  4: 4,
+  5: 5,
+  6: 6,
+  7: 7,
+  8: 8,
+  9: 9,
+  10: 10,
+};
 export const chainBeadSrc = (n: number) => beadFile(CHAIN_FILE[n] ?? 1);
 
 /** A bead chain: bead size is constant so a 10-chain is 5× longer (more beads) than a 2-chain, maintaining Montessori visual hierarchy. */
-export function Chain({ n, reps = 1, bead = 18, dim }: { n: number; reps?: number; bead?: number; dim?: number }) {
+export function Chain({
+  n,
+  reps = 1,
+  bead = 18,
+  dim,
+}: {
+  n: number;
+  reps?: number;
+  bead?: number;
+  dim?: number;
+}) {
   // IMPORTANT: Do NOT vary bead size based on chain number. Constant bead size is pedagogically critical.
   // Visual difference comes from number of beads, not bead size. A 10-chain is 5× LONGER because it has 5× the beads.
   return (
     <span dir="ltr" className="relative inline-flex shrink-0 items-center" style={{ height: bead }}>
-      <span className="absolute inset-x-0 top-1/2 h-[2px] -translate-y-1/2 rounded bg-amber-800/60" aria-hidden />
+      <span
+        className="absolute inset-x-0 top-1/2 h-[2px] -translate-y-1/2 rounded bg-amber-800/60"
+        aria-hidden
+      />
       {Array.from({ length: n * reps }, (_, i) => (
-        <img key={i} src={chainBeadSrc(n)} alt="" draggable={false} className={cn("relative shrink-0 select-none", dim !== undefined && i >= dim && "opacity-25")} style={{ width: bead, height: bead, marginLeft: i > 0 && i % n === 0 ? bead * 0.35 : 0 }} />
+        <img
+          key={i}
+          src={chainBeadSrc(n)}
+          alt=""
+          draggable={false}
+          className={cn(
+            "relative shrink-0 select-none",
+            dim !== undefined && i >= dim && "opacity-25",
+          )}
+          style={{ width: bead, height: bead, marginLeft: i > 0 && i % n === 0 ? bead * 0.35 : 0 }}
+        />
       ))}
     </span>
   );
 }
 
 export function Apple({ size = 26 }: { size?: number }) {
-  return <img src={apple} alt="" draggable={false} className="shrink-0 select-none drop-shadow" style={{ width: size, height: size }} />;
+  return (
+    <img
+      src={apple}
+      alt=""
+      draggable={false}
+      className="shrink-0 select-none drop-shadow"
+      style={{ width: size, height: size }}
+    />
+  );
 }
 
 // ---------- the one manipulation system ----------
@@ -147,29 +292,58 @@ export function useWorkMat(onDrop: DropFn) {
   const [drag, setDrag] = useState<Drag | null>(null);
   const [held, setHeld] = useState<Piece | null>(null);
   const [nudge, setNudge] = useState<string | null>(null);
-  const dropRef = useRef(onDrop); dropRef.current = onDrop;
+  const dropRef = useRef(onDrop);
+  dropRef.current = onDrop;
 
-  const zone = useCallback((id: string) => (el: HTMLElement | null) => { if (el) zones.current.set(id, el); else zones.current.delete(id); }, []);
+  const zone = useCallback(
+    (id: string) => (el: HTMLElement | null) => {
+      if (el) zones.current.set(id, el);
+      else zones.current.delete(id);
+    },
+    [],
+  );
   const hit = useCallback((x: number, y: number) => {
-    let best: string | null = null; let bestD = Infinity;
+    let best: string | null = null;
+    let bestD = Infinity;
     zones.current.forEach((el, id) => {
-      const r = el.getBoundingClientRect(); const pad = 18;
+      const r = el.getBoundingClientRect();
+      const pad = 18;
       if (x < r.left - pad || x > r.right + pad || y < r.top - pad || y > r.bottom + pad) return;
-      const d = Math.hypot(x - (r.left + r.width / 2), y - (r.top + r.height / 2)) + (x >= r.left && x <= r.right && y >= r.top && y <= r.bottom ? -1000 : 0);
-      if (d < bestD) { bestD = d; best = id; }
+      const d =
+        Math.hypot(x - (r.left + r.width / 2), y - (r.top + r.height / 2)) +
+        (x >= r.left && x <= r.right && y >= r.top && y <= r.bottom ? -1000 : 0);
+      if (d < bestD) {
+        bestD = d;
+        best = id;
+      }
     });
     return best;
   }, []);
   const drop = useCallback((piece: Piece, z: string | null) => {
-    if (z && dropRef.current(piece, z)) { snapSound(); return true; }
-    setNudge(piece.id); setTimeout(() => setNudge(null), 380); return false;
+    if (z && dropRef.current(piece, z)) {
+      snapSound();
+      return true;
+    }
+    setNudge(piece.id);
+    setTimeout(() => setNudge(null), 380);
+    return false;
   }, []);
   return { zone, hit, drop, drag, setDrag, held, setHeld, nudge };
 }
 export type WorkMat = ReturnType<typeof useWorkMat>;
 
 /** A physical manipulative: drag it, or tap it then tap where it goes. */
-export function Draggable({ mat, piece, children, className }: { mat: WorkMat; piece: Piece; children: ReactNode; className?: string }) {
+export function Draggable({
+  mat,
+  piece,
+  children,
+  className,
+}: {
+  mat: WorkMat;
+  piece: Piece;
+  children: ReactNode;
+  className?: string;
+}) {
   const start = useRef<{ x: number; y: number; moved: boolean } | null>(null);
   const dragging = mat.drag?.piece.id === piece.id;
   const held = mat.held?.id === piece.id;
@@ -178,20 +352,40 @@ export function Draggable({ mat, piece, children, className }: { mat: WorkMat; p
       role="button"
       tabIndex={0}
       aria-label={String(piece.value)}
-      className={cn("inline-grid touch-none cursor-grab place-items-center rounded-xl transition-transform duration-150", dragging && "opacity-30", held && "-translate-y-1.5 ring-4 ring-primary/60", mat.nudge === piece.id && "animate-[wiggle_0.35s_ease]", className)}
+      className={cn(
+        "inline-grid touch-none cursor-grab place-items-center rounded-xl transition-transform duration-150",
+        dragging && "opacity-30",
+        held && "-translate-y-1.5 ring-4 ring-primary/60",
+        mat.nudge === piece.id && "animate-[wiggle_0.35s_ease]",
+        className,
+      )}
       onClick={(e) => e.stopPropagation()}
-      onPointerDown={(e) => { e.stopPropagation(); e.currentTarget.setPointerCapture(e.pointerId); start.current = { x: e.clientX, y: e.clientY, moved: false }; }}
+      onPointerDown={(e) => {
+        e.stopPropagation();
+        e.currentTarget.setPointerCapture(e.pointerId);
+        start.current = { x: e.clientX, y: e.clientY, moved: false };
+      }}
       onPointerMove={(e) => {
-        const s = start.current; if (!s) return;
-        if (!s.moved && Math.hypot(e.clientX - s.x, e.clientY - s.y) > 7) { s.moved = true; mat.setHeld(null); }
+        const s = start.current;
+        if (!s) return;
+        if (!s.moved && Math.hypot(e.clientX - s.x, e.clientY - s.y) > 7) {
+          s.moved = true;
+          mat.setHeld(null);
+        }
         if (s.moved) mat.setDrag({ piece, node: children, x: e.clientX, y: e.clientY });
       }}
       onPointerUp={(e) => {
-        const s = start.current; start.current = null;
-        if (s?.moved) { mat.setDrag(null); mat.drop(piece, mat.hit(e.clientX, e.clientY)); }
-        else mat.setHeld(held ? null : piece);
+        const s = start.current;
+        start.current = null;
+        if (s?.moved) {
+          mat.setDrag(null);
+          mat.drop(piece, mat.hit(e.clientX, e.clientY));
+        } else mat.setHeld(held ? null : piece);
       }}
-      onPointerCancel={() => { start.current = null; mat.setDrag(null); }}
+      onPointerCancel={() => {
+        start.current = null;
+        mat.setDrag(null);
+      }}
     >
       {children}
     </span>
@@ -199,13 +393,30 @@ export function Draggable({ mat, piece, children, className }: { mat: WorkMat; p
 }
 
 /** A valid work area. Tapping it places the held piece (or runs onTap). */
-export function Zone({ mat, id, children, className, onTap }: { mat: WorkMat; id: string; children?: ReactNode; className?: string; onTap?: (() => void) | undefined }) {
+export function Zone({
+  mat,
+  id,
+  children,
+  className,
+  onTap,
+}: {
+  mat: WorkMat;
+  id: string;
+  children?: ReactNode;
+  className?: string;
+  onTap?: (() => void) | undefined;
+}) {
   const over = mat.drag && mat.hit(mat.drag.x, mat.drag.y) === id;
   return (
     <div
       ref={mat.zone(id)}
       className={cn("transition-colors", over && "bg-primary/15 ring-2 ring-primary/50", className)}
-      onClick={() => { if (mat.held) { mat.drop(mat.held, id); mat.setHeld(null); } else onTap?.(); }}
+      onClick={() => {
+        if (mat.held) {
+          mat.drop(mat.held, id);
+          mat.setHeld(null);
+        } else onTap?.();
+      }}
     >
       {children}
     </div>
@@ -217,16 +428,42 @@ export function DragLayer({ mat }: { mat: WorkMat }) {
   if (!mat.drag) return null;
   const x = Math.min(Math.max(mat.drag.x, 30), window.innerWidth - 30);
   const y = Math.min(Math.max(mat.drag.y, 30), window.innerHeight - 30);
-  return <div className="pointer-events-none fixed z-[60] -translate-x-1/2 -translate-y-1/2 scale-110 drop-shadow-2xl" style={{ left: x, top: y }}>{mat.drag.node}</div>;
+  return (
+    <div
+      className="pointer-events-none fixed z-[60] -translate-x-1/2 -translate-y-1/2 scale-110 drop-shadow-2xl"
+      style={{ left: x, top: y }}
+    >
+      {mat.drag.node}
+    </div>
+  );
 }
 
 // ---------- equation construction (shared by all levels) ----------
 let uid = 0;
 /** Child physically lays wooden pieces into slots; only the true relationship snaps in. */
-export function EquationWork({ tokens, extras = [], lang, onDone, size = 50 }: { tokens: Token[]; extras?: Token[]; lang: LearningLanguage; onDone?: () => void; size?: number }) {
+export function EquationWork({
+  tokens,
+  extras = [],
+  lang,
+  onDone,
+  size = 50,
+}: {
+  tokens: Token[];
+  extras?: Token[];
+  lang: LearningLanguage;
+  onDone?: () => void;
+  size?: number;
+}) {
   const pieces = useMemo(() => {
-    const all = [...tokens, ...extras].map((v) => ({ id: `eq${uid++}`, kind: typeof v === "number" ? "num" : "op", value: v }));
-    for (let i = all.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [all[i], all[j]] = [all[j]!, all[i]!]; }
+    const all = [...tokens, ...extras].map((v) => ({
+      id: `eq${uid++}`,
+      kind: typeof v === "number" ? "num" : "op",
+      value: v,
+    }));
+    for (let i = all.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [all[i], all[j]] = [all[j]!, all[i]!];
+    }
     return all;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tokens.join(" ")]);
@@ -234,10 +471,18 @@ export function EquationWork({ tokens, extras = [], lang, onDone, size = 50 }: {
   const done = slots.every(Boolean);
   const reported = useRef(false);
   useEffect(() => {
-    if (done && !reported.current) { reported.current = true; successSound(); sayTokens(tokens, lang); onDone?.(); }
+    if (done && !reported.current) {
+      reported.current = true;
+      successSound();
+      sayTokens(tokens, lang);
+      onDone?.();
+    }
   }, [done, tokens, lang, onDone]);
   const mat = useWorkMat((p, z) => {
-    if (z === "eq-tray") { setSlots((s) => s.map((x) => (x === p.id ? null : x))); return true; }
+    if (z === "eq-tray") {
+      setSlots((s) => s.map((x) => (x === p.id ? null : x)));
+      return true;
+    }
     const i = Number(z.replace("eq-", ""));
     if (slots[i] || tokens[i] !== p.value) return false;
     setSlots((s) => s.map((x, k) => (k === i ? p.id : x === p.id ? null : x)));
@@ -247,24 +492,54 @@ export function EquationWork({ tokens, extras = [], lang, onDone, size = 50 }: {
   const byId = (id: string) => pieces.find((p) => p.id === id)!;
   return (
     <div className="grid gap-3">
-      <div dir="ltr" className="flex flex-wrap items-center justify-center gap-1.5 rounded-3xl border-4 border-amber-900/20 bg-amber-50/80 p-3 shadow-inner">
+      <div
+        dir="ltr"
+        className="flex flex-wrap items-center justify-center gap-1.5 rounded-3xl border-4 border-amber-900/20 bg-amber-50/80 p-3 shadow-inner"
+      >
         {tokens.map((tok, i) => {
           const sup = tok === "²" || tok === "³";
           const id = slots[i];
           return (
-            <Zone key={i} mat={mat} id={`eq-${i}`} className={cn("grid place-items-center rounded-xl", sup ? "-ms-2 self-start" : "", !id && "border-2 border-dashed border-amber-900/30 bg-background/50")}>
-              <span className="grid place-items-center" style={{ minWidth: sup ? size * 0.55 : size, minHeight: sup ? size * 0.55 : size * 1.1 }}>
-                {id ? <Draggable mat={mat} piece={byId(id)}><WoodToken token={tok} size={size} /></Draggable> : null}
+            <Zone
+              key={i}
+              mat={mat}
+              id={`eq-${i}`}
+              className={cn(
+                "grid place-items-center rounded-xl",
+                sup ? "-ms-2 self-start" : "",
+                !id && "border-2 border-dashed border-amber-900/30 bg-background/50",
+              )}
+            >
+              <span
+                className="grid place-items-center"
+                style={{
+                  minWidth: sup ? size * 0.55 : size,
+                  minHeight: sup ? size * 0.55 : size * 1.1,
+                }}
+              >
+                {id ? (
+                  <Draggable mat={mat} piece={byId(id)}>
+                    <WoodToken token={tok} size={size} />
+                  </Draggable>
+                ) : null}
               </span>
             </Zone>
           );
         })}
       </div>
       {!done && (
-        <Zone mat={mat} id="eq-tray" className="flex min-h-20 flex-wrap items-end justify-center gap-2 rounded-2xl bg-card/70 p-2">
-          {pieces.filter((p) => !slots.includes(p.id)).map((p) => (
-            <Draggable key={p.id} mat={mat} piece={p}><WoodToken token={p.value as Token} size={size} /></Draggable>
-          ))}
+        <Zone
+          mat={mat}
+          id="eq-tray"
+          className="flex min-h-20 flex-wrap items-end justify-center gap-2 rounded-2xl bg-card/70 p-2"
+        >
+          {pieces
+            .filter((p) => !slots.includes(p.id))
+            .map((p) => (
+              <Draggable key={p.id} mat={mat} piece={p}>
+                <WoodToken token={p.value as Token} size={size} />
+              </Draggable>
+            ))}
         </Zone>
       )}
       <DragLayer mat={mat} />
@@ -276,7 +551,11 @@ export function EquationWork({ tokens, extras = [], lang, onDone, size = 50 }: {
 export function WoodEquation({ tokens, size = 34 }: { tokens: Token[]; size?: number }) {
   return (
     <span dir="ltr" className="inline-flex items-center gap-1">
-      {tokens.map((tok, i) => <span key={i} className={tok === "²" || tok === "³" ? "-ms-1.5 self-start" : ""}><WoodToken token={tok} size={size} /></span>)}
+      {tokens.map((tok, i) => (
+        <span key={i} className={tok === "²" || tok === "³" ? "-ms-1.5 self-start" : ""}>
+          <WoodToken token={tok} size={size} />
+        </span>
+      ))}
     </span>
   );
 }
@@ -285,19 +564,52 @@ export function WoodEquation({ tokens, size = 34 }: { tokens: Token[]; size?: nu
 const KEY = "bead-garden-v1";
 export function useGardenGrowth(): [number, () => void] {
   const [g, setG] = useState(0);
-  useEffect(() => { setG(Number(localStorage.getItem(KEY) ?? 0) || 0); }, []);
-  const grow = useCallback(() => setG((x) => { const n = x + 1; localStorage.setItem(KEY, String(n)); return n; }), []);
+  useEffect(() => {
+    setG(Number(localStorage.getItem(KEY) ?? 0) || 0);
+  }, []);
+  const grow = useCallback(
+    () =>
+      setG((x) => {
+        const n = x + 1;
+        localStorage.setItem(KEY, String(n));
+        return n;
+      }),
+    [],
+  );
   return [g, grow];
 }
 const PLANTS = [flower, rose, sunflower, flower, rose, sunflower, flower, rose, sunflower, flower];
 export function GardenBed({ growth }: { growth: number }) {
   return (
-    <div dir="ltr" className="relative flex h-16 items-end justify-around overflow-hidden rounded-2xl bg-gradient-to-t from-amber-900/50 to-transparent px-2" aria-label={`garden ${growth}`}>
+    <div
+      dir="ltr"
+      className="relative flex h-16 items-end justify-around overflow-hidden rounded-2xl bg-gradient-to-t from-amber-900/50 to-transparent px-2"
+      aria-label={`garden ${growth}`}
+    >
       {PLANTS.map((src, i) => {
         const stage = Math.max(0, Math.min(3, growth - i * 3 + 1)); // each plant matures over three works
-        return <img key={i} src={src} alt="" draggable={false} className="origin-bottom transition-all duration-1000" style={{ height: [14, 30, 48, 66][stage], opacity: stage === 0 ? 0.35 : 1, filter: stage === 0 ? "grayscale(1)" : undefined }} />;
+        return (
+          <img
+            key={i}
+            src={src}
+            alt=""
+            draggable={false}
+            className="origin-bottom transition-all duration-1000"
+            style={{
+              height: [14, 30, 48, 66][stage],
+              opacity: stage === 0 ? 0.35 : 1,
+              filter: stage === 0 ? "grayscale(1)" : undefined,
+            }}
+          />
+        );
       })}
-      {growth >= 12 && <img src={butterfly} alt="" className="absolute right-6 top-1 h-9 animate-[float_4s_ease-in-out_infinite]" />}
+      {growth >= 12 && (
+        <img
+          src={butterfly}
+          alt=""
+          className="absolute right-6 top-1 h-9 animate-[float_4s_ease-in-out_infinite]"
+        />
+      )}
     </div>
   );
 }

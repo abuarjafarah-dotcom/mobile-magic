@@ -4,1416 +4,1504 @@ import type { SurahData } from "./surahs";
 
 export const juz23Surahs: readonly SurahData[] = [
   {
-    "id": "saffat",
-    "number": 37,
-    "name": "Surah As-Saffat",
-    "arabicName": "سورة الصافات",
-    "reciter": "Ahmad Al-Nufais",
-    "tone": "mint",
-    "scene": "trees",
-    "verses": [
+    id: "saffat",
+    number: 37,
+    name: "Surah As-Saffat",
+    arabicName: "سورة الصافات",
+    reciter: "Ahmad Al-Nufais",
+    tone: "mint",
+    scene: "trees",
+    verses: [
       {
-        "arabic": " وَٱلصَّـٰٓفَّـٰتِ صَفًّا",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037001.mp3"
+        arabic: " وَٱلصَّـٰٓفَّـٰتِ صَفًّا",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037001.mp3",
       },
       {
-        "arabic": "فَٱلزَّٰجِرَٰتِ زَجْرًا",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037002.mp3"
+        arabic: "فَٱلزَّٰجِرَٰتِ زَجْرًا",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037002.mp3",
       },
       {
-        "arabic": "فَٱلتَّـٰلِيَـٰتِ ذِكْرًا",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037003.mp3"
+        arabic: "فَٱلتَّـٰلِيَـٰتِ ذِكْرًا",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037003.mp3",
       },
       {
-        "arabic": "إِنَّ إِلَـٰهَكُمْ لَوَٰحِدٌ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037004.mp3"
+        arabic: "إِنَّ إِلَـٰهَكُمْ لَوَٰحِدٌ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037004.mp3",
       },
       {
-        "arabic": "رَّبُّ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضِ وَمَا بَيْنَهُمَا وَرَبُّ ٱلْمَشَـٰرِقِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037005.mp3"
+        arabic: "رَّبُّ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضِ وَمَا بَيْنَهُمَا وَرَبُّ ٱلْمَشَـٰرِقِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037005.mp3",
       },
       {
-        "arabic": "إِنَّا زَيَّنَّا ٱلسَّمَآءَ ٱلدُّنْيَا بِزِينَةٍ ٱلْكَوَاكِبِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037006.mp3"
+        arabic: "إِنَّا زَيَّنَّا ٱلسَّمَآءَ ٱلدُّنْيَا بِزِينَةٍ ٱلْكَوَاكِبِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037006.mp3",
       },
       {
-        "arabic": "وَحِفْظًا مِّن كُلِّ شَيْطَـٰنٍ مَّارِدٍ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037007.mp3"
+        arabic: "وَحِفْظًا مِّن كُلِّ شَيْطَـٰنٍ مَّارِدٍ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037007.mp3",
       },
       {
-        "arabic": "لَّا يَسَّمَّعُونَ إِلَى ٱلْمَلَإِ ٱلْأَعْلَىٰ وَيُقْذَفُونَ مِن كُلِّ جَانِبٍ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037008.mp3"
+        arabic: "لَّا يَسَّمَّعُونَ إِلَى ٱلْمَلَإِ ٱلْأَعْلَىٰ وَيُقْذَفُونَ مِن كُلِّ جَانِبٍ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037008.mp3",
       },
       {
-        "arabic": "دُحُورًا ۖ وَلَهُمْ عَذَابٌ وَاصِبٌ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037009.mp3"
+        arabic: "دُحُورًا ۖ وَلَهُمْ عَذَابٌ وَاصِبٌ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037009.mp3",
       },
       {
-        "arabic": "إِلَّا مَنْ خَطِفَ ٱلْخَطْفَةَ فَأَتْبَعَهُۥ شِهَابٌ ثَاقِبٌ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037010.mp3"
+        arabic: "إِلَّا مَنْ خَطِفَ ٱلْخَطْفَةَ فَأَتْبَعَهُۥ شِهَابٌ ثَاقِبٌ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037010.mp3",
       },
       {
-        "arabic": "فَٱسْتَفْتِهِمْ أَهُمْ أَشَدُّ خَلْقًا أَم مَّنْ خَلَقْنَآ ۚ إِنَّا خَلَقْنَـٰهُم مِّن طِينٍ لَّازِبٍۭ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037011.mp3"
+        arabic:
+          "فَٱسْتَفْتِهِمْ أَهُمْ أَشَدُّ خَلْقًا أَم مَّنْ خَلَقْنَآ ۚ إِنَّا خَلَقْنَـٰهُم مِّن طِينٍ لَّازِبٍۭ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037011.mp3",
       },
       {
-        "arabic": "بَلْ عَجِبْتَ وَيَسْخَرُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037012.mp3"
+        arabic: "بَلْ عَجِبْتَ وَيَسْخَرُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037012.mp3",
       },
       {
-        "arabic": "وَإِذَا ذُكِّرُوا۟ لَا يَذْكُرُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037013.mp3"
+        arabic: "وَإِذَا ذُكِّرُوا۟ لَا يَذْكُرُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037013.mp3",
       },
       {
-        "arabic": "وَإِذَا رَأَوْا۟ ءَايَةً يَسْتَسْخِرُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037014.mp3"
+        arabic: "وَإِذَا رَأَوْا۟ ءَايَةً يَسْتَسْخِرُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037014.mp3",
       },
       {
-        "arabic": "وَقَالُوٓا۟ إِنْ هَـٰذَآ إِلَّا سِحْرٌ مُّبِينٌ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037015.mp3"
+        arabic: "وَقَالُوٓا۟ إِنْ هَـٰذَآ إِلَّا سِحْرٌ مُّبِينٌ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037015.mp3",
       },
       {
-        "arabic": "أَءِذَا مِتْنَا وَكُنَّا تُرَابًا وَعِظَـٰمًا أَءِنَّا لَمَبْعُوثُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037016.mp3"
+        arabic: "أَءِذَا مِتْنَا وَكُنَّا تُرَابًا وَعِظَـٰمًا أَءِنَّا لَمَبْعُوثُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037016.mp3",
       },
       {
-        "arabic": "أَوَءَابَآؤُنَا ٱلْأَوَّلُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037017.mp3"
+        arabic: "أَوَءَابَآؤُنَا ٱلْأَوَّلُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037017.mp3",
       },
       {
-        "arabic": "قُلْ نَعَمْ وَأَنتُمْ دَٰخِرُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037018.mp3"
+        arabic: "قُلْ نَعَمْ وَأَنتُمْ دَٰخِرُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037018.mp3",
       },
       {
-        "arabic": "فَإِنَّمَا هِىَ زَجْرَةٌ وَٰحِدَةٌ فَإِذَا هُمْ يَنظُرُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037019.mp3"
+        arabic: "فَإِنَّمَا هِىَ زَجْرَةٌ وَٰحِدَةٌ فَإِذَا هُمْ يَنظُرُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037019.mp3",
       },
       {
-        "arabic": "وَقَالُوا۟ يَـٰوَيْلَنَا هَـٰذَا يَوْمُ ٱلدِّينِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037020.mp3"
+        arabic: "وَقَالُوا۟ يَـٰوَيْلَنَا هَـٰذَا يَوْمُ ٱلدِّينِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037020.mp3",
       },
       {
-        "arabic": "هَـٰذَا يَوْمُ ٱلْفَصْلِ ٱلَّذِى كُنتُم بِهِۦ تُكَذِّبُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037021.mp3"
+        arabic: "هَـٰذَا يَوْمُ ٱلْفَصْلِ ٱلَّذِى كُنتُم بِهِۦ تُكَذِّبُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037021.mp3",
       },
       {
-        "arabic": "۞ ٱحْشُرُوا۟ ٱلَّذِينَ ظَلَمُوا۟ وَأَزْوَٰجَهُمْ وَمَا كَانُوا۟ يَعْبُدُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037022.mp3"
+        arabic: "۞ ٱحْشُرُوا۟ ٱلَّذِينَ ظَلَمُوا۟ وَأَزْوَٰجَهُمْ وَمَا كَانُوا۟ يَعْبُدُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037022.mp3",
       },
       {
-        "arabic": "مِن دُونِ ٱللَّهِ فَٱهْدُوهُمْ إِلَىٰ صِرَٰطِ ٱلْجَحِيمِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037023.mp3"
+        arabic: "مِن دُونِ ٱللَّهِ فَٱهْدُوهُمْ إِلَىٰ صِرَٰطِ ٱلْجَحِيمِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037023.mp3",
       },
       {
-        "arabic": "وَقِفُوهُمْ ۖ إِنَّهُم مَّسْـُٔولُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037024.mp3"
+        arabic: "وَقِفُوهُمْ ۖ إِنَّهُم مَّسْـُٔولُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037024.mp3",
       },
       {
-        "arabic": "مَا لَكُمْ لَا تَنَاصَرُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037025.mp3"
+        arabic: "مَا لَكُمْ لَا تَنَاصَرُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037025.mp3",
       },
       {
-        "arabic": "بَلْ هُمُ ٱلْيَوْمَ مُسْتَسْلِمُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037026.mp3"
+        arabic: "بَلْ هُمُ ٱلْيَوْمَ مُسْتَسْلِمُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037026.mp3",
       },
       {
-        "arabic": "وَأَقْبَلَ بَعْضُهُمْ عَلَىٰ بَعْضٍ يَتَسَآءَلُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037027.mp3"
+        arabic: "وَأَقْبَلَ بَعْضُهُمْ عَلَىٰ بَعْضٍ يَتَسَآءَلُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037027.mp3",
       },
       {
-        "arabic": "قَالُوٓا۟ إِنَّكُمْ كُنتُمْ تَأْتُونَنَا عَنِ ٱلْيَمِينِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037028.mp3"
+        arabic: "قَالُوٓا۟ إِنَّكُمْ كُنتُمْ تَأْتُونَنَا عَنِ ٱلْيَمِينِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037028.mp3",
       },
       {
-        "arabic": "قَالُوا۟ بَل لَّمْ تَكُونُوا۟ مُؤْمِنِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037029.mp3"
+        arabic: "قَالُوا۟ بَل لَّمْ تَكُونُوا۟ مُؤْمِنِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037029.mp3",
       },
       {
-        "arabic": "وَمَا كَانَ لَنَا عَلَيْكُم مِّن سُلْطَـٰنٍۭ ۖ بَلْ كُنتُمْ قَوْمًا طَـٰغِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037030.mp3"
+        arabic: "وَمَا كَانَ لَنَا عَلَيْكُم مِّن سُلْطَـٰنٍۭ ۖ بَلْ كُنتُمْ قَوْمًا طَـٰغِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037030.mp3",
       },
       {
-        "arabic": "فَحَقَّ عَلَيْنَا قَوْلُ رَبِّنَآ ۖ إِنَّا لَذَآئِقُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037031.mp3"
+        arabic: "فَحَقَّ عَلَيْنَا قَوْلُ رَبِّنَآ ۖ إِنَّا لَذَآئِقُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037031.mp3",
       },
       {
-        "arabic": "فَأَغْوَيْنَـٰكُمْ إِنَّا كُنَّا غَـٰوِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037032.mp3"
+        arabic: "فَأَغْوَيْنَـٰكُمْ إِنَّا كُنَّا غَـٰوِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037032.mp3",
       },
       {
-        "arabic": "فَإِنَّهُمْ يَوْمَئِذٍ فِى ٱلْعَذَابِ مُشْتَرِكُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037033.mp3"
+        arabic: "فَإِنَّهُمْ يَوْمَئِذٍ فِى ٱلْعَذَابِ مُشْتَرِكُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037033.mp3",
       },
       {
-        "arabic": "إِنَّا كَذَٰلِكَ نَفْعَلُ بِٱلْمُجْرِمِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037034.mp3"
+        arabic: "إِنَّا كَذَٰلِكَ نَفْعَلُ بِٱلْمُجْرِمِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037034.mp3",
       },
       {
-        "arabic": "إِنَّهُمْ كَانُوٓا۟ إِذَا قِيلَ لَهُمْ لَآ إِلَـٰهَ إِلَّا ٱللَّهُ يَسْتَكْبِرُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037035.mp3"
+        arabic:
+          "إِنَّهُمْ كَانُوٓا۟ إِذَا قِيلَ لَهُمْ لَآ إِلَـٰهَ إِلَّا ٱللَّهُ يَسْتَكْبِرُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037035.mp3",
       },
       {
-        "arabic": "وَيَقُولُونَ أَئِنَّا لَتَارِكُوٓا۟ ءَالِهَتِنَا لِشَاعِرٍ مَّجْنُونٍۭ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037036.mp3"
+        arabic: "وَيَقُولُونَ أَئِنَّا لَتَارِكُوٓا۟ ءَالِهَتِنَا لِشَاعِرٍ مَّجْنُونٍۭ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037036.mp3",
       },
       {
-        "arabic": "بَلْ جَآءَ بِٱلْحَقِّ وَصَدَّقَ ٱلْمُرْسَلِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037037.mp3"
+        arabic: "بَلْ جَآءَ بِٱلْحَقِّ وَصَدَّقَ ٱلْمُرْسَلِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037037.mp3",
       },
       {
-        "arabic": "إِنَّكُمْ لَذَآئِقُوا۟ ٱلْعَذَابِ ٱلْأَلِيمِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037038.mp3"
+        arabic: "إِنَّكُمْ لَذَآئِقُوا۟ ٱلْعَذَابِ ٱلْأَلِيمِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037038.mp3",
       },
       {
-        "arabic": "وَمَا تُجْزَوْنَ إِلَّا مَا كُنتُمْ تَعْمَلُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037039.mp3"
+        arabic: "وَمَا تُجْزَوْنَ إِلَّا مَا كُنتُمْ تَعْمَلُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037039.mp3",
       },
       {
-        "arabic": "إِلَّا عِبَادَ ٱللَّهِ ٱلْمُخْلَصِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037040.mp3"
+        arabic: "إِلَّا عِبَادَ ٱللَّهِ ٱلْمُخْلَصِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037040.mp3",
       },
       {
-        "arabic": "أُو۟لَـٰٓئِكَ لَهُمْ رِزْقٌ مَّعْلُومٌ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037041.mp3"
+        arabic: "أُو۟لَـٰٓئِكَ لَهُمْ رِزْقٌ مَّعْلُومٌ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037041.mp3",
       },
       {
-        "arabic": "فَوَٰكِهُ ۖ وَهُم مُّكْرَمُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037042.mp3"
+        arabic: "فَوَٰكِهُ ۖ وَهُم مُّكْرَمُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037042.mp3",
       },
       {
-        "arabic": "فِى جَنَّـٰتِ ٱلنَّعِيمِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037043.mp3"
+        arabic: "فِى جَنَّـٰتِ ٱلنَّعِيمِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037043.mp3",
       },
       {
-        "arabic": "عَلَىٰ سُرُرٍ مُّتَقَـٰبِلِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037044.mp3"
+        arabic: "عَلَىٰ سُرُرٍ مُّتَقَـٰبِلِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037044.mp3",
       },
       {
-        "arabic": "يُطَافُ عَلَيْهِم بِكَأْسٍ مِّن مَّعِينٍۭ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037045.mp3"
+        arabic: "يُطَافُ عَلَيْهِم بِكَأْسٍ مِّن مَّعِينٍۭ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037045.mp3",
       },
       {
-        "arabic": "بَيْضَآءَ لَذَّةٍ لِّلشَّـٰرِبِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037046.mp3"
+        arabic: "بَيْضَآءَ لَذَّةٍ لِّلشَّـٰرِبِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037046.mp3",
       },
       {
-        "arabic": "لَا فِيهَا غَوْلٌ وَلَا هُمْ عَنْهَا يُنزَفُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037047.mp3"
+        arabic: "لَا فِيهَا غَوْلٌ وَلَا هُمْ عَنْهَا يُنزَفُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037047.mp3",
       },
       {
-        "arabic": "وَعِندَهُمْ قَـٰصِرَٰتُ ٱلطَّرْفِ عِينٌ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037048.mp3"
+        arabic: "وَعِندَهُمْ قَـٰصِرَٰتُ ٱلطَّرْفِ عِينٌ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037048.mp3",
       },
       {
-        "arabic": "كَأَنَّهُنَّ بَيْضٌ مَّكْنُونٌ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037049.mp3"
+        arabic: "كَأَنَّهُنَّ بَيْضٌ مَّكْنُونٌ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037049.mp3",
       },
       {
-        "arabic": "فَأَقْبَلَ بَعْضُهُمْ عَلَىٰ بَعْضٍ يَتَسَآءَلُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037050.mp3"
+        arabic: "فَأَقْبَلَ بَعْضُهُمْ عَلَىٰ بَعْضٍ يَتَسَآءَلُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037050.mp3",
       },
       {
-        "arabic": "قَالَ قَآئِلٌ مِّنْهُمْ إِنِّى كَانَ لِى قَرِينٌ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037051.mp3"
+        arabic: "قَالَ قَآئِلٌ مِّنْهُمْ إِنِّى كَانَ لِى قَرِينٌ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037051.mp3",
       },
       {
-        "arabic": "يَقُولُ أَءِنَّكَ لَمِنَ ٱلْمُصَدِّقِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037052.mp3"
+        arabic: "يَقُولُ أَءِنَّكَ لَمِنَ ٱلْمُصَدِّقِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037052.mp3",
       },
       {
-        "arabic": "أَءِذَا مِتْنَا وَكُنَّا تُرَابًا وَعِظَـٰمًا أَءِنَّا لَمَدِينُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037053.mp3"
+        arabic: "أَءِذَا مِتْنَا وَكُنَّا تُرَابًا وَعِظَـٰمًا أَءِنَّا لَمَدِينُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037053.mp3",
       },
       {
-        "arabic": "قَالَ هَلْ أَنتُم مُّطَّلِعُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037054.mp3"
+        arabic: "قَالَ هَلْ أَنتُم مُّطَّلِعُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037054.mp3",
       },
       {
-        "arabic": "فَٱطَّلَعَ فَرَءَاهُ فِى سَوَآءِ ٱلْجَحِيمِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037055.mp3"
+        arabic: "فَٱطَّلَعَ فَرَءَاهُ فِى سَوَآءِ ٱلْجَحِيمِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037055.mp3",
       },
       {
-        "arabic": "قَالَ تَٱللَّهِ إِن كِدتَّ لَتُرْدِينِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037056.mp3"
+        arabic: "قَالَ تَٱللَّهِ إِن كِدتَّ لَتُرْدِينِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037056.mp3",
       },
       {
-        "arabic": "وَلَوْلَا نِعْمَةُ رَبِّى لَكُنتُ مِنَ ٱلْمُحْضَرِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037057.mp3"
+        arabic: "وَلَوْلَا نِعْمَةُ رَبِّى لَكُنتُ مِنَ ٱلْمُحْضَرِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037057.mp3",
       },
       {
-        "arabic": "أَفَمَا نَحْنُ بِمَيِّتِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037058.mp3"
+        arabic: "أَفَمَا نَحْنُ بِمَيِّتِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037058.mp3",
       },
       {
-        "arabic": "إِلَّا مَوْتَتَنَا ٱلْأُولَىٰ وَمَا نَحْنُ بِمُعَذَّبِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037059.mp3"
+        arabic: "إِلَّا مَوْتَتَنَا ٱلْأُولَىٰ وَمَا نَحْنُ بِمُعَذَّبِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037059.mp3",
       },
       {
-        "arabic": "إِنَّ هَـٰذَا لَهُوَ ٱلْفَوْزُ ٱلْعَظِيمُ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037060.mp3"
+        arabic: "إِنَّ هَـٰذَا لَهُوَ ٱلْفَوْزُ ٱلْعَظِيمُ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037060.mp3",
       },
       {
-        "arabic": "لِمِثْلِ هَـٰذَا فَلْيَعْمَلِ ٱلْعَـٰمِلُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037061.mp3"
+        arabic: "لِمِثْلِ هَـٰذَا فَلْيَعْمَلِ ٱلْعَـٰمِلُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037061.mp3",
       },
       {
-        "arabic": "أَذَٰلِكَ خَيْرٌ نُّزُلًا أَمْ شَجَرَةُ ٱلزَّقُّومِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037062.mp3"
+        arabic: "أَذَٰلِكَ خَيْرٌ نُّزُلًا أَمْ شَجَرَةُ ٱلزَّقُّومِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037062.mp3",
       },
       {
-        "arabic": "إِنَّا جَعَلْنَـٰهَا فِتْنَةً لِّلظَّـٰلِمِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037063.mp3"
+        arabic: "إِنَّا جَعَلْنَـٰهَا فِتْنَةً لِّلظَّـٰلِمِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037063.mp3",
       },
       {
-        "arabic": "إِنَّهَا شَجَرَةٌ تَخْرُجُ فِىٓ أَصْلِ ٱلْجَحِيمِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037064.mp3"
+        arabic: "إِنَّهَا شَجَرَةٌ تَخْرُجُ فِىٓ أَصْلِ ٱلْجَحِيمِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037064.mp3",
       },
       {
-        "arabic": "طَلْعُهَا كَأَنَّهُۥ رُءُوسُ ٱلشَّيَـٰطِينِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037065.mp3"
+        arabic: "طَلْعُهَا كَأَنَّهُۥ رُءُوسُ ٱلشَّيَـٰطِينِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037065.mp3",
       },
       {
-        "arabic": "فَإِنَّهُمْ لَـَٔاكِلُونَ مِنْهَا فَمَالِـُٔونَ مِنْهَا ٱلْبُطُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037066.mp3"
+        arabic: "فَإِنَّهُمْ لَـَٔاكِلُونَ مِنْهَا فَمَالِـُٔونَ مِنْهَا ٱلْبُطُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037066.mp3",
       },
       {
-        "arabic": "ثُمَّ إِنَّ لَهُمْ عَلَيْهَا لَشَوْبًا مِّنْ حَمِيمٍ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037067.mp3"
+        arabic: "ثُمَّ إِنَّ لَهُمْ عَلَيْهَا لَشَوْبًا مِّنْ حَمِيمٍ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037067.mp3",
       },
       {
-        "arabic": "ثُمَّ إِنَّ مَرْجِعَهُمْ لَإِلَى ٱلْجَحِيمِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037068.mp3"
+        arabic: "ثُمَّ إِنَّ مَرْجِعَهُمْ لَإِلَى ٱلْجَحِيمِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037068.mp3",
       },
       {
-        "arabic": "إِنَّهُمْ أَلْفَوْا۟ ءَابَآءَهُمْ ضَآلِّينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037069.mp3"
+        arabic: "إِنَّهُمْ أَلْفَوْا۟ ءَابَآءَهُمْ ضَآلِّينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037069.mp3",
       },
       {
-        "arabic": "فَهُمْ عَلَىٰٓ ءَاثَـٰرِهِمْ يُهْرَعُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037070.mp3"
+        arabic: "فَهُمْ عَلَىٰٓ ءَاثَـٰرِهِمْ يُهْرَعُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037070.mp3",
       },
       {
-        "arabic": "وَلَقَدْ ضَلَّ قَبْلَهُمْ أَكْثَرُ ٱلْأَوَّلِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037071.mp3"
+        arabic: "وَلَقَدْ ضَلَّ قَبْلَهُمْ أَكْثَرُ ٱلْأَوَّلِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037071.mp3",
       },
       {
-        "arabic": "وَلَقَدْ أَرْسَلْنَا فِيهِم مُّنذِرِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037072.mp3"
+        arabic: "وَلَقَدْ أَرْسَلْنَا فِيهِم مُّنذِرِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037072.mp3",
       },
       {
-        "arabic": "فَٱنظُرْ كَيْفَ كَانَ عَـٰقِبَةُ ٱلْمُنذَرِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037073.mp3"
+        arabic: "فَٱنظُرْ كَيْفَ كَانَ عَـٰقِبَةُ ٱلْمُنذَرِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037073.mp3",
       },
       {
-        "arabic": "إِلَّا عِبَادَ ٱللَّهِ ٱلْمُخْلَصِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037074.mp3"
+        arabic: "إِلَّا عِبَادَ ٱللَّهِ ٱلْمُخْلَصِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037074.mp3",
       },
       {
-        "arabic": "وَلَقَدْ نَادَىٰنَا نُوحٌ فَلَنِعْمَ ٱلْمُجِيبُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037075.mp3"
+        arabic: "وَلَقَدْ نَادَىٰنَا نُوحٌ فَلَنِعْمَ ٱلْمُجِيبُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037075.mp3",
       },
       {
-        "arabic": "وَنَجَّيْنَـٰهُ وَأَهْلَهُۥ مِنَ ٱلْكَرْبِ ٱلْعَظِيمِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037076.mp3"
+        arabic: "وَنَجَّيْنَـٰهُ وَأَهْلَهُۥ مِنَ ٱلْكَرْبِ ٱلْعَظِيمِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037076.mp3",
       },
       {
-        "arabic": "وَجَعَلْنَا ذُرِّيَّتَهُۥ هُمُ ٱلْبَاقِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037077.mp3"
+        arabic: "وَجَعَلْنَا ذُرِّيَّتَهُۥ هُمُ ٱلْبَاقِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037077.mp3",
       },
       {
-        "arabic": "وَتَرَكْنَا عَلَيْهِ فِى ٱلْـَٔاخِرِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037078.mp3"
+        arabic: "وَتَرَكْنَا عَلَيْهِ فِى ٱلْـَٔاخِرِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037078.mp3",
       },
       {
-        "arabic": "سَلَـٰمٌ عَلَىٰ نُوحٍ فِى ٱلْعَـٰلَمِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037079.mp3"
+        arabic: "سَلَـٰمٌ عَلَىٰ نُوحٍ فِى ٱلْعَـٰلَمِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037079.mp3",
       },
       {
-        "arabic": "إِنَّا كَذَٰلِكَ نَجْزِى ٱلْمُحْسِنِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037080.mp3"
+        arabic: "إِنَّا كَذَٰلِكَ نَجْزِى ٱلْمُحْسِنِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037080.mp3",
       },
       {
-        "arabic": "إِنَّهُۥ مِنْ عِبَادِنَا ٱلْمُؤْمِنِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037081.mp3"
+        arabic: "إِنَّهُۥ مِنْ عِبَادِنَا ٱلْمُؤْمِنِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037081.mp3",
       },
       {
-        "arabic": "ثُمَّ أَغْرَقْنَا ٱلْـَٔاخَرِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037082.mp3"
+        arabic: "ثُمَّ أَغْرَقْنَا ٱلْـَٔاخَرِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037082.mp3",
       },
       {
-        "arabic": "۞ وَإِنَّ مِن شِيعَتِهِۦ لَإِبْرَٰهِيمَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037083.mp3"
+        arabic: "۞ وَإِنَّ مِن شِيعَتِهِۦ لَإِبْرَٰهِيمَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037083.mp3",
       },
       {
-        "arabic": "إِذْ جَآءَ رَبَّهُۥ بِقَلْبٍ سَلِيمٍ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037084.mp3"
+        arabic: "إِذْ جَآءَ رَبَّهُۥ بِقَلْبٍ سَلِيمٍ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037084.mp3",
       },
       {
-        "arabic": "إِذْ قَالَ لِأَبِيهِ وَقَوْمِهِۦ مَاذَا تَعْبُدُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037085.mp3"
+        arabic: "إِذْ قَالَ لِأَبِيهِ وَقَوْمِهِۦ مَاذَا تَعْبُدُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037085.mp3",
       },
       {
-        "arabic": "أَئِفْكًا ءَالِهَةً دُونَ ٱللَّهِ تُرِيدُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037086.mp3"
+        arabic: "أَئِفْكًا ءَالِهَةً دُونَ ٱللَّهِ تُرِيدُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037086.mp3",
       },
       {
-        "arabic": "فَمَا ظَنُّكُم بِرَبِّ ٱلْعَـٰلَمِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037087.mp3"
+        arabic: "فَمَا ظَنُّكُم بِرَبِّ ٱلْعَـٰلَمِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037087.mp3",
       },
       {
-        "arabic": "فَنَظَرَ نَظْرَةً فِى ٱلنُّجُومِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037088.mp3"
+        arabic: "فَنَظَرَ نَظْرَةً فِى ٱلنُّجُومِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037088.mp3",
       },
       {
-        "arabic": "فَقَالَ إِنِّى سَقِيمٌ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037089.mp3"
+        arabic: "فَقَالَ إِنِّى سَقِيمٌ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037089.mp3",
       },
       {
-        "arabic": "فَتَوَلَّوْا۟ عَنْهُ مُدْبِرِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037090.mp3"
+        arabic: "فَتَوَلَّوْا۟ عَنْهُ مُدْبِرِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037090.mp3",
       },
       {
-        "arabic": "فَرَاغَ إِلَىٰٓ ءَالِهَتِهِمْ فَقَالَ أَلَا تَأْكُلُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037091.mp3"
+        arabic: "فَرَاغَ إِلَىٰٓ ءَالِهَتِهِمْ فَقَالَ أَلَا تَأْكُلُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037091.mp3",
       },
       {
-        "arabic": "مَا لَكُمْ لَا تَنطِقُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037092.mp3"
+        arabic: "مَا لَكُمْ لَا تَنطِقُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037092.mp3",
       },
       {
-        "arabic": "فَرَاغَ عَلَيْهِمْ ضَرْبًۢا بِٱلْيَمِينِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037093.mp3"
+        arabic: "فَرَاغَ عَلَيْهِمْ ضَرْبًۢا بِٱلْيَمِينِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037093.mp3",
       },
       {
-        "arabic": "فَأَقْبَلُوٓا۟ إِلَيْهِ يَزِفُّونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037094.mp3"
+        arabic: "فَأَقْبَلُوٓا۟ إِلَيْهِ يَزِفُّونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037094.mp3",
       },
       {
-        "arabic": "قَالَ أَتَعْبُدُونَ مَا تَنْحِتُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037095.mp3"
+        arabic: "قَالَ أَتَعْبُدُونَ مَا تَنْحِتُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037095.mp3",
       },
       {
-        "arabic": "وَٱللَّهُ خَلَقَكُمْ وَمَا تَعْمَلُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037096.mp3"
+        arabic: "وَٱللَّهُ خَلَقَكُمْ وَمَا تَعْمَلُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037096.mp3",
       },
       {
-        "arabic": "قَالُوا۟ ٱبْنُوا۟ لَهُۥ بُنْيَـٰنًا فَأَلْقُوهُ فِى ٱلْجَحِيمِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037097.mp3"
+        arabic: "قَالُوا۟ ٱبْنُوا۟ لَهُۥ بُنْيَـٰنًا فَأَلْقُوهُ فِى ٱلْجَحِيمِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037097.mp3",
       },
       {
-        "arabic": "فَأَرَادُوا۟ بِهِۦ كَيْدًا فَجَعَلْنَـٰهُمُ ٱلْأَسْفَلِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037098.mp3"
+        arabic: "فَأَرَادُوا۟ بِهِۦ كَيْدًا فَجَعَلْنَـٰهُمُ ٱلْأَسْفَلِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037098.mp3",
       },
       {
-        "arabic": "وَقَالَ إِنِّى ذَاهِبٌ إِلَىٰ رَبِّى سَيَهْدِينِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037099.mp3"
+        arabic: "وَقَالَ إِنِّى ذَاهِبٌ إِلَىٰ رَبِّى سَيَهْدِينِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037099.mp3",
       },
       {
-        "arabic": "رَبِّ هَبْ لِى مِنَ ٱلصَّـٰلِحِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037100.mp3"
+        arabic: "رَبِّ هَبْ لِى مِنَ ٱلصَّـٰلِحِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037100.mp3",
       },
       {
-        "arabic": "فَبَشَّرْنَـٰهُ بِغُلَـٰمٍ حَلِيمٍ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037101.mp3"
+        arabic: "فَبَشَّرْنَـٰهُ بِغُلَـٰمٍ حَلِيمٍ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037101.mp3",
       },
       {
-        "arabic": "فَلَمَّا بَلَغَ مَعَهُ ٱلسَّعْىَ قَالَ يَـٰبُنَىَّ إِنِّىٓ أَرَىٰ فِى ٱلْمَنَامِ أَنِّىٓ أَذْبَحُكَ فَٱنظُرْ مَاذَا تَرَىٰ ۚ قَالَ يَـٰٓأَبَتِ ٱفْعَلْ مَا تُؤْمَرُ ۖ سَتَجِدُنِىٓ إِن شَآءَ ٱللَّهُ مِنَ ٱلصَّـٰبِرِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037102.mp3"
+        arabic:
+          "فَلَمَّا بَلَغَ مَعَهُ ٱلسَّعْىَ قَالَ يَـٰبُنَىَّ إِنِّىٓ أَرَىٰ فِى ٱلْمَنَامِ أَنِّىٓ أَذْبَحُكَ فَٱنظُرْ مَاذَا تَرَىٰ ۚ قَالَ يَـٰٓأَبَتِ ٱفْعَلْ مَا تُؤْمَرُ ۖ سَتَجِدُنِىٓ إِن شَآءَ ٱللَّهُ مِنَ ٱلصَّـٰبِرِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037102.mp3",
       },
       {
-        "arabic": "فَلَمَّآ أَسْلَمَا وَتَلَّهُۥ لِلْجَبِينِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037103.mp3"
+        arabic: "فَلَمَّآ أَسْلَمَا وَتَلَّهُۥ لِلْجَبِينِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037103.mp3",
       },
       {
-        "arabic": "وَنَـٰدَيْنَـٰهُ أَن يَـٰٓإِبْرَٰهِيمُ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037104.mp3"
+        arabic: "وَنَـٰدَيْنَـٰهُ أَن يَـٰٓإِبْرَٰهِيمُ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037104.mp3",
       },
       {
-        "arabic": "قَدْ صَدَّقْتَ ٱلرُّءْيَآ ۚ إِنَّا كَذَٰلِكَ نَجْزِى ٱلْمُحْسِنِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037105.mp3"
+        arabic: "قَدْ صَدَّقْتَ ٱلرُّءْيَآ ۚ إِنَّا كَذَٰلِكَ نَجْزِى ٱلْمُحْسِنِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037105.mp3",
       },
       {
-        "arabic": "إِنَّ هَـٰذَا لَهُوَ ٱلْبَلَـٰٓؤُا۟ ٱلْمُبِينُ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037106.mp3"
+        arabic: "إِنَّ هَـٰذَا لَهُوَ ٱلْبَلَـٰٓؤُا۟ ٱلْمُبِينُ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037106.mp3",
       },
       {
-        "arabic": "وَفَدَيْنَـٰهُ بِذِبْحٍ عَظِيمٍ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037107.mp3"
+        arabic: "وَفَدَيْنَـٰهُ بِذِبْحٍ عَظِيمٍ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037107.mp3",
       },
       {
-        "arabic": "وَتَرَكْنَا عَلَيْهِ فِى ٱلْـَٔاخِرِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037108.mp3"
+        arabic: "وَتَرَكْنَا عَلَيْهِ فِى ٱلْـَٔاخِرِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037108.mp3",
       },
       {
-        "arabic": "سَلَـٰمٌ عَلَىٰٓ إِبْرَٰهِيمَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037109.mp3"
+        arabic: "سَلَـٰمٌ عَلَىٰٓ إِبْرَٰهِيمَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037109.mp3",
       },
       {
-        "arabic": "كَذَٰلِكَ نَجْزِى ٱلْمُحْسِنِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037110.mp3"
+        arabic: "كَذَٰلِكَ نَجْزِى ٱلْمُحْسِنِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037110.mp3",
       },
       {
-        "arabic": "إِنَّهُۥ مِنْ عِبَادِنَا ٱلْمُؤْمِنِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037111.mp3"
+        arabic: "إِنَّهُۥ مِنْ عِبَادِنَا ٱلْمُؤْمِنِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037111.mp3",
       },
       {
-        "arabic": "وَبَشَّرْنَـٰهُ بِإِسْحَـٰقَ نَبِيًّا مِّنَ ٱلصَّـٰلِحِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037112.mp3"
+        arabic: "وَبَشَّرْنَـٰهُ بِإِسْحَـٰقَ نَبِيًّا مِّنَ ٱلصَّـٰلِحِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037112.mp3",
       },
       {
-        "arabic": "وَبَـٰرَكْنَا عَلَيْهِ وَعَلَىٰٓ إِسْحَـٰقَ ۚ وَمِن ذُرِّيَّتِهِمَا مُحْسِنٌ وَظَالِمٌ لِّنَفْسِهِۦ مُبِينٌ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037113.mp3"
+        arabic:
+          "وَبَـٰرَكْنَا عَلَيْهِ وَعَلَىٰٓ إِسْحَـٰقَ ۚ وَمِن ذُرِّيَّتِهِمَا مُحْسِنٌ وَظَالِمٌ لِّنَفْسِهِۦ مُبِينٌ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037113.mp3",
       },
       {
-        "arabic": "وَلَقَدْ مَنَنَّا عَلَىٰ مُوسَىٰ وَهَـٰرُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037114.mp3"
+        arabic: "وَلَقَدْ مَنَنَّا عَلَىٰ مُوسَىٰ وَهَـٰرُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037114.mp3",
       },
       {
-        "arabic": "وَنَجَّيْنَـٰهُمَا وَقَوْمَهُمَا مِنَ ٱلْكَرْبِ ٱلْعَظِيمِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037115.mp3"
+        arabic: "وَنَجَّيْنَـٰهُمَا وَقَوْمَهُمَا مِنَ ٱلْكَرْبِ ٱلْعَظِيمِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037115.mp3",
       },
       {
-        "arabic": "وَنَصَرْنَـٰهُمْ فَكَانُوا۟ هُمُ ٱلْغَـٰلِبِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037116.mp3"
+        arabic: "وَنَصَرْنَـٰهُمْ فَكَانُوا۟ هُمُ ٱلْغَـٰلِبِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037116.mp3",
       },
       {
-        "arabic": "وَءَاتَيْنَـٰهُمَا ٱلْكِتَـٰبَ ٱلْمُسْتَبِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037117.mp3"
+        arabic: "وَءَاتَيْنَـٰهُمَا ٱلْكِتَـٰبَ ٱلْمُسْتَبِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037117.mp3",
       },
       {
-        "arabic": "وَهَدَيْنَـٰهُمَا ٱلصِّرَٰطَ ٱلْمُسْتَقِيمَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037118.mp3"
+        arabic: "وَهَدَيْنَـٰهُمَا ٱلصِّرَٰطَ ٱلْمُسْتَقِيمَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037118.mp3",
       },
       {
-        "arabic": "وَتَرَكْنَا عَلَيْهِمَا فِى ٱلْـَٔاخِرِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037119.mp3"
+        arabic: "وَتَرَكْنَا عَلَيْهِمَا فِى ٱلْـَٔاخِرِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037119.mp3",
       },
       {
-        "arabic": "سَلَـٰمٌ عَلَىٰ مُوسَىٰ وَهَـٰرُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037120.mp3"
+        arabic: "سَلَـٰمٌ عَلَىٰ مُوسَىٰ وَهَـٰرُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037120.mp3",
       },
       {
-        "arabic": "إِنَّا كَذَٰلِكَ نَجْزِى ٱلْمُحْسِنِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037121.mp3"
+        arabic: "إِنَّا كَذَٰلِكَ نَجْزِى ٱلْمُحْسِنِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037121.mp3",
       },
       {
-        "arabic": "إِنَّهُمَا مِنْ عِبَادِنَا ٱلْمُؤْمِنِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037122.mp3"
+        arabic: "إِنَّهُمَا مِنْ عِبَادِنَا ٱلْمُؤْمِنِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037122.mp3",
       },
       {
-        "arabic": "وَإِنَّ إِلْيَاسَ لَمِنَ ٱلْمُرْسَلِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037123.mp3"
+        arabic: "وَإِنَّ إِلْيَاسَ لَمِنَ ٱلْمُرْسَلِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037123.mp3",
       },
       {
-        "arabic": "إِذْ قَالَ لِقَوْمِهِۦٓ أَلَا تَتَّقُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037124.mp3"
+        arabic: "إِذْ قَالَ لِقَوْمِهِۦٓ أَلَا تَتَّقُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037124.mp3",
       },
       {
-        "arabic": "أَتَدْعُونَ بَعْلًا وَتَذَرُونَ أَحْسَنَ ٱلْخَـٰلِقِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037125.mp3"
+        arabic: "أَتَدْعُونَ بَعْلًا وَتَذَرُونَ أَحْسَنَ ٱلْخَـٰلِقِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037125.mp3",
       },
       {
-        "arabic": "ٱللَّهَ رَبَّكُمْ وَرَبَّ ءَابَآئِكُمُ ٱلْأَوَّلِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037126.mp3"
+        arabic: "ٱللَّهَ رَبَّكُمْ وَرَبَّ ءَابَآئِكُمُ ٱلْأَوَّلِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037126.mp3",
       },
       {
-        "arabic": "فَكَذَّبُوهُ فَإِنَّهُمْ لَمُحْضَرُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037127.mp3"
+        arabic: "فَكَذَّبُوهُ فَإِنَّهُمْ لَمُحْضَرُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037127.mp3",
       },
       {
-        "arabic": "إِلَّا عِبَادَ ٱللَّهِ ٱلْمُخْلَصِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037128.mp3"
+        arabic: "إِلَّا عِبَادَ ٱللَّهِ ٱلْمُخْلَصِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037128.mp3",
       },
       {
-        "arabic": "وَتَرَكْنَا عَلَيْهِ فِى ٱلْـَٔاخِرِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037129.mp3"
+        arabic: "وَتَرَكْنَا عَلَيْهِ فِى ٱلْـَٔاخِرِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037129.mp3",
       },
       {
-        "arabic": "سَلَـٰمٌ عَلَىٰٓ إِلْ يَاسِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037130.mp3"
+        arabic: "سَلَـٰمٌ عَلَىٰٓ إِلْ يَاسِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037130.mp3",
       },
       {
-        "arabic": "إِنَّا كَذَٰلِكَ نَجْزِى ٱلْمُحْسِنِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037131.mp3"
+        arabic: "إِنَّا كَذَٰلِكَ نَجْزِى ٱلْمُحْسِنِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037131.mp3",
       },
       {
-        "arabic": "إِنَّهُۥ مِنْ عِبَادِنَا ٱلْمُؤْمِنِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037132.mp3"
+        arabic: "إِنَّهُۥ مِنْ عِبَادِنَا ٱلْمُؤْمِنِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037132.mp3",
       },
       {
-        "arabic": "وَإِنَّ لُوطًا لَّمِنَ ٱلْمُرْسَلِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037133.mp3"
+        arabic: "وَإِنَّ لُوطًا لَّمِنَ ٱلْمُرْسَلِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037133.mp3",
       },
       {
-        "arabic": "إِذْ نَجَّيْنَـٰهُ وَأَهْلَهُۥٓ أَجْمَعِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037134.mp3"
+        arabic: "إِذْ نَجَّيْنَـٰهُ وَأَهْلَهُۥٓ أَجْمَعِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037134.mp3",
       },
       {
-        "arabic": "إِلَّا عَجُوزًا فِى ٱلْغَـٰبِرِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037135.mp3"
+        arabic: "إِلَّا عَجُوزًا فِى ٱلْغَـٰبِرِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037135.mp3",
       },
       {
-        "arabic": "ثُمَّ دَمَّرْنَا ٱلْـَٔاخَرِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037136.mp3"
+        arabic: "ثُمَّ دَمَّرْنَا ٱلْـَٔاخَرِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037136.mp3",
       },
       {
-        "arabic": "وَإِنَّكُمْ لَتَمُرُّونَ عَلَيْهِم مُّصْبِحِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037137.mp3"
+        arabic: "وَإِنَّكُمْ لَتَمُرُّونَ عَلَيْهِم مُّصْبِحِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037137.mp3",
       },
       {
-        "arabic": "وَبِٱلَّيْلِ ۗ أَفَلَا تَعْقِلُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037138.mp3"
+        arabic: "وَبِٱلَّيْلِ ۗ أَفَلَا تَعْقِلُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037138.mp3",
       },
       {
-        "arabic": "وَإِنَّ يُونُسَ لَمِنَ ٱلْمُرْسَلِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037139.mp3"
+        arabic: "وَإِنَّ يُونُسَ لَمِنَ ٱلْمُرْسَلِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037139.mp3",
       },
       {
-        "arabic": "إِذْ أَبَقَ إِلَى ٱلْفُلْكِ ٱلْمَشْحُونِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037140.mp3"
+        arabic: "إِذْ أَبَقَ إِلَى ٱلْفُلْكِ ٱلْمَشْحُونِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037140.mp3",
       },
       {
-        "arabic": "فَسَاهَمَ فَكَانَ مِنَ ٱلْمُدْحَضِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037141.mp3"
+        arabic: "فَسَاهَمَ فَكَانَ مِنَ ٱلْمُدْحَضِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037141.mp3",
       },
       {
-        "arabic": "فَٱلْتَقَمَهُ ٱلْحُوتُ وَهُوَ مُلِيمٌ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037142.mp3"
+        arabic: "فَٱلْتَقَمَهُ ٱلْحُوتُ وَهُوَ مُلِيمٌ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037142.mp3",
       },
       {
-        "arabic": "فَلَوْلَآ أَنَّهُۥ كَانَ مِنَ ٱلْمُسَبِّحِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037143.mp3"
+        arabic: "فَلَوْلَآ أَنَّهُۥ كَانَ مِنَ ٱلْمُسَبِّحِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037143.mp3",
       },
       {
-        "arabic": "لَلَبِثَ فِى بَطْنِهِۦٓ إِلَىٰ يَوْمِ يُبْعَثُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037144.mp3"
+        arabic: "لَلَبِثَ فِى بَطْنِهِۦٓ إِلَىٰ يَوْمِ يُبْعَثُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037144.mp3",
       },
       {
-        "arabic": "۞ فَنَبَذْنَـٰهُ بِٱلْعَرَآءِ وَهُوَ سَقِيمٌ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037145.mp3"
+        arabic: "۞ فَنَبَذْنَـٰهُ بِٱلْعَرَآءِ وَهُوَ سَقِيمٌ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037145.mp3",
       },
       {
-        "arabic": "وَأَنۢبَتْنَا عَلَيْهِ شَجَرَةً مِّن يَقْطِينٍ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037146.mp3"
+        arabic: "وَأَنۢبَتْنَا عَلَيْهِ شَجَرَةً مِّن يَقْطِينٍ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037146.mp3",
       },
       {
-        "arabic": "وَأَرْسَلْنَـٰهُ إِلَىٰ مِا۟ئَةِ أَلْفٍ أَوْ يَزِيدُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037147.mp3"
+        arabic: "وَأَرْسَلْنَـٰهُ إِلَىٰ مِا۟ئَةِ أَلْفٍ أَوْ يَزِيدُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037147.mp3",
       },
       {
-        "arabic": "فَـَٔامَنُوا۟ فَمَتَّعْنَـٰهُمْ إِلَىٰ حِينٍ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037148.mp3"
+        arabic: "فَـَٔامَنُوا۟ فَمَتَّعْنَـٰهُمْ إِلَىٰ حِينٍ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037148.mp3",
       },
       {
-        "arabic": "فَٱسْتَفْتِهِمْ أَلِرَبِّكَ ٱلْبَنَاتُ وَلَهُمُ ٱلْبَنُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037149.mp3"
+        arabic: "فَٱسْتَفْتِهِمْ أَلِرَبِّكَ ٱلْبَنَاتُ وَلَهُمُ ٱلْبَنُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037149.mp3",
       },
       {
-        "arabic": "أَمْ خَلَقْنَا ٱلْمَلَـٰٓئِكَةَ إِنَـٰثًا وَهُمْ شَـٰهِدُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037150.mp3"
+        arabic: "أَمْ خَلَقْنَا ٱلْمَلَـٰٓئِكَةَ إِنَـٰثًا وَهُمْ شَـٰهِدُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037150.mp3",
       },
       {
-        "arabic": "أَلَآ إِنَّهُم مِّنْ إِفْكِهِمْ لَيَقُولُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037151.mp3"
+        arabic: "أَلَآ إِنَّهُم مِّنْ إِفْكِهِمْ لَيَقُولُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037151.mp3",
       },
       {
-        "arabic": "وَلَدَ ٱللَّهُ وَإِنَّهُمْ لَكَـٰذِبُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037152.mp3"
+        arabic: "وَلَدَ ٱللَّهُ وَإِنَّهُمْ لَكَـٰذِبُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037152.mp3",
       },
       {
-        "arabic": "أَصْطَفَى ٱلْبَنَاتِ عَلَى ٱلْبَنِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037153.mp3"
+        arabic: "أَصْطَفَى ٱلْبَنَاتِ عَلَى ٱلْبَنِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037153.mp3",
       },
       {
-        "arabic": "مَا لَكُمْ كَيْفَ تَحْكُمُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037154.mp3"
+        arabic: "مَا لَكُمْ كَيْفَ تَحْكُمُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037154.mp3",
       },
       {
-        "arabic": "أَفَلَا تَذَكَّرُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037155.mp3"
+        arabic: "أَفَلَا تَذَكَّرُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037155.mp3",
       },
       {
-        "arabic": "أَمْ لَكُمْ سُلْطَـٰنٌ مُّبِينٌ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037156.mp3"
+        arabic: "أَمْ لَكُمْ سُلْطَـٰنٌ مُّبِينٌ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037156.mp3",
       },
       {
-        "arabic": "فَأْتُوا۟ بِكِتَـٰبِكُمْ إِن كُنتُمْ صَـٰدِقِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037157.mp3"
+        arabic: "فَأْتُوا۟ بِكِتَـٰبِكُمْ إِن كُنتُمْ صَـٰدِقِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037157.mp3",
       },
       {
-        "arabic": "وَجَعَلُوا۟ بَيْنَهُۥ وَبَيْنَ ٱلْجِنَّةِ نَسَبًا ۚ وَلَقَدْ عَلِمَتِ ٱلْجِنَّةُ إِنَّهُمْ لَمُحْضَرُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037158.mp3"
+        arabic:
+          "وَجَعَلُوا۟ بَيْنَهُۥ وَبَيْنَ ٱلْجِنَّةِ نَسَبًا ۚ وَلَقَدْ عَلِمَتِ ٱلْجِنَّةُ إِنَّهُمْ لَمُحْضَرُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037158.mp3",
       },
       {
-        "arabic": "سُبْحَـٰنَ ٱللَّهِ عَمَّا يَصِفُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037159.mp3"
+        arabic: "سُبْحَـٰنَ ٱللَّهِ عَمَّا يَصِفُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037159.mp3",
       },
       {
-        "arabic": "إِلَّا عِبَادَ ٱللَّهِ ٱلْمُخْلَصِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037160.mp3"
+        arabic: "إِلَّا عِبَادَ ٱللَّهِ ٱلْمُخْلَصِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037160.mp3",
       },
       {
-        "arabic": "فَإِنَّكُمْ وَمَا تَعْبُدُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037161.mp3"
+        arabic: "فَإِنَّكُمْ وَمَا تَعْبُدُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037161.mp3",
       },
       {
-        "arabic": "مَآ أَنتُمْ عَلَيْهِ بِفَـٰتِنِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037162.mp3"
+        arabic: "مَآ أَنتُمْ عَلَيْهِ بِفَـٰتِنِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037162.mp3",
       },
       {
-        "arabic": "إِلَّا مَنْ هُوَ صَالِ ٱلْجَحِيمِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037163.mp3"
+        arabic: "إِلَّا مَنْ هُوَ صَالِ ٱلْجَحِيمِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037163.mp3",
       },
       {
-        "arabic": "وَمَا مِنَّآ إِلَّا لَهُۥ مَقَامٌ مَّعْلُومٌ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037164.mp3"
+        arabic: "وَمَا مِنَّآ إِلَّا لَهُۥ مَقَامٌ مَّعْلُومٌ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037164.mp3",
       },
       {
-        "arabic": "وَإِنَّا لَنَحْنُ ٱلصَّآفُّونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037165.mp3"
+        arabic: "وَإِنَّا لَنَحْنُ ٱلصَّآفُّونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037165.mp3",
       },
       {
-        "arabic": "وَإِنَّا لَنَحْنُ ٱلْمُسَبِّحُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037166.mp3"
+        arabic: "وَإِنَّا لَنَحْنُ ٱلْمُسَبِّحُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037166.mp3",
       },
       {
-        "arabic": "وَإِن كَانُوا۟ لَيَقُولُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037167.mp3"
+        arabic: "وَإِن كَانُوا۟ لَيَقُولُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037167.mp3",
       },
       {
-        "arabic": "لَوْ أَنَّ عِندَنَا ذِكْرًا مِّنَ ٱلْأَوَّلِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037168.mp3"
+        arabic: "لَوْ أَنَّ عِندَنَا ذِكْرًا مِّنَ ٱلْأَوَّلِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037168.mp3",
       },
       {
-        "arabic": "لَكُنَّا عِبَادَ ٱللَّهِ ٱلْمُخْلَصِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037169.mp3"
+        arabic: "لَكُنَّا عِبَادَ ٱللَّهِ ٱلْمُخْلَصِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037169.mp3",
       },
       {
-        "arabic": "فَكَفَرُوا۟ بِهِۦ ۖ فَسَوْفَ يَعْلَمُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037170.mp3"
+        arabic: "فَكَفَرُوا۟ بِهِۦ ۖ فَسَوْفَ يَعْلَمُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037170.mp3",
       },
       {
-        "arabic": "وَلَقَدْ سَبَقَتْ كَلِمَتُنَا لِعِبَادِنَا ٱلْمُرْسَلِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037171.mp3"
+        arabic: "وَلَقَدْ سَبَقَتْ كَلِمَتُنَا لِعِبَادِنَا ٱلْمُرْسَلِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037171.mp3",
       },
       {
-        "arabic": "إِنَّهُمْ لَهُمُ ٱلْمَنصُورُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037172.mp3"
+        arabic: "إِنَّهُمْ لَهُمُ ٱلْمَنصُورُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037172.mp3",
       },
       {
-        "arabic": "وَإِنَّ جُندَنَا لَهُمُ ٱلْغَـٰلِبُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037173.mp3"
+        arabic: "وَإِنَّ جُندَنَا لَهُمُ ٱلْغَـٰلِبُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037173.mp3",
       },
       {
-        "arabic": "فَتَوَلَّ عَنْهُمْ حَتَّىٰ حِينٍ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037174.mp3"
+        arabic: "فَتَوَلَّ عَنْهُمْ حَتَّىٰ حِينٍ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037174.mp3",
       },
       {
-        "arabic": "وَأَبْصِرْهُمْ فَسَوْفَ يُبْصِرُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037175.mp3"
+        arabic: "وَأَبْصِرْهُمْ فَسَوْفَ يُبْصِرُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037175.mp3",
       },
       {
-        "arabic": "أَفَبِعَذَابِنَا يَسْتَعْجِلُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037176.mp3"
+        arabic: "أَفَبِعَذَابِنَا يَسْتَعْجِلُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037176.mp3",
       },
       {
-        "arabic": "فَإِذَا نَزَلَ بِسَاحَتِهِمْ فَسَآءَ صَبَاحُ ٱلْمُنذَرِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037177.mp3"
+        arabic: "فَإِذَا نَزَلَ بِسَاحَتِهِمْ فَسَآءَ صَبَاحُ ٱلْمُنذَرِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037177.mp3",
       },
       {
-        "arabic": "وَتَوَلَّ عَنْهُمْ حَتَّىٰ حِينٍ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037178.mp3"
+        arabic: "وَتَوَلَّ عَنْهُمْ حَتَّىٰ حِينٍ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037178.mp3",
       },
       {
-        "arabic": "وَأَبْصِرْ فَسَوْفَ يُبْصِرُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037179.mp3"
+        arabic: "وَأَبْصِرْ فَسَوْفَ يُبْصِرُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037179.mp3",
       },
       {
-        "arabic": "سُبْحَـٰنَ رَبِّكَ رَبِّ ٱلْعِزَّةِ عَمَّا يَصِفُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037180.mp3"
+        arabic: "سُبْحَـٰنَ رَبِّكَ رَبِّ ٱلْعِزَّةِ عَمَّا يَصِفُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037180.mp3",
       },
       {
-        "arabic": "وَسَلَـٰمٌ عَلَى ٱلْمُرْسَلِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037181.mp3"
+        arabic: "وَسَلَـٰمٌ عَلَى ٱلْمُرْسَلِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037181.mp3",
       },
       {
-        "arabic": "وَٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَـٰلَمِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/037182.mp3"
-      }
-    ]
+        arabic: "وَٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَـٰلَمِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/037182.mp3",
+      },
+    ],
   },
   {
-    "id": "sad",
-    "number": 38,
-    "name": "Surah Sad",
-    "arabicName": "سورة ص",
-    "reciter": "Ahmad Al-Nufais",
-    "tone": "sky",
-    "scene": "flowers",
-    "verses": [
+    id: "sad",
+    number: 38,
+    name: "Surah Sad",
+    arabicName: "سورة ص",
+    reciter: "Ahmad Al-Nufais",
+    tone: "sky",
+    scene: "flowers",
+    verses: [
       {
-        "arabic": " صٓ ۚ وَٱلْقُرْءَانِ ذِى ٱلذِّكْرِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038001.mp3"
+        arabic: " صٓ ۚ وَٱلْقُرْءَانِ ذِى ٱلذِّكْرِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038001.mp3",
       },
       {
-        "arabic": "بَلِ ٱلَّذِينَ كَفَرُوا۟ فِى عِزَّةٍ وَشِقَاقٍ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038002.mp3"
+        arabic: "بَلِ ٱلَّذِينَ كَفَرُوا۟ فِى عِزَّةٍ وَشِقَاقٍ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038002.mp3",
       },
       {
-        "arabic": "كَمْ أَهْلَكْنَا مِن قَبْلِهِم مِّن قَرْنٍ فَنَادَوا۟ وَّلَاتَ حِينَ مَنَاصٍ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038003.mp3"
+        arabic: "كَمْ أَهْلَكْنَا مِن قَبْلِهِم مِّن قَرْنٍ فَنَادَوا۟ وَّلَاتَ حِينَ مَنَاصٍ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038003.mp3",
       },
       {
-        "arabic": "وَعَجِبُوٓا۟ أَن جَآءَهُم مُّنذِرٌ مِّنْهُمْ ۖ وَقَالَ ٱلْكَـٰفِرُونَ هَـٰذَا سَـٰحِرٌ كَذَّابٌ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038004.mp3"
+        arabic:
+          "وَعَجِبُوٓا۟ أَن جَآءَهُم مُّنذِرٌ مِّنْهُمْ ۖ وَقَالَ ٱلْكَـٰفِرُونَ هَـٰذَا سَـٰحِرٌ كَذَّابٌ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038004.mp3",
       },
       {
-        "arabic": "أَجَعَلَ ٱلْـَٔالِهَةَ إِلَـٰهًا وَٰحِدًا ۖ إِنَّ هَـٰذَا لَشَىْءٌ عُجَابٌ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038005.mp3"
+        arabic: "أَجَعَلَ ٱلْـَٔالِهَةَ إِلَـٰهًا وَٰحِدًا ۖ إِنَّ هَـٰذَا لَشَىْءٌ عُجَابٌ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038005.mp3",
       },
       {
-        "arabic": "وَٱنطَلَقَ ٱلْمَلَأُ مِنْهُمْ أَنِ ٱمْشُوا۟ وَٱصْبِرُوا۟ عَلَىٰٓ ءَالِهَتِكُمْ ۖ إِنَّ هَـٰذَا لَشَىْءٌ يُرَادُ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038006.mp3"
+        arabic:
+          "وَٱنطَلَقَ ٱلْمَلَأُ مِنْهُمْ أَنِ ٱمْشُوا۟ وَٱصْبِرُوا۟ عَلَىٰٓ ءَالِهَتِكُمْ ۖ إِنَّ هَـٰذَا لَشَىْءٌ يُرَادُ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038006.mp3",
       },
       {
-        "arabic": "مَا سَمِعْنَا بِهَـٰذَا فِى ٱلْمِلَّةِ ٱلْـَٔاخِرَةِ إِنْ هَـٰذَآ إِلَّا ٱخْتِلَـٰقٌ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038007.mp3"
+        arabic:
+          "مَا سَمِعْنَا بِهَـٰذَا فِى ٱلْمِلَّةِ ٱلْـَٔاخِرَةِ إِنْ هَـٰذَآ إِلَّا ٱخْتِلَـٰقٌ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038007.mp3",
       },
       {
-        "arabic": "أَءُنزِلَ عَلَيْهِ ٱلذِّكْرُ مِنۢ بَيْنِنَا ۚ بَلْ هُمْ فِى شَكٍّ مِّن ذِكْرِى ۖ بَل لَّمَّا يَذُوقُوا۟ عَذَابِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038008.mp3"
+        arabic:
+          "أَءُنزِلَ عَلَيْهِ ٱلذِّكْرُ مِنۢ بَيْنِنَا ۚ بَلْ هُمْ فِى شَكٍّ مِّن ذِكْرِى ۖ بَل لَّمَّا يَذُوقُوا۟ عَذَابِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038008.mp3",
       },
       {
-        "arabic": "أَمْ عِندَهُمْ خَزَآئِنُ رَحْمَةِ رَبِّكَ ٱلْعَزِيزِ ٱلْوَهَّابِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038009.mp3"
+        arabic: "أَمْ عِندَهُمْ خَزَآئِنُ رَحْمَةِ رَبِّكَ ٱلْعَزِيزِ ٱلْوَهَّابِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038009.mp3",
       },
       {
-        "arabic": "أَمْ لَهُم مُّلْكُ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضِ وَمَا بَيْنَهُمَا ۖ فَلْيَرْتَقُوا۟ فِى ٱلْأَسْبَـٰبِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038010.mp3"
+        arabic:
+          "أَمْ لَهُم مُّلْكُ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضِ وَمَا بَيْنَهُمَا ۖ فَلْيَرْتَقُوا۟ فِى ٱلْأَسْبَـٰبِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038010.mp3",
       },
       {
-        "arabic": "جُندٌ مَّا هُنَالِكَ مَهْزُومٌ مِّنَ ٱلْأَحْزَابِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038011.mp3"
+        arabic: "جُندٌ مَّا هُنَالِكَ مَهْزُومٌ مِّنَ ٱلْأَحْزَابِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038011.mp3",
       },
       {
-        "arabic": "كَذَّبَتْ قَبْلَهُمْ قَوْمُ نُوحٍ وَعَادٌ وَفِرْعَوْنُ ذُو ٱلْأَوْتَادِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038012.mp3"
+        arabic: "كَذَّبَتْ قَبْلَهُمْ قَوْمُ نُوحٍ وَعَادٌ وَفِرْعَوْنُ ذُو ٱلْأَوْتَادِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038012.mp3",
       },
       {
-        "arabic": "وَثَمُودُ وَقَوْمُ لُوطٍ وَأَصْحَـٰبُ لْـَٔيْكَةِ ۚ أُو۟لَـٰٓئِكَ ٱلْأَحْزَابُ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038013.mp3"
+        arabic: "وَثَمُودُ وَقَوْمُ لُوطٍ وَأَصْحَـٰبُ لْـَٔيْكَةِ ۚ أُو۟لَـٰٓئِكَ ٱلْأَحْزَابُ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038013.mp3",
       },
       {
-        "arabic": "إِن كُلٌّ إِلَّا كَذَّبَ ٱلرُّسُلَ فَحَقَّ عِقَابِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038014.mp3"
+        arabic: "إِن كُلٌّ إِلَّا كَذَّبَ ٱلرُّسُلَ فَحَقَّ عِقَابِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038014.mp3",
       },
       {
-        "arabic": "وَمَا يَنظُرُ هَـٰٓؤُلَآءِ إِلَّا صَيْحَةً وَٰحِدَةً مَّا لَهَا مِن فَوَاقٍ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038015.mp3"
+        arabic: "وَمَا يَنظُرُ هَـٰٓؤُلَآءِ إِلَّا صَيْحَةً وَٰحِدَةً مَّا لَهَا مِن فَوَاقٍ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038015.mp3",
       },
       {
-        "arabic": "وَقَالُوا۟ رَبَّنَا عَجِّل لَّنَا قِطَّنَا قَبْلَ يَوْمِ ٱلْحِسَابِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038016.mp3"
+        arabic: "وَقَالُوا۟ رَبَّنَا عَجِّل لَّنَا قِطَّنَا قَبْلَ يَوْمِ ٱلْحِسَابِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038016.mp3",
       },
       {
-        "arabic": "ٱصْبِرْ عَلَىٰ مَا يَقُولُونَ وَٱذْكُرْ عَبْدَنَا دَاوُۥدَ ذَا ٱلْأَيْدِ ۖ إِنَّهُۥٓ أَوَّابٌ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038017.mp3"
+        arabic:
+          "ٱصْبِرْ عَلَىٰ مَا يَقُولُونَ وَٱذْكُرْ عَبْدَنَا دَاوُۥدَ ذَا ٱلْأَيْدِ ۖ إِنَّهُۥٓ أَوَّابٌ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038017.mp3",
       },
       {
-        "arabic": "إِنَّا سَخَّرْنَا ٱلْجِبَالَ مَعَهُۥ يُسَبِّحْنَ بِٱلْعَشِىِّ وَٱلْإِشْرَاقِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038018.mp3"
+        arabic: "إِنَّا سَخَّرْنَا ٱلْجِبَالَ مَعَهُۥ يُسَبِّحْنَ بِٱلْعَشِىِّ وَٱلْإِشْرَاقِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038018.mp3",
       },
       {
-        "arabic": "وَٱلطَّيْرَ مَحْشُورَةً ۖ كُلٌّ لَّهُۥٓ أَوَّابٌ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038019.mp3"
+        arabic: "وَٱلطَّيْرَ مَحْشُورَةً ۖ كُلٌّ لَّهُۥٓ أَوَّابٌ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038019.mp3",
       },
       {
-        "arabic": "وَشَدَدْنَا مُلْكَهُۥ وَءَاتَيْنَـٰهُ ٱلْحِكْمَةَ وَفَصْلَ ٱلْخِطَابِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038020.mp3"
+        arabic: "وَشَدَدْنَا مُلْكَهُۥ وَءَاتَيْنَـٰهُ ٱلْحِكْمَةَ وَفَصْلَ ٱلْخِطَابِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038020.mp3",
       },
       {
-        "arabic": "۞ وَهَلْ أَتَىٰكَ نَبَؤُا۟ ٱلْخَصْمِ إِذْ تَسَوَّرُوا۟ ٱلْمِحْرَابَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038021.mp3"
+        arabic: "۞ وَهَلْ أَتَىٰكَ نَبَؤُا۟ ٱلْخَصْمِ إِذْ تَسَوَّرُوا۟ ٱلْمِحْرَابَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038021.mp3",
       },
       {
-        "arabic": "إِذْ دَخَلُوا۟ عَلَىٰ دَاوُۥدَ فَفَزِعَ مِنْهُمْ ۖ قَالُوا۟ لَا تَخَفْ ۖ خَصْمَانِ بَغَىٰ بَعْضُنَا عَلَىٰ بَعْضٍ فَٱحْكُم بَيْنَنَا بِٱلْحَقِّ وَلَا تُشْطِطْ وَٱهْدِنَآ إِلَىٰ سَوَآءِ ٱلصِّرَٰطِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038022.mp3"
+        arabic:
+          "إِذْ دَخَلُوا۟ عَلَىٰ دَاوُۥدَ فَفَزِعَ مِنْهُمْ ۖ قَالُوا۟ لَا تَخَفْ ۖ خَصْمَانِ بَغَىٰ بَعْضُنَا عَلَىٰ بَعْضٍ فَٱحْكُم بَيْنَنَا بِٱلْحَقِّ وَلَا تُشْطِطْ وَٱهْدِنَآ إِلَىٰ سَوَآءِ ٱلصِّرَٰطِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038022.mp3",
       },
       {
-        "arabic": "إِنَّ هَـٰذَآ أَخِى لَهُۥ تِسْعٌ وَتِسْعُونَ نَعْجَةً وَلِىَ نَعْجَةٌ وَٰحِدَةٌ فَقَالَ أَكْفِلْنِيهَا وَعَزَّنِى فِى ٱلْخِطَابِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038023.mp3"
+        arabic:
+          "إِنَّ هَـٰذَآ أَخِى لَهُۥ تِسْعٌ وَتِسْعُونَ نَعْجَةً وَلِىَ نَعْجَةٌ وَٰحِدَةٌ فَقَالَ أَكْفِلْنِيهَا وَعَزَّنِى فِى ٱلْخِطَابِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038023.mp3",
       },
       {
-        "arabic": "قَالَ لَقَدْ ظَلَمَكَ بِسُؤَالِ نَعْجَتِكَ إِلَىٰ نِعَاجِهِۦ ۖ وَإِنَّ كَثِيرًا مِّنَ ٱلْخُلَطَآءِ لَيَبْغِى بَعْضُهُمْ عَلَىٰ بَعْضٍ إِلَّا ٱلَّذِينَ ءَامَنُوا۟ وَعَمِلُوا۟ ٱلصَّـٰلِحَـٰتِ وَقَلِيلٌ مَّا هُمْ ۗ وَظَنَّ دَاوُۥدُ أَنَّمَا فَتَنَّـٰهُ فَٱسْتَغْفَرَ رَبَّهُۥ وَخَرَّ رَاكِعًا وَأَنَابَ ۩",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038024.mp3"
+        arabic:
+          "قَالَ لَقَدْ ظَلَمَكَ بِسُؤَالِ نَعْجَتِكَ إِلَىٰ نِعَاجِهِۦ ۖ وَإِنَّ كَثِيرًا مِّنَ ٱلْخُلَطَآءِ لَيَبْغِى بَعْضُهُمْ عَلَىٰ بَعْضٍ إِلَّا ٱلَّذِينَ ءَامَنُوا۟ وَعَمِلُوا۟ ٱلصَّـٰلِحَـٰتِ وَقَلِيلٌ مَّا هُمْ ۗ وَظَنَّ دَاوُۥدُ أَنَّمَا فَتَنَّـٰهُ فَٱسْتَغْفَرَ رَبَّهُۥ وَخَرَّ رَاكِعًا وَأَنَابَ ۩",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038024.mp3",
       },
       {
-        "arabic": "فَغَفَرْنَا لَهُۥ ذَٰلِكَ ۖ وَإِنَّ لَهُۥ عِندَنَا لَزُلْفَىٰ وَحُسْنَ مَـَٔابٍ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038025.mp3"
+        arabic: "فَغَفَرْنَا لَهُۥ ذَٰلِكَ ۖ وَإِنَّ لَهُۥ عِندَنَا لَزُلْفَىٰ وَحُسْنَ مَـَٔابٍ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038025.mp3",
       },
       {
-        "arabic": "يَـٰدَاوُۥدُ إِنَّا جَعَلْنَـٰكَ خَلِيفَةً فِى ٱلْأَرْضِ فَٱحْكُم بَيْنَ ٱلنَّاسِ بِٱلْحَقِّ وَلَا تَتَّبِعِ ٱلْهَوَىٰ فَيُضِلَّكَ عَن سَبِيلِ ٱللَّهِ ۚ إِنَّ ٱلَّذِينَ يَضِلُّونَ عَن سَبِيلِ ٱللَّهِ لَهُمْ عَذَابٌ شَدِيدٌۢ بِمَا نَسُوا۟ يَوْمَ ٱلْحِسَابِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038026.mp3"
+        arabic:
+          "يَـٰدَاوُۥدُ إِنَّا جَعَلْنَـٰكَ خَلِيفَةً فِى ٱلْأَرْضِ فَٱحْكُم بَيْنَ ٱلنَّاسِ بِٱلْحَقِّ وَلَا تَتَّبِعِ ٱلْهَوَىٰ فَيُضِلَّكَ عَن سَبِيلِ ٱللَّهِ ۚ إِنَّ ٱلَّذِينَ يَضِلُّونَ عَن سَبِيلِ ٱللَّهِ لَهُمْ عَذَابٌ شَدِيدٌۢ بِمَا نَسُوا۟ يَوْمَ ٱلْحِسَابِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038026.mp3",
       },
       {
-        "arabic": "وَمَا خَلَقْنَا ٱلسَّمَآءَ وَٱلْأَرْضَ وَمَا بَيْنَهُمَا بَـٰطِلًا ۚ ذَٰلِكَ ظَنُّ ٱلَّذِينَ كَفَرُوا۟ ۚ فَوَيْلٌ لِّلَّذِينَ كَفَرُوا۟ مِنَ ٱلنَّارِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038027.mp3"
+        arabic:
+          "وَمَا خَلَقْنَا ٱلسَّمَآءَ وَٱلْأَرْضَ وَمَا بَيْنَهُمَا بَـٰطِلًا ۚ ذَٰلِكَ ظَنُّ ٱلَّذِينَ كَفَرُوا۟ ۚ فَوَيْلٌ لِّلَّذِينَ كَفَرُوا۟ مِنَ ٱلنَّارِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038027.mp3",
       },
       {
-        "arabic": "أَمْ نَجْعَلُ ٱلَّذِينَ ءَامَنُوا۟ وَعَمِلُوا۟ ٱلصَّـٰلِحَـٰتِ كَٱلْمُفْسِدِينَ فِى ٱلْأَرْضِ أَمْ نَجْعَلُ ٱلْمُتَّقِينَ كَٱلْفُجَّارِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038028.mp3"
+        arabic:
+          "أَمْ نَجْعَلُ ٱلَّذِينَ ءَامَنُوا۟ وَعَمِلُوا۟ ٱلصَّـٰلِحَـٰتِ كَٱلْمُفْسِدِينَ فِى ٱلْأَرْضِ أَمْ نَجْعَلُ ٱلْمُتَّقِينَ كَٱلْفُجَّارِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038028.mp3",
       },
       {
-        "arabic": "كِتَـٰبٌ أَنزَلْنَـٰهُ إِلَيْكَ مُبَـٰرَكٌ لِّيَدَّبَّرُوٓا۟ ءَايَـٰتِهِۦ وَلِيَتَذَكَّرَ أُو۟لُوا۟ ٱلْأَلْبَـٰبِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038029.mp3"
+        arabic:
+          "كِتَـٰبٌ أَنزَلْنَـٰهُ إِلَيْكَ مُبَـٰرَكٌ لِّيَدَّبَّرُوٓا۟ ءَايَـٰتِهِۦ وَلِيَتَذَكَّرَ أُو۟لُوا۟ ٱلْأَلْبَـٰبِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038029.mp3",
       },
       {
-        "arabic": "وَوَهَبْنَا لِدَاوُۥدَ سُلَيْمَـٰنَ ۚ نِعْمَ ٱلْعَبْدُ ۖ إِنَّهُۥٓ أَوَّابٌ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038030.mp3"
+        arabic: "وَوَهَبْنَا لِدَاوُۥدَ سُلَيْمَـٰنَ ۚ نِعْمَ ٱلْعَبْدُ ۖ إِنَّهُۥٓ أَوَّابٌ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038030.mp3",
       },
       {
-        "arabic": "إِذْ عُرِضَ عَلَيْهِ بِٱلْعَشِىِّ ٱلصَّـٰفِنَـٰتُ ٱلْجِيَادُ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038031.mp3"
+        arabic: "إِذْ عُرِضَ عَلَيْهِ بِٱلْعَشِىِّ ٱلصَّـٰفِنَـٰتُ ٱلْجِيَادُ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038031.mp3",
       },
       {
-        "arabic": "فَقَالَ إِنِّىٓ أَحْبَبْتُ حُبَّ ٱلْخَيْرِ عَن ذِكْرِ رَبِّى حَتَّىٰ تَوَارَتْ بِٱلْحِجَابِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038032.mp3"
+        arabic:
+          "فَقَالَ إِنِّىٓ أَحْبَبْتُ حُبَّ ٱلْخَيْرِ عَن ذِكْرِ رَبِّى حَتَّىٰ تَوَارَتْ بِٱلْحِجَابِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038032.mp3",
       },
       {
-        "arabic": "رُدُّوهَا عَلَىَّ ۖ فَطَفِقَ مَسْحًۢا بِٱلسُّوقِ وَٱلْأَعْنَاقِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038033.mp3"
+        arabic: "رُدُّوهَا عَلَىَّ ۖ فَطَفِقَ مَسْحًۢا بِٱلسُّوقِ وَٱلْأَعْنَاقِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038033.mp3",
       },
       {
-        "arabic": "وَلَقَدْ فَتَنَّا سُلَيْمَـٰنَ وَأَلْقَيْنَا عَلَىٰ كُرْسِيِّهِۦ جَسَدًا ثُمَّ أَنَابَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038034.mp3"
+        arabic:
+          "وَلَقَدْ فَتَنَّا سُلَيْمَـٰنَ وَأَلْقَيْنَا عَلَىٰ كُرْسِيِّهِۦ جَسَدًا ثُمَّ أَنَابَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038034.mp3",
       },
       {
-        "arabic": "قَالَ رَبِّ ٱغْفِرْ لِى وَهَبْ لِى مُلْكًا لَّا يَنۢبَغِى لِأَحَدٍ مِّنۢ بَعْدِىٓ ۖ إِنَّكَ أَنتَ ٱلْوَهَّابُ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038035.mp3"
+        arabic:
+          "قَالَ رَبِّ ٱغْفِرْ لِى وَهَبْ لِى مُلْكًا لَّا يَنۢبَغِى لِأَحَدٍ مِّنۢ بَعْدِىٓ ۖ إِنَّكَ أَنتَ ٱلْوَهَّابُ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038035.mp3",
       },
       {
-        "arabic": "فَسَخَّرْنَا لَهُ ٱلرِّيحَ تَجْرِى بِأَمْرِهِۦ رُخَآءً حَيْثُ أَصَابَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038036.mp3"
+        arabic: "فَسَخَّرْنَا لَهُ ٱلرِّيحَ تَجْرِى بِأَمْرِهِۦ رُخَآءً حَيْثُ أَصَابَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038036.mp3",
       },
       {
-        "arabic": "وَٱلشَّيَـٰطِينَ كُلَّ بَنَّآءٍ وَغَوَّاصٍ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038037.mp3"
+        arabic: "وَٱلشَّيَـٰطِينَ كُلَّ بَنَّآءٍ وَغَوَّاصٍ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038037.mp3",
       },
       {
-        "arabic": "وَءَاخَرِينَ مُقَرَّنِينَ فِى ٱلْأَصْفَادِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038038.mp3"
+        arabic: "وَءَاخَرِينَ مُقَرَّنِينَ فِى ٱلْأَصْفَادِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038038.mp3",
       },
       {
-        "arabic": "هَـٰذَا عَطَآؤُنَا فَٱمْنُنْ أَوْ أَمْسِكْ بِغَيْرِ حِسَابٍ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038039.mp3"
+        arabic: "هَـٰذَا عَطَآؤُنَا فَٱمْنُنْ أَوْ أَمْسِكْ بِغَيْرِ حِسَابٍ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038039.mp3",
       },
       {
-        "arabic": "وَإِنَّ لَهُۥ عِندَنَا لَزُلْفَىٰ وَحُسْنَ مَـَٔابٍ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038040.mp3"
+        arabic: "وَإِنَّ لَهُۥ عِندَنَا لَزُلْفَىٰ وَحُسْنَ مَـَٔابٍ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038040.mp3",
       },
       {
-        "arabic": "وَٱذْكُرْ عَبْدَنَآ أَيُّوبَ إِذْ نَادَىٰ رَبَّهُۥٓ أَنِّى مَسَّنِىَ ٱلشَّيْطَـٰنُ بِنُصْبٍ وَعَذَابٍ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038041.mp3"
+        arabic:
+          "وَٱذْكُرْ عَبْدَنَآ أَيُّوبَ إِذْ نَادَىٰ رَبَّهُۥٓ أَنِّى مَسَّنِىَ ٱلشَّيْطَـٰنُ بِنُصْبٍ وَعَذَابٍ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038041.mp3",
       },
       {
-        "arabic": "ٱرْكُضْ بِرِجْلِكَ ۖ هَـٰذَا مُغْتَسَلٌۢ بَارِدٌ وَشَرَابٌ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038042.mp3"
+        arabic: "ٱرْكُضْ بِرِجْلِكَ ۖ هَـٰذَا مُغْتَسَلٌۢ بَارِدٌ وَشَرَابٌ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038042.mp3",
       },
       {
-        "arabic": "وَوَهَبْنَا لَهُۥٓ أَهْلَهُۥ وَمِثْلَهُم مَّعَهُمْ رَحْمَةً مِّنَّا وَذِكْرَىٰ لِأُو۟لِى ٱلْأَلْبَـٰبِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038043.mp3"
+        arabic:
+          "وَوَهَبْنَا لَهُۥٓ أَهْلَهُۥ وَمِثْلَهُم مَّعَهُمْ رَحْمَةً مِّنَّا وَذِكْرَىٰ لِأُو۟لِى ٱلْأَلْبَـٰبِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038043.mp3",
       },
       {
-        "arabic": "وَخُذْ بِيَدِكَ ضِغْثًا فَٱضْرِب بِّهِۦ وَلَا تَحْنَثْ ۗ إِنَّا وَجَدْنَـٰهُ صَابِرًا ۚ نِّعْمَ ٱلْعَبْدُ ۖ إِنَّهُۥٓ أَوَّابٌ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038044.mp3"
+        arabic:
+          "وَخُذْ بِيَدِكَ ضِغْثًا فَٱضْرِب بِّهِۦ وَلَا تَحْنَثْ ۗ إِنَّا وَجَدْنَـٰهُ صَابِرًا ۚ نِّعْمَ ٱلْعَبْدُ ۖ إِنَّهُۥٓ أَوَّابٌ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038044.mp3",
       },
       {
-        "arabic": "وَٱذْكُرْ عِبَـٰدَنَآ إِبْرَٰهِيمَ وَإِسْحَـٰقَ وَيَعْقُوبَ أُو۟لِى ٱلْأَيْدِى وَٱلْأَبْصَـٰرِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038045.mp3"
+        arabic:
+          "وَٱذْكُرْ عِبَـٰدَنَآ إِبْرَٰهِيمَ وَإِسْحَـٰقَ وَيَعْقُوبَ أُو۟لِى ٱلْأَيْدِى وَٱلْأَبْصَـٰرِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038045.mp3",
       },
       {
-        "arabic": "إِنَّآ أَخْلَصْنَـٰهُم بِخَالِصَةٍ ذِكْرَى ٱلدَّارِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038046.mp3"
+        arabic: "إِنَّآ أَخْلَصْنَـٰهُم بِخَالِصَةٍ ذِكْرَى ٱلدَّارِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038046.mp3",
       },
       {
-        "arabic": "وَإِنَّهُمْ عِندَنَا لَمِنَ ٱلْمُصْطَفَيْنَ ٱلْأَخْيَارِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038047.mp3"
+        arabic: "وَإِنَّهُمْ عِندَنَا لَمِنَ ٱلْمُصْطَفَيْنَ ٱلْأَخْيَارِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038047.mp3",
       },
       {
-        "arabic": "وَٱذْكُرْ إِسْمَـٰعِيلَ وَٱلْيَسَعَ وَذَا ٱلْكِفْلِ ۖ وَكُلٌّ مِّنَ ٱلْأَخْيَارِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038048.mp3"
+        arabic: "وَٱذْكُرْ إِسْمَـٰعِيلَ وَٱلْيَسَعَ وَذَا ٱلْكِفْلِ ۖ وَكُلٌّ مِّنَ ٱلْأَخْيَارِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038048.mp3",
       },
       {
-        "arabic": "هَـٰذَا ذِكْرٌ ۚ وَإِنَّ لِلْمُتَّقِينَ لَحُسْنَ مَـَٔابٍ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038049.mp3"
+        arabic: "هَـٰذَا ذِكْرٌ ۚ وَإِنَّ لِلْمُتَّقِينَ لَحُسْنَ مَـَٔابٍ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038049.mp3",
       },
       {
-        "arabic": "جَنَّـٰتِ عَدْنٍ مُّفَتَّحَةً لَّهُمُ ٱلْأَبْوَٰبُ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038050.mp3"
+        arabic: "جَنَّـٰتِ عَدْنٍ مُّفَتَّحَةً لَّهُمُ ٱلْأَبْوَٰبُ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038050.mp3",
       },
       {
-        "arabic": "مُتَّكِـِٔينَ فِيهَا يَدْعُونَ فِيهَا بِفَـٰكِهَةٍ كَثِيرَةٍ وَشَرَابٍ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038051.mp3"
+        arabic: "مُتَّكِـِٔينَ فِيهَا يَدْعُونَ فِيهَا بِفَـٰكِهَةٍ كَثِيرَةٍ وَشَرَابٍ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038051.mp3",
       },
       {
-        "arabic": "۞ وَعِندَهُمْ قَـٰصِرَٰتُ ٱلطَّرْفِ أَتْرَابٌ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038052.mp3"
+        arabic: "۞ وَعِندَهُمْ قَـٰصِرَٰتُ ٱلطَّرْفِ أَتْرَابٌ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038052.mp3",
       },
       {
-        "arabic": "هَـٰذَا مَا تُوعَدُونَ لِيَوْمِ ٱلْحِسَابِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038053.mp3"
+        arabic: "هَـٰذَا مَا تُوعَدُونَ لِيَوْمِ ٱلْحِسَابِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038053.mp3",
       },
       {
-        "arabic": "إِنَّ هَـٰذَا لَرِزْقُنَا مَا لَهُۥ مِن نَّفَادٍ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038054.mp3"
+        arabic: "إِنَّ هَـٰذَا لَرِزْقُنَا مَا لَهُۥ مِن نَّفَادٍ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038054.mp3",
       },
       {
-        "arabic": "هَـٰذَا ۚ وَإِنَّ لِلطَّـٰغِينَ لَشَرَّ مَـَٔابٍ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038055.mp3"
+        arabic: "هَـٰذَا ۚ وَإِنَّ لِلطَّـٰغِينَ لَشَرَّ مَـَٔابٍ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038055.mp3",
       },
       {
-        "arabic": "جَهَنَّمَ يَصْلَوْنَهَا فَبِئْسَ ٱلْمِهَادُ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038056.mp3"
+        arabic: "جَهَنَّمَ يَصْلَوْنَهَا فَبِئْسَ ٱلْمِهَادُ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038056.mp3",
       },
       {
-        "arabic": "هَـٰذَا فَلْيَذُوقُوهُ حَمِيمٌ وَغَسَّاقٌ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038057.mp3"
+        arabic: "هَـٰذَا فَلْيَذُوقُوهُ حَمِيمٌ وَغَسَّاقٌ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038057.mp3",
       },
       {
-        "arabic": "وَءَاخَرُ مِن شَكْلِهِۦٓ أَزْوَٰجٌ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038058.mp3"
+        arabic: "وَءَاخَرُ مِن شَكْلِهِۦٓ أَزْوَٰجٌ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038058.mp3",
       },
       {
-        "arabic": "هَـٰذَا فَوْجٌ مُّقْتَحِمٌ مَّعَكُمْ ۖ لَا مَرْحَبًۢا بِهِمْ ۚ إِنَّهُمْ صَالُوا۟ ٱلنَّارِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038059.mp3"
+        arabic:
+          "هَـٰذَا فَوْجٌ مُّقْتَحِمٌ مَّعَكُمْ ۖ لَا مَرْحَبًۢا بِهِمْ ۚ إِنَّهُمْ صَالُوا۟ ٱلنَّارِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038059.mp3",
       },
       {
-        "arabic": "قَالُوا۟ بَلْ أَنتُمْ لَا مَرْحَبًۢا بِكُمْ ۖ أَنتُمْ قَدَّمْتُمُوهُ لَنَا ۖ فَبِئْسَ ٱلْقَرَارُ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038060.mp3"
+        arabic:
+          "قَالُوا۟ بَلْ أَنتُمْ لَا مَرْحَبًۢا بِكُمْ ۖ أَنتُمْ قَدَّمْتُمُوهُ لَنَا ۖ فَبِئْسَ ٱلْقَرَارُ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038060.mp3",
       },
       {
-        "arabic": "قَالُوا۟ رَبَّنَا مَن قَدَّمَ لَنَا هَـٰذَا فَزِدْهُ عَذَابًا ضِعْفًا فِى ٱلنَّارِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038061.mp3"
+        arabic:
+          "قَالُوا۟ رَبَّنَا مَن قَدَّمَ لَنَا هَـٰذَا فَزِدْهُ عَذَابًا ضِعْفًا فِى ٱلنَّارِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038061.mp3",
       },
       {
-        "arabic": "وَقَالُوا۟ مَا لَنَا لَا نَرَىٰ رِجَالًا كُنَّا نَعُدُّهُم مِّنَ ٱلْأَشْرَارِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038062.mp3"
+        arabic: "وَقَالُوا۟ مَا لَنَا لَا نَرَىٰ رِجَالًا كُنَّا نَعُدُّهُم مِّنَ ٱلْأَشْرَارِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038062.mp3",
       },
       {
-        "arabic": "أَتَّخَذْنَـٰهُمْ سِخْرِيًّا أَمْ زَاغَتْ عَنْهُمُ ٱلْأَبْصَـٰرُ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038063.mp3"
+        arabic: "أَتَّخَذْنَـٰهُمْ سِخْرِيًّا أَمْ زَاغَتْ عَنْهُمُ ٱلْأَبْصَـٰرُ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038063.mp3",
       },
       {
-        "arabic": "إِنَّ ذَٰلِكَ لَحَقٌّ تَخَاصُمُ أَهْلِ ٱلنَّارِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038064.mp3"
+        arabic: "إِنَّ ذَٰلِكَ لَحَقٌّ تَخَاصُمُ أَهْلِ ٱلنَّارِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038064.mp3",
       },
       {
-        "arabic": "قُلْ إِنَّمَآ أَنَا۠ مُنذِرٌ ۖ وَمَا مِنْ إِلَـٰهٍ إِلَّا ٱللَّهُ ٱلْوَٰحِدُ ٱلْقَهَّارُ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038065.mp3"
+        arabic:
+          "قُلْ إِنَّمَآ أَنَا۠ مُنذِرٌ ۖ وَمَا مِنْ إِلَـٰهٍ إِلَّا ٱللَّهُ ٱلْوَٰحِدُ ٱلْقَهَّارُ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038065.mp3",
       },
       {
-        "arabic": "رَبُّ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضِ وَمَا بَيْنَهُمَا ٱلْعَزِيزُ ٱلْغَفَّـٰرُ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038066.mp3"
+        arabic: "رَبُّ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضِ وَمَا بَيْنَهُمَا ٱلْعَزِيزُ ٱلْغَفَّـٰرُ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038066.mp3",
       },
       {
-        "arabic": "قُلْ هُوَ نَبَؤٌا۟ عَظِيمٌ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038067.mp3"
+        arabic: "قُلْ هُوَ نَبَؤٌا۟ عَظِيمٌ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038067.mp3",
       },
       {
-        "arabic": "أَنتُمْ عَنْهُ مُعْرِضُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038068.mp3"
+        arabic: "أَنتُمْ عَنْهُ مُعْرِضُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038068.mp3",
       },
       {
-        "arabic": "مَا كَانَ لِىَ مِنْ عِلْمٍۭ بِٱلْمَلَإِ ٱلْأَعْلَىٰٓ إِذْ يَخْتَصِمُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038069.mp3"
+        arabic: "مَا كَانَ لِىَ مِنْ عِلْمٍۭ بِٱلْمَلَإِ ٱلْأَعْلَىٰٓ إِذْ يَخْتَصِمُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038069.mp3",
       },
       {
-        "arabic": "إِن يُوحَىٰٓ إِلَىَّ إِلَّآ أَنَّمَآ أَنَا۠ نَذِيرٌ مُّبِينٌ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038070.mp3"
+        arabic: "إِن يُوحَىٰٓ إِلَىَّ إِلَّآ أَنَّمَآ أَنَا۠ نَذِيرٌ مُّبِينٌ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038070.mp3",
       },
       {
-        "arabic": "إِذْ قَالَ رَبُّكَ لِلْمَلَـٰٓئِكَةِ إِنِّى خَـٰلِقٌۢ بَشَرًا مِّن طِينٍ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038071.mp3"
+        arabic: "إِذْ قَالَ رَبُّكَ لِلْمَلَـٰٓئِكَةِ إِنِّى خَـٰلِقٌۢ بَشَرًا مِّن طِينٍ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038071.mp3",
       },
       {
-        "arabic": "فَإِذَا سَوَّيْتُهُۥ وَنَفَخْتُ فِيهِ مِن رُّوحِى فَقَعُوا۟ لَهُۥ سَـٰجِدِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038072.mp3"
+        arabic: "فَإِذَا سَوَّيْتُهُۥ وَنَفَخْتُ فِيهِ مِن رُّوحِى فَقَعُوا۟ لَهُۥ سَـٰجِدِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038072.mp3",
       },
       {
-        "arabic": "فَسَجَدَ ٱلْمَلَـٰٓئِكَةُ كُلُّهُمْ أَجْمَعُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038073.mp3"
+        arabic: "فَسَجَدَ ٱلْمَلَـٰٓئِكَةُ كُلُّهُمْ أَجْمَعُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038073.mp3",
       },
       {
-        "arabic": "إِلَّآ إِبْلِيسَ ٱسْتَكْبَرَ وَكَانَ مِنَ ٱلْكَـٰفِرِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038074.mp3"
+        arabic: "إِلَّآ إِبْلِيسَ ٱسْتَكْبَرَ وَكَانَ مِنَ ٱلْكَـٰفِرِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038074.mp3",
       },
       {
-        "arabic": "قَالَ يَـٰٓإِبْلِيسُ مَا مَنَعَكَ أَن تَسْجُدَ لِمَا خَلَقْتُ بِيَدَىَّ ۖ أَسْتَكْبَرْتَ أَمْ كُنتَ مِنَ ٱلْعَالِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038075.mp3"
+        arabic:
+          "قَالَ يَـٰٓإِبْلِيسُ مَا مَنَعَكَ أَن تَسْجُدَ لِمَا خَلَقْتُ بِيَدَىَّ ۖ أَسْتَكْبَرْتَ أَمْ كُنتَ مِنَ ٱلْعَالِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038075.mp3",
       },
       {
-        "arabic": "قَالَ أَنَا۠ خَيْرٌ مِّنْهُ ۖ خَلَقْتَنِى مِن نَّارٍ وَخَلَقْتَهُۥ مِن طِينٍ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038076.mp3"
+        arabic: "قَالَ أَنَا۠ خَيْرٌ مِّنْهُ ۖ خَلَقْتَنِى مِن نَّارٍ وَخَلَقْتَهُۥ مِن طِينٍ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038076.mp3",
       },
       {
-        "arabic": "قَالَ فَٱخْرُجْ مِنْهَا فَإِنَّكَ رَجِيمٌ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038077.mp3"
+        arabic: "قَالَ فَٱخْرُجْ مِنْهَا فَإِنَّكَ رَجِيمٌ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038077.mp3",
       },
       {
-        "arabic": "وَإِنَّ عَلَيْكَ لَعْنَتِىٓ إِلَىٰ يَوْمِ ٱلدِّينِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038078.mp3"
+        arabic: "وَإِنَّ عَلَيْكَ لَعْنَتِىٓ إِلَىٰ يَوْمِ ٱلدِّينِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038078.mp3",
       },
       {
-        "arabic": "قَالَ رَبِّ فَأَنظِرْنِىٓ إِلَىٰ يَوْمِ يُبْعَثُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038079.mp3"
+        arabic: "قَالَ رَبِّ فَأَنظِرْنِىٓ إِلَىٰ يَوْمِ يُبْعَثُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038079.mp3",
       },
       {
-        "arabic": "قَالَ فَإِنَّكَ مِنَ ٱلْمُنظَرِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038080.mp3"
+        arabic: "قَالَ فَإِنَّكَ مِنَ ٱلْمُنظَرِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038080.mp3",
       },
       {
-        "arabic": "إِلَىٰ يَوْمِ ٱلْوَقْتِ ٱلْمَعْلُومِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038081.mp3"
+        arabic: "إِلَىٰ يَوْمِ ٱلْوَقْتِ ٱلْمَعْلُومِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038081.mp3",
       },
       {
-        "arabic": "قَالَ فَبِعِزَّتِكَ لَأُغْوِيَنَّهُمْ أَجْمَعِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038082.mp3"
+        arabic: "قَالَ فَبِعِزَّتِكَ لَأُغْوِيَنَّهُمْ أَجْمَعِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038082.mp3",
       },
       {
-        "arabic": "إِلَّا عِبَادَكَ مِنْهُمُ ٱلْمُخْلَصِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038083.mp3"
+        arabic: "إِلَّا عِبَادَكَ مِنْهُمُ ٱلْمُخْلَصِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038083.mp3",
       },
       {
-        "arabic": "قَالَ فَٱلْحَقُّ وَٱلْحَقَّ أَقُولُ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038084.mp3"
+        arabic: "قَالَ فَٱلْحَقُّ وَٱلْحَقَّ أَقُولُ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038084.mp3",
       },
       {
-        "arabic": "لَأَمْلَأَنَّ جَهَنَّمَ مِنكَ وَمِمَّن تَبِعَكَ مِنْهُمْ أَجْمَعِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038085.mp3"
+        arabic: "لَأَمْلَأَنَّ جَهَنَّمَ مِنكَ وَمِمَّن تَبِعَكَ مِنْهُمْ أَجْمَعِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038085.mp3",
       },
       {
-        "arabic": "قُلْ مَآ أَسْـَٔلُكُمْ عَلَيْهِ مِنْ أَجْرٍ وَمَآ أَنَا۠ مِنَ ٱلْمُتَكَلِّفِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038086.mp3"
+        arabic: "قُلْ مَآ أَسْـَٔلُكُمْ عَلَيْهِ مِنْ أَجْرٍ وَمَآ أَنَا۠ مِنَ ٱلْمُتَكَلِّفِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038086.mp3",
       },
       {
-        "arabic": "إِنْ هُوَ إِلَّا ذِكْرٌ لِّلْعَـٰلَمِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038087.mp3"
+        arabic: "إِنْ هُوَ إِلَّا ذِكْرٌ لِّلْعَـٰلَمِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038087.mp3",
       },
       {
-        "arabic": "وَلَتَعْلَمُنَّ نَبَأَهُۥ بَعْدَ حِينٍۭ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/038088.mp3"
-      }
-    ]
+        arabic: "وَلَتَعْلَمُنَّ نَبَأَهُۥ بَعْدَ حِينٍۭ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/038088.mp3",
+      },
+    ],
   },
   {
-    "id": "zumar",
-    "number": 39,
-    "name": "Surah Az-Zumar",
-    "arabicName": "سورة الزمر",
-    "reciter": "Ahmad Al-Nufais",
-    "tone": "berry",
-    "scene": "foliage",
-    "verses": [
+    id: "zumar",
+    number: 39,
+    name: "Surah Az-Zumar",
+    arabicName: "سورة الزمر",
+    reciter: "Ahmad Al-Nufais",
+    tone: "berry",
+    scene: "foliage",
+    verses: [
       {
-        "arabic": " تَنزِيلُ ٱلْكِتَـٰبِ مِنَ ٱللَّهِ ٱلْعَزِيزِ ٱلْحَكِيمِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039001.mp3"
+        arabic: " تَنزِيلُ ٱلْكِتَـٰبِ مِنَ ٱللَّهِ ٱلْعَزِيزِ ٱلْحَكِيمِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039001.mp3",
       },
       {
-        "arabic": "إِنَّآ أَنزَلْنَآ إِلَيْكَ ٱلْكِتَـٰبَ بِٱلْحَقِّ فَٱعْبُدِ ٱللَّهَ مُخْلِصًا لَّهُ ٱلدِّينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039002.mp3"
+        arabic:
+          "إِنَّآ أَنزَلْنَآ إِلَيْكَ ٱلْكِتَـٰبَ بِٱلْحَقِّ فَٱعْبُدِ ٱللَّهَ مُخْلِصًا لَّهُ ٱلدِّينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039002.mp3",
       },
       {
-        "arabic": "أَلَا لِلَّهِ ٱلدِّينُ ٱلْخَالِصُ ۚ وَٱلَّذِينَ ٱتَّخَذُوا۟ مِن دُونِهِۦٓ أَوْلِيَآءَ مَا نَعْبُدُهُمْ إِلَّا لِيُقَرِّبُونَآ إِلَى ٱللَّهِ زُلْفَىٰٓ إِنَّ ٱللَّهَ يَحْكُمُ بَيْنَهُمْ فِى مَا هُمْ فِيهِ يَخْتَلِفُونَ ۗ إِنَّ ٱللَّهَ لَا يَهْدِى مَنْ هُوَ كَـٰذِبٌ كَفَّارٌ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039003.mp3"
+        arabic:
+          "أَلَا لِلَّهِ ٱلدِّينُ ٱلْخَالِصُ ۚ وَٱلَّذِينَ ٱتَّخَذُوا۟ مِن دُونِهِۦٓ أَوْلِيَآءَ مَا نَعْبُدُهُمْ إِلَّا لِيُقَرِّبُونَآ إِلَى ٱللَّهِ زُلْفَىٰٓ إِنَّ ٱللَّهَ يَحْكُمُ بَيْنَهُمْ فِى مَا هُمْ فِيهِ يَخْتَلِفُونَ ۗ إِنَّ ٱللَّهَ لَا يَهْدِى مَنْ هُوَ كَـٰذِبٌ كَفَّارٌ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039003.mp3",
       },
       {
-        "arabic": "لَّوْ أَرَادَ ٱللَّهُ أَن يَتَّخِذَ وَلَدًا لَّٱصْطَفَىٰ مِمَّا يَخْلُقُ مَا يَشَآءُ ۚ سُبْحَـٰنَهُۥ ۖ هُوَ ٱللَّهُ ٱلْوَٰحِدُ ٱلْقَهَّارُ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039004.mp3"
+        arabic:
+          "لَّوْ أَرَادَ ٱللَّهُ أَن يَتَّخِذَ وَلَدًا لَّٱصْطَفَىٰ مِمَّا يَخْلُقُ مَا يَشَآءُ ۚ سُبْحَـٰنَهُۥ ۖ هُوَ ٱللَّهُ ٱلْوَٰحِدُ ٱلْقَهَّارُ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039004.mp3",
       },
       {
-        "arabic": "خَلَقَ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضَ بِٱلْحَقِّ ۖ يُكَوِّرُ ٱلَّيْلَ عَلَى ٱلنَّهَارِ وَيُكَوِّرُ ٱلنَّهَارَ عَلَى ٱلَّيْلِ ۖ وَسَخَّرَ ٱلشَّمْسَ وَٱلْقَمَرَ ۖ كُلٌّ يَجْرِى لِأَجَلٍ مُّسَمًّى ۗ أَلَا هُوَ ٱلْعَزِيزُ ٱلْغَفَّـٰرُ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039005.mp3"
+        arabic:
+          "خَلَقَ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضَ بِٱلْحَقِّ ۖ يُكَوِّرُ ٱلَّيْلَ عَلَى ٱلنَّهَارِ وَيُكَوِّرُ ٱلنَّهَارَ عَلَى ٱلَّيْلِ ۖ وَسَخَّرَ ٱلشَّمْسَ وَٱلْقَمَرَ ۖ كُلٌّ يَجْرِى لِأَجَلٍ مُّسَمًّى ۗ أَلَا هُوَ ٱلْعَزِيزُ ٱلْغَفَّـٰرُ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039005.mp3",
       },
       {
-        "arabic": "خَلَقَكُم مِّن نَّفْسٍ وَٰحِدَةٍ ثُمَّ جَعَلَ مِنْهَا زَوْجَهَا وَأَنزَلَ لَكُم مِّنَ ٱلْأَنْعَـٰمِ ثَمَـٰنِيَةَ أَزْوَٰجٍ ۚ يَخْلُقُكُمْ فِى بُطُونِ أُمَّهَـٰتِكُمْ خَلْقًا مِّنۢ بَعْدِ خَلْقٍ فِى ظُلُمَـٰتٍ ثَلَـٰثٍ ۚ ذَٰلِكُمُ ٱللَّهُ رَبُّكُمْ لَهُ ٱلْمُلْكُ ۖ لَآ إِلَـٰهَ إِلَّا هُوَ ۖ فَأَنَّىٰ تُصْرَفُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039006.mp3"
+        arabic:
+          "خَلَقَكُم مِّن نَّفْسٍ وَٰحِدَةٍ ثُمَّ جَعَلَ مِنْهَا زَوْجَهَا وَأَنزَلَ لَكُم مِّنَ ٱلْأَنْعَـٰمِ ثَمَـٰنِيَةَ أَزْوَٰجٍ ۚ يَخْلُقُكُمْ فِى بُطُونِ أُمَّهَـٰتِكُمْ خَلْقًا مِّنۢ بَعْدِ خَلْقٍ فِى ظُلُمَـٰتٍ ثَلَـٰثٍ ۚ ذَٰلِكُمُ ٱللَّهُ رَبُّكُمْ لَهُ ٱلْمُلْكُ ۖ لَآ إِلَـٰهَ إِلَّا هُوَ ۖ فَأَنَّىٰ تُصْرَفُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039006.mp3",
       },
       {
-        "arabic": "إِن تَكْفُرُوا۟ فَإِنَّ ٱللَّهَ غَنِىٌّ عَنكُمْ ۖ وَلَا يَرْضَىٰ لِعِبَادِهِ ٱلْكُفْرَ ۖ وَإِن تَشْكُرُوا۟ يَرْضَهُ لَكُمْ ۗ وَلَا تَزِرُ وَازِرَةٌ وِزْرَ أُخْرَىٰ ۗ ثُمَّ إِلَىٰ رَبِّكُم مَّرْجِعُكُمْ فَيُنَبِّئُكُم بِمَا كُنتُمْ تَعْمَلُونَ ۚ إِنَّهُۥ عَلِيمٌۢ بِذَاتِ ٱلصُّدُورِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039007.mp3"
+        arabic:
+          "إِن تَكْفُرُوا۟ فَإِنَّ ٱللَّهَ غَنِىٌّ عَنكُمْ ۖ وَلَا يَرْضَىٰ لِعِبَادِهِ ٱلْكُفْرَ ۖ وَإِن تَشْكُرُوا۟ يَرْضَهُ لَكُمْ ۗ وَلَا تَزِرُ وَازِرَةٌ وِزْرَ أُخْرَىٰ ۗ ثُمَّ إِلَىٰ رَبِّكُم مَّرْجِعُكُمْ فَيُنَبِّئُكُم بِمَا كُنتُمْ تَعْمَلُونَ ۚ إِنَّهُۥ عَلِيمٌۢ بِذَاتِ ٱلصُّدُورِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039007.mp3",
       },
       {
-        "arabic": "۞ وَإِذَا مَسَّ ٱلْإِنسَـٰنَ ضُرٌّ دَعَا رَبَّهُۥ مُنِيبًا إِلَيْهِ ثُمَّ إِذَا خَوَّلَهُۥ نِعْمَةً مِّنْهُ نَسِىَ مَا كَانَ يَدْعُوٓا۟ إِلَيْهِ مِن قَبْلُ وَجَعَلَ لِلَّهِ أَندَادًا لِّيُضِلَّ عَن سَبِيلِهِۦ ۚ قُلْ تَمَتَّعْ بِكُفْرِكَ قَلِيلًا ۖ إِنَّكَ مِنْ أَصْحَـٰبِ ٱلنَّارِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039008.mp3"
+        arabic:
+          "۞ وَإِذَا مَسَّ ٱلْإِنسَـٰنَ ضُرٌّ دَعَا رَبَّهُۥ مُنِيبًا إِلَيْهِ ثُمَّ إِذَا خَوَّلَهُۥ نِعْمَةً مِّنْهُ نَسِىَ مَا كَانَ يَدْعُوٓا۟ إِلَيْهِ مِن قَبْلُ وَجَعَلَ لِلَّهِ أَندَادًا لِّيُضِلَّ عَن سَبِيلِهِۦ ۚ قُلْ تَمَتَّعْ بِكُفْرِكَ قَلِيلًا ۖ إِنَّكَ مِنْ أَصْحَـٰبِ ٱلنَّارِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039008.mp3",
       },
       {
-        "arabic": "أَمَّنْ هُوَ قَـٰنِتٌ ءَانَآءَ ٱلَّيْلِ سَاجِدًا وَقَآئِمًا يَحْذَرُ ٱلْـَٔاخِرَةَ وَيَرْجُوا۟ رَحْمَةَ رَبِّهِۦ ۗ قُلْ هَلْ يَسْتَوِى ٱلَّذِينَ يَعْلَمُونَ وَٱلَّذِينَ لَا يَعْلَمُونَ ۗ إِنَّمَا يَتَذَكَّرُ أُو۟لُوا۟ ٱلْأَلْبَـٰبِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039009.mp3"
+        arabic:
+          "أَمَّنْ هُوَ قَـٰنِتٌ ءَانَآءَ ٱلَّيْلِ سَاجِدًا وَقَآئِمًا يَحْذَرُ ٱلْـَٔاخِرَةَ وَيَرْجُوا۟ رَحْمَةَ رَبِّهِۦ ۗ قُلْ هَلْ يَسْتَوِى ٱلَّذِينَ يَعْلَمُونَ وَٱلَّذِينَ لَا يَعْلَمُونَ ۗ إِنَّمَا يَتَذَكَّرُ أُو۟لُوا۟ ٱلْأَلْبَـٰبِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039009.mp3",
       },
       {
-        "arabic": "قُلْ يَـٰعِبَادِ ٱلَّذِينَ ءَامَنُوا۟ ٱتَّقُوا۟ رَبَّكُمْ ۚ لِلَّذِينَ أَحْسَنُوا۟ فِى هَـٰذِهِ ٱلدُّنْيَا حَسَنَةٌ ۗ وَأَرْضُ ٱللَّهِ وَٰسِعَةٌ ۗ إِنَّمَا يُوَفَّى ٱلصَّـٰبِرُونَ أَجْرَهُم بِغَيْرِ حِسَابٍ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039010.mp3"
+        arabic:
+          "قُلْ يَـٰعِبَادِ ٱلَّذِينَ ءَامَنُوا۟ ٱتَّقُوا۟ رَبَّكُمْ ۚ لِلَّذِينَ أَحْسَنُوا۟ فِى هَـٰذِهِ ٱلدُّنْيَا حَسَنَةٌ ۗ وَأَرْضُ ٱللَّهِ وَٰسِعَةٌ ۗ إِنَّمَا يُوَفَّى ٱلصَّـٰبِرُونَ أَجْرَهُم بِغَيْرِ حِسَابٍ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039010.mp3",
       },
       {
-        "arabic": "قُلْ إِنِّىٓ أُمِرْتُ أَنْ أَعْبُدَ ٱللَّهَ مُخْلِصًا لَّهُ ٱلدِّينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039011.mp3"
+        arabic: "قُلْ إِنِّىٓ أُمِرْتُ أَنْ أَعْبُدَ ٱللَّهَ مُخْلِصًا لَّهُ ٱلدِّينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039011.mp3",
       },
       {
-        "arabic": "وَأُمِرْتُ لِأَنْ أَكُونَ أَوَّلَ ٱلْمُسْلِمِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039012.mp3"
+        arabic: "وَأُمِرْتُ لِأَنْ أَكُونَ أَوَّلَ ٱلْمُسْلِمِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039012.mp3",
       },
       {
-        "arabic": "قُلْ إِنِّىٓ أَخَافُ إِنْ عَصَيْتُ رَبِّى عَذَابَ يَوْمٍ عَظِيمٍ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039013.mp3"
+        arabic: "قُلْ إِنِّىٓ أَخَافُ إِنْ عَصَيْتُ رَبِّى عَذَابَ يَوْمٍ عَظِيمٍ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039013.mp3",
       },
       {
-        "arabic": "قُلِ ٱللَّهَ أَعْبُدُ مُخْلِصًا لَّهُۥ دِينِى",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039014.mp3"
+        arabic: "قُلِ ٱللَّهَ أَعْبُدُ مُخْلِصًا لَّهُۥ دِينِى",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039014.mp3",
       },
       {
-        "arabic": "فَٱعْبُدُوا۟ مَا شِئْتُم مِّن دُونِهِۦ ۗ قُلْ إِنَّ ٱلْخَـٰسِرِينَ ٱلَّذِينَ خَسِرُوٓا۟ أَنفُسَهُمْ وَأَهْلِيهِمْ يَوْمَ ٱلْقِيَـٰمَةِ ۗ أَلَا ذَٰلِكَ هُوَ ٱلْخُسْرَانُ ٱلْمُبِينُ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039015.mp3"
+        arabic:
+          "فَٱعْبُدُوا۟ مَا شِئْتُم مِّن دُونِهِۦ ۗ قُلْ إِنَّ ٱلْخَـٰسِرِينَ ٱلَّذِينَ خَسِرُوٓا۟ أَنفُسَهُمْ وَأَهْلِيهِمْ يَوْمَ ٱلْقِيَـٰمَةِ ۗ أَلَا ذَٰلِكَ هُوَ ٱلْخُسْرَانُ ٱلْمُبِينُ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039015.mp3",
       },
       {
-        "arabic": "لَهُم مِّن فَوْقِهِمْ ظُلَلٌ مِّنَ ٱلنَّارِ وَمِن تَحْتِهِمْ ظُلَلٌ ۚ ذَٰلِكَ يُخَوِّفُ ٱللَّهُ بِهِۦ عِبَادَهُۥ ۚ يَـٰعِبَادِ فَٱتَّقُونِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039016.mp3"
+        arabic:
+          "لَهُم مِّن فَوْقِهِمْ ظُلَلٌ مِّنَ ٱلنَّارِ وَمِن تَحْتِهِمْ ظُلَلٌ ۚ ذَٰلِكَ يُخَوِّفُ ٱللَّهُ بِهِۦ عِبَادَهُۥ ۚ يَـٰعِبَادِ فَٱتَّقُونِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039016.mp3",
       },
       {
-        "arabic": "وَٱلَّذِينَ ٱجْتَنَبُوا۟ ٱلطَّـٰغُوتَ أَن يَعْبُدُوهَا وَأَنَابُوٓا۟ إِلَى ٱللَّهِ لَهُمُ ٱلْبُشْرَىٰ ۚ فَبَشِّرْ عِبَادِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039017.mp3"
+        arabic:
+          "وَٱلَّذِينَ ٱجْتَنَبُوا۟ ٱلطَّـٰغُوتَ أَن يَعْبُدُوهَا وَأَنَابُوٓا۟ إِلَى ٱللَّهِ لَهُمُ ٱلْبُشْرَىٰ ۚ فَبَشِّرْ عِبَادِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039017.mp3",
       },
       {
-        "arabic": "ٱلَّذِينَ يَسْتَمِعُونَ ٱلْقَوْلَ فَيَتَّبِعُونَ أَحْسَنَهُۥٓ ۚ أُو۟لَـٰٓئِكَ ٱلَّذِينَ هَدَىٰهُمُ ٱللَّهُ ۖ وَأُو۟لَـٰٓئِكَ هُمْ أُو۟لُوا۟ ٱلْأَلْبَـٰبِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039018.mp3"
+        arabic:
+          "ٱلَّذِينَ يَسْتَمِعُونَ ٱلْقَوْلَ فَيَتَّبِعُونَ أَحْسَنَهُۥٓ ۚ أُو۟لَـٰٓئِكَ ٱلَّذِينَ هَدَىٰهُمُ ٱللَّهُ ۖ وَأُو۟لَـٰٓئِكَ هُمْ أُو۟لُوا۟ ٱلْأَلْبَـٰبِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039018.mp3",
       },
       {
-        "arabic": "أَفَمَنْ حَقَّ عَلَيْهِ كَلِمَةُ ٱلْعَذَابِ أَفَأَنتَ تُنقِذُ مَن فِى ٱلنَّارِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039019.mp3"
+        arabic: "أَفَمَنْ حَقَّ عَلَيْهِ كَلِمَةُ ٱلْعَذَابِ أَفَأَنتَ تُنقِذُ مَن فِى ٱلنَّارِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039019.mp3",
       },
       {
-        "arabic": "لَـٰكِنِ ٱلَّذِينَ ٱتَّقَوْا۟ رَبَّهُمْ لَهُمْ غُرَفٌ مِّن فَوْقِهَا غُرَفٌ مَّبْنِيَّةٌ تَجْرِى مِن تَحْتِهَا ٱلْأَنْهَـٰرُ ۖ وَعْدَ ٱللَّهِ ۖ لَا يُخْلِفُ ٱللَّهُ ٱلْمِيعَادَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039020.mp3"
+        arabic:
+          "لَـٰكِنِ ٱلَّذِينَ ٱتَّقَوْا۟ رَبَّهُمْ لَهُمْ غُرَفٌ مِّن فَوْقِهَا غُرَفٌ مَّبْنِيَّةٌ تَجْرِى مِن تَحْتِهَا ٱلْأَنْهَـٰرُ ۖ وَعْدَ ٱللَّهِ ۖ لَا يُخْلِفُ ٱللَّهُ ٱلْمِيعَادَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039020.mp3",
       },
       {
-        "arabic": "أَلَمْ تَرَ أَنَّ ٱللَّهَ أَنزَلَ مِنَ ٱلسَّمَآءِ مَآءً فَسَلَكَهُۥ يَنَـٰبِيعَ فِى ٱلْأَرْضِ ثُمَّ يُخْرِجُ بِهِۦ زَرْعًا مُّخْتَلِفًا أَلْوَٰنُهُۥ ثُمَّ يَهِيجُ فَتَرَىٰهُ مُصْفَرًّا ثُمَّ يَجْعَلُهُۥ حُطَـٰمًا ۚ إِنَّ فِى ذَٰلِكَ لَذِكْرَىٰ لِأُو۟لِى ٱلْأَلْبَـٰبِ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039021.mp3"
+        arabic:
+          "أَلَمْ تَرَ أَنَّ ٱللَّهَ أَنزَلَ مِنَ ٱلسَّمَآءِ مَآءً فَسَلَكَهُۥ يَنَـٰبِيعَ فِى ٱلْأَرْضِ ثُمَّ يُخْرِجُ بِهِۦ زَرْعًا مُّخْتَلِفًا أَلْوَٰنُهُۥ ثُمَّ يَهِيجُ فَتَرَىٰهُ مُصْفَرًّا ثُمَّ يَجْعَلُهُۥ حُطَـٰمًا ۚ إِنَّ فِى ذَٰلِكَ لَذِكْرَىٰ لِأُو۟لِى ٱلْأَلْبَـٰبِ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039021.mp3",
       },
       {
-        "arabic": "أَفَمَن شَرَحَ ٱللَّهُ صَدْرَهُۥ لِلْإِسْلَـٰمِ فَهُوَ عَلَىٰ نُورٍ مِّن رَّبِّهِۦ ۚ فَوَيْلٌ لِّلْقَـٰسِيَةِ قُلُوبُهُم مِّن ذِكْرِ ٱللَّهِ ۚ أُو۟لَـٰٓئِكَ فِى ضَلَـٰلٍ مُّبِينٍ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039022.mp3"
+        arabic:
+          "أَفَمَن شَرَحَ ٱللَّهُ صَدْرَهُۥ لِلْإِسْلَـٰمِ فَهُوَ عَلَىٰ نُورٍ مِّن رَّبِّهِۦ ۚ فَوَيْلٌ لِّلْقَـٰسِيَةِ قُلُوبُهُم مِّن ذِكْرِ ٱللَّهِ ۚ أُو۟لَـٰٓئِكَ فِى ضَلَـٰلٍ مُّبِينٍ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039022.mp3",
       },
       {
-        "arabic": "ٱللَّهُ نَزَّلَ أَحْسَنَ ٱلْحَدِيثِ كِتَـٰبًا مُّتَشَـٰبِهًا مَّثَانِىَ تَقْشَعِرُّ مِنْهُ جُلُودُ ٱلَّذِينَ يَخْشَوْنَ رَبَّهُمْ ثُمَّ تَلِينُ جُلُودُهُمْ وَقُلُوبُهُمْ إِلَىٰ ذِكْرِ ٱللَّهِ ۚ ذَٰلِكَ هُدَى ٱللَّهِ يَهْدِى بِهِۦ مَن يَشَآءُ ۚ وَمَن يُضْلِلِ ٱللَّهُ فَمَا لَهُۥ مِنْ هَادٍ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039023.mp3"
+        arabic:
+          "ٱللَّهُ نَزَّلَ أَحْسَنَ ٱلْحَدِيثِ كِتَـٰبًا مُّتَشَـٰبِهًا مَّثَانِىَ تَقْشَعِرُّ مِنْهُ جُلُودُ ٱلَّذِينَ يَخْشَوْنَ رَبَّهُمْ ثُمَّ تَلِينُ جُلُودُهُمْ وَقُلُوبُهُمْ إِلَىٰ ذِكْرِ ٱللَّهِ ۚ ذَٰلِكَ هُدَى ٱللَّهِ يَهْدِى بِهِۦ مَن يَشَآءُ ۚ وَمَن يُضْلِلِ ٱللَّهُ فَمَا لَهُۥ مِنْ هَادٍ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039023.mp3",
       },
       {
-        "arabic": "أَفَمَن يَتَّقِى بِوَجْهِهِۦ سُوٓءَ ٱلْعَذَابِ يَوْمَ ٱلْقِيَـٰمَةِ ۚ وَقِيلَ لِلظَّـٰلِمِينَ ذُوقُوا۟ مَا كُنتُمْ تَكْسِبُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039024.mp3"
+        arabic:
+          "أَفَمَن يَتَّقِى بِوَجْهِهِۦ سُوٓءَ ٱلْعَذَابِ يَوْمَ ٱلْقِيَـٰمَةِ ۚ وَقِيلَ لِلظَّـٰلِمِينَ ذُوقُوا۟ مَا كُنتُمْ تَكْسِبُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039024.mp3",
       },
       {
-        "arabic": "كَذَّبَ ٱلَّذِينَ مِن قَبْلِهِمْ فَأَتَىٰهُمُ ٱلْعَذَابُ مِنْ حَيْثُ لَا يَشْعُرُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039025.mp3"
+        arabic:
+          "كَذَّبَ ٱلَّذِينَ مِن قَبْلِهِمْ فَأَتَىٰهُمُ ٱلْعَذَابُ مِنْ حَيْثُ لَا يَشْعُرُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039025.mp3",
       },
       {
-        "arabic": "فَأَذَاقَهُمُ ٱللَّهُ ٱلْخِزْىَ فِى ٱلْحَيَوٰةِ ٱلدُّنْيَا ۖ وَلَعَذَابُ ٱلْـَٔاخِرَةِ أَكْبَرُ ۚ لَوْ كَانُوا۟ يَعْلَمُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039026.mp3"
+        arabic:
+          "فَأَذَاقَهُمُ ٱللَّهُ ٱلْخِزْىَ فِى ٱلْحَيَوٰةِ ٱلدُّنْيَا ۖ وَلَعَذَابُ ٱلْـَٔاخِرَةِ أَكْبَرُ ۚ لَوْ كَانُوا۟ يَعْلَمُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039026.mp3",
       },
       {
-        "arabic": "وَلَقَدْ ضَرَبْنَا لِلنَّاسِ فِى هَـٰذَا ٱلْقُرْءَانِ مِن كُلِّ مَثَلٍ لَّعَلَّهُمْ يَتَذَكَّرُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039027.mp3"
+        arabic:
+          "وَلَقَدْ ضَرَبْنَا لِلنَّاسِ فِى هَـٰذَا ٱلْقُرْءَانِ مِن كُلِّ مَثَلٍ لَّعَلَّهُمْ يَتَذَكَّرُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039027.mp3",
       },
       {
-        "arabic": "قُرْءَانًا عَرَبِيًّا غَيْرَ ذِى عِوَجٍ لَّعَلَّهُمْ يَتَّقُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039028.mp3"
+        arabic: "قُرْءَانًا عَرَبِيًّا غَيْرَ ذِى عِوَجٍ لَّعَلَّهُمْ يَتَّقُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039028.mp3",
       },
       {
-        "arabic": "ضَرَبَ ٱللَّهُ مَثَلًا رَّجُلًا فِيهِ شُرَكَآءُ مُتَشَـٰكِسُونَ وَرَجُلًا سَلَمًا لِّرَجُلٍ هَلْ يَسْتَوِيَانِ مَثَلًا ۚ ٱلْحَمْدُ لِلَّهِ ۚ بَلْ أَكْثَرُهُمْ لَا يَعْلَمُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039029.mp3"
+        arabic:
+          "ضَرَبَ ٱللَّهُ مَثَلًا رَّجُلًا فِيهِ شُرَكَآءُ مُتَشَـٰكِسُونَ وَرَجُلًا سَلَمًا لِّرَجُلٍ هَلْ يَسْتَوِيَانِ مَثَلًا ۚ ٱلْحَمْدُ لِلَّهِ ۚ بَلْ أَكْثَرُهُمْ لَا يَعْلَمُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039029.mp3",
       },
       {
-        "arabic": "إِنَّكَ مَيِّتٌ وَإِنَّهُم مَّيِّتُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039030.mp3"
+        arabic: "إِنَّكَ مَيِّتٌ وَإِنَّهُم مَّيِّتُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039030.mp3",
       },
       {
-        "arabic": "ثُمَّ إِنَّكُمْ يَوْمَ ٱلْقِيَـٰمَةِ عِندَ رَبِّكُمْ تَخْتَصِمُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039031.mp3"
+        arabic: "ثُمَّ إِنَّكُمْ يَوْمَ ٱلْقِيَـٰمَةِ عِندَ رَبِّكُمْ تَخْتَصِمُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039031.mp3",
       },
       {
-        "arabic": "۞ فَمَنْ أَظْلَمُ مِمَّن كَذَبَ عَلَى ٱللَّهِ وَكَذَّبَ بِٱلصِّدْقِ إِذْ جَآءَهُۥٓ ۚ أَلَيْسَ فِى جَهَنَّمَ مَثْوًى لِّلْكَـٰفِرِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039032.mp3"
+        arabic:
+          "۞ فَمَنْ أَظْلَمُ مِمَّن كَذَبَ عَلَى ٱللَّهِ وَكَذَّبَ بِٱلصِّدْقِ إِذْ جَآءَهُۥٓ ۚ أَلَيْسَ فِى جَهَنَّمَ مَثْوًى لِّلْكَـٰفِرِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039032.mp3",
       },
       {
-        "arabic": "وَٱلَّذِى جَآءَ بِٱلصِّدْقِ وَصَدَّقَ بِهِۦٓ ۙ أُو۟لَـٰٓئِكَ هُمُ ٱلْمُتَّقُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039033.mp3"
+        arabic: "وَٱلَّذِى جَآءَ بِٱلصِّدْقِ وَصَدَّقَ بِهِۦٓ ۙ أُو۟لَـٰٓئِكَ هُمُ ٱلْمُتَّقُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039033.mp3",
       },
       {
-        "arabic": "لَهُم مَّا يَشَآءُونَ عِندَ رَبِّهِمْ ۚ ذَٰلِكَ جَزَآءُ ٱلْمُحْسِنِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039034.mp3"
+        arabic: "لَهُم مَّا يَشَآءُونَ عِندَ رَبِّهِمْ ۚ ذَٰلِكَ جَزَآءُ ٱلْمُحْسِنِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039034.mp3",
       },
       {
-        "arabic": "لِيُكَفِّرَ ٱللَّهُ عَنْهُمْ أَسْوَأَ ٱلَّذِى عَمِلُوا۟ وَيَجْزِيَهُمْ أَجْرَهُم بِأَحْسَنِ ٱلَّذِى كَانُوا۟ يَعْمَلُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039035.mp3"
+        arabic:
+          "لِيُكَفِّرَ ٱللَّهُ عَنْهُمْ أَسْوَأَ ٱلَّذِى عَمِلُوا۟ وَيَجْزِيَهُمْ أَجْرَهُم بِأَحْسَنِ ٱلَّذِى كَانُوا۟ يَعْمَلُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039035.mp3",
       },
       {
-        "arabic": "أَلَيْسَ ٱللَّهُ بِكَافٍ عَبْدَهُۥ ۖ وَيُخَوِّفُونَكَ بِٱلَّذِينَ مِن دُونِهِۦ ۚ وَمَن يُضْلِلِ ٱللَّهُ فَمَا لَهُۥ مِنْ هَادٍ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039036.mp3"
+        arabic:
+          "أَلَيْسَ ٱللَّهُ بِكَافٍ عَبْدَهُۥ ۖ وَيُخَوِّفُونَكَ بِٱلَّذِينَ مِن دُونِهِۦ ۚ وَمَن يُضْلِلِ ٱللَّهُ فَمَا لَهُۥ مِنْ هَادٍ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039036.mp3",
       },
       {
-        "arabic": "وَمَن يَهْدِ ٱللَّهُ فَمَا لَهُۥ مِن مُّضِلٍّ ۗ أَلَيْسَ ٱللَّهُ بِعَزِيزٍ ذِى ٱنتِقَامٍ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039037.mp3"
+        arabic:
+          "وَمَن يَهْدِ ٱللَّهُ فَمَا لَهُۥ مِن مُّضِلٍّ ۗ أَلَيْسَ ٱللَّهُ بِعَزِيزٍ ذِى ٱنتِقَامٍ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039037.mp3",
       },
       {
-        "arabic": "وَلَئِن سَأَلْتَهُم مَّنْ خَلَقَ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضَ لَيَقُولُنَّ ٱللَّهُ ۚ قُلْ أَفَرَءَيْتُم مَّا تَدْعُونَ مِن دُونِ ٱللَّهِ إِنْ أَرَادَنِىَ ٱللَّهُ بِضُرٍّ هَلْ هُنَّ كَـٰشِفَـٰتُ ضُرِّهِۦٓ أَوْ أَرَادَنِى بِرَحْمَةٍ هَلْ هُنَّ مُمْسِكَـٰتُ رَحْمَتِهِۦ ۚ قُلْ حَسْبِىَ ٱللَّهُ ۖ عَلَيْهِ يَتَوَكَّلُ ٱلْمُتَوَكِّلُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039038.mp3"
+        arabic:
+          "وَلَئِن سَأَلْتَهُم مَّنْ خَلَقَ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضَ لَيَقُولُنَّ ٱللَّهُ ۚ قُلْ أَفَرَءَيْتُم مَّا تَدْعُونَ مِن دُونِ ٱللَّهِ إِنْ أَرَادَنِىَ ٱللَّهُ بِضُرٍّ هَلْ هُنَّ كَـٰشِفَـٰتُ ضُرِّهِۦٓ أَوْ أَرَادَنِى بِرَحْمَةٍ هَلْ هُنَّ مُمْسِكَـٰتُ رَحْمَتِهِۦ ۚ قُلْ حَسْبِىَ ٱللَّهُ ۖ عَلَيْهِ يَتَوَكَّلُ ٱلْمُتَوَكِّلُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039038.mp3",
       },
       {
-        "arabic": "قُلْ يَـٰقَوْمِ ٱعْمَلُوا۟ عَلَىٰ مَكَانَتِكُمْ إِنِّى عَـٰمِلٌ ۖ فَسَوْفَ تَعْلَمُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039039.mp3"
+        arabic:
+          "قُلْ يَـٰقَوْمِ ٱعْمَلُوا۟ عَلَىٰ مَكَانَتِكُمْ إِنِّى عَـٰمِلٌ ۖ فَسَوْفَ تَعْلَمُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039039.mp3",
       },
       {
-        "arabic": "مَن يَأْتِيهِ عَذَابٌ يُخْزِيهِ وَيَحِلُّ عَلَيْهِ عَذَابٌ مُّقِيمٌ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039040.mp3"
+        arabic: "مَن يَأْتِيهِ عَذَابٌ يُخْزِيهِ وَيَحِلُّ عَلَيْهِ عَذَابٌ مُّقِيمٌ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039040.mp3",
       },
       {
-        "arabic": "إِنَّآ أَنزَلْنَا عَلَيْكَ ٱلْكِتَـٰبَ لِلنَّاسِ بِٱلْحَقِّ ۖ فَمَنِ ٱهْتَدَىٰ فَلِنَفْسِهِۦ ۖ وَمَن ضَلَّ فَإِنَّمَا يَضِلُّ عَلَيْهَا ۖ وَمَآ أَنتَ عَلَيْهِم بِوَكِيلٍ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039041.mp3"
+        arabic:
+          "إِنَّآ أَنزَلْنَا عَلَيْكَ ٱلْكِتَـٰبَ لِلنَّاسِ بِٱلْحَقِّ ۖ فَمَنِ ٱهْتَدَىٰ فَلِنَفْسِهِۦ ۖ وَمَن ضَلَّ فَإِنَّمَا يَضِلُّ عَلَيْهَا ۖ وَمَآ أَنتَ عَلَيْهِم بِوَكِيلٍ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039041.mp3",
       },
       {
-        "arabic": "ٱللَّهُ يَتَوَفَّى ٱلْأَنفُسَ حِينَ مَوْتِهَا وَٱلَّتِى لَمْ تَمُتْ فِى مَنَامِهَا ۖ فَيُمْسِكُ ٱلَّتِى قَضَىٰ عَلَيْهَا ٱلْمَوْتَ وَيُرْسِلُ ٱلْأُخْرَىٰٓ إِلَىٰٓ أَجَلٍ مُّسَمًّى ۚ إِنَّ فِى ذَٰلِكَ لَـَٔايَـٰتٍ لِّقَوْمٍ يَتَفَكَّرُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039042.mp3"
+        arabic:
+          "ٱللَّهُ يَتَوَفَّى ٱلْأَنفُسَ حِينَ مَوْتِهَا وَٱلَّتِى لَمْ تَمُتْ فِى مَنَامِهَا ۖ فَيُمْسِكُ ٱلَّتِى قَضَىٰ عَلَيْهَا ٱلْمَوْتَ وَيُرْسِلُ ٱلْأُخْرَىٰٓ إِلَىٰٓ أَجَلٍ مُّسَمًّى ۚ إِنَّ فِى ذَٰلِكَ لَـَٔايَـٰتٍ لِّقَوْمٍ يَتَفَكَّرُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039042.mp3",
       },
       {
-        "arabic": "أَمِ ٱتَّخَذُوا۟ مِن دُونِ ٱللَّهِ شُفَعَآءَ ۚ قُلْ أَوَلَوْ كَانُوا۟ لَا يَمْلِكُونَ شَيْـًٔا وَلَا يَعْقِلُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039043.mp3"
+        arabic:
+          "أَمِ ٱتَّخَذُوا۟ مِن دُونِ ٱللَّهِ شُفَعَآءَ ۚ قُلْ أَوَلَوْ كَانُوا۟ لَا يَمْلِكُونَ شَيْـًٔا وَلَا يَعْقِلُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039043.mp3",
       },
       {
-        "arabic": "قُل لِّلَّهِ ٱلشَّفَـٰعَةُ جَمِيعًا ۖ لَّهُۥ مُلْكُ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضِ ۖ ثُمَّ إِلَيْهِ تُرْجَعُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039044.mp3"
+        arabic:
+          "قُل لِّلَّهِ ٱلشَّفَـٰعَةُ جَمِيعًا ۖ لَّهُۥ مُلْكُ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضِ ۖ ثُمَّ إِلَيْهِ تُرْجَعُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039044.mp3",
       },
       {
-        "arabic": "وَإِذَا ذُكِرَ ٱللَّهُ وَحْدَهُ ٱشْمَأَزَّتْ قُلُوبُ ٱلَّذِينَ لَا يُؤْمِنُونَ بِٱلْـَٔاخِرَةِ ۖ وَإِذَا ذُكِرَ ٱلَّذِينَ مِن دُونِهِۦٓ إِذَا هُمْ يَسْتَبْشِرُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039045.mp3"
+        arabic:
+          "وَإِذَا ذُكِرَ ٱللَّهُ وَحْدَهُ ٱشْمَأَزَّتْ قُلُوبُ ٱلَّذِينَ لَا يُؤْمِنُونَ بِٱلْـَٔاخِرَةِ ۖ وَإِذَا ذُكِرَ ٱلَّذِينَ مِن دُونِهِۦٓ إِذَا هُمْ يَسْتَبْشِرُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039045.mp3",
       },
       {
-        "arabic": "قُلِ ٱللَّهُمَّ فَاطِرَ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضِ عَـٰلِمَ ٱلْغَيْبِ وَٱلشَّهَـٰدَةِ أَنتَ تَحْكُمُ بَيْنَ عِبَادِكَ فِى مَا كَانُوا۟ فِيهِ يَخْتَلِفُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039046.mp3"
+        arabic:
+          "قُلِ ٱللَّهُمَّ فَاطِرَ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضِ عَـٰلِمَ ٱلْغَيْبِ وَٱلشَّهَـٰدَةِ أَنتَ تَحْكُمُ بَيْنَ عِبَادِكَ فِى مَا كَانُوا۟ فِيهِ يَخْتَلِفُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039046.mp3",
       },
       {
-        "arabic": "وَلَوْ أَنَّ لِلَّذِينَ ظَلَمُوا۟ مَا فِى ٱلْأَرْضِ جَمِيعًا وَمِثْلَهُۥ مَعَهُۥ لَٱفْتَدَوْا۟ بِهِۦ مِن سُوٓءِ ٱلْعَذَابِ يَوْمَ ٱلْقِيَـٰمَةِ ۚ وَبَدَا لَهُم مِّنَ ٱللَّهِ مَا لَمْ يَكُونُوا۟ يَحْتَسِبُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039047.mp3"
+        arabic:
+          "وَلَوْ أَنَّ لِلَّذِينَ ظَلَمُوا۟ مَا فِى ٱلْأَرْضِ جَمِيعًا وَمِثْلَهُۥ مَعَهُۥ لَٱفْتَدَوْا۟ بِهِۦ مِن سُوٓءِ ٱلْعَذَابِ يَوْمَ ٱلْقِيَـٰمَةِ ۚ وَبَدَا لَهُم مِّنَ ٱللَّهِ مَا لَمْ يَكُونُوا۟ يَحْتَسِبُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039047.mp3",
       },
       {
-        "arabic": "وَبَدَا لَهُمْ سَيِّـَٔاتُ مَا كَسَبُوا۟ وَحَاقَ بِهِم مَّا كَانُوا۟ بِهِۦ يَسْتَهْزِءُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039048.mp3"
+        arabic:
+          "وَبَدَا لَهُمْ سَيِّـَٔاتُ مَا كَسَبُوا۟ وَحَاقَ بِهِم مَّا كَانُوا۟ بِهِۦ يَسْتَهْزِءُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039048.mp3",
       },
       {
-        "arabic": "فَإِذَا مَسَّ ٱلْإِنسَـٰنَ ضُرٌّ دَعَانَا ثُمَّ إِذَا خَوَّلْنَـٰهُ نِعْمَةً مِّنَّا قَالَ إِنَّمَآ أُوتِيتُهُۥ عَلَىٰ عِلْمٍۭ ۚ بَلْ هِىَ فِتْنَةٌ وَلَـٰكِنَّ أَكْثَرَهُمْ لَا يَعْلَمُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039049.mp3"
+        arabic:
+          "فَإِذَا مَسَّ ٱلْإِنسَـٰنَ ضُرٌّ دَعَانَا ثُمَّ إِذَا خَوَّلْنَـٰهُ نِعْمَةً مِّنَّا قَالَ إِنَّمَآ أُوتِيتُهُۥ عَلَىٰ عِلْمٍۭ ۚ بَلْ هِىَ فِتْنَةٌ وَلَـٰكِنَّ أَكْثَرَهُمْ لَا يَعْلَمُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039049.mp3",
       },
       {
-        "arabic": "قَدْ قَالَهَا ٱلَّذِينَ مِن قَبْلِهِمْ فَمَآ أَغْنَىٰ عَنْهُم مَّا كَانُوا۟ يَكْسِبُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039050.mp3"
+        arabic:
+          "قَدْ قَالَهَا ٱلَّذِينَ مِن قَبْلِهِمْ فَمَآ أَغْنَىٰ عَنْهُم مَّا كَانُوا۟ يَكْسِبُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039050.mp3",
       },
       {
-        "arabic": "فَأَصَابَهُمْ سَيِّـَٔاتُ مَا كَسَبُوا۟ ۚ وَٱلَّذِينَ ظَلَمُوا۟ مِنْ هَـٰٓؤُلَآءِ سَيُصِيبُهُمْ سَيِّـَٔاتُ مَا كَسَبُوا۟ وَمَا هُم بِمُعْجِزِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039051.mp3"
+        arabic:
+          "فَأَصَابَهُمْ سَيِّـَٔاتُ مَا كَسَبُوا۟ ۚ وَٱلَّذِينَ ظَلَمُوا۟ مِنْ هَـٰٓؤُلَآءِ سَيُصِيبُهُمْ سَيِّـَٔاتُ مَا كَسَبُوا۟ وَمَا هُم بِمُعْجِزِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039051.mp3",
       },
       {
-        "arabic": "أَوَلَمْ يَعْلَمُوٓا۟ أَنَّ ٱللَّهَ يَبْسُطُ ٱلرِّزْقَ لِمَن يَشَآءُ وَيَقْدِرُ ۚ إِنَّ فِى ذَٰلِكَ لَـَٔايَـٰتٍ لِّقَوْمٍ يُؤْمِنُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039052.mp3"
+        arabic:
+          "أَوَلَمْ يَعْلَمُوٓا۟ أَنَّ ٱللَّهَ يَبْسُطُ ٱلرِّزْقَ لِمَن يَشَآءُ وَيَقْدِرُ ۚ إِنَّ فِى ذَٰلِكَ لَـَٔايَـٰتٍ لِّقَوْمٍ يُؤْمِنُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039052.mp3",
       },
       {
-        "arabic": "۞ قُلْ يَـٰعِبَادِىَ ٱلَّذِينَ أَسْرَفُوا۟ عَلَىٰٓ أَنفُسِهِمْ لَا تَقْنَطُوا۟ مِن رَّحْمَةِ ٱللَّهِ ۚ إِنَّ ٱللَّهَ يَغْفِرُ ٱلذُّنُوبَ جَمِيعًا ۚ إِنَّهُۥ هُوَ ٱلْغَفُورُ ٱلرَّحِيمُ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039053.mp3"
+        arabic:
+          "۞ قُلْ يَـٰعِبَادِىَ ٱلَّذِينَ أَسْرَفُوا۟ عَلَىٰٓ أَنفُسِهِمْ لَا تَقْنَطُوا۟ مِن رَّحْمَةِ ٱللَّهِ ۚ إِنَّ ٱللَّهَ يَغْفِرُ ٱلذُّنُوبَ جَمِيعًا ۚ إِنَّهُۥ هُوَ ٱلْغَفُورُ ٱلرَّحِيمُ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039053.mp3",
       },
       {
-        "arabic": "وَأَنِيبُوٓا۟ إِلَىٰ رَبِّكُمْ وَأَسْلِمُوا۟ لَهُۥ مِن قَبْلِ أَن يَأْتِيَكُمُ ٱلْعَذَابُ ثُمَّ لَا تُنصَرُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039054.mp3"
+        arabic:
+          "وَأَنِيبُوٓا۟ إِلَىٰ رَبِّكُمْ وَأَسْلِمُوا۟ لَهُۥ مِن قَبْلِ أَن يَأْتِيَكُمُ ٱلْعَذَابُ ثُمَّ لَا تُنصَرُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039054.mp3",
       },
       {
-        "arabic": "وَٱتَّبِعُوٓا۟ أَحْسَنَ مَآ أُنزِلَ إِلَيْكُم مِّن رَّبِّكُم مِّن قَبْلِ أَن يَأْتِيَكُمُ ٱلْعَذَابُ بَغْتَةً وَأَنتُمْ لَا تَشْعُرُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039055.mp3"
+        arabic:
+          "وَٱتَّبِعُوٓا۟ أَحْسَنَ مَآ أُنزِلَ إِلَيْكُم مِّن رَّبِّكُم مِّن قَبْلِ أَن يَأْتِيَكُمُ ٱلْعَذَابُ بَغْتَةً وَأَنتُمْ لَا تَشْعُرُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039055.mp3",
       },
       {
-        "arabic": "أَن تَقُولَ نَفْسٌ يَـٰحَسْرَتَىٰ عَلَىٰ مَا فَرَّطتُ فِى جَنۢبِ ٱللَّهِ وَإِن كُنتُ لَمِنَ ٱلسَّـٰخِرِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039056.mp3"
+        arabic:
+          "أَن تَقُولَ نَفْسٌ يَـٰحَسْرَتَىٰ عَلَىٰ مَا فَرَّطتُ فِى جَنۢبِ ٱللَّهِ وَإِن كُنتُ لَمِنَ ٱلسَّـٰخِرِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039056.mp3",
       },
       {
-        "arabic": "أَوْ تَقُولَ لَوْ أَنَّ ٱللَّهَ هَدَىٰنِى لَكُنتُ مِنَ ٱلْمُتَّقِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039057.mp3"
+        arabic: "أَوْ تَقُولَ لَوْ أَنَّ ٱللَّهَ هَدَىٰنِى لَكُنتُ مِنَ ٱلْمُتَّقِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039057.mp3",
       },
       {
-        "arabic": "أَوْ تَقُولَ حِينَ تَرَى ٱلْعَذَابَ لَوْ أَنَّ لِى كَرَّةً فَأَكُونَ مِنَ ٱلْمُحْسِنِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039058.mp3"
+        arabic:
+          "أَوْ تَقُولَ حِينَ تَرَى ٱلْعَذَابَ لَوْ أَنَّ لِى كَرَّةً فَأَكُونَ مِنَ ٱلْمُحْسِنِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039058.mp3",
       },
       {
-        "arabic": "بَلَىٰ قَدْ جَآءَتْكَ ءَايَـٰتِى فَكَذَّبْتَ بِهَا وَٱسْتَكْبَرْتَ وَكُنتَ مِنَ ٱلْكَـٰفِرِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039059.mp3"
+        arabic:
+          "بَلَىٰ قَدْ جَآءَتْكَ ءَايَـٰتِى فَكَذَّبْتَ بِهَا وَٱسْتَكْبَرْتَ وَكُنتَ مِنَ ٱلْكَـٰفِرِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039059.mp3",
       },
       {
-        "arabic": "وَيَوْمَ ٱلْقِيَـٰمَةِ تَرَى ٱلَّذِينَ كَذَبُوا۟ عَلَى ٱللَّهِ وُجُوهُهُم مُّسْوَدَّةٌ ۚ أَلَيْسَ فِى جَهَنَّمَ مَثْوًى لِّلْمُتَكَبِّرِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039060.mp3"
+        arabic:
+          "وَيَوْمَ ٱلْقِيَـٰمَةِ تَرَى ٱلَّذِينَ كَذَبُوا۟ عَلَى ٱللَّهِ وُجُوهُهُم مُّسْوَدَّةٌ ۚ أَلَيْسَ فِى جَهَنَّمَ مَثْوًى لِّلْمُتَكَبِّرِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039060.mp3",
       },
       {
-        "arabic": "وَيُنَجِّى ٱللَّهُ ٱلَّذِينَ ٱتَّقَوْا۟ بِمَفَازَتِهِمْ لَا يَمَسُّهُمُ ٱلسُّوٓءُ وَلَا هُمْ يَحْزَنُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039061.mp3"
+        arabic:
+          "وَيُنَجِّى ٱللَّهُ ٱلَّذِينَ ٱتَّقَوْا۟ بِمَفَازَتِهِمْ لَا يَمَسُّهُمُ ٱلسُّوٓءُ وَلَا هُمْ يَحْزَنُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039061.mp3",
       },
       {
-        "arabic": "ٱللَّهُ خَـٰلِقُ كُلِّ شَىْءٍ ۖ وَهُوَ عَلَىٰ كُلِّ شَىْءٍ وَكِيلٌ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039062.mp3"
+        arabic: "ٱللَّهُ خَـٰلِقُ كُلِّ شَىْءٍ ۖ وَهُوَ عَلَىٰ كُلِّ شَىْءٍ وَكِيلٌ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039062.mp3",
       },
       {
-        "arabic": "لَّهُۥ مَقَالِيدُ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضِ ۗ وَٱلَّذِينَ كَفَرُوا۟ بِـَٔايَـٰتِ ٱللَّهِ أُو۟لَـٰٓئِكَ هُمُ ٱلْخَـٰسِرُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039063.mp3"
+        arabic:
+          "لَّهُۥ مَقَالِيدُ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضِ ۗ وَٱلَّذِينَ كَفَرُوا۟ بِـَٔايَـٰتِ ٱللَّهِ أُو۟لَـٰٓئِكَ هُمُ ٱلْخَـٰسِرُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039063.mp3",
       },
       {
-        "arabic": "قُلْ أَفَغَيْرَ ٱللَّهِ تَأْمُرُوٓنِّىٓ أَعْبُدُ أَيُّهَا ٱلْجَـٰهِلُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039064.mp3"
+        arabic: "قُلْ أَفَغَيْرَ ٱللَّهِ تَأْمُرُوٓنِّىٓ أَعْبُدُ أَيُّهَا ٱلْجَـٰهِلُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039064.mp3",
       },
       {
-        "arabic": "وَلَقَدْ أُوحِىَ إِلَيْكَ وَإِلَى ٱلَّذِينَ مِن قَبْلِكَ لَئِنْ أَشْرَكْتَ لَيَحْبَطَنَّ عَمَلُكَ وَلَتَكُونَنَّ مِنَ ٱلْخَـٰسِرِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039065.mp3"
+        arabic:
+          "وَلَقَدْ أُوحِىَ إِلَيْكَ وَإِلَى ٱلَّذِينَ مِن قَبْلِكَ لَئِنْ أَشْرَكْتَ لَيَحْبَطَنَّ عَمَلُكَ وَلَتَكُونَنَّ مِنَ ٱلْخَـٰسِرِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039065.mp3",
       },
       {
-        "arabic": "بَلِ ٱللَّهَ فَٱعْبُدْ وَكُن مِّنَ ٱلشَّـٰكِرِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039066.mp3"
+        arabic: "بَلِ ٱللَّهَ فَٱعْبُدْ وَكُن مِّنَ ٱلشَّـٰكِرِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039066.mp3",
       },
       {
-        "arabic": "وَمَا قَدَرُوا۟ ٱللَّهَ حَقَّ قَدْرِهِۦ وَٱلْأَرْضُ جَمِيعًا قَبْضَتُهُۥ يَوْمَ ٱلْقِيَـٰمَةِ وَٱلسَّمَـٰوَٰتُ مَطْوِيَّـٰتٌۢ بِيَمِينِهِۦ ۚ سُبْحَـٰنَهُۥ وَتَعَـٰلَىٰ عَمَّا يُشْرِكُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039067.mp3"
+        arabic:
+          "وَمَا قَدَرُوا۟ ٱللَّهَ حَقَّ قَدْرِهِۦ وَٱلْأَرْضُ جَمِيعًا قَبْضَتُهُۥ يَوْمَ ٱلْقِيَـٰمَةِ وَٱلسَّمَـٰوَٰتُ مَطْوِيَّـٰتٌۢ بِيَمِينِهِۦ ۚ سُبْحَـٰنَهُۥ وَتَعَـٰلَىٰ عَمَّا يُشْرِكُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039067.mp3",
       },
       {
-        "arabic": "وَنُفِخَ فِى ٱلصُّورِ فَصَعِقَ مَن فِى ٱلسَّمَـٰوَٰتِ وَمَن فِى ٱلْأَرْضِ إِلَّا مَن شَآءَ ٱللَّهُ ۖ ثُمَّ نُفِخَ فِيهِ أُخْرَىٰ فَإِذَا هُمْ قِيَامٌ يَنظُرُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039068.mp3"
+        arabic:
+          "وَنُفِخَ فِى ٱلصُّورِ فَصَعِقَ مَن فِى ٱلسَّمَـٰوَٰتِ وَمَن فِى ٱلْأَرْضِ إِلَّا مَن شَآءَ ٱللَّهُ ۖ ثُمَّ نُفِخَ فِيهِ أُخْرَىٰ فَإِذَا هُمْ قِيَامٌ يَنظُرُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039068.mp3",
       },
       {
-        "arabic": "وَأَشْرَقَتِ ٱلْأَرْضُ بِنُورِ رَبِّهَا وَوُضِعَ ٱلْكِتَـٰبُ وَجِا۟ىٓءَ بِٱلنَّبِيِّـۧنَ وَٱلشُّهَدَآءِ وَقُضِىَ بَيْنَهُم بِٱلْحَقِّ وَهُمْ لَا يُظْلَمُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039069.mp3"
+        arabic:
+          "وَأَشْرَقَتِ ٱلْأَرْضُ بِنُورِ رَبِّهَا وَوُضِعَ ٱلْكِتَـٰبُ وَجِا۟ىٓءَ بِٱلنَّبِيِّـۧنَ وَٱلشُّهَدَآءِ وَقُضِىَ بَيْنَهُم بِٱلْحَقِّ وَهُمْ لَا يُظْلَمُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039069.mp3",
       },
       {
-        "arabic": "وَوُفِّيَتْ كُلُّ نَفْسٍ مَّا عَمِلَتْ وَهُوَ أَعْلَمُ بِمَا يَفْعَلُونَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039070.mp3"
+        arabic: "وَوُفِّيَتْ كُلُّ نَفْسٍ مَّا عَمِلَتْ وَهُوَ أَعْلَمُ بِمَا يَفْعَلُونَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039070.mp3",
       },
       {
-        "arabic": "وَسِيقَ ٱلَّذِينَ كَفَرُوٓا۟ إِلَىٰ جَهَنَّمَ زُمَرًا ۖ حَتَّىٰٓ إِذَا جَآءُوهَا فُتِحَتْ أَبْوَٰبُهَا وَقَالَ لَهُمْ خَزَنَتُهَآ أَلَمْ يَأْتِكُمْ رُسُلٌ مِّنكُمْ يَتْلُونَ عَلَيْكُمْ ءَايَـٰتِ رَبِّكُمْ وَيُنذِرُونَكُمْ لِقَآءَ يَوْمِكُمْ هَـٰذَا ۚ قَالُوا۟ بَلَىٰ وَلَـٰكِنْ حَقَّتْ كَلِمَةُ ٱلْعَذَابِ عَلَى ٱلْكَـٰفِرِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039071.mp3"
+        arabic:
+          "وَسِيقَ ٱلَّذِينَ كَفَرُوٓا۟ إِلَىٰ جَهَنَّمَ زُمَرًا ۖ حَتَّىٰٓ إِذَا جَآءُوهَا فُتِحَتْ أَبْوَٰبُهَا وَقَالَ لَهُمْ خَزَنَتُهَآ أَلَمْ يَأْتِكُمْ رُسُلٌ مِّنكُمْ يَتْلُونَ عَلَيْكُمْ ءَايَـٰتِ رَبِّكُمْ وَيُنذِرُونَكُمْ لِقَآءَ يَوْمِكُمْ هَـٰذَا ۚ قَالُوا۟ بَلَىٰ وَلَـٰكِنْ حَقَّتْ كَلِمَةُ ٱلْعَذَابِ عَلَى ٱلْكَـٰفِرِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039071.mp3",
       },
       {
-        "arabic": "قِيلَ ٱدْخُلُوٓا۟ أَبْوَٰبَ جَهَنَّمَ خَـٰلِدِينَ فِيهَا ۖ فَبِئْسَ مَثْوَى ٱلْمُتَكَبِّرِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039072.mp3"
+        arabic:
+          "قِيلَ ٱدْخُلُوٓا۟ أَبْوَٰبَ جَهَنَّمَ خَـٰلِدِينَ فِيهَا ۖ فَبِئْسَ مَثْوَى ٱلْمُتَكَبِّرِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039072.mp3",
       },
       {
-        "arabic": "وَسِيقَ ٱلَّذِينَ ٱتَّقَوْا۟ رَبَّهُمْ إِلَى ٱلْجَنَّةِ زُمَرًا ۖ حَتَّىٰٓ إِذَا جَآءُوهَا وَفُتِحَتْ أَبْوَٰبُهَا وَقَالَ لَهُمْ خَزَنَتُهَا سَلَـٰمٌ عَلَيْكُمْ طِبْتُمْ فَٱدْخُلُوهَا خَـٰلِدِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039073.mp3"
+        arabic:
+          "وَسِيقَ ٱلَّذِينَ ٱتَّقَوْا۟ رَبَّهُمْ إِلَى ٱلْجَنَّةِ زُمَرًا ۖ حَتَّىٰٓ إِذَا جَآءُوهَا وَفُتِحَتْ أَبْوَٰبُهَا وَقَالَ لَهُمْ خَزَنَتُهَا سَلَـٰمٌ عَلَيْكُمْ طِبْتُمْ فَٱدْخُلُوهَا خَـٰلِدِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039073.mp3",
       },
       {
-        "arabic": "وَقَالُوا۟ ٱلْحَمْدُ لِلَّهِ ٱلَّذِى صَدَقَنَا وَعْدَهُۥ وَأَوْرَثَنَا ٱلْأَرْضَ نَتَبَوَّأُ مِنَ ٱلْجَنَّةِ حَيْثُ نَشَآءُ ۖ فَنِعْمَ أَجْرُ ٱلْعَـٰمِلِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039074.mp3"
+        arabic:
+          "وَقَالُوا۟ ٱلْحَمْدُ لِلَّهِ ٱلَّذِى صَدَقَنَا وَعْدَهُۥ وَأَوْرَثَنَا ٱلْأَرْضَ نَتَبَوَّأُ مِنَ ٱلْجَنَّةِ حَيْثُ نَشَآءُ ۖ فَنِعْمَ أَجْرُ ٱلْعَـٰمِلِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039074.mp3",
       },
       {
-        "arabic": "وَتَرَى ٱلْمَلَـٰٓئِكَةَ حَآفِّينَ مِنْ حَوْلِ ٱلْعَرْشِ يُسَبِّحُونَ بِحَمْدِ رَبِّهِمْ ۖ وَقُضِىَ بَيْنَهُم بِٱلْحَقِّ وَقِيلَ ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَـٰلَمِينَ",
-        "audio": "https://audio-cdn.tarteel.ai/quran/alnufais/039075.mp3"
-      }
-    ]
-  }
+        arabic:
+          "وَتَرَى ٱلْمَلَـٰٓئِكَةَ حَآفِّينَ مِنْ حَوْلِ ٱلْعَرْشِ يُسَبِّحُونَ بِحَمْدِ رَبِّهِمْ ۖ وَقُضِىَ بَيْنَهُم بِٱلْحَقِّ وَقِيلَ ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَـٰلَمِينَ",
+        audio: "https://audio-cdn.tarteel.ai/quran/alnufais/039075.mp3",
+      },
+    ],
+  },
 ];

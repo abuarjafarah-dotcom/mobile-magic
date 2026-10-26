@@ -133,8 +133,14 @@ export const WUDU_CLOSING: Step = {
   kind: "say",
   img: masjidRoom,
   title: { ar: "الدُّعَاءُ بَعْدَ الوُضُوء", en: "Du'a after wudu" },
-  how: { ar: "نَقُولُ بَعْدَ أَنْ نَنْتَهِيَ مِنَ الوُضُوء", en: "We say this when we finish wudu" },
-  hint: { ar: "آخِرُ شَيْءٍ بَعْدَ الوُضُوء: الدُّعَاء", en: "The last thing after wudu is the du'a" },
+  how: {
+    ar: "نَقُولُ بَعْدَ أَنْ نَنْتَهِيَ مِنَ الوُضُوء",
+    en: "We say this when we finish wudu",
+  },
+  hint: {
+    ar: "آخِرُ شَيْءٍ بَعْدَ الوُضُوء: الدُّعَاء",
+    en: "The last thing after wudu is the du'a",
+  },
   say: {
     ar: "أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللهُ، وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُه",
     en: "I bear witness that there is no god but Allah, and Muhammad is His servant and messenger",

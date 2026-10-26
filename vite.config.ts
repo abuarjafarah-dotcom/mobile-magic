@@ -19,7 +19,8 @@ function lovableAssetOrigin(): Plugin {
     name: "lovable-asset-origin",
     enforce: "pre",
     transform(code, id) {
-      if (!/\/src\/.*\.(tsx?|json)$/.test(id.split("?")[0]!) || !code.includes("/__l5e/")) return null;
+      if (!/\/src\/.*\.(tsx?|json)$/.test(id.split("?")[0]!) || !code.includes("/__l5e/"))
+        return null;
       return { code: code.replace(/(["'`])\/__l5e\//g, `$1${ASSET_ORIGIN}/__l5e/`), map: null };
     },
   };

@@ -61,17 +61,24 @@ function LibraryGate({ onExit, onUnlocked }: { onExit: () => void; onUnlocked: (
   return (
     <section className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-4 pb-[max(2rem,env(safe-area-inset-bottom))] pt-[max(1rem,env(safe-area-inset-top))] sm:px-6">
       <Header onExit={onExit} />
-      <form onSubmit={submit} className="mt-10 flex flex-col gap-4 rounded-3xl bg-card p-6 shadow-sm">
+      <form
+        onSubmit={submit}
+        className="mt-10 flex flex-col gap-4 rounded-3xl bg-card p-6 shadow-sm"
+      >
         <div className="flex items-center gap-3">
           <span className="grid h-12 w-12 place-items-center rounded-2xl bg-primary/15">
             <Lock className="h-6 w-6" />
           </span>
           <div>
             <h1 className="text-2xl font-black leading-tight">Library</h1>
-            <p className="text-sm font-bold text-muted-foreground">Enter the family password to open the shelf.</p>
+            <p className="text-sm font-bold text-muted-foreground">
+              Enter the family password to open the shelf.
+            </p>
           </div>
         </div>
-        <label htmlFor="library-password" className="text-sm font-black">Password</label>
+        <label htmlFor="library-password" className="text-sm font-black">
+          Password
+        </label>
         <Input
           id="library-password"
           type="password"
@@ -82,8 +89,16 @@ function LibraryGate({ onExit, onUnlocked }: { onExit: () => void; onUnlocked: (
             setError(null);
           }}
         />
-        {error && <p role="alert" className="text-sm font-bold text-destructive">{error}</p>}
-        <Button type="submit" disabled={!password || busy} className="h-12 rounded-2xl text-base font-black">
+        {error && (
+          <p role="alert" className="text-sm font-bold text-destructive">
+            {error}
+          </p>
+        )}
+        <Button
+          type="submit"
+          disabled={!password || busy}
+          className="h-12 rounded-2xl text-base font-black"
+        >
           Open library
         </Button>
       </form>
@@ -137,7 +152,11 @@ function Shelf({ onExit }: { onExit: () => void }) {
         />
       )}
 
-      {loadError && <p role="alert" className="mt-6 text-center text-sm font-bold text-destructive">{loadError}</p>}
+      {loadError && (
+        <p role="alert" className="mt-6 text-center text-sm font-bold text-destructive">
+          {loadError}
+        </p>
+      )}
 
       {books === null && !loadError ? (
         <p className="mt-8 text-center font-bold text-muted-foreground">Loading the shelf…</p>
@@ -159,7 +178,9 @@ function Shelf({ onExit }: { onExit: () => void }) {
               >
                 <BookOpen className="h-8 w-8" />
                 <h2 className="mt-3 text-lg font-black leading-tight">{book.title}</h2>
-                {book.author && <p className="text-sm font-bold text-muted-foreground">{book.author}</p>}
+                {book.author && (
+                  <p className="text-sm font-bold text-muted-foreground">{book.author}</p>
+                )}
                 {book.blurb && <p className="mt-2 text-sm font-bold">{book.blurb}</p>}
               </a>
             </li>
@@ -185,7 +206,13 @@ function AddBookForm({ onCancel, onAdded }: { onCancel: () => void; onAdded: () 
     setBusy(true);
     setError(null);
     try {
-      await addBook({ file, title: title || file.name.replace(/\.pdf$/i, ""), author, blurb, tone });
+      await addBook({
+        file,
+        title: title || file.name.replace(/\.pdf$/i, ""),
+        author,
+        blurb,
+        tone,
+      });
       onAdded();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Could not add the book.");
@@ -196,7 +223,9 @@ function AddBookForm({ onCancel, onAdded }: { onCancel: () => void; onAdded: () 
 
   return (
     <form onSubmit={submit} className="mt-6 flex flex-col gap-3 rounded-3xl bg-card p-5 shadow-sm">
-      <label htmlFor="library-file" className="text-sm font-black">PDF file</label>
+      <label htmlFor="library-file" className="text-sm font-black">
+        PDF file
+      </label>
       <input
         id="library-file"
         type="file"
@@ -210,13 +239,21 @@ function AddBookForm({ onCancel, onAdded }: { onCancel: () => void; onAdded: () 
         }}
       />
       {file && file.size > LIBRARY_MAX_BYTES && (
-        <p role="alert" className="text-sm font-bold text-destructive">This PDF is larger than 50 MB. Compress it first.</p>
+        <p role="alert" className="text-sm font-bold text-destructive">
+          This PDF is larger than 50 MB. Compress it first.
+        </p>
       )}
-      <label htmlFor="library-title" className="text-sm font-black">Title</label>
+      <label htmlFor="library-title" className="text-sm font-black">
+        Title
+      </label>
       <Input id="library-title" value={title} onChange={(e) => setTitle(e.target.value)} />
-      <label htmlFor="library-author" className="text-sm font-black">Author (optional)</label>
+      <label htmlFor="library-author" className="text-sm font-black">
+        Author (optional)
+      </label>
       <Input id="library-author" value={author} onChange={(e) => setAuthor(e.target.value)} />
-      <label htmlFor="library-blurb" className="text-sm font-black">Short note (optional)</label>
+      <label htmlFor="library-blurb" className="text-sm font-black">
+        Short note (optional)
+      </label>
       <Input id="library-blurb" value={blurb} onChange={(e) => setBlurb(e.target.value)} />
       <div className="flex gap-2" role="radiogroup" aria-label="Card colour">
         {LIBRARY_TONES.map((t) => (
@@ -231,12 +268,25 @@ function AddBookForm({ onCancel, onAdded }: { onCancel: () => void; onAdded: () 
           />
         ))}
       </div>
-      {error && <p role="alert" className="text-sm font-bold text-destructive">{error}</p>}
+      {error && (
+        <p role="alert" className="text-sm font-bold text-destructive">
+          {error}
+        </p>
+      )}
       <div className="flex gap-2">
-        <Button type="button" variant="ghost" onClick={onCancel} className="h-12 flex-1 rounded-2xl font-black">
+        <Button
+          type="button"
+          variant="ghost"
+          onClick={onCancel}
+          className="h-12 flex-1 rounded-2xl font-black"
+        >
           Cancel
         </Button>
-        <Button type="submit" disabled={!file || busy || (file?.size ?? 0) > LIBRARY_MAX_BYTES} className="h-12 flex-1 rounded-2xl font-black">
+        <Button
+          type="submit"
+          disabled={!file || busy || (file?.size ?? 0) > LIBRARY_MAX_BYTES}
+          className="h-12 flex-1 rounded-2xl font-black"
+        >
           {busy ? "Saving…" : "Save to shelf"}
         </Button>
       </div>

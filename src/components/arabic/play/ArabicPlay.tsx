@@ -32,7 +32,10 @@ const KEY = "arabic-play-v1";
 function loadProgress(): Progress {
   try {
     const p = JSON.parse(localStorage.getItem(KEY) ?? "{}");
-    return { slot: Array.isArray(p.slot) ? p.slot : [], trace: Array.isArray(p.trace) ? p.trace : [] };
+    return {
+      slot: Array.isArray(p.slot) ? p.slot : [],
+      trace: Array.isArray(p.trace) ? p.trace : [],
+    };
   } catch {
     return { slot: [], trace: [] };
   }
@@ -44,7 +47,11 @@ function useProgress() {
     setP((prev) => {
       if (prev[kind].includes(id)) return prev;
       const next = { ...prev, [kind]: [...prev[kind], id] };
-      try { localStorage.setItem(KEY, JSON.stringify(next)); } catch { /* storage unavailable */ }
+      try {
+        localStorage.setItem(KEY, JSON.stringify(next));
+      } catch {
+        /* storage unavailable */
+      }
       return next;
     });
   }, []);
@@ -66,43 +73,87 @@ export function ArabicPlayWorld({ onExit }: { onExit: () => void }) {
   const [screen, setScreen] = useState<Screen>("hub");
   const [progress, mark] = useProgress();
   useEffect(() => () => stopArabicVoice(), []);
-  const back = () => { stopArabicVoice(); if (screen === "hub") onExit(); else setScreen("hub"); };
+  const back = () => {
+    stopArabicVoice();
+    if (screen === "hub") onExit();
+    else setScreen("hub");
+  };
   const totalWords = SLOT_LEVELS.reduce((n, l) => n + l.words.length, 0);
 
   return (
     <section className="mx-auto flex min-h-dvh w-full max-w-lg flex-col px-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[max(1rem,env(safe-area-inset-top))] sm:px-6 min-[960px]:max-w-3xl">
       <header className="flex items-center gap-3">
-        <GameButton tone="neutral" className="grid h-12 w-12 shrink-0 place-items-center rounded-full p-0" onClick={back} aria-label="Back">
+        <GameButton
+          tone="neutral"
+          className="grid h-12 w-12 shrink-0 place-items-center rounded-full p-0"
+          onClick={back}
+          aria-label="Back"
+        >
           <ArrowLeft className="h-5 w-5" />
         </GameButton>
         <div className="min-w-0">
           <p lang="ar" dir="rtl" className="font-arabic text-xl font-black leading-tight">
-            {screen === "slot" ? "آلة الحركات" : screen === "trace" ? "حروف ورق الصنفرة" : "لعبة الحركات"}
+            {screen === "slot"
+              ? "آلة الحركات"
+              : screen === "trace"
+                ? "حروف ورق الصنفرة"
+                : "لعبة الحركات"}
           </p>
           <p className="text-sm font-bold text-muted-foreground">
-            {screen === "slot" ? "Harakat Slot Machine" : screen === "trace" ? "Sandpaper Letters" : "Harakat & Tracing"}
+            {screen === "slot"
+              ? "Harakat Slot Machine"
+              : screen === "trace"
+                ? "Sandpaper Letters"
+                : "Harakat & Tracing"}
           </p>
         </div>
       </header>
 
       {screen === "hub" && (
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
-          <button type="button" onClick={() => { sfx("click"); setScreen("slot"); }} className="group grid gap-3 rounded-3xl border-2 border-foreground/10 bg-card p-4 text-start shadow-[0_5px_0_var(--neutral-shadow)] transition-transform active:translate-y-1 active:shadow-none">
+          <button
+            type="button"
+            onClick={() => {
+              sfx("click");
+              setScreen("slot");
+            }}
+            className="group grid gap-3 rounded-3xl border-2 border-foreground/10 bg-card p-4 text-start shadow-[0_5px_0_var(--neutral-shadow)] transition-transform active:translate-y-1 active:shadow-none"
+          >
             <SlotMachine reels={["كَ", "تَ", "بَ"]} spinning={false} />
             <span>
-              <span lang="ar" dir="rtl" className="block font-arabic text-2xl font-black">آلة الحركات</span>
+              <span lang="ar" dir="rtl" className="block font-arabic text-2xl font-black">
+                آلة الحركات
+              </span>
               <span className="block text-lg font-black">Harakat Slot Machine</span>
-              <span className="block text-sm font-bold text-muted-foreground">Spin, read, build words · {progress.slot.length}/{totalWords} words</span>
+              <span className="block text-sm font-bold text-muted-foreground">
+                Spin, read, build words · {progress.slot.length}/{totalWords} words
+              </span>
             </span>
           </button>
-          <button type="button" onClick={() => { sfx("click"); setScreen("trace"); }} className="group grid gap-3 rounded-3xl border-2 border-foreground/10 bg-card p-4 text-start shadow-[0_5px_0_var(--neutral-shadow)] transition-transform active:translate-y-1 active:shadow-none">
+          <button
+            type="button"
+            onClick={() => {
+              sfx("click");
+              setScreen("trace");
+            }}
+            className="group grid gap-3 rounded-3xl border-2 border-foreground/10 bg-card p-4 text-start shadow-[0_5px_0_var(--neutral-shadow)] transition-transform active:translate-y-1 active:shadow-none"
+          >
             <SandTray className="mx-auto max-w-[220px]">
-              <span lang="ar" className="grid h-full place-items-center font-arabic text-[7rem] font-bold leading-none text-[#b8925a] opacity-70">ب</span>
+              <span
+                lang="ar"
+                className="grid h-full place-items-center font-arabic text-[7rem] font-bold leading-none text-[#b8925a] opacity-70"
+              >
+                ب
+              </span>
             </SandTray>
             <span>
-              <span lang="ar" dir="rtl" className="block font-arabic text-2xl font-black">حروف ورق الصنفرة</span>
+              <span lang="ar" dir="rtl" className="block font-arabic text-2xl font-black">
+                حروف ورق الصنفرة
+              </span>
               <span className="block text-lg font-black">Sandpaper Letters</span>
-              <span className="block text-sm font-bold text-muted-foreground">Trace every letter · {progress.trace.length}/{TRACE_CARDS.length} letters</span>
+              <span className="block text-sm font-bold text-muted-foreground">
+                Trace every letter · {progress.trace.length}/{TRACE_CARDS.length} letters
+              </span>
             </span>
           </button>
         </div>
@@ -158,7 +209,9 @@ function SlotGame({ done, onWin }: { done: readonly string[]; onWin: (id: string
   const revealRef = useRef(0);
   const recRef = useRef<Recognizer | null>(null);
   const hintTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
-  useEffect(() => { setCanHear(!!getRecognizer()); }, []);
+  useEffect(() => {
+    setCanHear(!!getRecognizer());
+  }, []);
 
   // build state
   const [pick, setPick] = useState<number[]>([0, 0, 0]);
@@ -170,34 +223,58 @@ function SlotGame({ done, onWin }: { done: readonly string[]; onWin: (id: string
 
   const stopMic = useCallback(() => {
     clearTimeout(hintTimer.current);
-    const r = recRef.current; recRef.current = null;
-    if (r) { r.onend = null; try { r.stop(); } catch { /* ignore */ } }
+    const r = recRef.current;
+    recRef.current = null;
+    if (r) {
+      r.onend = null;
+      try {
+        r.stop();
+      } catch {
+        /* ignore */
+      }
+    }
     setListening(false);
   }, []);
 
-  const resetFor = useCallback((w: SlotWord, m: Mode) => {
-    run.current++;
-    stopArabicVoice(); stopMic();
-    readingRef.current = false;
-    setReady(false);
-    setWon(false); setHl(undefined); setWrong(undefined); setBusy(false);
-    if (m === "spin") setReels(w.reels);
-    else {
-      const o = w.reels.map((r, i) => optionsFor(r, i === 2, level.id === "sukun"));
-      // start every reel on a wrong haraka so there's something to fix
-      const start = o.map((list, i) => {
-        const ok = list.indexOf(w.reels[i]);
-        const wrongIdx = list.map((_, k) => k).filter((k) => k !== ok);
-        return wrongIdx[Math.floor(Math.random() * wrongIdx.length)];
-      });
-      setPick(start);
-      setReels(start.map((k, i) => o[i][k]));
-    }
-  }, [level.id, stopMic]);
+  const resetFor = useCallback(
+    (w: SlotWord, m: Mode) => {
+      run.current++;
+      stopArabicVoice();
+      stopMic();
+      readingRef.current = false;
+      setReady(false);
+      setWon(false);
+      setHl(undefined);
+      setWrong(undefined);
+      setBusy(false);
+      if (m === "spin") setReels(w.reels);
+      else {
+        const o = w.reels.map((r, i) => optionsFor(r, i === 2, level.id === "sukun"));
+        // start every reel on a wrong haraka so there's something to fix
+        const start = o.map((list, i) => {
+          const ok = list.indexOf(w.reels[i]);
+          const wrongIdx = list.map((_, k) => k).filter((k) => k !== ok);
+          return wrongIdx[Math.floor(Math.random() * wrongIdx.length)];
+        });
+        setPick(start);
+        setReels(start.map((k, i) => o[i][k]));
+      }
+    },
+    [level.id, stopMic],
+  );
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => { resetFor(mode === "spin" ? spinWord : word, mode); }, [word, mode, resetFor]);
-  useEffect(() => () => { run.current++; stopMic(); stopArabicVoice(); }, [stopMic]);
+  useEffect(() => {
+    resetFor(mode === "spin" ? spinWord : word, mode);
+  }, [word, mode, resetFor]);
+  useEffect(
+    () => () => {
+      run.current++;
+      stopMic();
+      stopArabicVoice();
+    },
+    [stopMic],
+  );
 
   const celebrate = async (id: number) => {
     setHl(undefined);
@@ -238,19 +315,44 @@ function SlotGame({ done, onWin }: { done: readonly string[]; onWin: (id: string
     unlockVoice();
     stopMic();
     const R = getRecognizer();
-    if (!R) { setCanHear(false); return; }
-    const rec = new R(); recRef.current = rec;
-    rec.lang = "ar-SA"; rec.continuous = true; rec.interimResults = true;
+    if (!R) {
+      setCanHear(false);
+      return;
+    }
+    const rec = new R();
+    recRef.current = rec;
+    rec.lang = "ar-SA";
+    rec.continuous = true;
+    rec.interimResults = true;
     rec.onresult = (e: any) => {
       if (recRef.current !== rec) return;
       let text = "";
       for (let i = 0; i < e.results.length; i++) text += " " + e.results[i][0].transcript;
-      if (heardMatches(text, target.ar)) { stopMic(); void finishRead(target); }
-      else armHint(target);
+      if (heardMatches(text, target.ar)) {
+        stopMic();
+        void finishRead(target);
+      } else armHint(target);
     };
-    rec.onerror = () => { /* stay calm; the tap fallback still works */ };
-    rec.onend = () => { if (recRef.current === rec) { try { rec.start(); } catch { stopMic(); } } };
-    try { rec.start(); setListening(true); armHint(target); } catch { stopMic(); setCanHear(false); }
+    rec.onerror = () => {
+      /* stay calm; the tap fallback still works */
+    };
+    rec.onend = () => {
+      if (recRef.current === rec) {
+        try {
+          rec.start();
+        } catch {
+          stopMic();
+        }
+      }
+    };
+    try {
+      rec.start();
+      setListening(true);
+      armHint(target);
+    } catch {
+      stopMic();
+      setCanHear(false);
+    }
   };
 
   /** The child read it (or tapped ✓): celebrate immediately, then say the full word. */
@@ -259,7 +361,8 @@ function SlotGame({ done, onWin }: { done: readonly string[]; onWin: (id: string
     readingRef.current = false;
     stopMic();
     const id = run.current;
-    setReady(false); setHl(undefined);
+    setReady(false);
+    setHl(undefined);
     sfx("yay");
     setWon(true);
     onWin(target.id);
@@ -273,9 +376,14 @@ function SlotGame({ done, onWin }: { done: readonly string[]; onWin: (id: string
     const id = ++run.current;
     stopMic();
     readingRef.current = false;
-    setBusy(true); setWon(false); setHl(undefined); setReady(false); setWrong(undefined);
+    setBusy(true);
+    setWon(false);
+    setHl(undefined);
+    setReady(false);
+    setWrong(undefined);
     sfx("click");
-    setPulled(true); setSpinning(true);
+    setPulled(true);
+    setSpinning(true);
     setTimeout(() => setPulled(false), 380);
     const pool = order.filter((w) => w.id !== spinWord.id);
     const next = pool[Math.floor(Math.random() * pool.length)] ?? spinWord;
@@ -323,7 +431,10 @@ function SlotGame({ done, onWin }: { done: readonly string[]; onWin: (id: string
     setBusy(false);
   };
 
-  const nextWord = () => { sfx("click"); setWi((n) => n + 1); };
+  const nextWord = () => {
+    sfx("click");
+    setWi((n) => n + 1);
+  };
 
   return (
     <div className="mt-4 grid gap-4">
@@ -332,23 +443,57 @@ function SlotGame({ done, onWin }: { done: readonly string[]; onWin: (id: string
         {SLOT_LEVELS.map((l, i) => {
           const n = l.words.filter((w) => done.includes(w.id)).length;
           return (
-            <GameButton key={l.id} tone={i === levelIdx ? "sun" : "neutral"} role="tab" aria-selected={i === levelIdx} className="shrink-0 px-3 py-2 text-sm" onClick={() => { setLevelIdx(i); setWi(0); }}>
-              <span lang="ar" className="font-arabic">{l.title.ar}</span> · {n}/{l.words.length}
+            <GameButton
+              key={l.id}
+              tone={i === levelIdx ? "sun" : "neutral"}
+              role="tab"
+              aria-selected={i === levelIdx}
+              className="shrink-0 px-3 py-2 text-sm"
+              onClick={() => {
+                setLevelIdx(i);
+                setWi(0);
+              }}
+            >
+              <span lang="ar" className="font-arabic">
+                {l.title.ar}
+              </span>{" "}
+              · {n}/{l.words.length}
             </GameButton>
           );
         })}
       </div>
       <div className="grid grid-cols-2 gap-2" role="tablist" aria-label="Mode">
-        <GameButton tone={mode === "spin" ? "sky" : "neutral"} role="tab" aria-selected={mode === "spin"} className="min-h-12 text-sm" onClick={() => setMode("spin")}>
-          🎰 Spin · <span lang="ar" className="font-arabic">اسحب</span>
+        <GameButton
+          tone={mode === "spin" ? "sky" : "neutral"}
+          role="tab"
+          aria-selected={mode === "spin"}
+          className="min-h-12 text-sm"
+          onClick={() => setMode("spin")}
+        >
+          🎰 Spin ·{" "}
+          <span lang="ar" className="font-arabic">
+            اسحب
+          </span>
         </GameButton>
-        <GameButton tone={mode === "build" ? "sky" : "neutral"} role="tab" aria-selected={mode === "build"} className="min-h-12 text-sm" onClick={() => setMode("build")}>
-          🧩 Build · <span lang="ar" className="font-arabic">ركّب</span>
+        <GameButton
+          tone={mode === "build" ? "sky" : "neutral"}
+          role="tab"
+          aria-selected={mode === "build"}
+          className="min-h-12 text-sm"
+          onClick={() => setMode("build")}
+        >
+          🧩 Build ·{" "}
+          <span lang="ar" className="font-arabic">
+            ركّب
+          </span>
         </GameButton>
       </div>
 
       <p className="text-center text-sm font-bold text-muted-foreground">
-        <span lang="ar" className="font-arabic">{level.hint.ar}</span> · {level.hint.en}
+        <span lang="ar" className="font-arabic">
+          {level.hint.ar}
+        </span>{" "}
+        · {level.hint.en}
       </p>
 
       {/* build mode: target picture */}
@@ -356,8 +501,14 @@ function SlotGame({ done, onWin }: { done: readonly string[]; onWin: (id: string
         <div className="flex items-center justify-center gap-3">
           <img src={word.img} alt={word.en} className="h-28 w-28 object-contain drop-shadow" />
           <div className="grid gap-2">
-            <p className="text-sm font-bold text-muted-foreground">Tap each reel to fix its haraka</p>
-            <GameButton tone="neutral" className="flex items-center justify-center gap-2 px-3 py-2 text-sm" onClick={() => void say(word.ar)}>
+            <p className="text-sm font-bold text-muted-foreground">
+              Tap each reel to fix its haraka
+            </p>
+            <GameButton
+              tone="neutral"
+              className="flex items-center justify-center gap-2 px-3 py-2 text-sm"
+              onClick={() => void say(word.ar)}
+            >
               <Volume2 className="h-4 w-4" /> Hear the word
             </GameButton>
           </div>
@@ -367,55 +518,120 @@ function SlotGame({ done, onWin }: { done: readonly string[]; onWin: (id: string
       {/* machine */}
       <div className="flex items-center gap-2">
         <div className="relative min-w-0 flex-1">
-          <SlotMachine reels={reels} spinning={spinning} highlight={hl} onReelTap={mode === "build" && !busy ? tapReel : undefined} />
+          <SlotMachine
+            reels={reels}
+            spinning={spinning}
+            highlight={hl}
+            onReelTap={mode === "build" && !busy ? tapReel : undefined}
+          />
           <StarBurst show={won} />
         </div>
-        {mode === "spin" && <Lever pulled={pulled} onPull={() => void pull()} disabled={busy} className="h-40 shrink-0 sm:h-52" />}
+        {mode === "spin" && (
+          <Lever
+            pulled={pulled}
+            onPull={() => void pull()}
+            disabled={busy}
+            className="h-40 shrink-0 sm:h-52"
+          />
+        )}
       </div>
 
       {wrong != null && (
         <p className="text-center font-bold text-destructive">
-          <span lang="ar" className="font-arabic">حاول مرّة ثانية</span> · Check the glowing reel
+          <span lang="ar" className="font-arabic">
+            حاول مرّة ثانية
+          </span>{" "}
+          · Check the glowing reel
         </p>
       )}
 
       {mode === "build" && !won && (
-        <GameButton tone="mint" className="flex min-h-14 items-center justify-center gap-2 text-lg" onClick={() => void check()} disabled={busy}>
-          <Check className="h-5 w-5" /> Check · <span lang="ar" className="font-arabic">تحقّق</span>
+        <GameButton
+          tone="mint"
+          className="flex min-h-14 items-center justify-center gap-2 text-lg"
+          onClick={() => void check()}
+          disabled={busy}
+        >
+          <Check className="h-5 w-5" /> Check ·{" "}
+          <span lang="ar" className="font-arabic">
+            تحقّق
+          </span>
         </GameButton>
       )}
       {mode === "spin" && !won && !ready && !busy && (
-        <p className="text-center font-black">Pull the lever! · <span lang="ar" className="font-arabic">اسحب الذراع</span></p>
+        <p className="text-center font-black">
+          Pull the lever! ·{" "}
+          <span lang="ar" className="font-arabic">
+            اسحب الذراع
+          </span>
+        </p>
       )}
 
       {/* the child reads the word the reels landed on */}
       {mode === "spin" && ready && !won && (
         <div className="grid gap-3 rounded-3xl border-2 border-primary/30 bg-card p-4 text-center shadow-md animate-pop-in">
           <p className="text-xl font-black">
-            Read the word! · <span lang="ar" dir="rtl" className="font-arabic">اقرأ الكلمة</span>
+            Read the word! ·{" "}
+            <span lang="ar" dir="rtl" className="font-arabic">
+              اقرأ الكلمة
+            </span>
           </p>
           <p className="text-sm font-bold text-muted-foreground">
-            {!canHear ? "Read it, then tap ✓" : listening ? "I’m listening… read the whole word" : "Tap the mic, then read the word"}
+            {!canHear
+              ? "Read it, then tap ✓"
+              : listening
+                ? "I’m listening… read the whole word"
+                : "Tap the mic, then read the word"}
           </p>
           <div className="grid grid-cols-3 gap-3">
             {canHear ? (
-              <GameButton tone="berry" className="min-h-16" onClick={() => startListening(targetRef.current)} aria-label="Start reading">
+              <GameButton
+                tone="berry"
+                className="min-h-16"
+                onClick={() => startListening(targetRef.current)}
+                aria-label="Start reading"
+              >
                 <Mic className={cn("mx-auto h-7 w-7", listening && "animate-pulse")} />
               </GameButton>
             ) : (
-              <GameButton tone="mint" className="min-h-16" onClick={() => void finishRead(targetRef.current)} aria-label="I read it">
+              <GameButton
+                tone="mint"
+                className="min-h-16"
+                onClick={() => void finishRead(targetRef.current)}
+                aria-label="I read it"
+              >
                 <Check className="mx-auto h-7 w-7" />
               </GameButton>
             )}
-            <GameButton tone="sky" className="min-h-16" onClick={() => { unlockVoice(); void say(targetRef.current.ar); }} aria-label="Hear the word">
+            <GameButton
+              tone="sky"
+              className="min-h-16"
+              onClick={() => {
+                unlockVoice();
+                void say(targetRef.current.ar);
+              }}
+              aria-label="Hear the word"
+            >
               <Volume2 className="mx-auto h-7 w-7" />
             </GameButton>
-            <GameButton tone="sun" className="min-h-16" onClick={() => { unlockVoice(); revealNext(targetRef.current); }} aria-label="Show the next part">
+            <GameButton
+              tone="sun"
+              className="min-h-16"
+              onClick={() => {
+                unlockVoice();
+                revealNext(targetRef.current);
+              }}
+              aria-label="Show the next part"
+            >
               <Lightbulb className="mx-auto h-7 w-7" />
             </GameButton>
           </div>
           {canHear && (
-            <button type="button" onClick={() => void finishRead(targetRef.current)} className="text-sm font-black text-muted-foreground underline">
+            <button
+              type="button"
+              onClick={() => void finishRead(targetRef.current)}
+              className="text-sm font-black text-muted-foreground underline"
+            >
               I read it ✓
             </button>
           )}
@@ -427,11 +643,27 @@ function SlotGame({ done, onWin }: { done: readonly string[]; onWin: (id: string
         <div className="grid grid-cols-[auto_1fr] items-center gap-4 rounded-3xl border-2 border-foreground/10 bg-card p-4 shadow-[0_5px_0_var(--neutral-shadow)]">
           <img src={shown.img} alt={shown.en} className="h-28 w-28 object-contain" />
           <div className="min-w-0">
-            <p lang="ar" dir="rtl" className="font-arabic text-5xl font-black leading-tight">{shown.ar}</p>
+            <p lang="ar" dir="rtl" className="font-arabic text-5xl font-black leading-tight">
+              {shown.ar}
+            </p>
             <p className="text-lg font-black">{shown.en}</p>
             <div className="mt-2 flex flex-wrap gap-2">
-              <GameButton tone="neutral" className="flex items-center gap-1 px-3 py-2 text-sm" onClick={() => void say(shown.ar)}><Volume2 className="h-4 w-4" /> Again</GameButton>
-              {mode === "build" && <GameButton tone="sun" className="flex items-center gap-1 px-3 py-2 text-sm" onClick={nextWord}>Next word <ArrowRight className="h-4 w-4" /></GameButton>}
+              <GameButton
+                tone="neutral"
+                className="flex items-center gap-1 px-3 py-2 text-sm"
+                onClick={() => void say(shown.ar)}
+              >
+                <Volume2 className="h-4 w-4" /> Again
+              </GameButton>
+              {mode === "build" && (
+                <GameButton
+                  tone="sun"
+                  className="flex items-center gap-1 px-3 py-2 text-sm"
+                  onClick={nextWord}
+                >
+                  Next word <ArrowRight className="h-4 w-4" />
+                </GameButton>
+              )}
             </div>
           </div>
         </div>
@@ -450,12 +682,21 @@ const BRUSH = 13; // finger radius in mask units
 const FONT = '"Noto Naskh Arabic", "Amiri Quran", serif';
 const TRACE_CARDS = orderLetters(LETTER_CARDS);
 
-type Glyph = { cells: Set<number>; total: number; start: Pt; angle: number; fontPx: number; x: number; y: number };
+type Glyph = {
+  cells: Set<number>;
+  total: number;
+  start: Pt;
+  angle: number;
+  fontPx: number;
+  x: number;
+  y: number;
+};
 
 /** Render the letter offscreen, centred and scaled, and return its pixel mask on a coarse grid. */
 function measureGlyph(letter: string): Glyph {
   const c = document.createElement("canvas");
-  c.width = M; c.height = M;
+  c.width = M;
+  c.height = M;
   const ctx = c.getContext("2d")!;
   ctx.textAlign = "left";
   ctx.textBaseline = "alphabetic";
@@ -473,19 +714,41 @@ function measureGlyph(letter: string): Glyph {
   const data = ctx.getImageData(0, 0, M, M).data;
   const cells = new Set<number>();
   const G = M / CELL;
-  let best = -Infinity, sx = 100, sy = 100, minX = M, maxX = 0, minY = M, maxY = 0;
+  let best = -Infinity,
+    sx = 100,
+    sy = 100,
+    minX = M,
+    maxX = 0,
+    minY = M,
+    maxY = 0;
   for (let gy = 0; gy < G; gy++)
     for (let gx = 0; gx < G; gx++) {
-      const px = gx * CELL + 1, py = gy * CELL + 1;
+      const px = gx * CELL + 1,
+        py = gy * CELL + 1;
       if (data[(py * M + px) * 4 + 3] > 110) {
         cells.add(gy * G + gx);
-        minX = Math.min(minX, px); maxX = Math.max(maxX, px); minY = Math.min(minY, py); maxY = Math.max(maxY, py);
+        minX = Math.min(minX, px);
+        maxX = Math.max(maxX, px);
+        minY = Math.min(minY, py);
+        maxY = Math.max(maxY, py);
         const score = px - py * 0.6; // Arabic starts top-right
-        if (score > best) { best = score; sx = px; sy = py; }
+        if (score > best) {
+          best = score;
+          sx = px;
+          sy = py;
+        }
       }
     }
   const tall = maxY - minY > (maxX - minX) * 1.6;
-  return { cells, total: cells.size, start: { x: sx / 2, y: sy / 2 }, angle: tall ? 90 : 180, fontPx, x, y };
+  return {
+    cells,
+    total: cells.size,
+    start: { x: sx / 2, y: sy / 2 },
+    angle: tall ? 90 : 180,
+    fontPx,
+    x,
+    y,
+  };
 }
 
 /** A grainy pattern for the sandpaper letter (tan grit on darker and lighter specks). */
@@ -507,7 +770,10 @@ function sandpaperGrain(ctx: CanvasRenderingContext2D): CanvasPattern | string {
 }
 
 function TraceGame({ done, onWin }: { done: readonly string[]; onWin: (id: string) => void }) {
-  const firstTodo = Math.max(0, TRACE_CARDS.findIndex((c) => !done.includes(c.letter)));
+  const firstTodo = Math.max(
+    0,
+    TRACE_CARDS.findIndex((c) => !done.includes(c.letter)),
+  );
   const [li, setLi] = useState(firstTodo);
   const card = TRACE_CARDS[li];
   const [glyph, setGlyph] = useState<Glyph | null>(null);
@@ -529,31 +795,44 @@ function TraceGame({ done, onWin }: { done: readonly string[]; onWin: (id: strin
     const go = () => alive && setGlyph(measureGlyph(card.letter));
     if (document.fonts?.load) document.fonts.load(`700 100px ${FONT}`, card.letter).then(go, go);
     else go();
-    return () => { alive = false; };
+    return () => {
+      alive = false;
+    };
   }, [card.letter]);
 
   // reset on letter change
   useEffect(() => {
-    covered.current = new Set(); off.current = { off: 0, all: 0 };
-    setPts([]); setStrokes([]); setWon(false); setHint(false);
-    stripRef.current?.querySelector(`[data-i="${li}"]`)?.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
+    covered.current = new Set();
+    off.current = { off: 0, all: 0 };
+    setPts([]);
+    setStrokes([]);
+    setWon(false);
+    setHint(false);
+    stripRef.current
+      ?.querySelector(`[data-i="${li}"]`)
+      ?.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
   }, [li]);
 
   // say the letter's sound when a letter opens
-  useEffect(() => { void playLetterSound(card.letter); }, [card.letter]);
+  useEffect(() => {
+    void playLetterSound(card.letter);
+  }, [card.letter]);
 
   // draw the sandpaper letter on the board at full resolution
   const paint = useCallback(() => {
-    const cv = canvas.current, box = area.current;
+    const cv = canvas.current,
+      box = area.current;
     if (!cv || !box || !glyph) return;
     const size = box.clientWidth;
     const dpr = window.devicePixelRatio || 1;
-    cv.width = size * dpr; cv.height = size * dpr;
+    cv.width = size * dpr;
+    cv.height = size * dpr;
     const ctx = cv.getContext("2d")!;
     const k = (size / M) * dpr;
     ctx.setTransform(k, 0, 0, k, 0, 0);
     ctx.clearRect(0, 0, M, M);
-    ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
+    ctx.textAlign = "left";
+    ctx.textBaseline = "alphabetic";
     ctx.font = `700 ${glyph.fontPx}px ${FONT}`;
     // rough sandpaper letter, raised: soft shadow under a grainy fill
     ctx.save();
@@ -583,14 +862,19 @@ function TraceGame({ done, onWin }: { done: readonly string[]; onWin: (id: strin
   const cover = (p: Pt) => {
     if (!glyph) return;
     const G = M / CELL;
-    const cx = (p.x * 2) / CELL, cy = (p.y * 2) / CELL, rr = BRUSH / CELL;
+    const cx = (p.x * 2) / CELL,
+      cy = (p.y * 2) / CELL,
+      rr = BRUSH / CELL;
     let near = false;
     for (let gy = Math.floor(cy - rr); gy <= Math.ceil(cy + rr); gy++)
       for (let gx = Math.floor(cx - rr); gx <= Math.ceil(cx + rr); gx++) {
         if (gx < 0 || gy < 0 || gx >= G || gy >= G) continue;
         if ((gx - cx) ** 2 + (gy - cy) ** 2 > rr * rr) continue;
         const id = gy * G + gx;
-        if (glyph.cells.has(id)) { covered.current.add(id); near = true; }
+        if (glyph.cells.has(id)) {
+          covered.current.add(id);
+          near = true;
+        }
       }
     off.current.all++;
     if (!near) off.current.off++;
@@ -628,8 +912,10 @@ function TraceGame({ done, onWin }: { done: readonly string[]; onWin: (id: strin
       down.current = false;
       setHint(true);
       sfx("buzz");
-      covered.current = new Set(); off.current = { off: 0, all: 0 };
-      setPts([]); setStrokes([]);
+      covered.current = new Set();
+      off.current = { off: 0, all: 0 };
+      setPts([]);
+      setStrokes([]);
       return;
     }
     if (glyph && covered.current.size / glyph.total >= 0.72) finish();
@@ -643,17 +929,32 @@ function TraceGame({ done, onWin }: { done: readonly string[]; onWin: (id: strin
   };
 
   const clear = () => {
-    covered.current = new Set(); off.current = { off: 0, all: 0 };
-    setPts([]); setStrokes([]); setWon(false); setHint(false);
+    covered.current = new Set();
+    off.current = { off: 0, all: 0 };
+    setPts([]);
+    setStrokes([]);
+    setWon(false);
+    setHint(false);
     sfx("rustle");
   };
-  const go = (d: number) => { sfx("click"); setLi((i) => (i + d + TRACE_CARDS.length) % TRACE_CARDS.length); };
-  const progressPct = glyph ? Math.min(100, Math.round((covered.current.size / glyph.total / 0.72) * 100)) : 0;
+  const go = (d: number) => {
+    sfx("click");
+    setLi((i) => (i + d + TRACE_CARDS.length) % TRACE_CARDS.length);
+  };
+  const progressPct = glyph
+    ? Math.min(100, Math.round((covered.current.size / glyph.total / 0.72) * 100))
+    : 0;
 
   return (
     <div className="mt-4 grid gap-4">
       {/* letter strip */}
-      <div ref={stripRef} dir="rtl" className="flex gap-2 overflow-x-auto pb-1" role="tablist" aria-label="Letters">
+      <div
+        ref={stripRef}
+        dir="rtl"
+        className="flex gap-2 overflow-x-auto pb-1"
+        role="tablist"
+        aria-label="Letters"
+      >
         {TRACE_CARDS.map((c, i) => (
           <button
             key={c.letter}
@@ -661,14 +962,21 @@ function TraceGame({ done, onWin }: { done: readonly string[]; onWin: (id: strin
             type="button"
             role="tab"
             aria-selected={i === li}
-            onClick={() => { sfx("click"); setLi(i); }}
+            onClick={() => {
+              sfx("click");
+              setLi(i);
+            }}
             className={cn(
               "relative grid h-12 w-12 shrink-0 place-items-center rounded-xl border-2 font-arabic text-2xl font-bold transition-transform active:translate-y-0.5",
-              i === li ? "border-primary bg-primary text-primary-foreground" : "border-foreground/10 bg-card",
+              i === li
+                ? "border-primary bg-primary text-primary-foreground"
+                : "border-foreground/10 bg-card",
             )}
           >
             {c.letter}
-            {done.includes(c.letter) && <Check className="absolute -left-1 -top-1 h-4 w-4 rounded-full bg-success p-0.5 text-success-foreground" />}
+            {done.includes(c.letter) && (
+              <Check className="absolute -left-1 -top-1 h-4 w-4 rounded-full bg-success p-0.5 text-success-foreground" />
+            )}
           </button>
         ))}
       </div>
@@ -687,9 +995,13 @@ function TraceGame({ done, onWin }: { done: readonly string[]; onWin: (id: strin
             role="img"
           >
             <canvas ref={canvas} className="absolute inset-0 h-full w-full" />
-            {strokes.map((s, i) => <TraceTrail key={i} points={s} done={won} />)}
+            {strokes.map((s, i) => (
+              <TraceTrail key={i} points={s} done={won} />
+            ))}
             <TraceTrail points={pts} done={won} />
-            {glyph && !won && strokes.length === 0 && pts.length === 0 && <StartDot x={glyph.start.x} y={glyph.start.y} angle={glyph.angle} />}
+            {glyph && !won && strokes.length === 0 && pts.length === 0 && (
+              <StartDot x={glyph.start.x} y={glyph.start.y} angle={glyph.angle} />
+            )}
           </div>
         </SandTray>
         <StarBurst show={won} />
@@ -699,12 +1011,32 @@ function TraceGame({ done, onWin }: { done: readonly string[]; onWin: (id: strin
       {!won && (
         <div className="grid gap-2">
           <div className="h-3 overflow-hidden rounded-full bg-foreground/10" aria-hidden>
-            <div className="h-full rounded-full bg-primary transition-[width] duration-200" style={{ width: `${progressPct}%` }} />
+            <div
+              className="h-full rounded-full bg-primary transition-[width] duration-200"
+              style={{ width: `${progressPct}%` }}
+            />
           </div>
-          <p className={cn("text-center text-sm font-bold", hint ? "text-destructive" : "text-muted-foreground")}>
-            {hint
-              ? <>Stay inside the letter · <span lang="ar" className="font-arabic">امشِ داخل الحرف</span></>
-              : <>Start at the glowing dot and trace the whole letter, dots too · <span lang="ar" className="font-arabic">ابدأ من النقطة المضيئة</span></>}
+          <p
+            className={cn(
+              "text-center text-sm font-bold",
+              hint ? "text-destructive" : "text-muted-foreground",
+            )}
+          >
+            {hint ? (
+              <>
+                Stay inside the letter ·{" "}
+                <span lang="ar" className="font-arabic">
+                  امشِ داخل الحرف
+                </span>
+              </>
+            ) : (
+              <>
+                Start at the glowing dot and trace the whole letter, dots too ·{" "}
+                <span lang="ar" className="font-arabic">
+                  ابدأ من النقطة المضيئة
+                </span>
+              </>
+            )}
           </p>
         </div>
       )}
@@ -719,17 +1051,49 @@ function TraceGame({ done, onWin }: { done: readonly string[]; onWin: (id: strin
             </p>
             <p className="text-lg font-black">{card.en}</p>
             <div className="mt-2 flex flex-wrap gap-2">
-              <GameButton tone="neutral" className="flex items-center gap-1 px-3 py-2 text-sm" onClick={() => void speakArabic(card.word)}><Volume2 className="h-4 w-4" /> Hear it</GameButton>
-              <GameButton tone="sun" className="flex items-center gap-1 px-3 py-2 text-sm" onClick={() => go(1)}>Next letter <ArrowLeft className="h-4 w-4" /></GameButton>
+              <GameButton
+                tone="neutral"
+                className="flex items-center gap-1 px-3 py-2 text-sm"
+                onClick={() => void speakArabic(card.word)}
+              >
+                <Volume2 className="h-4 w-4" /> Hear it
+              </GameButton>
+              <GameButton
+                tone="sun"
+                className="flex items-center gap-1 px-3 py-2 text-sm"
+                onClick={() => go(1)}
+              >
+                Next letter <ArrowLeft className="h-4 w-4" />
+              </GameButton>
             </div>
           </div>
         </div>
       )}
 
       <div className="flex justify-center gap-2">
-        <GameButton tone="neutral" className="flex items-center gap-1 px-3 py-2 text-sm" onClick={() => go(-1)} aria-label="Previous letter"><ArrowRight className="h-4 w-4" /></GameButton>
-        <GameButton tone="neutral" className="flex items-center gap-1 px-4 py-2 text-sm" onClick={clear}><RotateCcw className="h-4 w-4" /> Smooth the sand</GameButton>
-        <GameButton tone="neutral" className="flex items-center gap-1 px-3 py-2 text-sm" onClick={() => go(1)} aria-label="Next letter"><ArrowLeft className="h-4 w-4" /></GameButton>
+        <GameButton
+          tone="neutral"
+          className="flex items-center gap-1 px-3 py-2 text-sm"
+          onClick={() => go(-1)}
+          aria-label="Previous letter"
+        >
+          <ArrowRight className="h-4 w-4" />
+        </GameButton>
+        <GameButton
+          tone="neutral"
+          className="flex items-center gap-1 px-4 py-2 text-sm"
+          onClick={clear}
+        >
+          <RotateCcw className="h-4 w-4" /> Smooth the sand
+        </GameButton>
+        <GameButton
+          tone="neutral"
+          className="flex items-center gap-1 px-3 py-2 text-sm"
+          onClick={() => go(1)}
+          aria-label="Next letter"
+        >
+          <ArrowLeft className="h-4 w-4" />
+        </GameButton>
       </div>
     </div>
   );

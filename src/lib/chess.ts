@@ -26,24 +26,50 @@ export function initialState(): ChessState {
 /** Build a position from e.g. { e1: "wk", a8: "br" }. */
 export function fromMap(map: Record<string, string>, turn: Color = "w"): ChessState {
   const board: Board = Array(64).fill(null);
-  for (const [n, code] of Object.entries(map)) board[nameToSq(n)] = { id: `${code}${n}`, c: code[0] as Color, t: code[1] as Kind };
+  for (const [n, code] of Object.entries(map))
+    board[nameToSq(n)] = { id: `${code}${n}`, c: code[0] as Color, t: code[1] as Kind };
   return { board, turn };
 }
 
-const ROOK: [number, number][] = [[1, 0], [-1, 0], [0, 1], [0, -1]];
-const BISH: [number, number][] = [[1, 1], [1, -1], [-1, 1], [-1, -1]];
+const ROOK: [number, number][] = [
+  [1, 0],
+  [-1, 0],
+  [0, 1],
+  [0, -1],
+];
+const BISH: [number, number][] = [
+  [1, 1],
+  [1, -1],
+  [-1, 1],
+  [-1, -1],
+];
 const DIRS: Record<Exclude<Kind, "p">, [number, number][]> = {
-  r: ROOK, b: BISH, q: [...ROOK, ...BISH], k: [...ROOK, ...BISH],
-  n: [[1, 2], [2, 1], [-1, 2], [-2, 1], [1, -2], [2, -1], [-1, -2], [-2, -1]],
+  r: ROOK,
+  b: BISH,
+  q: [...ROOK, ...BISH],
+  k: [...ROOK, ...BISH],
+  n: [
+    [1, 2],
+    [2, 1],
+    [-1, 2],
+    [-2, 1],
+    [1, -2],
+    [2, -1],
+    [-1, -2],
+    [-2, -1],
+  ],
 };
 
 function pseudo(board: Board, from: number): number[] {
   const p = board[from];
   if (!p) return [];
-  const f = fileOf(from), r = rankOf(from), out: number[] = [];
+  const f = fileOf(from),
+    r = rankOf(from),
+    out: number[] = [];
   const inside = (x: number, y: number) => x >= 0 && x < 8 && y >= 0 && y < 8;
   if (p.t === "p") {
-    const d = p.c === "w" ? -1 : 1, start = p.c === "w" ? 6 : 1;
+    const d = p.c === "w" ? -1 : 1,
+      start = p.c === "w" ? 6 : 1;
     if (inside(f, r + d) && !board[sq(f, r + d)]) {
       out.push(sq(f, r + d));
       if (r === start && !board[sq(f, r + 2 * d)]) out.push(sq(f, r + 2 * d));
@@ -57,21 +83,29 @@ function pseudo(board: Board, from: number): number[] {
   }
   const slide = p.t === "r" || p.t === "b" || p.t === "q";
   for (const [dx, dy] of DIRS[p.t]) {
-    let x = f + dx, y = r + dy;
+    let x = f + dx,
+      y = r + dy;
     while (inside(x, y)) {
       const t = board[sq(x, y)];
       if (!t || t.c !== p.c) out.push(sq(x, y));
       if (t || !slide) break;
-      x += dx; y += dy;
+      x += dx;
+      y += dy;
     }
   }
   return out;
 }
 
 export function isAttacked(board: Board, target: number, by: Color) {
-  return board.some((p, i) => p && p.c === by && (p.t === "p"
-    ? Math.abs(fileOf(i) - fileOf(target)) === 1 && rankOf(target) - rankOf(i) === (by === "w" ? -1 : 1)
-    : pseudo(board, i).includes(target)));
+  return board.some(
+    (p, i) =>
+      p &&
+      p.c === by &&
+      (p.t === "p"
+        ? Math.abs(fileOf(i) - fileOf(target)) === 1 &&
+          rankOf(target) - rankOf(i) === (by === "w" ? -1 : 1)
+        : pseudo(board, i).includes(target)),
+  );
 }
 
 export function inCheck(board: Board, c: Color) {

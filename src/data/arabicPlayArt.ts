@@ -111,10 +111,14 @@ export const LETTER_CARDS: LetterCard[] = [
 
 /* ---------------- Harakat Slot Machine words ---------------- */
 
-
 /** One reel per letter: the letter with its haraka, in reading order. */
 export type SlotWord = PicWord & { reels: [string, string, string] };
-export type SlotLevel = { id: string; title: { ar: string; en: string }; hint: { ar: string; en: string }; words: SlotWord[] };
+export type SlotLevel = {
+  id: string;
+  title: { ar: string; en: string };
+  hint: { ar: string; en: string };
+  words: SlotWord[];
+};
 
 const pic = (id: string) => [...VERB_PICS, ...NOUN_PICS].find((p) => p.id === id)!;
 const w = (id: string, reels: [string, string, string]): SlotWord => ({ ...pic(id), reels });

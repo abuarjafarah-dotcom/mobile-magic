@@ -14,7 +14,12 @@ const SMALL_ALIF = "ٰ";
 const SMALL_WAW = "ۥ";
 const SMALL_YA = "ۦ";
 
-const item = (glyph: string, id: string, en: string, alternates: NooraniItem[] = []): NooraniItem => ({
+const item = (
+  glyph: string,
+  id: string,
+  en: string,
+  alternates: NooraniItem[] = [],
+): NooraniItem => ({
   id,
   glyph,
   say: glyph,
@@ -93,7 +98,10 @@ const session = (rounds: number): ActivitySpec[] => [
 
 const skill = (id: string, items: NooraniItem[], en: string, rounds: number): NooraniSkill => ({
   id,
-  ar: items.slice(0, 3).map((i) => i.glyph).join(" "),
+  ar: items
+    .slice(0, 3)
+    .map((i) => i.glyph)
+    .join(" "),
   en,
   itemIds: items.map((i) => i.id),
   activities: session(rounds),
