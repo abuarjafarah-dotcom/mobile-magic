@@ -60,11 +60,21 @@ import { juz25Surahs } from "@/data/surahsJuz25";
 import { juz26Surahs } from "@/data/surahsJuz26";
 const juz28Surahs = [...juz28Base, ...juz28MoreSurahs];
 import { juz22Surahs } from "@/data/surahsJuz22";
-import { juz15Surahs } from "@/data/surahsJuz15";
+import { juz15Surahs as juz15Base } from "@/data/surahsJuz15";
+import { juz15MoreSurahs } from "@/data/surahsJuz15b";
+import { juz14Surahs } from "@/data/surahsJuz14";
+import { juz13Surahs } from "@/data/surahsJuz13";
+import { juz12Surahs } from "@/data/surahsJuz12";
+import { juz11Surahs } from "@/data/surahsJuz11";
+import { juz10Surahs } from "@/data/surahsJuz10";
+import { juz9Surahs } from "@/data/surahsJuz9";
+import { juz8Surahs } from "@/data/surahsJuz8";
+// Juz 15 = Al-Isra (15b) followed by Al-Kahf, as one list.
+const juz15Surahs = [...juz15MoreSurahs, ...juz15Base];
 import { juz3Surahs } from "@/data/surahsJuz3";
 import { juz1Surahs } from "@/data/surahsJuz1";
 
-const allSurahs: readonly SurahData[] = [...surahs, ...juz29Surahs, ...juz28Surahs, ...juz27Surahs, ...juz26Surahs, ...juz25Surahs, ...juz24Surahs, ...juz23Surahs, ...juz22Surahs, ...juz21Surahs, ...juz15Surahs, ...juz3Surahs, ...juz1Surahs];
+const allSurahs: readonly SurahData[] = [...surahs, ...juz29Surahs, ...juz28Surahs, ...juz27Surahs, ...juz26Surahs, ...juz25Surahs, ...juz24Surahs, ...juz23Surahs, ...juz22Surahs, ...juz21Surahs, ...juz15Surahs, ...juz14Surahs, ...juz13Surahs, ...juz12Surahs, ...juz11Surahs, ...juz10Surahs, ...juz9Surahs, ...juz8Surahs, ...juz3Surahs, ...juz1Surahs];
 import { units, allLessons, type Lesson } from "@/data/arabicCurriculum";
 import { FinishAyah } from "@/components/quran/FinishAyah";
 import { LibraryWorld } from "@/components/library/LibraryWorld";
@@ -599,8 +609,8 @@ function HomeScreen({ onStartQuest, onStartBeads, onStartGolden, onBack, stats, 
 }
 
 function QuranPicker({ learning, onStartSurah, onStartAyah, onStartMemorize }: { learning: LearningProgress; onStartSurah: (s: SurahData) => void; onStartAyah: (s: SurahData) => void; onStartMemorize?: ((s: SurahData) => void) | undefined }) {
-  const [juz, setJuz] = useState<1 | 3 | 15 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30>(30);
-  const list = juz === 30 ? surahs : juz === 29 ? juz29Surahs : juz === 28 ? juz28Surahs : juz === 27 ? juz27Surahs : juz === 26 ? juz26Surahs : juz === 25 ? juz25Surahs : juz === 24 ? juz24Surahs : juz === 23 ? juz23Surahs : juz === 22 ? juz22Surahs : juz === 21 ? juz21Surahs : juz === 15 ? juz15Surahs : juz === 3 ? juz3Surahs : juz1Surahs;
+  const [juz, setJuz] = useState<1 | 3 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30>(30);
+  const list = juz === 30 ? surahs : juz === 29 ? juz29Surahs : juz === 28 ? juz28Surahs : juz === 27 ? juz27Surahs : juz === 26 ? juz26Surahs : juz === 25 ? juz25Surahs : juz === 24 ? juz24Surahs : juz === 23 ? juz23Surahs : juz === 22 ? juz22Surahs : juz === 21 ? juz21Surahs : juz === 15 ? juz15Surahs : juz === 14 ? juz14Surahs : juz === 13 ? juz13Surahs : juz === 12 ? juz12Surahs : juz === 11 ? juz11Surahs : juz === 10 ? juz10Surahs : juz === 9 ? juz9Surahs : juz === 8 ? juz8Surahs : juz === 3 ? juz3Surahs : juz1Surahs;
   const tabs = [
     { id: 30 as const, label: "Juz 30", ar: "جزء عمّ" },
     { id: 29 as const, label: "Juz 29", ar: "جزء تبارك" },
@@ -612,7 +622,14 @@ function QuranPicker({ learning, onStartSurah, onStartAyah, onStartMemorize }: {
     { id: 23 as const, label: "Juz 23", ar: "الجزء ٢٣" },
     { id: 22 as const, label: "Juz 22", ar: "يس" },
     { id: 21 as const, label: "Juz 21", ar: "اتل ما أوحي" },
-    { id: 15 as const, label: "Juz 15", ar: "الكهف" },
+    { id: 15 as const, label: "Juz 15", ar: "الإسراء · الكهف" },
+    { id: 14 as const, label: "Juz 14", ar: "الحجر · النحل" },
+    { id: 13 as const, label: "Juz 13", ar: "الرعد · إبراهيم" },
+    { id: 12 as const, label: "Juz 12", ar: "يوسف" },
+    { id: 11 as const, label: "Juz 11", ar: "يونس · هود" },
+    { id: 10 as const, label: "Juz 10", ar: "التوبة" },
+    { id: 9 as const, label: "Juz 9", ar: "الأنفال" },
+    { id: 8 as const, label: "Juz 8", ar: "الأعراف" },
     { id: 3 as const, label: "Juz 3", ar: "آل عمران" },
     { id: 1 as const, label: "Juz 1–2", ar: "البقرة" },
   ];

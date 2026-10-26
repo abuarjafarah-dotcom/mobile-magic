@@ -7,6 +7,12 @@ import { juz23Surahs } from "@/data/surahsJuz23";
 import { juz24Surahs } from "@/data/surahsJuz24";
 import { juz25Surahs } from "@/data/surahsJuz25";
 import { juz26Surahs } from "@/data/surahsJuz26";
+import { juz8Surahs } from "@/data/surahsJuz8";
+import { juz12Surahs } from "@/data/surahsJuz12";
+import { juz13Surahs } from "@/data/surahsJuz13";
+import { juz14Surahs } from "@/data/surahsJuz14";
+import { juz15Surahs } from "@/data/surahsJuz15";
+import { juz15MoreSurahs } from "@/data/surahsJuz15b";
 import { automaticMemorization } from "@/lib/quranMemorization";
 import { cn } from "@/lib/utils";
 import { Block } from "@/components/building/BuildingWorld";
@@ -38,9 +44,9 @@ export const MEMORIZE: Record<string, MemorizeSetup> = {
   },
 };
 
-/** Juz 23–26 and Juz 30 share the existing automatic small-group game.
+/** Juz 8, 12–15, 23–26 and Juz 30 share the existing automatic small-group game.
  *  Al-Bayyinah keeps its own memorize setup (SurahMemorize, routed in index.tsx), so it is skipped here. */
-for (const s of [...juz30, ...juz23Surahs, ...juz24Surahs, ...juz25Surahs, ...juz26Surahs]) {
+for (const s of [...juz30, ...juz23Surahs, ...juz24Surahs, ...juz25Surahs, ...juz26Surahs, ...juz8Surahs, ...juz12Surahs, ...juz13Surahs, ...juz14Surahs, ...juz15MoreSurahs, ...juz15Surahs]) {
   if (MEMORIZE[s.id] || s.id === "bayyinah") continue;
   MEMORIZE[s.id] = automaticMemorization(s);
 }
