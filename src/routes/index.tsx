@@ -534,7 +534,7 @@ function MathAdventure() {
       {screen === "neighborhood" && (
         <NeighborhoodEntry
           onExit={() => setScreen("picker")}
-          onOpen={(id) => setScreen(id as Screen)}
+          onOpen={(id) => (id === "quran" ? openCategory("surah") : setScreen(id as Screen))}
         />
       )}
       {screen === "ws" && (
@@ -663,6 +663,20 @@ function MathAdventure() {
           sound={sound}
           onExit={goHome}
         />
+      )}
+      {screen === "geo" && !geoLesson && (
+        <section className="mx-auto flex w-full max-w-lg flex-col px-4 pt-4">
+          <button
+            type="button"
+            onClick={goHome}
+            className="mb-3 inline-flex min-h-12 items-center self-start rounded-2xl bg-card px-4 font-black shadow active:scale-95"
+          >
+            Back
+          </button>
+          <Suspense fallback={null}>
+            <GeoHome progress={learning} onProgress={updateLearning} onStart={setGeoLesson} />
+          </Suspense>
+        </section>
       )}
       {screen === "geo" && geoLesson && (
         <Suspense fallback={null}>

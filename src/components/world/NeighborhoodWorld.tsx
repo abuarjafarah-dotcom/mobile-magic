@@ -29,12 +29,10 @@ import iconBook from "@/assets/world/icons/book-open.webp";
 import iconBasket from "@/assets/world/icons/basket.webp";
 import iconFlask from "@/assets/world/icons/flask.webp";
 import iconFlower from "@/assets/world/icons/flower.webp";
-import tetaIdle from "@/assets/kitchen/cast/teta-idle.png";
 import {
   ENTER_RADIUS_PX,
   MAP_PX,
   TARGET_INFO,
-  TETA_POSITION,
   WORLD_BOUNDS,
   WORLD_DESTINATIONS,
   WORLD_OBSTACLES,
@@ -420,21 +418,6 @@ function WorldStage({
               />
             );
           })}
-
-          {/* Teta at her front door, inside the family home */}
-          <img
-            src={tetaIdle}
-            alt="Teta"
-            draggable={false}
-            className="pointer-events-none absolute"
-            style={{
-              left: `${TETA_POSITION.x * 100}%`,
-              top: `${TETA_POSITION.y * 100}%`,
-              height: sceneH * 0.2,
-              width: "auto",
-              transform: "translate(-50%, -100%)",
-            }}
-          />
 
           {(() => {
             const frames = FRAMES[character][player.pose];

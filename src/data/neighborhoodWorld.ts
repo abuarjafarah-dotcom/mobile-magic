@@ -8,35 +8,58 @@ export type Point = { x: number; y: number };
 export type Rect = { x1: number; y1: number; x2: number; y2: number };
 
 // Existing screens a destination can open. These must match the `Screen`
-// union in src/routes/index.tsx.
+// union in src/routes/index.tsx; "quran" opens the Qur'an picker.
 export type WorldTarget =
-  "ws" | "iq" | "noorani" | "g1" | "chess" | "kitchen" | "build" | "seek" | "play" | "hbl" | "sci";
+  | "kitchen"
+  | "build"
+  | "ws"
+  | "iq"
+  | "ie"
+  | "quran"
+  | "noorani"
+  | "beads"
+  | "golden"
+  | "lw"
+  | "seek"
+  | "play"
+  | "g1"
+  | "quest"
+  | "bowling"
+  | "geo"
+  | "chess"
+  | "hbl"
+  | "sci";
 
 // Label and emoji for each target, shown on the enter buttons.
 export const TARGET_INFO: Record<WorldTarget, { label: string; icon: string }> = {
+  kitchen: { label: "Palestinian Kitchen", icon: "🍲" },
+  build: { label: "Building World", icon: "🧱" },
   ws: { label: "Wudu & Salah", icon: "🤲" },
   iq: { label: "Interactive Qur’an", icon: "📖" },
+  ie: { label: "More to Explore", icon: "🕌" },
+  quran: { label: "Surahs & Finish the Ayah", icon: "📗" },
   noorani: { label: "Noorani Qaida", icon: "🌳" },
-  g1: { label: "Grade 1 Math", icon: "🔢" },
-  chess: { label: "Chess", icon: "♟️" },
-  kitchen: { label: "Teta’s Kitchen", icon: "🍲" },
-  build: { label: "Building World", icon: "🧱" },
+  beads: { label: "Bead Garden", icon: "🌼" },
+  golden: { label: "Golden Bead Workshop", icon: "🟡" },
+  lw: { label: "Arabic Learning World", icon: "🔤" },
   seek: { label: "Seek & Find", icon: "🔎" },
-  play: { label: "Harakat & Tracing", icon: "🎰" },
+  play: { label: "Harakat Slot Machine", icon: "🎰" },
+  g1: { label: "Grade 1 Math", icon: "🔢" },
+  quest: { label: "Math Quest", icon: "🌟" },
+  bowling: { label: "Math Bowling", icon: "🎳" },
+  geo: { label: "Geography", icon: "🌍" },
+  chess: { label: "Chess", icon: "♟️" },
   hbl: { label: "Human Biology Lab", icon: "🫀" },
   sci: { label: "Science World", icon: "🔬" },
 };
-
-// Teta stands on the porch of the family home. Feet position, map fraction.
-export const TETA_POSITION: Point = { x: 0.2, y: 0.47 };
 
 export type WorldDestination = {
   id: "home" | "masjid" | "garden" | "market" | "school" | "lab";
   name: string;
   arabic: string;
-  // Spot the character stands on to enter.
+  // Spot in front of the door where the character stands to enter.
   at: Point;
-  // Where the destination's pulse ring sits.
+  // Where the destination's pulse ring sits (on the building's door).
   hotspot: Point;
   // Existing games to offer here. Empty = in-world preview (no game yet).
   targets: readonly WorldTarget[];
@@ -46,21 +69,21 @@ export type WorldDestination = {
 export const WORLD_DESTINATIONS: readonly WorldDestination[] = [
   {
     id: "home",
-    name: "Home",
+    name: "Family Home",
     arabic: "البيت",
-    at: { x: 0.2, y: 0.5 },
-    hotspot: { x: 0.14, y: 0.36 },
+    at: { x: 0.19, y: 0.5 },
+    hotspot: { x: 0.19, y: 0.45 },
     targets: ["kitchen", "build"],
-    blurb: "Our family home, where Teta cooks and we build together.",
+    blurb: "Teta’s kitchen and Building World, right here at home.",
   },
   {
     id: "masjid",
     name: "Masjid",
     arabic: "المسجد",
-    at: { x: 0.43, y: 0.52 },
-    hotspot: { x: 0.41, y: 0.34 },
-    targets: ["ws", "iq"],
-    blurb: "Wudu & Salah and the Qur’an: learn how to get ready for prayer.",
+    at: { x: 0.43, y: 0.5 },
+    hotspot: { x: 0.43, y: 0.42 },
+    targets: ["ws", "iq", "quran", "noorani", "ie"],
+    blurb: "Prayer, the Qur’an and Islamic learning.",
   },
   {
     id: "garden",
@@ -68,45 +91,45 @@ export const WORLD_DESTINATIONS: readonly WorldDestination[] = [
     arabic: "الحديقة",
     at: { x: 0.3, y: 0.8 },
     hotspot: { x: 0.27, y: 0.7 },
-    targets: ["noorani"],
-    blurb: "Noorani Qaida: letters grow here, one step at a time.",
+    targets: ["beads", "golden"],
+    blurb: "Beads and place value, growing one step at a time.",
+  },
+  {
+    id: "market",
+    name: "Market",
+    arabic: "السوق",
+    at: { x: 0.8, y: 0.49 },
+    hotspot: { x: 0.8, y: 0.36 },
+    targets: ["lw", "seek", "play"],
+    blurb: "Arabic words, shopping and letters.",
   },
   {
     id: "school",
     name: "School",
     arabic: "المدرسة",
     at: { x: 0.63, y: 0.42 },
-    hotspot: { x: 0.61, y: 0.27 },
-    targets: ["g1", "chess"],
-    blurb: "Grade 1 Math and Chess: numbers, counting and strategy.",
-  },
-  {
-    id: "market",
-    name: "Market",
-    arabic: "السوق",
-    at: { x: 0.8, y: 0.52 },
-    hotspot: { x: 0.81, y: 0.37 },
-    targets: ["seek", "play"],
-    blurb: "Seek & Find and Harakat: words and shopping.",
+    hotspot: { x: 0.63, y: 0.33 },
+    targets: ["g1", "quest", "bowling", "geo", "chess"],
+    blurb: "Math, geography and strategy.",
   },
   {
     id: "lab",
     name: "Discovery Lab",
     arabic: "مختبر الاكتشاف",
-    at: { x: 0.85, y: 0.84 },
-    hotspot: { x: 0.9, y: 0.66 },
-    targets: ["sci", "hbl"],
-    blurb: "Science World and Human Biology: test, discover and wonder.",
+    at: { x: 0.84, y: 0.81 },
+    hotspot: { x: 0.85, y: 0.72 },
+    targets: ["hbl", "sci"],
+    blurb: "How our bodies and the world work.",
   },
 ];
 
-// Solid obstacles the character cannot walk through (building footprints,
-// tree-and-bed garden, pond, and the Discovery Lab dome).
+// Solid obstacles the character cannot walk through. Each building's
+// footprint stops at its doorway so the spot in front stays reachable.
 export const WORLD_OBSTACLES: readonly Rect[] = [
-  { x1: 0.03, y1: 0.18, x2: 0.24, y2: 0.47 }, // Home
-  { x1: 0.29, y1: 0.15, x2: 0.52, y2: 0.49 }, // Masjid
-  { x1: 0.52, y1: 0.14, x2: 0.7, y2: 0.38 }, // School
-  { x1: 0.7, y1: 0.27, x2: 0.92, y2: 0.47 }, // Market stalls
+  { x1: 0.03, y1: 0.18, x2: 0.24, y2: 0.47 }, // Family home
+  { x1: 0.29, y1: 0.15, x2: 0.52, y2: 0.46 }, // Masjid
+  { x1: 0.52, y1: 0.14, x2: 0.7, y2: 0.36 }, // School
+  { x1: 0.7, y1: 0.27, x2: 0.92, y2: 0.45 }, // Market stalls
   { x1: 0.82, y1: 0.48, x2: 1.0, y2: 0.78 }, // Discovery Lab dome
   { x1: 0.0, y1: 0.55, x2: 0.46, y2: 0.74 }, // Garden trees and beds
   { x1: 0.07, y1: 0.84, x2: 0.24, y2: 0.97 }, // Pond
