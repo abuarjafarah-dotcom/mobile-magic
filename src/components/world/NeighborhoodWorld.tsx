@@ -33,6 +33,8 @@ import tetaIdle from "@/assets/kitchen/cast/teta-idle.png";
 import {
   ENTER_RADIUS_PX,
   MAP_PX,
+  TARGET_INFO,
+  TETA_POSITION,
   WORLD_BOUNDS,
   WORLD_DESTINATIONS,
   WORLD_OBSTACLES,
@@ -292,17 +294,18 @@ function WorldStage({
     if (timerRef.current !== null) window.clearTimeout(timerRef.current);
   }, []);
 
-  const enter = (d: WorldDestination) => {
+  // Opens one of the destination's games. With no game yet it shows the preview card.
+  const enter = (d: WorldDestination, target?: WorldTarget) => {
     if (lockRef.current) return;
     lockRef.current = true;
     dirsRef.current.clear();
-    if (d.target === null) {
+    if (d.targets.length === 0) {
       setPreview(d);
       return;
     }
+    const chosen = target ?? d.targets[0];
     setLeaving(d);
-    const target = d.target;
-    timerRef.current = window.setTimeout(() => onEnterGame(target), reduced ? 0 : 400);
+    timerRef.current = window.setTimeout(() => onEnterGame(chosen), reduced ? 0 : 400);
   };
   enterRef.current = enter;
 
@@ -377,6 +380,21 @@ function WorldStage({
             );
           })}
 
+          {/* Teta at her front door, inside the family home */}
+          <img
+            src={tetaIdle}
+            alt="Teta"
+            draggable={false}
+            className="pointer-events-none absolute"
+            style={{
+              left: `${TETA_POSITION.x * 100}%`,
+              top: `${TETA_POSITION.y * 100}%`,
+              height: sceneH * 0.2,
+              width: "auto",
+              transform: "translate(-50%, -100%)",
+            }}
+          />
+
           {(() => {
             const frames = FRAMES[character][player.pose];
             const src = frames[player.frame % frames.length];
@@ -402,17 +420,27 @@ function WorldStage({
         </div>
 
         {nearby && !preview && !leaving && (
-          <button
-            type="button"
-            onClick={() => enter(nearby)}
-            className="absolute bottom-3 left-1/2 flex min-h-14 -translate-x-1/2 flex-col items-center justify-center rounded-2xl bg-white/95 px-6 py-2 text-center font-black shadow-lg active:scale-95"
+          <div
+            className="absolute bottom-3 left-1/2 flex w-[92%] -translate-x-1/2 flex-col items-center gap-2"
             style={{ animation: reduced ? undefined : "nw-pop 0.25s ease-out" }}
           >
-            <img src={nearby.target === "kitchen" ? tetaIdle : DEST_ART[nearby.id].icon} alt="" className="h-12 w-12 object-contain" draggable={false} />
-            <span className="text-lg">{nearby.name}</span>
-            <span lang="ar" className="font-arabic text-sm">{nearby.arabic}</span>
-            <span className="text-xs font-bold text-muted-foreground">Tap to enter</span>
-          </button>
+            <p className="rounded-full bg-white/95 px-4 py-1 text-sm font-black shadow">
+              {nearby.name} · <span lang="ar" className="font-arabic">{nearby.arabic}</span>
+            </p>
+            <div className="flex flex-wrap justify-center gap-2">
+              {nearby.targets.map((t) => (
+                <button
+                  key={t}
+                  type="button"
+                  onClick={() => enter(nearby, t)}
+                  className="flex min-h-12 items-center gap-2 rounded-2xl bg-white/95 px-4 font-black shadow-lg active:scale-95"
+                >
+                  <span aria-hidden="true" className="text-xl leading-none">{TARGET_INFO[t].icon}</span>
+                  {TARGET_INFO[t].label}
+                </button>
+              ))}
+            </div>
+          </div>
         )}
 
         {preview && (

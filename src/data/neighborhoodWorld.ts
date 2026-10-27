@@ -9,7 +9,26 @@ export type Rect = { x1: number; y1: number; x2: number; y2: number };
 
 // Existing screens a destination can open. These must match the `Screen`
 // union in src/routes/index.tsx.
-export type WorldTarget = "ws" | "g1" | "kitchen" | "noorani" | "sci" | "build";
+export type WorldTarget =
+  | "ws" | "iq" | "noorani" | "g1" | "chess" | "kitchen" | "build" | "seek" | "play" | "hbl" | "sci";
+
+// Label and emoji for each target, shown on the enter buttons.
+export const TARGET_INFO: Record<WorldTarget, { label: string; icon: string }> = {
+  ws: { label: "Wudu & Salah", icon: "🤲" },
+  iq: { label: "Interactive Qur’an", icon: "📖" },
+  noorani: { label: "Noorani Qaida", icon: "🌳" },
+  g1: { label: "Grade 1 Math", icon: "🔢" },
+  chess: { label: "Chess", icon: "♟️" },
+  kitchen: { label: "Teta’s Kitchen", icon: "🍲" },
+  build: { label: "Building World", icon: "🧱" },
+  seek: { label: "Seek & Find", icon: "🔎" },
+  play: { label: "Harakat & Tracing", icon: "🎰" },
+  hbl: { label: "Human Biology Lab", icon: "🫀" },
+  sci: { label: "Science World", icon: "🔬" },
+};
+
+// Teta stands on the porch of the family home. Feet position, map fraction.
+export const TETA_POSITION: Point = { x: 0.2, y: 0.47 };
 
 export type WorldDestination = {
   id: "home" | "masjid" | "garden" | "market" | "school" | "lab";
@@ -19,8 +38,8 @@ export type WorldDestination = {
   at: Point;
   // Where the destination's pulse ring sits.
   hotspot: Point;
-  // Existing game to open. `null` = in-world preview (no game yet).
-  target: WorldTarget | null;
+  // Existing games to offer here. Empty = in-world preview (no game yet).
+  targets: readonly WorldTarget[];
   blurb: string;
 };
 
@@ -31,8 +50,8 @@ export const WORLD_DESTINATIONS: readonly WorldDestination[] = [
     arabic: "البيت",
     at: { x: 0.2, y: 0.5 },
     hotspot: { x: 0.14, y: 0.36 },
-    target: "build",
-    blurb: "Building World: build it together with Hamad and Talal.",
+    targets: ["kitchen", "build"],
+    blurb: "Our family home, where Teta cooks and we build together.",
   },
   {
     id: "masjid",
@@ -40,8 +59,8 @@ export const WORLD_DESTINATIONS: readonly WorldDestination[] = [
     arabic: "المسجد",
     at: { x: 0.43, y: 0.52 },
     hotspot: { x: 0.41, y: 0.34 },
-    target: "ws",
-    blurb: "Wudu & Salah: learn how to get ready for prayer.",
+    targets: ["ws", "iq"],
+    blurb: "Wudu & Salah and the Qur’an: learn how to get ready for prayer.",
   },
   {
     id: "garden",
@@ -49,7 +68,7 @@ export const WORLD_DESTINATIONS: readonly WorldDestination[] = [
     arabic: "الحديقة",
     at: { x: 0.3, y: 0.8 },
     hotspot: { x: 0.27, y: 0.7 },
-    target: "noorani",
+    targets: ["noorani"],
     blurb: "Noorani Qaida: letters grow here, one step at a time.",
   },
   {
@@ -58,8 +77,8 @@ export const WORLD_DESTINATIONS: readonly WorldDestination[] = [
     arabic: "المدرسة",
     at: { x: 0.63, y: 0.42 },
     hotspot: { x: 0.61, y: 0.27 },
-    target: "g1",
-    blurb: "Grade 1 Math: numbers and counting.",
+    targets: ["g1", "chess"],
+    blurb: "Grade 1 Math and Chess: numbers, counting and strategy.",
   },
   {
     id: "market",
@@ -67,8 +86,8 @@ export const WORLD_DESTINATIONS: readonly WorldDestination[] = [
     arabic: "السوق",
     at: { x: 0.8, y: 0.52 },
     hotspot: { x: 0.81, y: 0.37 },
-    target: "kitchen",
-    blurb: "Teta’s kitchen: cook and taste together with Teta.",
+    targets: ["seek", "play"],
+    blurb: "Seek & Find and Harakat: words and shopping.",
   },
   {
     id: "lab",
@@ -76,8 +95,8 @@ export const WORLD_DESTINATIONS: readonly WorldDestination[] = [
     arabic: "مختبر الاكتشاف",
     at: { x: 0.85, y: 0.84 },
     hotspot: { x: 0.9, y: 0.66 },
-    target: "sci",
-    blurb: "Science World: test, discover and wonder.",
+    targets: ["sci", "hbl"],
+    blurb: "Science World and Human Biology: test, discover and wonder.",
   },
 ];
 
