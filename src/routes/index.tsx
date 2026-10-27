@@ -137,7 +137,7 @@ const allSurahs: readonly SurahData[] = [
 import { units, allLessons, type Lesson } from "@/data/arabicCurriculum";
 import { FinishAyah } from "@/components/quran/FinishAyah";
 import { LibraryWorld } from "@/components/library/LibraryWorld";
-import { NeighborhoodWorld } from "@/components/neighborhood/NeighborhoodWorld";
+import { NeighborhoodEntry } from "@/components/neighborhood/NeighborhoodEntry";
 import { AlaqMemorize, MEMORIZE } from "@/components/quran/AlaqMemorize";
 import { SurahMemorize } from "@/components/quran/SurahMemorize";
 import type { MemoryGroup } from "@/components/quran/SurahMemorize";
@@ -163,6 +163,10 @@ import talalAsset from "@/assets/talal.jpg.asset.json";
 import yousefAsset from "@/assets/yousef.jpg.asset.json";
 import mosqueIcon from "@/assets/salah/mosque-icon.webp";
 import goldenBeadIcon from "@/assets/golden-workshop/unit-bead.webp";
+import hamadIdle from "@/assets/kitchen/cast/hamad-idle.png";
+import talalIdle from "@/assets/kitchen/cast/talal-idle.png";
+import yousefHappy from "@/assets/science/yousef-happy.png";
+import { FamilyStrip } from "@/components/family/FamilyStrip";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -226,20 +230,8 @@ type Problem = { first: number; second: number; answer: number };
 const STORAGE_KEY = "math-adventure-progress";
 const DEFAULT_STATS: Stats = { games: 0, correct: 0, stars: 0 };
 const QUESTIONS = 10;
-// Fallback SVG placeholders for character avatars (images not available in self-hosted version)
-const characterSvgs = {
-  hamad:
-    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23FFD966'/%3E%3Ccircle cx='50' cy='35' r='15' fill='%23F4A460'/%3E%3Crect x='35' y='50' width='30' height='25' fill='%234169E1'/%3E%3C/svg%3E",
-  talal:
-    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%2390EE90'/%3E%3Ccircle cx='50' cy='35' r='15' fill='%23DEB887'/%3E%3Crect x='35' y='50' width='30' height='25' fill='%23FF6347'/%3E%3C/svg%3E",
-  yousef:
-    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23FFB6C1'/%3E%3Ccircle cx='50' cy='35' r='12' fill='%23FDBCB4'/%3E%3Crect x='38' y='50' width='24' height='20' fill='%238A2BE2'/%3E%3C/svg%3E",
-};
-const characterImages = {
-  hamad: characterSvgs.hamad,
-  talal: characterSvgs.talal,
-  yousef: characterSvgs.yousef,
-};
+// Transparent cut-outs of the family (same art as the game cast). Replaces the earlier colored placeholders.
+const characterImages = { hamad: hamadIdle, talal: talalIdle, yousef: yousefHappy };
 
 const levels: Array<{
   id: Level;
@@ -368,7 +360,7 @@ function Character({
       src={characterImages[name]}
       alt={name.charAt(0).toUpperCase() + name.slice(1)}
       draggable={false}
-      className={`${size === "large" ? "h-24 w-24 rounded-2xl border-4 sm:h-28 sm:w-28" : "h-12 w-12 shrink-0 rounded-xl border-2"} border-card object-cover shadow-lg ${className}`}
+      className={`${size === "large" ? "h-24 w-24 rounded-2xl border-4 sm:h-28 sm:w-28" : "h-12 w-12 shrink-0 rounded-xl border-2"} border-card bg-card object-contain shadow-lg ${className}`}
     />
   );
 }
@@ -540,7 +532,7 @@ function MathAdventure() {
       )}
       {screen === "library" && <LibraryWorld onExit={() => setScreen("picker")} />}
       {screen === "neighborhood" && (
-        <NeighborhoodWorld
+        <NeighborhoodEntry
           onExit={() => setScreen("picker")}
           onOpen={(id) => setScreen(id as Screen)}
         />
@@ -977,6 +969,7 @@ function GamePicker({
           Learn with Hamad &amp; Talal
         </p>
         <h1 className="mt-1 text-3xl font-black leading-tight sm:text-5xl">Choose an adventure</h1>
+        <FamilyStrip className="mt-4" />
         {stats.stars > 0 && (
           <p className="mt-2 inline-flex items-center gap-1 text-sm font-black text-muted-foreground">
             <Star className="h-4 w-4 fill-primary text-primary" />
@@ -1821,7 +1814,7 @@ function MultiplicationQuestion({
             src={characterImages.hamad}
             alt="Hamad"
             draggable={false}
-            className="h-full w-full object-cover"
+            className="h-full w-full bg-card object-contain"
           />
           <Sparkles className="absolute right-1 top-1 h-5 w-5 fill-primary text-primary" />
         </GameButton>

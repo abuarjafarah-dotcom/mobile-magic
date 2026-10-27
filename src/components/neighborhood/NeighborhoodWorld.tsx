@@ -3,6 +3,7 @@ import { ArrowLeft, Lock, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { checkFamilyPassword, readFamilyUnlocked, writeFamilyUnlocked } from "@/lib/familyPassword";
+import { FamilyStrip } from "@/components/family/FamilyStrip";
 
 type Game = { screen: string; label: string; icon: string };
 type Location = { id: string; name: string; detail: string; tone: string; games: Game[] };
@@ -84,10 +85,16 @@ export function NeighborhoodWorld({
 
   if (!checked) return null;
   if (!unlocked) return <NeighborhoodGate onExit={onExit} onUnlocked={() => setUnlocked(true)} />;
-  return <Map onExit={onExit} onOpen={onOpen} />;
+  return <NeighborhoodList onExit={onExit} onOpen={onOpen} />;
 }
 
-function NeighborhoodGate({ onExit, onUnlocked }: { onExit: () => void; onUnlocked: () => void }) {
+export function NeighborhoodGate({
+  onExit,
+  onUnlocked,
+}: {
+  onExit: () => void;
+  onUnlocked: () => void;
+}) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -158,12 +165,19 @@ function NeighborhoodGate({ onExit, onUnlocked }: { onExit: () => void; onUnlock
   );
 }
 
-function Map({ onExit, onOpen }: { onExit: () => void; onOpen: (screen: string) => void }) {
+export function NeighborhoodList({
+  onExit,
+  onOpen,
+}: {
+  onExit: () => void;
+  onOpen: (screen: string) => void;
+}) {
   return (
     <section className="mx-auto flex min-h-dvh w-full max-w-lg flex-col px-4 pb-[max(2rem,env(safe-area-inset-bottom))] pt-[max(1rem,env(safe-area-inset-top))] sm:px-6 min-[960px]:max-w-6xl">
       <Header onExit={onExit} />
       <header className="mt-4 text-center">
-        <p className="text-sm font-black uppercase text-muted-foreground">Our world</p>
+        <FamilyStrip />
+        <p className="mt-3 text-sm font-black uppercase text-muted-foreground">Our world</p>
         <h1 className="mt-1 text-3xl font-black leading-tight sm:text-4xl">Neighborhood</h1>
       </header>
       <ul className="mt-6 grid grid-cols-1 gap-3 min-[600px]:grid-cols-2 min-[960px]:grid-cols-3 min-[960px]:gap-4">
@@ -175,7 +189,10 @@ function Map({ onExit, onOpen }: { onExit: () => void; onOpen: (screen: string) 
             </div>
             <p className="mt-1 text-sm font-bold text-muted-foreground">{loc.detail}</p>
             {loc.games.length === 0 ? (
-              <p className="mt-3 rounded-2xl border-2 border-dashed border-border p-3 text-center text-sm font-black text-muted-foreground">
+              <p className="mt-3 flex items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-border bg-card/60 p-3 text-sm font-black text-muted-foreground">
+                <span aria-hidden="true" className="text-2xl leading-none">
+                  🌱
+                </span>
                 Coming soon
               </p>
             ) : (
