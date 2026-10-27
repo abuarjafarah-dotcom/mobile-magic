@@ -73,8 +73,8 @@ export const WORLD_DESTINATIONS: readonly WorldDestination[] = [
     arabic: "البيت",
     at: { x: 0.19, y: 0.5 },
     hotspot: { x: 0.19, y: 0.45 },
-    targets: ["kitchen", "build"],
-    blurb: "Teta’s kitchen and Building World, right here at home.",
+    targets: ["kitchen", "build", "lw", "play"],
+    blurb: "Teta’s kitchen, Building World, Arabic and Harakat, all at home.",
   },
   {
     id: "masjid",
@@ -100,8 +100,8 @@ export const WORLD_DESTINATIONS: readonly WorldDestination[] = [
     arabic: "السوق",
     at: { x: 0.8, y: 0.49 },
     hotspot: { x: 0.8, y: 0.36 },
-    targets: ["lw", "seek", "play"],
-    blurb: "Arabic words, shopping and letters.",
+    targets: ["seek"],
+    blurb: "Seek & Find: look for the hidden words.",
   },
   {
     id: "school",
