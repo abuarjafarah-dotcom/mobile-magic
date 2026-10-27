@@ -14,4 +14,20 @@ import mouse from "@/assets/animals/mouse.jpg";
 import monkey from "@/assets/animals/monkey.jpg";
 import bear from "@/assets/animals/bear.jpg";
 
-export const animalImages: Record<string, string> = { cat, dog, lion, elephant, giraffe, horse, cow, sheep, rabbit, bird, fish, chicken, mouse, monkey, bear };
+export const animalImages: Record<string, string> = {
+  cat,
+  dog,
+  lion,
+  elephant,
+  giraffe,
+  horse,
+  cow,
+  sheep,
+  rabbit,
+  bird,
+  fish,
+  chicken,
+  mouse,
+  monkey,
+  bear,
+};

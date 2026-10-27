@@ -129,7 +129,10 @@ export function NooraniWorld({ onExit }: { onExit: () => void }) {
         <div>
           {nooraniUnits.map((unit) => (
             <div key={unit.id} className="mt-8 first:mt-0">
-              <div className="flex flex-wrap items-baseline justify-between gap-x-2 gap-y-1" dir="rtl">
+              <div
+                className="flex flex-wrap items-baseline justify-between gap-x-2 gap-y-1"
+                dir="rtl"
+              >
                 <Ar className="text-2xl font-black leading-[1.7]">{unit.ar}</Ar>
                 <span className="text-xs font-bold text-muted-foreground">
                   Level {unit.level} · Qaida lesson {unit.source.lesson}

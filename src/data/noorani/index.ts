@@ -86,7 +86,13 @@ export const nooraniLevels: NooraniLevel[] = [
     lessons: [7],
     unitIds: ["u7-small"],
   },
-  { level: 8, ar: "حُرُوفُ الْمَدِّ وَاللِّين", en: "Madd & leen", lessons: [8, 9], unitIds: ["u8-madd"] },
+  {
+    level: 8,
+    ar: "حُرُوفُ الْمَدِّ وَاللِّين",
+    en: "Madd & leen",
+    lessons: [8, 9],
+    unitIds: ["u8-madd"],
+  },
   { level: 9, ar: "الشَّدَّة", en: "Shadda + drills", lessons: [12, 13], unitIds: ["u9-shadda"] },
   {
     level: 10,

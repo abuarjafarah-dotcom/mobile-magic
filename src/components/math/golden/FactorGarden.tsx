@@ -42,7 +42,11 @@ function FactorTree({ n }: { n: number }): ReactNode {
   if (!split)
     return (
       <span
-        className={color ? "inline-grid h-10 min-w-10 place-items-center rounded-full px-2 text-lg font-black shadow" : "inline-grid h-10 min-w-10 place-items-center rounded-full bg-emerald-600 px-2 text-lg font-black text-white shadow"}
+        className={
+          color
+            ? "inline-grid h-10 min-w-10 place-items-center rounded-full px-2 text-lg font-black shadow"
+            : "inline-grid h-10 min-w-10 place-items-center rounded-full bg-emerald-600 px-2 text-lg font-black text-white shadow"
+        }
         style={color ? { background: color.bg, color: color.text } : undefined}
       >
         {n}
@@ -51,7 +55,11 @@ function FactorTree({ n }: { n: number }): ReactNode {
   return (
     <span className="inline-grid justify-items-center gap-1">
       <span
-        className={color ? "inline-grid h-10 min-w-10 place-items-center rounded-xl px-2 text-lg font-black shadow" : "inline-grid h-10 min-w-10 place-items-center rounded-xl bg-amber-200 px-2 text-lg font-black shadow"}
+        className={
+          color
+            ? "inline-grid h-10 min-w-10 place-items-center rounded-xl px-2 text-lg font-black shadow"
+            : "inline-grid h-10 min-w-10 place-items-center rounded-xl bg-amber-200 px-2 text-lg font-black shadow"
+        }
         style={color ? { background: color.bg, color: color.text } : undefined}
       >
         {n}

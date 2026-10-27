@@ -2,8 +2,16 @@ import { arabicAudio } from "./arabicAudio";
 
 // Add or remove letters and words here — the Read Arabic game reads only from this data.
 export type ArabicLetter = { id: string; char: string; name: string; audio: string };
-export type ArabicSyllable = { id: string; base: string; text: string; vowel: "fatha" | "kasra" | "damma"; sound: string; audio: string };
-export type WordPicture = "door" | "house" | "pencil" | "boy" | "girl" | "hand" | "father" | "mother";
+export type ArabicSyllable = {
+  id: string;
+  base: string;
+  text: string;
+  vowel: "fatha" | "kasra" | "damma";
+  sound: string;
+  audio: string;
+};
+export type WordPicture =
+  "door" | "house" | "pencil" | "boy" | "girl" | "hand" | "father" | "mother";
 export type ArabicWord = {
   id: string;
   arabic: string; // with harakat
@@ -41,14 +49,94 @@ export const arabicSyllables: ArabicSyllable[] = [
 ];
 
 export const arabicWords: ArabicWord[] = [
-  { id: "bab", arabic: "بَاب", plain: "باب", letters: ["ب", "ا", "ب"], transliteration: "baab", meaning: "door", picture: "door", difficulty: 1, audio: clip("w-bab") },
-  { id: "yad", arabic: "يَد", plain: "يد", letters: ["ي", "د"], transliteration: "yad", meaning: "hand", picture: "hand", difficulty: 1, audio: clip("w-yad") },
-  { id: "ab", arabic: "أَب", plain: "أب", letters: ["أ", "ب"], transliteration: "ab", meaning: "father", picture: "father", difficulty: 1, audio: clip("w-ab") },
-  { id: "umm", arabic: "أُمّ", plain: "أم", letters: ["أ", "م"], transliteration: "umm", meaning: "mother", picture: "mother", difficulty: 1, audio: clip("w-umm") },
-  { id: "bayt", arabic: "بَيْت", plain: "بيت", letters: ["ب", "ي", "ت"], transliteration: "bayt", meaning: "house", picture: "house", difficulty: 2, audio: clip("w-bayt") },
-  { id: "qalam", arabic: "قَلَم", plain: "قلم", letters: ["ق", "ل", "م"], transliteration: "qalam", meaning: "pencil", picture: "pencil", difficulty: 2, audio: clip("w-qalam") },
-  { id: "walad", arabic: "وَلَد", plain: "ولد", letters: ["و", "ل", "د"], transliteration: "walad", meaning: "boy", picture: "boy", difficulty: 2, audio: clip("w-walad") },
-  { id: "bint", arabic: "بِنْت", plain: "بنت", letters: ["ب", "ن", "ت"], transliteration: "bint", meaning: "girl", picture: "girl", difficulty: 3, audio: clip("w-bint") },
+  {
+    id: "bab",
+    arabic: "بَاب",
+    plain: "باب",
+    letters: ["ب", "ا", "ب"],
+    transliteration: "baab",
+    meaning: "door",
+    picture: "door",
+    difficulty: 1,
+    audio: clip("w-bab"),
+  },
+  {
+    id: "yad",
+    arabic: "يَد",
+    plain: "يد",
+    letters: ["ي", "د"],
+    transliteration: "yad",
+    meaning: "hand",
+    picture: "hand",
+    difficulty: 1,
+    audio: clip("w-yad"),
+  },
+  {
+    id: "ab",
+    arabic: "أَب",
+    plain: "أب",
+    letters: ["أ", "ب"],
+    transliteration: "ab",
+    meaning: "father",
+    picture: "father",
+    difficulty: 1,
+    audio: clip("w-ab"),
+  },
+  {
+    id: "umm",
+    arabic: "أُمّ",
+    plain: "أم",
+    letters: ["أ", "م"],
+    transliteration: "umm",
+    meaning: "mother",
+    picture: "mother",
+    difficulty: 1,
+    audio: clip("w-umm"),
+  },
+  {
+    id: "bayt",
+    arabic: "بَيْت",
+    plain: "بيت",
+    letters: ["ب", "ي", "ت"],
+    transliteration: "bayt",
+    meaning: "house",
+    picture: "house",
+    difficulty: 2,
+    audio: clip("w-bayt"),
+  },
+  {
+    id: "qalam",
+    arabic: "قَلَم",
+    plain: "قلم",
+    letters: ["ق", "ل", "م"],
+    transliteration: "qalam",
+    meaning: "pencil",
+    picture: "pencil",
+    difficulty: 2,
+    audio: clip("w-qalam"),
+  },
+  {
+    id: "walad",
+    arabic: "وَلَد",
+    plain: "ولد",
+    letters: ["و", "ل", "د"],
+    transliteration: "walad",
+    meaning: "boy",
+    picture: "boy",
+    difficulty: 2,
+    audio: clip("w-walad"),
+  },
+  {
+    id: "bint",
+    arabic: "بِنْت",
+    plain: "بنت",
+    letters: ["ب", "ن", "ت"],
+    transliteration: "bint",
+    meaning: "girl",
+    picture: "girl",
+    difficulty: 3,
+    audio: clip("w-bint"),
+  },
 ];
 
 export const arabicStages = [

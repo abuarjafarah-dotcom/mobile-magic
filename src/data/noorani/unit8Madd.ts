@@ -64,7 +64,10 @@ const session = (rounds: number): ActivitySpec[] => [
 
 const skill = (id: string, items: NooraniItem[], en: string, rounds: number): NooraniSkill => ({
   id,
-  ar: items.slice(0, 3).map((i) => i.glyph).join(" "),
+  ar: items
+    .slice(0, 3)
+    .map((i) => i.glyph)
+    .join(" "),
   en,
   itemIds: items.map((i) => i.id),
   activities: session(rounds),

@@ -67,7 +67,13 @@ export const NEIGHBORHOOD_LOCATIONS: Location[] = [
   },
 ];
 
-export function NeighborhoodWorld({ onExit, onOpen }: { onExit: () => void; onOpen: (screen: string) => void }) {
+export function NeighborhoodWorld({
+  onExit,
+  onOpen,
+}: {
+  onExit: () => void;
+  onOpen: (screen: string) => void;
+}) {
   const [unlocked, setUnlocked] = useState(false);
   const [checked, setChecked] = useState(false);
 
@@ -107,17 +113,24 @@ function NeighborhoodGate({ onExit, onUnlocked }: { onExit: () => void; onUnlock
   return (
     <section className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-4 pb-[max(2rem,env(safe-area-inset-bottom))] pt-[max(1rem,env(safe-area-inset-top))] sm:px-6">
       <Header onExit={onExit} />
-      <form onSubmit={submit} className="mt-10 flex flex-col gap-4 rounded-3xl bg-card p-6 shadow-sm">
+      <form
+        onSubmit={submit}
+        className="mt-10 flex flex-col gap-4 rounded-3xl bg-card p-6 shadow-sm"
+      >
         <div className="flex items-center gap-3">
           <span className="grid h-12 w-12 place-items-center rounded-2xl bg-primary/15">
             <Lock className="h-6 w-6" />
           </span>
           <div>
             <h1 className="text-2xl font-black leading-tight">Neighborhood</h1>
-            <p className="text-sm font-bold text-muted-foreground">Enter the family password to open the neighborhood.</p>
+            <p className="text-sm font-bold text-muted-foreground">
+              Enter the family password to open the neighborhood.
+            </p>
           </div>
         </div>
-        <label htmlFor="neighborhood-password" className="text-sm font-black">Password</label>
+        <label htmlFor="neighborhood-password" className="text-sm font-black">
+          Password
+        </label>
         <Input
           id="neighborhood-password"
           type="password"
@@ -128,8 +141,16 @@ function NeighborhoodGate({ onExit, onUnlocked }: { onExit: () => void; onUnlock
             setError(null);
           }}
         />
-        {error && <p role="alert" className="text-sm font-bold text-destructive">{error}</p>}
-        <Button type="submit" disabled={!password || busy} className="h-12 rounded-2xl text-base font-black">
+        {error && (
+          <p role="alert" className="text-sm font-bold text-destructive">
+            {error}
+          </p>
+        )}
+        <Button
+          type="submit"
+          disabled={!password || busy}
+          className="h-12 rounded-2xl text-base font-black"
+        >
           Open neighborhood
         </Button>
       </form>
@@ -154,7 +175,9 @@ function Map({ onExit, onOpen }: { onExit: () => void; onOpen: (screen: string) 
             </div>
             <p className="mt-1 text-sm font-bold text-muted-foreground">{loc.detail}</p>
             {loc.games.length === 0 ? (
-              <p className="mt-3 rounded-2xl border-2 border-dashed border-border p-3 text-center text-sm font-black text-muted-foreground">Coming soon</p>
+              <p className="mt-3 rounded-2xl border-2 border-dashed border-border p-3 text-center text-sm font-black text-muted-foreground">
+                Coming soon
+              </p>
             ) : (
               <div className="mt-3 flex flex-col gap-2">
                 {loc.games.map((game) => (
@@ -164,7 +187,9 @@ function Map({ onExit, onOpen }: { onExit: () => void; onOpen: (screen: string) 
                     onClick={() => onOpen(game.screen)}
                     className="h-12 justify-start gap-3 rounded-2xl text-base font-black"
                   >
-                    <span aria-hidden="true" className="text-2xl leading-none">{game.icon}</span>
+                    <span aria-hidden="true" className="text-2xl leading-none">
+                      {game.icon}
+                    </span>
                     {game.label}
                   </Button>
                 ))}

@@ -30,10 +30,10 @@ const ALIASES: Record<string, string> = {
   "لنجرب مرة أخرى": "retry-05",
   "لا بأس حاول مرة أخرى": "retry-03",
   "محاولة جميلة": "retry-10",
-  "استمع": "do-03",
+  استمع: "do-03",
   "هيا نبدأ": "flow-01",
-  "ممتاز": "praise-02",
-  "رائع": "praise-03",
+  ممتاز: "praise-02",
+  رائع: "praise-03",
   "ما شاء الله": "praise-06",
 };
 for (const [text, id] of Object.entries(ALIASES)) byArabic.set(normalizeArabic(text), id);
@@ -55,7 +55,9 @@ export async function sayPhrase(id: string, lang: "ar" | "en" = "ar"): Promise<v
 }
 
 /** Pick a random phrase from a group, e.g. randomPhrase("praise") → "praise-07". */
-export function randomPhrase(group: "praise" | "retry" | "flow" | "do" | "salah" | "kitchen" | "math" | "name") {
+export function randomPhrase(
+  group: "praise" | "retry" | "flow" | "do" | "salah" | "kitchen" | "math" | "name",
+) {
   const ids = VOICE_PHRASES.filter((p) => p.id.startsWith(group + "-")).map((p) => p.id);
   return ids[Math.floor(Math.random() * ids.length)];
 }

@@ -23,5 +23,5 @@ export const arabicAudio: Record<string, string> = {
   "w-qalam": "/__l5e/assets-v1/3dadd763-f5cb-4a1a-953e-cec4b11e02ba/ar-w-qalam.mp3",
   "w-umm": "/__l5e/assets-v1/89ccf939-8171-4e21-a62c-67fa1f0b3dac/ar-w-umm.mp3",
   "w-walad": "/__l5e/assets-v1/7ee6424e-09fd-4035-838b-f81fe97da71c/ar-w-walad.mp3",
-  "w-yad": "/__l5e/assets-v1/f7470085-e3bc-4687-aba0-b1ebb11a6de3/ar-w-yad.mp3"
+  "w-yad": "/__l5e/assets-v1/f7470085-e3bc-4687-aba0-b1ebb11a6de3/ar-w-yad.mp3",
 };

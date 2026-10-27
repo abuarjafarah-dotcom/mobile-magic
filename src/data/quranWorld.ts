@@ -31,22 +31,106 @@ export type WorldScene = {
 };
 
 export const scenes: WorldScene[] = [
-  { id: "night", titleAr: "سَمَاءُ اللَّيْل", titleEn: "Night Sky", emoji: "🌙", sky: "from-indigo-900 via-indigo-700 to-purple-800", wordIds: ["najm", "qamar", "layl", "samaa"] },
-  { id: "garden", titleAr: "الْجَنَّة", titleEn: "Garden", emoji: "🌳", sky: "from-emerald-300 via-green-200 to-lime-200", wordIds: ["shajara", "zahra", "janna", "maa"] },
-  { id: "day", titleAr: "النَّهَار", titleEn: "Sunny Day", emoji: "☀️", sky: "from-sky-300 via-amber-100 to-yellow-200", wordIds: ["shams", "nahar", "nur", "samaa"] },
-  { id: "earth", titleAr: "الْأَرْض", titleEn: "Earth & Rain", emoji: "⛰️", sky: "from-slate-400 via-teal-200 to-emerald-200", wordIds: ["matar", "ard", "jabal", "bahr"] },
+  {
+    id: "night",
+    titleAr: "سَمَاءُ اللَّيْل",
+    titleEn: "Night Sky",
+    emoji: "🌙",
+    sky: "from-indigo-900 via-indigo-700 to-purple-800",
+    wordIds: ["najm", "qamar", "layl", "samaa"],
+  },
+  {
+    id: "garden",
+    titleAr: "الْجَنَّة",
+    titleEn: "Garden",
+    emoji: "🌳",
+    sky: "from-emerald-300 via-green-200 to-lime-200",
+    wordIds: ["shajara", "zahra", "janna", "maa"],
+  },
+  {
+    id: "day",
+    titleAr: "النَّهَار",
+    titleEn: "Sunny Day",
+    emoji: "☀️",
+    sky: "from-sky-300 via-amber-100 to-yellow-200",
+    wordIds: ["shams", "nahar", "nur", "samaa"],
+  },
+  {
+    id: "earth",
+    titleAr: "الْأَرْض",
+    titleEn: "Earth & Rain",
+    emoji: "⛰️",
+    sky: "from-slate-400 via-teal-200 to-emerald-200",
+    wordIds: ["matar", "ard", "jabal", "bahr"],
+  },
 ];
 
-export type QuranAnimal = { id: string; arabic: string; english: string; emoji: string; refAr: string; refEn: string };
+export type QuranAnimal = {
+  id: string;
+  arabic: string;
+  english: string;
+  emoji: string;
+  refAr: string;
+  refEn: string;
+};
 
 export const animals: QuranAnimal[] = [
-  { id: "fil", arabic: "فِيل", english: "Elephant", emoji: "🐘", refAr: "سُورَةُ الْفِيل", refEn: "Surah Al-Fil (105)" },
-  { id: "naqa", arabic: "نَاقَة", english: "She-camel", emoji: "🐪", refAr: "سُورَةُ الشَّمْس ٩١:١٣", refEn: "Surah Ash-Shams 91:13" },
-  { id: "baqara", arabic: "بَقَرَة", english: "Cow", emoji: "🐄", refAr: "سُورَةُ الْبَقَرَة", refEn: "Surah Al-Baqarah (2)" },
-  { id: "nahl", arabic: "نَحْل", english: "Bee", emoji: "🐝", refAr: "سُورَةُ النَّحْل", refEn: "Surah An-Nahl (16)" },
-  { id: "ankabut", arabic: "عَنْكَبُوت", english: "Spider", emoji: "🕷️", refAr: "سُورَةُ الْعَنْكَبُوت", refEn: "Surah Al-Ankabut (29)" },
-  { id: "hudhud", arabic: "هُدْهُد", english: "Hoopoe", emoji: "🐦", refAr: "سُورَةُ النَّمْل", refEn: "Surah An-Naml (27)" },
-  { id: "naml", arabic: "نَمْل", english: "Ant", emoji: "🐜", refAr: "سُورَةُ النَّمْل ٢٧:١٨", refEn: "Surah An-Naml 27:18" },
+  {
+    id: "fil",
+    arabic: "فِيل",
+    english: "Elephant",
+    emoji: "🐘",
+    refAr: "سُورَةُ الْفِيل",
+    refEn: "Surah Al-Fil (105)",
+  },
+  {
+    id: "naqa",
+    arabic: "نَاقَة",
+    english: "She-camel",
+    emoji: "🐪",
+    refAr: "سُورَةُ الشَّمْس ٩١:١٣",
+    refEn: "Surah Ash-Shams 91:13",
+  },
+  {
+    id: "baqara",
+    arabic: "بَقَرَة",
+    english: "Cow",
+    emoji: "🐄",
+    refAr: "سُورَةُ الْبَقَرَة",
+    refEn: "Surah Al-Baqarah (2)",
+  },
+  {
+    id: "nahl",
+    arabic: "نَحْل",
+    english: "Bee",
+    emoji: "🐝",
+    refAr: "سُورَةُ النَّحْل",
+    refEn: "Surah An-Nahl (16)",
+  },
+  {
+    id: "ankabut",
+    arabic: "عَنْكَبُوت",
+    english: "Spider",
+    emoji: "🕷️",
+    refAr: "سُورَةُ الْعَنْكَبُوت",
+    refEn: "Surah Al-Ankabut (29)",
+  },
+  {
+    id: "hudhud",
+    arabic: "هُدْهُد",
+    english: "Hoopoe",
+    emoji: "🐦",
+    refAr: "سُورَةُ النَّمْل",
+    refEn: "Surah An-Naml (27)",
+  },
+  {
+    id: "naml",
+    arabic: "نَمْل",
+    english: "Ant",
+    emoji: "🐜",
+    refAr: "سُورَةُ النَّمْل ٢٧:١٨",
+    refEn: "Surah An-Naml 27:18",
+  },
 ];
 
 export type StoryLine = { speaker: "hamad" | "talal"; audioKey: string; ar: string; en: string };
@@ -70,10 +154,30 @@ export const stories: QuranStory[] = [
     emoji: "🌙",
     sky: "from-indigo-900 via-indigo-700 to-purple-800",
     lines: [
-      { speaker: "talal", audioKey: "iq-story1-1", ar: "يَا حَمَدُ، انْظُرْ إِلَى السَّمَاءِ!", en: "Hamad, look at the sky!" },
-      { speaker: "hamad", audioKey: "iq-story1-2", ar: "وَاو! أَرَى الْقَمَرَ!", en: "Wow! I see the moon!" },
-      { speaker: "talal", audioKey: "iq-story1-3", ar: "وَالنُّجُومُ جَمِيلَةٌ جِدًّا!", en: "And the stars are so beautiful!" },
-      { speaker: "hamad", audioKey: "iq-story1-4", ar: "سُبْحَانَ اللهِ! اللهُ خَلَقَ كُلَّ شَيْءٍ.", en: "SubhanAllah! Allah created everything." },
+      {
+        speaker: "talal",
+        audioKey: "iq-story1-1",
+        ar: "يَا حَمَدُ، انْظُرْ إِلَى السَّمَاءِ!",
+        en: "Hamad, look at the sky!",
+      },
+      {
+        speaker: "hamad",
+        audioKey: "iq-story1-2",
+        ar: "وَاو! أَرَى الْقَمَرَ!",
+        en: "Wow! I see the moon!",
+      },
+      {
+        speaker: "talal",
+        audioKey: "iq-story1-3",
+        ar: "وَالنُّجُومُ جَمِيلَةٌ جِدًّا!",
+        en: "And the stars are so beautiful!",
+      },
+      {
+        speaker: "hamad",
+        audioKey: "iq-story1-4",
+        ar: "سُبْحَانَ اللهِ! اللهُ خَلَقَ كُلَّ شَيْءٍ.",
+        en: "SubhanAllah! Allah created everything.",
+      },
     ],
     tapWordId: "qamar",
     tapPromptAr: "أَيْنَ الْقَمَرُ؟ اضْغَطْ عَلَيْهِ!",
@@ -86,10 +190,30 @@ export const stories: QuranStory[] = [
     emoji: "🐝",
     sky: "from-amber-200 via-yellow-100 to-lime-200",
     lines: [
-      { speaker: "hamad", audioKey: "iq-story2-1", ar: "يَا طَلالُ، مَا هَذَا الصَّوْتُ؟", en: "Talal, what is that sound?" },
-      { speaker: "talal", audioKey: "iq-story2-2", ar: "إِنَّهَا النَّحْلَةُ! تَصْنَعُ الْعَسَلَ.", en: "It's the bee! It makes honey." },
-      { speaker: "hamad", audioKey: "iq-story2-3", ar: "الْعَسَلُ فِيهِ شِفَاءٌ لِلنَّاسِ!", en: "Honey has healing for people!" },
-      { speaker: "talal", audioKey: "iq-story2-4", ar: "الْحَمْدُ لِلَّهِ عَلَى هَذِهِ النِّعَمِ.", en: "Alhamdulillah for these blessings." },
+      {
+        speaker: "hamad",
+        audioKey: "iq-story2-1",
+        ar: "يَا طَلالُ، مَا هَذَا الصَّوْتُ؟",
+        en: "Talal, what is that sound?",
+      },
+      {
+        speaker: "talal",
+        audioKey: "iq-story2-2",
+        ar: "إِنَّهَا النَّحْلَةُ! تَصْنَعُ الْعَسَلَ.",
+        en: "It's the bee! It makes honey.",
+      },
+      {
+        speaker: "hamad",
+        audioKey: "iq-story2-3",
+        ar: "الْعَسَلُ فِيهِ شِفَاءٌ لِلنَّاسِ!",
+        en: "Honey has healing for people!",
+      },
+      {
+        speaker: "talal",
+        audioKey: "iq-story2-4",
+        ar: "الْحَمْدُ لِلَّهِ عَلَى هَذِهِ النِّعَمِ.",
+        en: "Alhamdulillah for these blessings.",
+      },
     ],
     tapWordId: "nahl",
     tapPromptAr: "أَيْنَ النَّحْلَةُ؟ اضْغَطْ عَلَيْهَا!",

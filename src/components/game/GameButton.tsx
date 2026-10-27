@@ -15,12 +15,7 @@ const tones = {
   danger: "bg-destructive text-destructive-foreground shadow-[4px_4px_0_var(--danger-shadow)]",
 };
 
-export function GameButton({
-  className,
-  tone = "sun",
-  children,
-  ...props
-}: GameButtonProps) {
+export function GameButton({ className, tone = "sun", children, ...props }: GameButtonProps) {
   return (
     <button
       className={cn(

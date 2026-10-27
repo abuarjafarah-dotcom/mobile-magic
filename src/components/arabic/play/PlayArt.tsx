@@ -68,7 +68,24 @@ const WINDOWS = [
 ];
 
 /** Letters + harakat the reels blur through while spinning (decorative only). */
-const BLUR_POOL = ["بَ", "تِ", "سُ", "مَ", "لِ", "رُ", "دَ", "كِ", "نُ", "جَ", "فِ", "قُ", "هَ", "وِ", "عُ", "يَ"];
+const BLUR_POOL = [
+  "بَ",
+  "تِ",
+  "سُ",
+  "مَ",
+  "لِ",
+  "رُ",
+  "دَ",
+  "كِ",
+  "نُ",
+  "جَ",
+  "فِ",
+  "قُ",
+  "هَ",
+  "وِ",
+  "عُ",
+  "يَ",
+];
 
 export function SlotMachine({
   reels,
@@ -89,7 +106,10 @@ export function SlotMachine({
   useArtCss();
   const id = sid(useId());
   return (
-    <div className={cn("pa-anim relative w-full select-none", className)} style={{ aspectRatio: `${W} / ${H}` }}>
+    <div
+      className={cn("pa-anim relative w-full select-none", className)}
+      style={{ aspectRatio: `${W} / ${H}` }}
+    >
       <svg viewBox={`0 0 ${W} ${H}`} className="absolute inset-0 h-full w-full" aria-hidden>
         <defs>
           <linearGradient id={`${id}brass`} x1="0" y1="0" x2="0" y2="1">
@@ -114,7 +134,13 @@ export function SlotMachine({
             <stop offset="1" stopColor="#000" stopOpacity=".35" />
           </linearGradient>
           <pattern id={`${id}geo`} width="28" height="28" patternUnits="userSpaceOnUse">
-            <path d={khatamPath(14, 14, 11)} fill="none" stroke="#e9c46a" strokeOpacity=".35" strokeWidth="1.2" />
+            <path
+              d={khatamPath(14, 14, 11)}
+              fill="none"
+              stroke="#e9c46a"
+              strokeOpacity=".35"
+              strokeWidth="1.2"
+            />
             <circle cx="14" cy="14" r="2.2" fill="#e9c46a" fillOpacity=".35" />
           </pattern>
           <filter id={`${id}shadow`} x="-10%" y="-10%" width="120%" height="130%">
@@ -132,25 +158,61 @@ export function SlotMachine({
           />
         </g>
         {/* crest medallion */}
-        <circle cx="180" cy="34" r="20" fill={`url(#${id}panel)`} stroke="#fff2c4" strokeWidth="2" />
+        <circle
+          cx="180"
+          cy="34"
+          r="20"
+          fill={`url(#${id}panel)`}
+          stroke="#fff2c4"
+          strokeWidth="2"
+        />
         <path d={khatamPath(180, 34, 14)} fill="#f7d98b" stroke="#7d5314" strokeWidth="1" />
         <circle cx="180" cy="34" r="4" fill={`url(#${id}panel)`} />
 
         {/* teal inlay panel with geometric pattern */}
         <rect x="24" y="62" width="312" height="154" rx="12" fill={`url(#${id}panel)`} />
         <rect x="24" y="62" width="312" height="154" rx="12" fill={`url(#${id}geo)`} />
-        <rect x="24" y="62" width="312" height="154" rx="12" fill="none" stroke="#fff2c4" strokeOpacity=".7" strokeWidth="1.5" />
+        <rect
+          x="24"
+          y="62"
+          width="312"
+          height="154"
+          rx="12"
+          fill="none"
+          stroke="#fff2c4"
+          strokeOpacity=".7"
+          strokeWidth="1.5"
+        />
 
         {/* reel windows: brass bezel + cream reel face */}
         {WINDOWS.map((w, i) => (
           <g key={i}>
-            <rect x={w.x - 6} y={w.y - 6} width={w.w + 12} height={w.h + 12} rx="14" fill={`url(#${id}rim)`} />
+            <rect
+              x={w.x - 6}
+              y={w.y - 6}
+              width={w.w + 12}
+              height={w.h + 12}
+              rx="14"
+              fill={`url(#${id}rim)`}
+            />
             <rect x={w.x} y={w.y} width={w.w} height={w.h} rx="9" fill="#fffaf0" />
           </g>
         ))}
 
         {/* rivets */}
-        {[30, 330].flatMap((x) => [58, 226].map((y) => <circle key={`${x}-${y}`} cx={x} cy={y} r="3" fill="#fff2c4" stroke="#7d5314" strokeWidth=".8" />))}
+        {[30, 330].flatMap((x) =>
+          [58, 226].map((y) => (
+            <circle
+              key={`${x}-${y}`}
+              cx={x}
+              cy={y}
+              r="3"
+              fill="#fff2c4"
+              stroke="#7d5314"
+              strokeWidth=".8"
+            />
+          )),
+        )}
 
         {/* payline arrows */}
         <path d="M18 138 l8 -6 v12 Z" fill="#c0392b" />
@@ -166,12 +228,21 @@ export function SlotMachine({
           stopDelay={i * 380}
           glow={highlight === i}
           onTap={onReelTap ? () => onReelTap(i) : undefined}
-          style={{ left: `${(w.x / W) * 100}%`, top: `${(w.y / H) * 100}%`, width: `${(w.w / W) * 100}%`, height: `${(w.h / H) * 100}%` }}
+          style={{
+            left: `${(w.x / W) * 100}%`,
+            top: `${(w.y / H) * 100}%`,
+            width: `${(w.w / W) * 100}%`,
+            height: `${(w.h / H) * 100}%`,
+          }}
         />
       ))}
 
       {/* glass shading over the reels */}
-      <svg viewBox={`0 0 ${W} ${H}`} className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden>
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        className="pointer-events-none absolute inset-0 h-full w-full"
+        aria-hidden
+      >
         <defs>
           <linearGradient id={`${id}shine`} x1="0" y1="0" x2="1" y2="1">
             <stop offset="0" stopColor="#fff" stopOpacity=".55" />
@@ -181,7 +252,10 @@ export function SlotMachine({
         {WINDOWS.map((w, i) => (
           <g key={i}>
             <rect x={w.x} y={w.y} width={w.w} height={w.h} rx="9" fill={`url(#${id}glass)`} />
-            <path d={`M${w.x + 6} ${w.y + 6} h${w.w * 0.45} l-${w.w * 0.3} ${w.h * 0.35} h-${w.w * 0.15} Z`} fill={`url(#${id}shine)`} />
+            <path
+              d={`M${w.x + 6} ${w.y + 6} h${w.w * 0.45} l-${w.w * 0.3} ${w.h * 0.35} h-${w.w * 0.15} Z`}
+              fill={`url(#${id}shine)`}
+            />
           </g>
         ))}
       </svg>
@@ -299,16 +373,39 @@ export function Lever({
         {/* slot plate */}
         <rect x="22" y="120" width="26" height="110" rx="13" fill="#3b2607" opacity=".85" />
         {/* rod: anchored at the base, shortens as the knob comes down */}
-        <g style={{ transformBox: "fill-box", transformOrigin: "50% 100%", transform: pulled ? "scaleY(.28)" : "scaleY(1)", transition: ease }}>
+        <g
+          style={{
+            transformBox: "fill-box",
+            transformOrigin: "50% 100%",
+            transform: pulled ? "scaleY(.28)" : "scaleY(1)",
+            transition: ease,
+          }}
+        >
           <rect x="31" y="40" width="8" height="180" rx="4" fill={`url(#${id}rod)`} />
         </g>
         {/* knob */}
         <g style={{ transform: pulled ? "translateY(130px)" : "translateY(0)", transition: ease }}>
-          <circle cx="35" cy="34" r="22" fill={`url(#${id}ball)`} stroke="#5a0e08" strokeWidth="1.5" />
+          <circle
+            cx="35"
+            cy="34"
+            r="22"
+            fill={`url(#${id}ball)`}
+            stroke="#5a0e08"
+            strokeWidth="1.5"
+          />
           <ellipse cx="28" cy="25" rx="7" ry="4.5" fill="#fff" opacity=".55" />
         </g>
         {/* pivot housing */}
-        <rect x="12" y="214" width="46" height="30" rx="10" fill={`url(#${id}base)`} stroke="#6b4410" strokeWidth="1.5" />
+        <rect
+          x="12"
+          y="214"
+          width="46"
+          height="30"
+          rx="10"
+          fill={`url(#${id}base)`}
+          stroke="#6b4410"
+          strokeWidth="1.5"
+        />
         <circle cx="35" cy="229" r="5" fill="#fff2c4" stroke="#6b4410" />
       </svg>
     </button>
@@ -319,7 +416,15 @@ export function Lever({
    STAR BURST — gold stars + coins fly out from the centre on a win
    ================================================================ */
 
-export function StarBurst({ show, count = 14, className }: { show: boolean; count?: number; className?: string }) {
+export function StarBurst({
+  show,
+  count = 14,
+  className,
+}: {
+  show: boolean;
+  count?: number;
+  className?: string;
+}) {
   useArtCss();
   const [runId, setRunId] = useState(0);
   const prev = useRef(show);
@@ -347,7 +452,14 @@ export function StarBurst({ show, count = 14, className }: { show: boolean; coun
   );
   if (!show) return null;
   return (
-    <div key={runId} className={cn("pa-anim pointer-events-none absolute inset-0 grid place-items-center overflow-visible", className)} aria-hidden>
+    <div
+      key={runId}
+      className={cn(
+        "pa-anim pointer-events-none absolute inset-0 grid place-items-center overflow-visible",
+        className,
+      )}
+      aria-hidden
+    >
       {bits.map((b, i) => (
         <span
           key={i}
@@ -379,7 +491,13 @@ export function GoldStar({ className }: { className?: string }) {
           <stop offset="1" stopColor="#e08a00" />
         </radialGradient>
       </defs>
-      <path d="M20 2 L25 14 L38 15 L28 24 L31 37 L20 30 L9 37 L12 24 L2 15 L15 14 Z" fill={`url(#${id}g)`} stroke="#b36b00" strokeWidth="1.2" strokeLinejoin="round" />
+      <path
+        d="M20 2 L25 14 L38 15 L28 24 L31 37 L20 30 L9 37 L12 24 L2 15 L15 14 Z"
+        fill={`url(#${id}g)`}
+        stroke="#b36b00"
+        strokeWidth="1.2"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
@@ -410,12 +528,30 @@ export function Coin({ className }: { className?: string }) {
  * variant "sand": Montessori sand tray (default).
  * variant "sandpaper": smooth light board for sandpaper letters.
  */
-export function SandTray({ children, className, variant = "sand" }: { children?: ReactNode; className?: string; variant?: "sand" | "sandpaper" }) {
+export function SandTray({
+  children,
+  className,
+  variant = "sand",
+}: {
+  children?: ReactNode;
+  className?: string;
+  variant?: "sand" | "sandpaper";
+}) {
   const id = sid(useId());
   const paper = variant === "sandpaper";
   return (
-    <div className={cn("relative aspect-square w-full overflow-hidden rounded-[6%] shadow-xl", className)}>
-      <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 h-full w-full" aria-hidden>
+    <div
+      className={cn(
+        "relative aspect-square w-full overflow-hidden rounded-[6%] shadow-xl",
+        className,
+      )}
+    >
+      <svg
+        viewBox="0 0 400 400"
+        preserveAspectRatio="xMidYMid slice"
+        className="absolute inset-0 h-full w-full"
+        aria-hidden
+      >
         <defs>
           <linearGradient id={`${id}wood`} x1="0" y1="0" x2="1" y2="1">
             <stop offset="0" stopColor="#c08552" />
@@ -423,8 +559,19 @@ export function SandTray({ children, className, variant = "sand" }: { children?:
             <stop offset="1" stopColor="#6e4120" />
           </linearGradient>
           <pattern id={`${id}grain`} width="400" height="18" patternUnits="userSpaceOnUse">
-            <path d="M0 9 Q100 4 200 9 T400 9" fill="none" stroke="#5a3418" strokeOpacity=".25" strokeWidth="1.2" />
-            <path d="M0 15 Q120 12 240 15 T400 14" fill="none" stroke="#e0b083" strokeOpacity=".2" />
+            <path
+              d="M0 9 Q100 4 200 9 T400 9"
+              fill="none"
+              stroke="#5a3418"
+              strokeOpacity=".25"
+              strokeWidth="1.2"
+            />
+            <path
+              d="M0 15 Q120 12 240 15 T400 14"
+              fill="none"
+              stroke="#e0b083"
+              strokeOpacity=".2"
+            />
           </pattern>
           <radialGradient id={`${id}sand`} cx=".45" cy=".4" r=".8">
             <stop offset="0" stopColor="#f6e2b8" />
@@ -432,8 +579,18 @@ export function SandTray({ children, className, variant = "sand" }: { children?:
             <stop offset="1" stopColor="#d7b273" />
           </radialGradient>
           <filter id={`${id}grit`} x="0" y="0" width="100%" height="100%">
-            <feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="2" seed="7" result="n" />
-            <feColorMatrix in="n" type="matrix" values="0 0 0 0 .45  0 0 0 0 .33  0 0 0 0 .16  0 0 0 .9 -.35" />
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="1.6"
+              numOctaves="2"
+              seed="7"
+              result="n"
+            />
+            <feColorMatrix
+              in="n"
+              type="matrix"
+              values="0 0 0 0 .45  0 0 0 0 .33  0 0 0 0 .16  0 0 0 .9 -.35"
+            />
           </filter>
           <filter id={`${id}inner`} x="-5%" y="-5%" width="110%" height="110%">
             <feGaussianBlur stdDeviation="7" />
@@ -446,21 +603,67 @@ export function SandTray({ children, className, variant = "sand" }: { children?:
         {paper ? (
           <>
             <rect x="26" y="26" width="348" height="348" rx="14" fill="#f3e4c4" />
-            <rect x="26" y="26" width="348" height="348" rx="14" fill="none" stroke="#e9d5a8" strokeWidth="2" />
+            <rect
+              x="26"
+              y="26"
+              width="348"
+              height="348"
+              rx="14"
+              fill="none"
+              stroke="#e9d5a8"
+              strokeWidth="2"
+            />
           </>
         ) : (
           <>
             <rect x="26" y="26" width="348" height="348" rx="14" fill={`url(#${id}sand)`} />
-            <rect x="26" y="26" width="348" height="348" rx="14" filter={`url(#${id}grit)`} opacity=".9" />
+            <rect
+              x="26"
+              y="26"
+              width="348"
+              height="348"
+              rx="14"
+              filter={`url(#${id}grit)`}
+              opacity=".9"
+            />
             {/* soft raked ripples */}
             {[90, 150, 250, 310].map((y, i) => (
-              <path key={y} d={`M40 ${y} Q120 ${y - 8 + i * 3} 200 ${y} T360 ${y}`} fill="none" stroke="#c9a364" strokeOpacity=".22" strokeWidth="3" strokeLinecap="round" />
+              <path
+                key={y}
+                d={`M40 ${y} Q120 ${y - 8 + i * 3} 200 ${y} T360 ${y}`}
+                fill="none"
+                stroke="#c9a364"
+                strokeOpacity=".22"
+                strokeWidth="3"
+                strokeLinecap="round"
+              />
             ))}
           </>
         )}
         {/* inner shadow where sand meets frame */}
-        <rect x="26" y="26" width="348" height="348" rx="14" fill="none" stroke="#5a3418" strokeOpacity=".45" strokeWidth="10" filter={`url(#${id}inner)`} />
-        <rect x="24" y="24" width="352" height="352" rx="15" fill="none" stroke="#4a2a12" strokeOpacity=".6" strokeWidth="2" />
+        <rect
+          x="26"
+          y="26"
+          width="348"
+          height="348"
+          rx="14"
+          fill="none"
+          stroke="#5a3418"
+          strokeOpacity=".45"
+          strokeWidth="10"
+          filter={`url(#${id}inner)`}
+        />
+        <rect
+          x="24"
+          y="24"
+          width="352"
+          height="352"
+          rx="15"
+          fill="none"
+          stroke="#4a2a12"
+          strokeOpacity=".6"
+          strokeWidth="2"
+        />
       </svg>
       <div className="absolute inset-[6.5%]">{children}</div>
     </div>
@@ -474,25 +677,64 @@ export function SandTray({ children, className, variant = "sand" }: { children?:
 export type Pt = { x: number; y: number };
 
 /** Points are in a 0–100 coordinate space (percent of the tracing area). */
-export function TraceTrail({ points, done = false, className }: { points: readonly Pt[]; done?: boolean; className?: string }) {
+export function TraceTrail({
+  points,
+  done = false,
+  className,
+}: {
+  points: readonly Pt[];
+  done?: boolean;
+  className?: string;
+}) {
   useArtCss();
   const id = sid(useId());
   if (points.length === 0) return null;
   const d = points.map((p, i) => `${i ? "L" : "M"}${p.x.toFixed(2)} ${p.y.toFixed(2)}`).join(" ");
   const tip = points[points.length - 1];
   return (
-    <svg viewBox="0 0 100 100" className={cn("pa-anim pointer-events-none absolute inset-0 h-full w-full overflow-visible", className)} aria-hidden>
+    <svg
+      viewBox="0 0 100 100"
+      className={cn(
+        "pa-anim pointer-events-none absolute inset-0 h-full w-full overflow-visible",
+        className,
+      )}
+      aria-hidden
+    >
       <defs>
         <filter id={`${id}blur`} x="-20%" y="-20%" width="140%" height="140%">
           <feGaussianBlur stdDeviation="1.4" />
         </filter>
       </defs>
       {/* groove pressed into the sand */}
-      <path d={d} fill="none" stroke="#a8803f" strokeOpacity=".55" strokeWidth="5.2" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d={d}
+        fill="none"
+        stroke="#a8803f"
+        strokeOpacity=".55"
+        strokeWidth="5.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
       {/* glow */}
-      <path d={d} fill="none" stroke={done ? "#7ee081" : "#ffd36b"} strokeWidth="4.2" strokeLinecap="round" strokeLinejoin="round" filter={`url(#${id}blur)`} opacity=".9" />
+      <path
+        d={d}
+        fill="none"
+        stroke={done ? "#7ee081" : "#ffd36b"}
+        strokeWidth="4.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        filter={`url(#${id}blur)`}
+        opacity=".9"
+      />
       {/* bright core */}
-      <path d={d} fill="none" stroke="#fffbe8" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d={d}
+        fill="none"
+        stroke="#fffbe8"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
       {!done && <Sparkles x={tip.x} y={tip.y} seed={points.length} />}
     </svg>
   );
@@ -502,15 +744,30 @@ function Sparkles({ x, y, seed }: { x: number; y: number; seed: number }) {
   // a fresh little puff every few points as the finger moves
   const bits = useMemo(() => {
     let s = seed * 9301 + 49297;
-    const rnd = () => ((s = (s * 9301 + 49297) % 233280) / 233280);
-    return Array.from({ length: 5 }, () => ({ dx: (rnd() * 2 - 1) * 6, dy: (rnd() * 2 - 1) * 6, r: 0.5 + rnd() * 0.9, delay: rnd() * 0.2 }));
+    const rnd = () => (s = (s * 9301 + 49297) % 233280) / 233280;
+    return Array.from({ length: 5 }, () => ({
+      dx: (rnd() * 2 - 1) * 6,
+      dy: (rnd() * 2 - 1) * 6,
+      r: 0.5 + rnd() * 0.9,
+      delay: rnd() * 0.2,
+    }));
   }, [Math.floor(seed / 3)]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <g key={Math.floor(seed / 3)} transform={`translate(${x} ${y})`}>
       <circle r="2.2" fill="#fffbe8" style={{ animation: "pa-glow 0.8s ease-in-out infinite" }} />
       {bits.map((b, i) => (
-        <g key={i} style={{ ["--dx" as string]: `${b.dx}px`, ["--dy" as string]: `${b.dy}px`, animation: `pa-spark .6s ${b.delay}s ease-out both` }}>
-          <path d={`M0 ${-b.r * 2} L${b.r * 0.5} 0 L0 ${b.r * 2} L${-b.r * 0.5} 0 Z M${-b.r * 2} 0 L0 ${b.r * 0.5} L${b.r * 2} 0 L0 ${-b.r * 0.5} Z`} fill="#ffe08a" />
+        <g
+          key={i}
+          style={{
+            ["--dx" as string]: `${b.dx}px`,
+            ["--dy" as string]: `${b.dy}px`,
+            animation: `pa-spark .6s ${b.delay}s ease-out both`,
+          }}
+        >
+          <path
+            d={`M0 ${-b.r * 2} L${b.r * 0.5} 0 L0 ${b.r * 2} L${-b.r * 0.5} 0 Z M${-b.r * 2} 0 L0 ${b.r * 0.5} L${b.r * 2} 0 L0 ${-b.r * 0.5} Z`}
+            fill="#ffe08a"
+          />
         </g>
       ))}
     </g>
@@ -522,16 +779,60 @@ function Sparkles({ x, y, seed }: { x: number; y: number; seed: number }) {
    ================================================================ */
 
 /** x, y in the same 0–100 space as TraceTrail; angle in degrees (0 = right, 90 = down). */
-export function StartDot({ x, y, angle, label, className }: { x: number; y: number; angle?: number; label?: number; className?: string }) {
+export function StartDot({
+  x,
+  y,
+  angle,
+  label,
+  className,
+}: {
+  x: number;
+  y: number;
+  angle?: number;
+  label?: number;
+  className?: string;
+}) {
   useArtCss();
   return (
-    <svg viewBox="0 0 100 100" className={cn("pa-anim pointer-events-none absolute inset-0 h-full w-full overflow-visible", className)} aria-hidden>
+    <svg
+      viewBox="0 0 100 100"
+      className={cn(
+        "pa-anim pointer-events-none absolute inset-0 h-full w-full overflow-visible",
+        className,
+      )}
+      aria-hidden
+    >
       <g transform={`translate(${x} ${y})`}>
-        <circle r="4.5" fill="#4cc9f0" opacity=".5" style={{ transformBox: "fill-box", transformOrigin: "center", animation: "pa-pulse 1.4s ease-out infinite" }} />
-        <circle r="4.5" fill="#4cc9f0" opacity=".5" style={{ transformBox: "fill-box", transformOrigin: "center", animation: "pa-pulse 1.4s .7s ease-out infinite" }} />
+        <circle
+          r="4.5"
+          fill="#4cc9f0"
+          opacity=".5"
+          style={{
+            transformBox: "fill-box",
+            transformOrigin: "center",
+            animation: "pa-pulse 1.4s ease-out infinite",
+          }}
+        />
+        <circle
+          r="4.5"
+          fill="#4cc9f0"
+          opacity=".5"
+          style={{
+            transformBox: "fill-box",
+            transformOrigin: "center",
+            animation: "pa-pulse 1.4s .7s ease-out infinite",
+          }}
+        />
         <circle r="3.6" fill="#ffffff" stroke="#1d8fb8" strokeWidth=".9" />
         {label != null ? (
-          <text textAnchor="middle" dominantBaseline="central" fontSize="4" fontWeight="900" fill="#1d6f8f" fontFamily="Nunito, system-ui">
+          <text
+            textAnchor="middle"
+            dominantBaseline="central"
+            fontSize="4"
+            fontWeight="900"
+            fill="#1d6f8f"
+            fontFamily="Nunito, system-ui"
+          >
             {label}
           </text>
         ) : (
@@ -540,7 +841,13 @@ export function StartDot({ x, y, angle, label, className }: { x: number; y: numb
         {angle != null && (
           <g transform={`rotate(${angle})`}>
             <g style={{ animation: "pa-bob 1s ease-in-out infinite" }}>
-              <path d="M7 0 L12 0 M12 0 L9.5 -2.2 M12 0 L9.5 2.2" stroke="#1d8fb8" strokeWidth="1.3" strokeLinecap="round" fill="none" />
+              <path
+                d="M7 0 L12 0 M12 0 L9.5 -2.2 M12 0 L9.5 2.2"
+                stroke="#1d8fb8"
+                strokeWidth="1.3"
+                strokeLinecap="round"
+                fill="none"
+              />
             </g>
           </g>
         )}

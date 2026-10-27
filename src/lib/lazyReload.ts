@@ -11,7 +11,9 @@ const KEY = "chunk-reload-at";
 
 export function isChunkLoadError(err: unknown) {
   const msg = String((err as Error)?.message ?? err);
-  return /dynamically imported module|Importing a module script failed|Failed to fetch|error loading dynamically|ChunkLoadError|Unable to preload CSS/i.test(msg);
+  return /dynamically imported module|Importing a module script failed|Failed to fetch|error loading dynamically|ChunkLoadError|Unable to preload CSS/i.test(
+    msg,
+  );
 }
 
 export function reloadForNewVersion(): boolean {
@@ -20,7 +22,9 @@ export function reloadForNewVersion(): boolean {
     const last = Number(sessionStorage.getItem(KEY) ?? 0);
     if (Date.now() - last < 30_000) return false; // already tried just now
     sessionStorage.setItem(KEY, String(Date.now()));
-  } catch { /* storage unavailable: still try once */ }
+  } catch {
+    /* storage unavailable: still try once */
+  }
   window.location.reload();
   return true;
 }
