@@ -78,7 +78,7 @@ const allSurahs: readonly SurahData[] = [...surahs, ...juz29Surahs, ...juz28Sura
 import { units, allLessons, type Lesson } from "@/data/arabicCurriculum";
 import { FinishAyah } from "@/components/quran/FinishAyah";
 import { LibraryWorld } from "@/components/library/LibraryWorld";
-import { NeighborhoodWorld } from "@/components/neighborhood/NeighborhoodWorld";
+import { NeighborhoodEntry } from "@/components/neighborhood/NeighborhoodEntry";
 import { AlaqMemorize, MEMORIZE } from "@/components/quran/AlaqMemorize";
 import { SurahMemorize } from "@/components/quran/SurahMemorize";
 import type { MemoryGroup } from "@/components/quran/SurahMemorize";
@@ -368,7 +368,7 @@ function MathAdventure() {
       {screen === "picker" && <GamePicker stats={stats} onOpenCategory={openCategory} onStartIq={() => setScreen("iq")} onStartIe={() => setScreen("ie")} onStartBuild={() => setScreen("build")} onStartScience={() => setScreen("sci")} onStartKitchen={() => setScreen("kitchen")} onStartChess={() => setScreen("chess")} onStartWs={() => setScreen("ws")} onStartPlay={() => setScreen("play")} onStartHbl={() => setScreen("hbl")} onStartLibrary={() => setScreen("library")} onStartNeighborhood={() => setScreen("neighborhood")} />}
       {screen === "chess" && <Suspense fallback={null}><ChessWorld onExit={() => setScreen("picker")} /></Suspense>}
       {screen === "library" && <LibraryWorld onExit={() => setScreen("picker")} />}
-      {screen === "neighborhood" && <NeighborhoodWorld onExit={() => setScreen("picker")} onOpen={(id) => setScreen(id as Screen)} />}
+      {screen === "neighborhood" && <NeighborhoodEntry onExit={() => setScreen("picker")} onOpen={(id) => setScreen(id as Screen)} />}
       {screen === "ws" && <Suspense fallback={null}><WuduSalahWorld onExit={() => setScreen("picker")} /></Suspense>}
       {screen === "play" && <Suspense fallback={null}><ArabicPlayWorld onExit={() => setScreen("picker")} /></Suspense>}
       {screen === "kitchen" && <Suspense fallback={null}><PalestinianKitchen onExit={() => setScreen("picker")} /></Suspense>}

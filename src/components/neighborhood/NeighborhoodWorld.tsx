@@ -79,10 +79,10 @@ export function NeighborhoodWorld({ onExit, onOpen }: { onExit: () => void; onOp
 
   if (!checked) return null;
   if (!unlocked) return <NeighborhoodGate onExit={onExit} onUnlocked={() => setUnlocked(true)} />;
-  return <Map onExit={onExit} onOpen={onOpen} />;
+  return <NeighborhoodList onExit={onExit} onOpen={onOpen} />;
 }
 
-function NeighborhoodGate({ onExit, onUnlocked }: { onExit: () => void; onUnlocked: () => void }) {
+export function NeighborhoodGate({ onExit, onUnlocked }: { onExit: () => void; onUnlocked: () => void }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -138,7 +138,7 @@ function NeighborhoodGate({ onExit, onUnlocked }: { onExit: () => void; onUnlock
   );
 }
 
-function Map({ onExit, onOpen }: { onExit: () => void; onOpen: (screen: string) => void }) {
+export function NeighborhoodList({ onExit, onOpen }: { onExit: () => void; onOpen: (screen: string) => void }) {
   return (
     <section className="mx-auto flex min-h-dvh w-full max-w-lg flex-col px-4 pb-[max(2rem,env(safe-area-inset-bottom))] pt-[max(1rem,env(safe-area-inset-top))] sm:px-6 min-[960px]:max-w-6xl">
       <Header onExit={onExit} />
