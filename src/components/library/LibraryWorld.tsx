@@ -23,6 +23,14 @@ function accentFor(id: string) {
   return ACCENTS[Math.abs(hash) % ACCENTS.length];
 }
 
+function describeError(err: unknown) {
+  if (err instanceof TypeError && /load failed|failed to fetch/i.test(err.message)) {
+    return "Could not reach the library database from this device. Check the connection and try again.";
+  }
+  if (err instanceof Error) return `${err.name}: ${err.message}`;
+  return String(err);
+}
+
 function stripPdfExtension(name: string) {
   return name.replace(/\.pdf$/i, "");
 }
@@ -145,7 +153,7 @@ function Shelf({ onExit }: { onExit: () => void }) {
 
         <h1
           className="mt-6 text-center text-5xl font-black leading-tight"
-          style={{ textShadow: "3px 3px 0 #6b1414" }}
+          style={{ color: "#ffffff", textShadow: "3px 3px 0 #6b1414" }}
         >
           Library
         </h1>
@@ -282,8 +290,8 @@ function AddBookSheet({ onClose, onAdded }: { onClose: () => void; onAdded: () =
       setCover(picture);
       setCoverExt("jpg");
       setCoverUrl(URL.createObjectURL(picture));
-    } catch {
-      setError("Could not read this PDF. Check that it opens on your device.");
+    } catch (err) {
+      setError(`Could not read this PDF. ${describeError(err)}`);
       setPdf(null);
     } finally {
       setPreparing(false);
@@ -326,7 +334,7 @@ function AddBookSheet({ onClose, onAdded }: { onClose: () => void; onAdded: () =
       });
       onAdded();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Could not add the storybook.");
+      setError(describeError(err));
     } finally {
       setBusy(false);
       setStatus(null);
