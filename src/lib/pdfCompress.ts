@@ -11,13 +11,26 @@ const COVER_WIDTH_PX = 600;
 
 let workerSet = false;
 
-async function openPdf(file: File): Promise<PDFDocumentProxy> {
+type OpenPdf = { doc: PDFDocumentProxy; task: { destroy?: () => Promise<void> } };
+
+async function openPdf(file: File): Promise<OpenPdf> {
   if (!workerSet) {
     pdfjs.GlobalWorkerOptions.workerSrc = workerUrl;
     workerSet = true;
   }
   const data = new Uint8Array(await file.arrayBuffer());
-  return pdfjs.getDocument({ data }).promise;
+  const task = pdfjs.getDocument({ data });
+  const doc = await task.promise;
+  return { doc, task };
+}
+
+/** Releases the file. Cleanup must never replace a successful result with an error. */
+async function closePdf(open: OpenPdf) {
+  try {
+    await open.task.destroy?.();
+  } catch {
+    // Ignore: the picture or PDF has already been made.
+  }
 }
 
 function canvasToJpeg(canvas: HTMLCanvasElement, quality: number): Promise<Blob> {
@@ -48,36 +61,36 @@ async function drawPage(doc: PDFDocumentProxy, pageNo: number, widthPx: number) 
 
 /** A small JPEG of page 1, used as the default cover. */
 export async function renderCover(file: File): Promise<Blob> {
-  const doc = await openPdf(file);
+  const open = await openPdf(file);
   try {
-    const { canvas } = await drawPage(doc, 1, COVER_WIDTH_PX);
+    const { canvas } = await drawPage(open.doc, 1, COVER_WIDTH_PX);
     const blob = await canvasToJpeg(canvas, 0.85);
     canvas.width = 0;
     canvas.height = 0;
     return blob;
   } finally {
-    await doc.destroy();
+    await closePdf(open);
   }
 }
 
 /** Rebuilds the PDF with every page as a compressed JPEG. */
 export async function compressPdf(file: File, onProgress?: (done: number, total: number) => void): Promise<Blob> {
-  const doc = await openPdf(file);
+  const open = await openPdf(file);
   try {
     const out = await PDFDocument.create();
-    for (let i = 1; i <= doc.numPages; i++) {
-      const { canvas, width, height } = await drawPage(doc, i, PAGE_WIDTH_PX);
+    for (let i = 1; i <= open.doc.numPages; i++) {
+      const { canvas, width, height } = await drawPage(open.doc, i, PAGE_WIDTH_PX);
       const jpg = new Uint8Array(await (await canvasToJpeg(canvas, JPEG_QUALITY)).arrayBuffer());
       canvas.width = 0;
       canvas.height = 0;
       const image = await out.embedJpg(jpg);
       const pdfPage = out.addPage([width, height]);
       pdfPage.drawImage(image, { x: 0, y: 0, width, height });
-      onProgress?.(i, doc.numPages);
+      onProgress?.(i, open.doc.numPages);
     }
     const bytes = await out.save({ useObjectStreams: true });
     return new Blob([bytes as BlobPart], { type: "application/pdf" });
   } finally {
-    await doc.destroy();
+    await closePdf(open);
   }
 }
