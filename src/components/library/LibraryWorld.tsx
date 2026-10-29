@@ -15,6 +15,8 @@ import {
 import { compressPdf, renderCover } from "@/lib/pdfCompress";
 
 const PAGE_SIZE = 8;
+// PDFs at or under this size upload as they are; bigger ones are shrunk in the browser first.
+const SKIP_SHRINK_BYTES = 20 * 1024 * 1024;
 const ACCENTS = ["#e0533d", "#2f7fc1", "#4f9d3a", "#8e4fb5", "#ee8a2c", "#c9a21a", "#c8323c", "#2a9d8f"];
 
 function accentFor(id: string) {
@@ -264,6 +266,7 @@ function AddBookSheet({ onClose, onAdded }: { onClose: () => void; onAdded: () =
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [preparing, setPreparing] = useState(false);
+  const [coverNote, setCoverNote] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [status, setStatus] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -276,6 +279,7 @@ function AddBookSheet({ onClose, onAdded }: { onClose: () => void; onAdded: () =
 
   async function choosePdf(file: File | null) {
     setError(null);
+    setCoverNote(null);
     setPdf(file);
     if (!file) return;
     if (file.size > LIBRARY_MAX_PDF_BYTES * 4) {
@@ -291,8 +295,10 @@ function AddBookSheet({ onClose, onAdded }: { onClose: () => void; onAdded: () =
       setCoverExt("jpg");
       setCoverUrl(URL.createObjectURL(picture));
     } catch (err) {
-      setError(`Could not read this PDF. ${describeError(err)}`);
-      setPdf(null);
+      // Not fatal: the cover can be a picture chosen from the phone instead.
+      setCover(null);
+      setCoverUrl(null);
+      setCoverNote(`Could not make a cover from page 1 on this device (${describeError(err)}). Pick a picture below.`);
     } finally {
       setPreparing(false);
     }
@@ -309,6 +315,7 @@ function AddBookSheet({ onClose, onAdded }: { onClose: () => void; onAdded: () =
       setError("This picture is larger than 8 MB. Choose a smaller one.");
       return;
     }
+    setCoverNote(null);
     setCover(file);
     setCoverExt(file.type === "image/png" ? "png" : file.type === "image/webp" ? "webp" : "jpg");
     setCoverUrl(URL.createObjectURL(file));
@@ -320,10 +327,13 @@ function AddBookSheet({ onClose, onAdded }: { onClose: () => void; onAdded: () =
     setBusy(true);
     setError(null);
     try {
-      setStatus("Making the file smaller…");
-      const small = await compressPdf(pdf, (done, total) => {
-        setStatus(`Making the file smaller… page ${done} of ${total}`);
-      });
+      let small: Blob = pdf;
+      if (pdf.size > SKIP_SHRINK_BYTES) {
+        setStatus("Making the file smaller…");
+        small = await compressPdf(pdf, (done, total) => {
+          setStatus(`Making the file smaller… page ${done} of ${total}`);
+        });
+      }
       setStatus("Uploading…");
       await addBook({
         pdf: small,
@@ -368,7 +378,8 @@ function AddBookSheet({ onClose, onAdded }: { onClose: () => void; onAdded: () =
           />
           {pdf && (
             <p className="text-xs font-bold text-muted-foreground">
-              {pdf.name} · {(pdf.size / 1024 / 1024).toFixed(1)} MB (will be made smaller before upload)
+              {pdf.name} · {(pdf.size / 1024 / 1024).toFixed(1)} MB
+              {pdf.size > SKIP_SHRINK_BYTES ? " (will be made smaller before upload)" : " (uploads as it is)"}
             </p>
           )}
         </div>
@@ -387,8 +398,9 @@ function AddBookSheet({ onClose, onAdded }: { onClose: () => void; onAdded: () =
             </div>
             <div className="grid gap-2">
               <p className="text-xs font-bold text-muted-foreground">
-                {cover ? "Page 1 is used unless you pick a picture." : "Choose a PDF first."}
+                {cover ? "Page 1 is used unless you pick a picture." : pdf ? "Pick a picture for the cover." : "Choose a PDF first."}
               </p>
+              {coverNote && <p className="text-xs font-bold text-destructive">{coverNote}</p>}
               <label htmlFor="library-cover" className="text-sm font-black">
                 Use a different picture
               </label>
