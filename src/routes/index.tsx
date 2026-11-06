@@ -826,6 +826,13 @@ function MemorizeScreen({ surah, onExit }: { surah: SurahData; onExit: () => voi
   return <SurahMemorize surah={surah} groups={groups} onExit={onExit} />;
 }
 
+const toneArt = {
+  sun: "linear-gradient(135deg,#FFD85A,#FFB02E)",
+  mint: "linear-gradient(135deg,#8BD48A,#2E9E3A)",
+  sky: "linear-gradient(135deg,#7CD3FF,#2A9BE6)",
+  berry: "linear-gradient(135deg,#D8A4E6,#8B4AB0)",
+} as const;
+
 function GamePicker({
   stats,
   onOpenCategory,
@@ -977,37 +984,65 @@ function GamePicker({
     },
   ];
   return (
-    <section className="mx-auto flex min-h-dvh w-full max-w-lg flex-col px-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[max(3.75rem,env(safe-area-inset-top))] sm:px-6 min-[960px]:max-w-6xl min-[960px]:justify-center min-[960px]:py-8">
-      <header className="text-center">
-        <p className="text-sm font-black uppercase text-muted-foreground">
-          Learn with Hamad &amp; Talal
+    <section className="mx-auto flex min-h-dvh w-full max-w-lg flex-col pb-[max(1.5rem,env(safe-area-inset-bottom))] min-[960px]:max-w-6xl">
+      <header
+        className="relative overflow-hidden px-4 pb-6 pt-[max(1.25rem,env(safe-area-inset-top))] text-center sm:px-6 min-[960px]:pt-8"
+        style={{ background: "linear-gradient(#8FD3F4, #F9E7B8)" }}
+      >
+        <h1
+          className="font-display text-4xl leading-none text-[#E0393E] sm:text-6xl"
+          style={{ textShadow: "0 3px 0 #FFFFFF, 0 5px 0 #F3C0BE" }}
+        >
+          Mobile Magic
+        </h1>
+        <p className="mt-2 text-sm font-black tracking-wide text-[#7E3C8A]">
+          Hamad &amp; Talal’s Games
         </p>
-        <h1 className="mt-1 text-3xl font-black leading-tight sm:text-5xl">Choose an adventure</h1>
         <FamilyStrip className="mt-4" />
         {stats.stars > 0 && (
-          <p className="mt-2 inline-flex items-center gap-1 text-sm font-black text-muted-foreground">
+          <p className="mt-3 inline-flex items-center gap-1 rounded-full bg-white/80 px-3 py-1 text-sm font-black text-[#7E3C8A]">
             <Star className="h-4 w-4 fill-primary text-primary" />
             {stats.stars} stars collected
           </p>
         )}
       </header>
-      <div className="mt-5 grid grid-cols-2 gap-3 min-[960px]:mt-8 min-[960px]:grid-cols-4 min-[960px]:gap-4">
-        {choices.map((choice) => (
-          <GameButton
-            key={choice.label}
-            tone={choice.tone}
-            className="flex min-h-32 min-w-0 flex-col items-center justify-center gap-2 px-3 py-4 text-center min-[960px]:min-h-44"
-            onClick={choice.action}
-          >
-            {choice.icon}
-            <span className="text-lg font-black leading-tight min-[960px]:text-xl">
-              {choice.label}
-            </span>
-            <span className="text-xs font-bold leading-snug opacity-80 min-[960px]:text-sm">
-              {choice.detail}
-            </span>
-          </GameButton>
-        ))}
+      <div
+        className="px-4 pb-8 pt-6 sm:px-6"
+        style={{
+          backgroundColor: "#1DA5E0",
+          backgroundImage: "radial-gradient(circle, rgba(255,255,255,.12) 3px, transparent 3.5px)",
+          backgroundSize: "34px 34px",
+        }}
+      >
+        <h2
+          className="mb-4 font-display text-3xl text-white min-[960px]:text-4xl"
+          style={{ textShadow: "0 3px 0 rgba(0,0,0,.14)" }}
+        >
+          Let’s play!
+        </h2>
+        <div className="grid grid-cols-2 gap-3.5 min-[960px]:grid-cols-4 min-[960px]:gap-5">
+          {choices.map((choice) => (
+            <button
+              key={choice.label}
+              type="button"
+              onClick={choice.action}
+              className="touch-manipulation flex min-w-0 flex-col overflow-hidden rounded-3xl bg-white p-2 pb-3 text-left text-[#2B1B4A] shadow-[0_6px_0_rgba(0,0,0,.18)] transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-1 active:shadow-none focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-[#FFC930]"
+            >
+              <span
+                className="grid h-28 place-items-center rounded-2xl min-[960px]:h-36"
+                style={{ background: toneArt[choice.tone] }}
+              >
+                {choice.icon}
+              </span>
+              <span className="block px-1.5 pt-2.5 text-lg font-black leading-tight min-[960px]:text-xl">
+                {choice.label}
+              </span>
+              <span className="block px-1.5 pt-0.5 text-xs font-extrabold leading-snug text-[#7E3C8A] min-[960px]:text-sm">
+                {choice.detail}
+              </span>
+            </button>
+          ))}
+        </div>
       </div>
     </section>
   );
