@@ -88,6 +88,12 @@ const NooraniWorld = lazyReload(() =>
 import { GameButton } from "@/components/game/GameButton";
 import { surahs, type SurahData } from "@/data/surahs";
 import { juz29Surahs } from "@/data/surahsJuz29";
+import { juz16Surahs } from "@/data/surahsJuz16";
+import { juz17Surahs } from "@/data/surahsJuz17";
+import { juz18Surahs } from "@/data/surahsJuz18";
+import { juz19Surahs } from "@/data/surahsJuz19";
+import { juz20Surahs } from "@/data/surahsJuz20";
+import { juz1MoreSurahs, juz4Surahs, juz6Surahs, juz7Surahs, ahzabCompleteSurahs, juz22MoreSurahs } from "@/data/surahsRemaining";
 import { juz27Surahs } from "@/data/surahsJuz27";
 import { juz28Surahs as juz28Base } from "@/data/surahsJuz28";
 import { juz28MoreSurahs } from "@/data/surahsJuz28b";
@@ -109,6 +115,11 @@ import { juz9Surahs } from "@/data/surahsJuz9";
 import { juz8Surahs } from "@/data/surahsJuz8";
 // Juz 15 = Al-Isra (15b) followed by Al-Kahf, as one list.
 const juz15Surahs = [...juz15MoreSurahs, ...juz15Base];
+// Juz 1, 20, 21, 22 include the remaining chapters (Al-Fatihah, Ahzab, Saba/Fatir); 29 stays in Juz 21.
+const juz1Full = [...juz1MoreSurahs, ...juz1Surahs];
+const juz20Full = juz20Surahs.filter((s) => s.number !== 29);
+const juz21Full = [...juz21Surahs.filter((s) => s.number !== 33), ...ahzabCompleteSurahs];
+const juz22Full = [...juz22MoreSurahs, ...juz22Surahs];
 import { juz3Surahs } from "@/data/surahsJuz3";
 import { juz1Surahs } from "@/data/surahsJuz1";
 
@@ -121,8 +132,13 @@ const allSurahs: readonly SurahData[] = [
   ...juz25Surahs,
   ...juz24Surahs,
   ...juz23Surahs,
-  ...juz22Surahs,
-  ...juz21Surahs,
+  ...juz22Full,
+  ...juz21Full,
+  ...juz20Full,
+  ...juz19Surahs,
+  ...juz18Surahs,
+  ...juz17Surahs,
+  ...juz16Surahs,
   ...juz15Surahs,
   ...juz14Surahs,
   ...juz13Surahs,
@@ -131,8 +147,11 @@ const allSurahs: readonly SurahData[] = [
   ...juz10Surahs,
   ...juz9Surahs,
   ...juz8Surahs,
+  ...juz7Surahs,
+  ...juz6Surahs,
+  ...juz4Surahs,
   ...juz3Surahs,
-  ...juz1Surahs,
+  ...juz1Full,
 ];
 import { units, allLessons, type Lesson } from "@/data/arabicCurriculum";
 import { FinishAyah } from "@/components/quran/FinishAyah";
@@ -1334,7 +1353,7 @@ function QuranPicker({
   onStartMemorize?: ((s: SurahData) => void) | undefined;
 }) {
   const [juz, setJuz] = useState<
-    1 | 3 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30
+    1 | 3 | 4 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30
   >(30);
   const list =
     juz === 30
@@ -1354,9 +1373,9 @@ function QuranPicker({
                   : juz === 23
                     ? juz23Surahs
                     : juz === 22
-                      ? juz22Surahs
+                      ? juz22Full
                       : juz === 21
-                        ? juz21Surahs
+                        ? juz21Full
                         : juz === 15
                           ? juz15Surahs
                           : juz === 14
@@ -1375,7 +1394,15 @@ function QuranPicker({
                                         ? juz8Surahs
                                         : juz === 3
                                           ? juz3Surahs
-                                          : juz1Surahs;
+                                          : juz === 20 ? juz20Full
+      : juz === 19 ? juz19Surahs
+      : juz === 18 ? juz18Surahs
+      : juz === 17 ? juz17Surahs
+      : juz === 16 ? juz16Surahs
+      : juz === 7 ? juz7Surahs
+      : juz === 6 ? juz6Surahs
+      : juz === 4 ? juz4Surahs
+      : juz1Full;
   const tabs = [
     { id: 30 as const, label: "Juz 30", ar: "جزء عمّ" },
     { id: 29 as const, label: "Juz 29", ar: "جزء تبارك" },
@@ -1387,6 +1414,11 @@ function QuranPicker({
     { id: 23 as const, label: "Juz 23", ar: "الجزء ٢٣" },
     { id: 22 as const, label: "Juz 22", ar: "يس" },
     { id: 21 as const, label: "Juz 21", ar: "اتل ما أوحي" },
+    { id: 20 as const, label: "Juz 20", ar: "الجزء ٢٠" },
+    { id: 19 as const, label: "Juz 19", ar: "الجزء ١٩" },
+    { id: 18 as const, label: "Juz 18", ar: "الجزء ١٨" },
+    { id: 17 as const, label: "Juz 17", ar: "الجزء ١٧" },
+    { id: 16 as const, label: "Juz 16", ar: "الجزء ١٦" },
     { id: 15 as const, label: "Juz 15", ar: "الإسراء · الكهف" },
     { id: 14 as const, label: "Juz 14", ar: "الحجر · النحل" },
     { id: 13 as const, label: "Juz 13", ar: "الرعد · إبراهيم" },
@@ -1395,6 +1427,9 @@ function QuranPicker({
     { id: 10 as const, label: "Juz 10", ar: "التوبة" },
     { id: 9 as const, label: "Juz 9", ar: "الأنفال" },
     { id: 8 as const, label: "Juz 8", ar: "الأعراف" },
+    { id: 7 as const, label: "Juz 7", ar: "الجزء ٧" },
+    { id: 6 as const, label: "Juz 6", ar: "الجزء ٦" },
+    { id: 4 as const, label: "Juz 4", ar: "الجزء ٤" },
     { id: 3 as const, label: "Juz 3", ar: "آل عمران" },
     { id: 1 as const, label: "Juz 1–2", ar: "البقرة" },
   ];
