@@ -121,6 +121,7 @@ const juz20Full = juz20Surahs.filter((s) => s.number !== 29);
 const juz21Full = [...juz21Surahs.filter((s) => s.number !== 33), ...ahzabCompleteSurahs];
 const juz22Full = [...juz22MoreSurahs, ...juz22Surahs];
 import { juz3Surahs } from "@/data/surahsJuz3";
+import { juz5Surahs } from "@/data/surahsJuz5";
 import { juz1Surahs } from "@/data/surahsJuz1";
 
 const allSurahs: readonly SurahData[] = [
@@ -149,6 +150,7 @@ const allSurahs: readonly SurahData[] = [
   ...juz8Surahs,
   ...juz7Surahs,
   ...juz6Surahs,
+  ...juz5Surahs,
   ...juz4Surahs,
   ...juz3Surahs,
   ...juz1Full,
@@ -1353,7 +1355,7 @@ function QuranPicker({
   onStartMemorize?: ((s: SurahData) => void) | undefined;
 }) {
   const [juz, setJuz] = useState<
-    1 | 3 | 4 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30
+    1 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30
   >(30);
   const list =
     juz === 30
@@ -1392,6 +1394,8 @@ function QuranPicker({
                                       ? juz9Surahs
                                       : juz === 8
                                         ? juz8Surahs
+                                        : juz === 5
+                                          ? juz5Surahs
                                         : juz === 3
                                           ? juz3Surahs
                                           : juz === 20 ? juz20Full
@@ -1429,6 +1433,7 @@ function QuranPicker({
     { id: 8 as const, label: "Juz 8", ar: "الأعراف" },
     { id: 7 as const, label: "Juz 7", ar: "الجزء ٧" },
     { id: 6 as const, label: "Juz 6", ar: "الجزء ٦" },
+    { id: 5 as const, label: "Juz 5", ar: "الجزء ٥" },
     { id: 4 as const, label: "Juz 4", ar: "الجزء ٤" },
     { id: 3 as const, label: "Juz 3", ar: "آل عمران" },
     { id: 1 as const, label: "Juz 1–2", ar: "البقرة" },
