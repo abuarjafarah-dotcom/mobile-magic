@@ -2,6 +2,7 @@
 // Own localStorage key so it never touches other sections' progress. Never gates access.
 import { useCallback, useEffect, useState } from "react";
 import type { ActivityType, NooraniSkill } from "@/data/noorani";
+import { getActiveChild } from "@/lib/childProfiles";
 
 export type PlayerId = "hamad" | "talal";
 export const PLAYERS: PlayerId[] = ["hamad", "talal"];
@@ -149,7 +150,12 @@ export function useNooraniProgress() {
       const parsed = JSON.parse(raw) as Partial<NooraniStore>;
       setStore({
         v: 1,
-        player: parsed.player && PLAYERS.includes(parsed.player) ? parsed.player : "hamad",
+        // The child chosen on the home screen plays; otherwise keep the last Noorani player.
+        player: PLAYERS.includes(getActiveChild() as PlayerId)
+          ? (getActiveChild() as PlayerId)
+          : parsed.player && PLAYERS.includes(parsed.player)
+            ? parsed.player
+            : "hamad",
         players: {
           hamad: { ...emptyPlayer(), ...parsed.players?.hamad },
           talal: { ...emptyPlayer(), ...parsed.players?.talal },

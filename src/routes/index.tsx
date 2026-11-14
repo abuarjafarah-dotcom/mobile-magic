@@ -201,6 +201,9 @@ import {
   WhoIsPlayingStrip,
 } from "@/components/family/WhoIsPlaying";
 import type { ChildId } from "@/lib/childProfiles";
+import { TodayPath } from "@/components/today/TodayPath";
+import { recordPractice } from "@/lib/reviewDeck";
+import { markStep } from "@/lib/todayPath";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -410,7 +413,23 @@ function MathAdventure() {
   const [table, setTable] = useState<TimesTable>(1);
   const [selectedSurah, setSelectedSurah] = useState<SurahData>(() => surahs[0]!);
   const [sound, setSound] = useState(true);
-  const [learning, updateLearning] = useLearningProgress();
+  const [learning, updateLearningRaw] = useLearningProgress();
+  // Every Qur'an step a child finishes also schedules that surah to come back for review.
+  const updateLearning = useCallback(
+    (change: (p: LearningProgress) => LearningProgress) =>
+      updateLearningRaw((prev) => {
+        const next = change(prev);
+        for (const [id, now] of Object.entries(next.quran)) {
+          const was = prev.quran[id];
+          const grew =
+            now.completed.length > (was?.completed.length ?? 0) ||
+            now.levels.length > (was?.levels.length ?? 0);
+          if (grew) recordPractice(`quran:${id}`);
+        }
+        return next;
+      }),
+    [updateLearningRaw],
+  );
   const [arabicLesson, setArabicLesson] = useState<Lesson>(allLessons[0]!);
   const [awView, setAwView] = useState("free");
   const [g1Lesson, setG1Lesson] = useState<G1Lesson>(g1Lessons[0]!);
@@ -524,6 +543,24 @@ function MathAdventure() {
     setScreen("home");
   };
 
+  const openFromPath = useCallback((id: string) => {
+    if (id === "quran") {
+      setHomeTab("surah");
+      setScreen("home");
+    } else setScreen(id as Screen);
+  }, []);
+  const openAyahFromPath = useCallback((surah: SurahData) => {
+    setSelectedSurah(surah);
+    setScreen("ayah");
+  }, []);
+  const addBonusStars = useCallback((n: number) => {
+    setStats((prev) => {
+      const next = { ...prev, stars: prev.stars + n };
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+      return next;
+    });
+  }, []);
+
   const openSettings = () => {
     settingsReturnRef.current = screen;
     setScreen("parent");
@@ -548,6 +585,15 @@ function MathAdventure() {
         <GamePicker
           stats={stats}
           activeChild={activeChild}
+          todayPath={
+            <TodayPath
+              learning={learning}
+              surahs={allSurahs}
+              onOpenScreen={openFromPath}
+              onOpenAyah={openAyahFromPath}
+              onBonus={addBonusStars}
+            />
+          }
           onOpenCategory={openCategory}
           onStartIq={() => setScreen("iq")}
           onStartIe={() => setScreen("ie")}
@@ -873,6 +919,7 @@ const toneArt = {
 function GamePicker({
   stats,
   activeChild,
+  todayPath,
   onOpenCategory,
   onStartIq,
   onStartIe,
@@ -895,6 +942,7 @@ function GamePicker({
   onStartHbl: () => void;
   stats: Stats;
   activeChild: ChildId | null;
+  todayPath: ReactNode;
   onOpenCategory: (tab: ActivityTab) => void;
   onStartIq: () => void;
   onStartIe: () => void;
@@ -1053,6 +1101,7 @@ function GamePicker({
           backgroundSize: "34px 34px",
         }}
       >
+        {todayPath}
         <h2
           className="mb-4 font-display text-3xl text-white min-[960px]:text-4xl"
           style={{ textShadow: "0 3px 0 rgba(0,0,0,.14)" }}
@@ -1064,7 +1113,10 @@ function GamePicker({
             <button
               key={choice.label}
               type="button"
-              onClick={choice.action}
+              onClick={() => {
+                markStep("pick");
+                choice.action();
+              }}
               className="touch-manipulation flex min-w-0 flex-col overflow-hidden rounded-3xl bg-white p-2 pb-3 text-left text-[#2B1B4A] shadow-[0_6px_0_rgba(0,0,0,.18)] transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-1 active:shadow-none focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-[#FFC930]"
             >
               <span
