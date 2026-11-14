@@ -93,7 +93,14 @@ import { juz17Surahs } from "@/data/surahsJuz17";
 import { juz18Surahs } from "@/data/surahsJuz18";
 import { juz19Surahs } from "@/data/surahsJuz19";
 import { juz20Surahs } from "@/data/surahsJuz20";
-import { juz1MoreSurahs, juz4Surahs, juz6Surahs, juz7Surahs, ahzabCompleteSurahs, juz22MoreSurahs } from "@/data/surahsRemaining";
+import {
+  juz1MoreSurahs,
+  juz4Surahs,
+  juz6Surahs,
+  juz7Surahs,
+  ahzabCompleteSurahs,
+  juz22MoreSurahs,
+} from "@/data/surahsRemaining";
 import { juz27Surahs } from "@/data/surahsJuz27";
 import { juz28Surahs as juz28Base } from "@/data/surahsJuz28";
 import { juz28MoreSurahs } from "@/data/surahsJuz28b";
@@ -188,6 +195,12 @@ import hamadIdle from "@/assets/kitchen/cast/hamad-idle.png";
 import talalIdle from "@/assets/kitchen/cast/talal-idle.png";
 import yousefHappy from "@/assets/science/yousef-happy.png";
 import { FamilyStrip } from "@/components/family/FamilyStrip";
+import {
+  useActiveChild,
+  WhoIsPlayingGate,
+  WhoIsPlayingStrip,
+} from "@/components/family/WhoIsPlaying";
+import type { ChildId } from "@/lib/childProfiles";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -388,6 +401,7 @@ function Character({
 
 function MathAdventure() {
   const [screen, setScreen] = useState<Screen>("picker");
+  const { ready: childReady, child: activeChild } = useActiveChild();
   const settingsReturnRef = useRef<Screen>("picker");
   const [geoLesson, setGeoLesson] = useState<GeoLesson | null>(null);
   const [homeTab, setHomeTab] = useState<ActivityTab>("multiplication");
@@ -529,9 +543,11 @@ function MathAdventure() {
           </GameButton>
         </div>
       )}
-      {screen === "picker" && (
+      {screen === "picker" && childReady && !activeChild && <WhoIsPlayingGate />}
+      {screen === "picker" && (!childReady || activeChild) && (
         <GamePicker
           stats={stats}
+          activeChild={activeChild}
           onOpenCategory={openCategory}
           onStartIq={() => setScreen("iq")}
           onStartIe={() => setScreen("ie")}
@@ -856,6 +872,7 @@ const toneArt = {
 
 function GamePicker({
   stats,
+  activeChild,
   onOpenCategory,
   onStartIq,
   onStartIe,
@@ -877,6 +894,7 @@ function GamePicker({
   onStartPlay: () => void;
   onStartHbl: () => void;
   stats: Stats;
+  activeChild: ChildId | null;
   onOpenCategory: (tab: ActivityTab) => void;
   onStartIq: () => void;
   onStartIe: () => void;
@@ -1065,6 +1083,7 @@ function GamePicker({
           ))}
         </div>
       </div>
+      <WhoIsPlayingStrip active={activeChild} />
     </section>
   );
 }
@@ -1390,7 +1409,35 @@ function QuranPicker({
   onStartMemorize?: ((s: SurahData) => void) | undefined;
 }) {
   const [juz, setJuz] = useState<
-    1 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30
+    | 1
+    | 3
+    | 4
+    | 5
+    | 6
+    | 7
+    | 8
+    | 9
+    | 10
+    | 11
+    | 12
+    | 13
+    | 14
+    | 15
+    | 16
+    | 17
+    | 18
+    | 19
+    | 20
+    | 21
+    | 22
+    | 23
+    | 24
+    | 25
+    | 26
+    | 27
+    | 28
+    | 29
+    | 30
   >(30);
   const list =
     juz === 30
@@ -1431,17 +1478,25 @@ function QuranPicker({
                                         ? juz8Surahs
                                         : juz === 5
                                           ? juz5Surahs
-                                        : juz === 3
-                                          ? juz3Surahs
-                                          : juz === 20 ? juz20Full
-      : juz === 19 ? juz19Surahs
-      : juz === 18 ? juz18Surahs
-      : juz === 17 ? juz17Surahs
-      : juz === 16 ? juz16Surahs
-      : juz === 7 ? juz7Surahs
-      : juz === 6 ? juz6Surahs
-      : juz === 4 ? juz4Surahs
-      : juz1Full;
+                                          : juz === 3
+                                            ? juz3Surahs
+                                            : juz === 20
+                                              ? juz20Full
+                                              : juz === 19
+                                                ? juz19Surahs
+                                                : juz === 18
+                                                  ? juz18Surahs
+                                                  : juz === 17
+                                                    ? juz17Surahs
+                                                    : juz === 16
+                                                      ? juz16Surahs
+                                                      : juz === 7
+                                                        ? juz7Surahs
+                                                        : juz === 6
+                                                          ? juz6Surahs
+                                                          : juz === 4
+                                                            ? juz4Surahs
+                                                            : juz1Full;
   const tabs = [
     { id: 30 as const, label: "Juz 30", ar: "جزء عمّ" },
     { id: 29 as const, label: "Juz 29", ar: "جزء تبارك" },

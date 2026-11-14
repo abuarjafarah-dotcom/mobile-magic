@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { getActiveChild } from "@/lib/childProfiles";
 import { ArrowLeft, ChevronDown, ChevronLeft, ChevronRight, ChevronUp } from "lucide-react";
 import mapUrl from "@/assets/world/neighborhood.webp";
 import mosqueIcon from "@/assets/salah/mosque-icon.webp";
@@ -124,7 +125,11 @@ export function NeighborhoodWorld({
   onEnterGame: (target: WorldTarget) => void;
   onShowAll: () => void;
 }) {
-  const [character, setCharacter] = useState<Character | null>(null);
+  // The child who is playing walks the map; the chooser only shows for Yousef or no profile.
+  const [character, setCharacter] = useState<Character | null>(() => {
+    const child = typeof window === "undefined" ? null : getActiveChild();
+    return child === "hamad" || child === "talal" ? child : null;
+  });
 
   if (!character) {
     return (

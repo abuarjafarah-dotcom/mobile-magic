@@ -49,13 +49,13 @@
   --color-success: var(--success);
   --color-success-foreground: var(--success-foreground);
   --font-sans: "Nunito", ui-rounded, system-ui, sans-serif;
-  --font-display: "Bagel Fat One", "Nunito", ui-rounded, sans-serif;
-  /* Pop theme: hard offset "sticker" shadows */
-  --shadow-sm: 2px 2px 0 var(--ink);
-  --shadow: 3px 3px 0 var(--ink);
-  --shadow-md: 4px 4px 0 var(--ink);
-  --shadow-lg: 5px 5px 0 var(--ink);
-  --shadow-xl: 6px 6px 0 var(--ink);
+  --font-display: "Fredoka", "Nunito", ui-rounded, sans-serif;
+  /* Storybook theme: soft chunky shadows under each card */
+  --shadow-sm: 0 2px 0 rgb(0 0 0 / 0.14);
+  --shadow: 0 3px 0 rgb(0 0 0 / 0.16);
+  --shadow-md: 0 4px 0 rgb(0 0 0 / 0.18);
+  --shadow-lg: 0 5px 0 rgb(0 0 0 / 0.18);
+  --shadow-xl: 0 6px 0 rgb(0 0 0 / 0.18);
   --font-quran: "Amiri Quran", "Noto Naskh Arabic", serif;
   --font-arabic: "Noto Naskh Arabic", "Amiri Quran", serif;
   --color-chart-1: var(--chart-1);
@@ -75,35 +75,35 @@
 
 :root {
   --radius: 1rem;
-  --background: oklch(0.971 0.026 80.3);
-  --ink: oklch(0.23 0.004 106.7);
-  --pop-arc: oklch(0.861 0.159 86.4);
-  --foreground: oklch(0.23 0.004 106.7);
+  --background: oklch(0.983 0.018 86.1);
+  --ink: oklch(0.270 0.084 296.0);
+  --pop-arc: oklch(0.833 0.083 229.9);
+  --foreground: oklch(0.270 0.084 296.0);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.23 0.004 106.7);
+  --card-foreground: oklch(0.270 0.084 296.0);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.23 0.004 106.7);
-  --primary: oklch(0.861 0.159 86.4);
-  --primary-foreground: oklch(0.23 0.004 106.7);
-  --secondary: oklch(0.552 0.193 259.5);
-  --secondary-foreground: oklch(1 0 0);
-  --muted: oklch(0.945 0.022 83.3);
-  --muted-foreground: oklch(0.423 0.035 63.3);
-  --accent: oklch(0.568 0.208 29);
-  --accent-foreground: oklch(1 0 0);
-  --success: oklch(0.782 0.184 146);
-  --success-foreground: oklch(0.23 0.004 106.7);
+  --popover-foreground: oklch(0.270 0.084 296.0);
+  --primary: oklch(0.861 0.165 87.3);
+  --primary-foreground: oklch(0.270 0.084 296.0);
+  --secondary: oklch(0.554 0.129 243.6);
+  --secondary-foreground: oklch(1.000 0.000 89.9);
+  --muted: oklch(0.953 0.020 308.2);
+  --muted-foreground: oklch(0.435 0.112 318.9);
+  --accent: oklch(0.574 0.202 26.7);
+  --accent-foreground: oklch(1.000 0.000 89.9);
+  --success: oklch(0.746 0.171 145.2);
+  --success-foreground: oklch(0.270 0.084 296.0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.89 0.034 82);
-  --input: oklch(0.9 0.03 78);
-  --ring: oklch(0.552 0.193 259.5);
-  --sun-shadow: var(--ink);
-  --success-shadow: var(--ink);
-  --sky-shadow: var(--ink);
-  --berry-shadow: var(--ink);
-  --neutral-shadow: var(--ink);
-  --danger-shadow: var(--ink);
+  --border: oklch(0.898 0.034 306.3);
+  --input: oklch(0.898 0.034 306.3);
+  --ring: oklch(0.861 0.165 87.3);
+  --sun-shadow: oklch(0.731 0.147 79.0);
+  --success-shadow: oklch(0.572 0.151 145.3);
+  --sky-shadow: oklch(0.451 0.106 244.6);
+  --berry-shadow: oklch(0.467 0.167 26.0);
+  --neutral-shadow: oklch(0.840 0.048 300.1);
+  --danger-shadow: oklch(0.424 0.152 26.7);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -172,13 +172,18 @@
     font: inherit;
   }
 
-  /* Pop theme: chunky red display headings */
+  /* Storybook theme: rounded red display headings with a white lift */
   h1 {
     font-family: var(--font-display);
-    font-weight: 400;
+    font-weight: 700;
     color: var(--accent);
-    text-shadow: 2px 2px 0 var(--ink);
+    text-shadow:
+      0 2px 0 oklch(1 0 0),
+      0 4px 0 oklch(0.87 0.06 20);
     letter-spacing: 0.01em;
+  }
+  h2 {
+    font-family: var(--font-display);
   }
   h1 :lang(ar),
   h1[lang="ar"] {
@@ -186,17 +191,15 @@
     font-weight: 700;
   }
 
-  /* Pop theme: sun arc behind every screen */
+  /* Storybook theme: soft sky at the top of every screen */
   body::before {
     content: "";
     position: fixed;
     z-index: -1;
-    left: -40vw;
-    right: -40vw;
-    bottom: -62vh;
-    height: 100vh;
-    border-radius: 50%;
-    background: var(--pop-arc);
+    inset: 0 0 auto 0;
+    height: 46vh;
+    background: linear-gradient(var(--pop-arc), transparent);
+    opacity: 0.55;
     pointer-events: none;
   }
 

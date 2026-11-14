@@ -11,7 +11,13 @@ export function FamilyStrip({ className = "" }: { className?: string }) {
   return (
     <div aria-hidden="true" className={`flex items-end justify-center gap-1 sm:gap-3 ${className}`}>
       {FAMILY.map((src, index) => (
-        <img key={index} src={src} alt="" draggable={false} className="h-16 w-auto object-contain drop-shadow-md sm:h-24" />
+        <img
+          key={index}
+          src={src}
+          alt=""
+          draggable={false}
+          className="h-16 w-auto object-contain drop-shadow-md sm:h-24"
+        />
       ))}
     </div>
   );
