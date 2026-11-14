@@ -204,6 +204,16 @@ import type { ChildId } from "@/lib/childProfiles";
 import { TodayPath } from "@/components/today/TodayPath";
 import { recordPractice } from "@/lib/reviewDeck";
 import { markStep } from "@/lib/todayPath";
+import { PlayLimit } from "@/components/family/PlayLimit";
+import { CHILDREN } from "@/lib/childProfiles";
+import {
+  getLimitMinutes,
+  isCalm,
+  LIMIT_CHOICES,
+  setCalm,
+  setLimitMinutes,
+} from "@/lib/familySettings";
+import { speak, stopVoice } from "@/lib/voice";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -568,6 +578,7 @@ function MathAdventure() {
 
   return (
     <main className="min-h-dvh text-foreground">
+      <PlayLimit child={activeChild} paused={screen === "parent"} />
       {screen !== "parent" && (
         <div className="fixed right-[max(1rem,env(safe-area-inset-right))] top-[max(1rem,env(safe-area-inset-top))] z-30">
           <GameButton
@@ -1110,33 +1121,125 @@ function GamePicker({
         </h2>
         <div className="grid grid-cols-2 gap-3.5 min-[960px]:grid-cols-4 min-[960px]:gap-5">
           {choices.map((choice) => (
-            <button
-              key={choice.label}
-              type="button"
-              onClick={() => {
-                markStep("pick");
-                choice.action();
-              }}
-              className="touch-manipulation flex min-w-0 flex-col overflow-hidden rounded-3xl bg-white p-2 pb-3 text-left text-[#2B1B4A] shadow-[0_6px_0_rgba(0,0,0,.18)] transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-1 active:shadow-none focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-[#FFC930]"
-            >
-              <span
-                className="grid h-28 place-items-center rounded-2xl min-[960px]:h-36"
-                style={{ background: toneArt[choice.tone] }}
+            <div key={choice.label} className="relative min-w-0">
+              <button
+                type="button"
+                aria-label={`Hear the name: ${choice.label}`}
+                onClick={() => {
+                  // Says the game's name in Arabic, then English, for children who cannot read yet.
+                  stopVoice();
+                  const ar = TILE_ARABIC[choice.label];
+                  void (ar ? speak(ar, "ar") : Promise.resolve()).then(() =>
+                    speak(choice.label.replace("&", "and"), "en"),
+                  );
+                }}
+                className="touch-manipulation absolute right-0 top-0 z-10 grid h-12 w-12 place-items-center rounded-bl-2xl rounded-tr-3xl bg-[#2B1B4A]/60 text-white focus-visible:outline-4 focus-visible:outline-[#FFC930]"
               >
-                {choice.icon}
-              </span>
-              <span className="block px-1.5 pt-2.5 text-lg font-black leading-tight min-[960px]:text-xl">
-                {choice.label}
-              </span>
-              <span className="block px-1.5 pt-0.5 text-xs font-extrabold leading-snug text-[#7E3C8A] min-[960px]:text-sm">
-                {choice.detail}
-              </span>
-            </button>
+                <Volume2 className="h-5 w-5" aria-hidden="true" />
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  markStep("pick");
+                  choice.action();
+                }}
+                className="touch-manipulation flex h-full w-full min-w-0 flex-col overflow-hidden rounded-3xl bg-white p-2 pb-3 text-left text-[#2B1B4A] shadow-[0_6px_0_rgba(0,0,0,.18)] transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-1 active:shadow-none focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-[#FFC930]"
+              >
+                <span
+                  className="grid h-28 place-items-center rounded-2xl min-[960px]:h-36"
+                  style={{ background: toneArt[choice.tone] }}
+                >
+                  {choice.icon}
+                </span>
+                <span className="block px-1.5 pt-2.5 text-lg font-black leading-tight min-[960px]:text-xl">
+                  {choice.label}
+                </span>
+                <span className="block px-1.5 pt-0.5 text-xs font-extrabold leading-snug text-[#7E3C8A] min-[960px]:text-sm">
+                  {choice.detail}
+                </span>
+              </button>
+            </div>
           ))}
         </div>
       </div>
       <WhoIsPlayingStrip active={activeChild} />
     </section>
+  );
+}
+
+// Arabic names the home tiles say aloud.
+const TILE_ARABIC: Record<string, string> = {
+  Math: "الرياضيات",
+  "Qur’an": "القرآن الكريم",
+  Geography: "الجغرافيا",
+  Arabic: "اللغة العربية",
+  "Human Biology Lab": "مختبر جسم الإنسان",
+  Chess: "الشطرنج",
+  "Wudu & Salah": "الوضوء والصلاة",
+  "Harakat & Tracing": "الحركات والكتابة",
+  "Interactive Qur’an": "القرآن التفاعلي",
+  "More to Explore": "اكتشف أكثر",
+  "Building World": "عالم البناء",
+  "Science World": "عالم العلوم",
+  "Palestinian Kitchen": "مطبخنا الفلسطيني",
+  Library: "المكتبة",
+  Neighborhood: "حيّنا",
+};
+
+// Parent controls: calm mode and the daily play-time limit.
+function FamilyControls() {
+  const [calm, setCalmState] = useState(false);
+  const [limit, setLimit] = useState(0);
+  useEffect(() => {
+    setCalmState(isCalm());
+    setLimit(getLimitMinutes());
+  }, []);
+  return (
+    <>
+      <div className="rounded-2xl bg-card p-5 shadow-sm">
+        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
+          <div className="min-w-0">
+            <h2 className="font-black">Calm mode</h2>
+            <p className="text-sm font-bold text-muted-foreground">
+              Turns off animations and confetti in every game
+            </p>
+          </div>
+          <GameButton
+            tone={calm ? "mint" : "neutral"}
+            className="h-12 min-w-14 shrink-0 px-3"
+            onClick={() => {
+              setCalm(!calm);
+              setCalmState(!calm);
+            }}
+            aria-pressed={calm}
+          >
+            {calm ? "On" : "Off"}
+          </GameButton>
+        </div>
+      </div>
+      <div className="rounded-2xl bg-card p-5 shadow-sm">
+        <h2 className="font-black">Play time each day</h2>
+        <p className="text-sm font-bold text-muted-foreground">
+          Per child. A goodnight screen appears when the time is used up.
+        </p>
+        <div className="mt-3 flex flex-wrap gap-2" role="group" aria-label="Minutes per day">
+          {LIMIT_CHOICES.map((m) => (
+            <GameButton
+              key={m}
+              tone={limit === m ? "sun" : "neutral"}
+              className="h-12 min-w-14 px-3"
+              onClick={() => {
+                setLimitMinutes(m);
+                setLimit(m);
+              }}
+              aria-pressed={limit === m}
+            >
+              {m === 0 ? "No limit" : `${m} min`}
+            </GameButton>
+          ))}
+        </div>
+      </div>
+    </>
   );
 }
 
@@ -1185,6 +1288,7 @@ function HomeScreen({
   onStartMemorize?: (surah: SurahData) => void;
   onStartArabic: (lesson: Lesson) => void;
 }) {
+  const { child: playing } = useActiveChild();
   const isMath =
     tab === "multiplication" || tab === "addition" || tab === "grade1" || tab === "bowling";
   return (
@@ -1198,11 +1302,16 @@ function HomeScreen({
         >
           <ArrowLeft className="h-5 w-5" />
         </GameButton>
-        <p className="text-sm font-black uppercase text-muted-foreground">Learn with Hamad</p>
+        <p className="text-sm font-black uppercase text-muted-foreground">
+          Learn with {CHILDREN.find((c) => c.id === playing)?.name ?? "Hamad"}
+        </p>
         <h1 className="mt-1 text-3xl font-black leading-tight sm:text-5xl">Learning Adventure</h1>
       </header>
       <div className="mt-4 flex items-center justify-center gap-4">
-        <Character name={tab === "arabic" ? "talal" : "hamad"} className="animate-hamad-float" />
+        <Character
+          name={playing ?? (tab === "arabic" ? "talal" : "hamad")}
+          className="animate-hamad-float"
+        />
         <div className="max-w-52 rounded-2xl rounded-bl-sm bg-card px-4 py-3 text-left text-sm font-black shadow-sm">
           {tab === "multiplication"
             ? "Pick a times table and let’s build equal groups!"
@@ -2632,6 +2741,7 @@ function ParentScreen({
             </GameButton>
           </div>
         </div>
+        <FamilyControls />
         <div>
           <h2 className="mb-3 text-lg font-black">Progress</h2>
           <div className="grid grid-cols-2 gap-3">

@@ -24,6 +24,8 @@ const SHARED_KEYS = new Set([
   "learning-language-v1",
   "chess-lang-v1",
   "chunk-reload-at",
+  "calm-mode-v1",
+  "play-limit-v1",
 ]);
 
 const isShared = (key: string) => SHARED_KEYS.has(key) || key.startsWith(NS);

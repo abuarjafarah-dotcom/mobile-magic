@@ -191,6 +191,15 @@
     font-weight: 700;
   }
 
+  /* Calm mode (parent setting): no animation or transition anywhere */
+  [data-calm] *,
+  [data-calm] *::before,
+  [data-calm] *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+
   /* Pop theme: sun arc behind every screen */
   body::before {
     content: "";

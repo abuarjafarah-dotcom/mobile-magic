@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { findPath } from "@/lib/worldPath";
 import { getActiveChild } from "@/lib/childProfiles";
 import { ArrowLeft, ChevronDown, ChevronLeft, ChevronRight, ChevronUp } from "lucide-react";
 import mapUrl from "@/assets/world/neighborhood.webp";
@@ -199,6 +200,7 @@ function WorldStage({
   const [size, setSize] = useState({ w: 0, h: 0 });
 
   const playerRef = useRef(player);
+  const pathRef = useRef<Point[]>([]);
   const dirsRef = useRef<Set<Dir>>(new Set());
   const lockRef = useRef(false);
   const timerRef = useRef<number | null>(null);
@@ -260,6 +262,27 @@ function WorldStage({
         const dirs = dirsRef.current;
         let vx = (dirs.has("right") ? 1 : 0) - (dirs.has("left") ? 1 : 0);
         let vy = (dirs.has("down") ? 1 : 0) - (dirs.has("up") ? 1 : 0);
+        if (vx !== 0 || vy !== 0) {
+          // Arrows always win over a tapped walk.
+          pathRef.current = [];
+        } else if (pathRef.current.length) {
+          // Tap-to-walk: head for the next waypoint, in on-screen pixels.
+          const p = playerRef.current;
+          const wp = pathRef.current[0]!;
+          const sx = (wp.x - p.x) * MAP_PX.w;
+          const sy = (wp.y - p.y) * MAP_PX.h;
+          if (Math.hypot(sx, sy) <= WORLD_SPEED * dt * MAP_PX.w) {
+            pathRef.current.shift();
+            if (!isBlocked(wp.x, wp.y)) {
+              playerRef.current = { ...p, x: wp.x, y: wp.y };
+            }
+          }
+          const next = pathRef.current[0];
+          if (next) {
+            vx = (next.x - playerRef.current.x) * MAP_PX.w;
+            vy = (next.y - playerRef.current.y) * MAP_PX.h;
+          }
+        }
         const len = Math.hypot(vx, vy);
         if (len > 0) {
           vx /= len;
@@ -272,9 +295,12 @@ function WorldStage({
           let y = p.y;
           if (!isBlocked(x + dx, y)) x += dx;
           if (!isBlocked(x, y + dy)) y += dy;
+          // A tapped walk that hits something stops instead of pushing forever.
+          if (x === p.x && y === p.y) pathRef.current = [];
           // Horizontal movement wins over vertical so side frames read clearly.
-          const pose: Pose = vx !== 0 ? "side" : vy > 0 ? "down" : "up";
-          const facing: 1 | -1 = vx < 0 ? -1 : vx > 0 ? 1 : p.facing;
+          const pose: Pose =
+            vx !== 0 && Math.abs(vx) >= Math.abs(vy) ? "side" : vy > 0 ? "down" : "up";
+          const facing: 1 | -1 = vx < -0.01 ? -1 : vx > 0.01 ? 1 : p.facing;
           walkT += dt;
           const next = {
             x,
@@ -389,6 +415,19 @@ function WorldStage({
       >
         <div
           className="absolute left-0 top-0"
+          onPointerDown={(e) => {
+            // Tap the map (or a door ring) and the character walks there.
+            if (pausedRef.current) return;
+            const rect = e.currentTarget.getBoundingClientRect();
+            const tap = {
+              x: (e.clientX - rect.left) / rect.width,
+              y: (e.clientY - rect.top) / rect.height,
+            };
+            const door = WORLD_DESTINATIONS.find(
+              (d) => distancePx(tap, d.hotspot) < MAP_PX.w * 0.07,
+            );
+            pathRef.current = findPath(playerRef.current, door ? door.at : tap, isBlocked);
+          }}
           style={{
             width: sceneW,
             height: sceneH,
