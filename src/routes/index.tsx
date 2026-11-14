@@ -183,6 +183,7 @@ import hamadAsset from "@/assets/hamad.jpg.asset.json";
 import talalAsset from "@/assets/talal.jpg.asset.json";
 import yousefAsset from "@/assets/yousef.jpg.asset.json";
 import mosqueIcon from "@/assets/salah/mosque-icon.webp";
+import nooraniGarden from "@/assets/noorani/garden.webp";
 import goldenBeadIcon from "@/assets/golden-workshop/unit-bead.webp";
 import hamadIdle from "@/assets/kitchen/cast/hamad-idle.png";
 import talalIdle from "@/assets/kitchen/cast/talal-idle.png";
@@ -544,6 +545,10 @@ function MathAdventure() {
           onStartHbl={() => setScreen("hbl")}
           onStartLibrary={() => setScreen("library")}
           onStartNeighborhood={() => setScreen("neighborhood")}
+          onStartNoorani={() => {
+            setHomeTab("arabic");
+            setScreen("noorani");
+          }}
         />
       )}
       {screen === "chess" && (
@@ -861,6 +866,7 @@ function GamePicker({
   onStartHbl,
   onStartLibrary,
   onStartNeighborhood,
+  onStartNoorani,
 }: {
   onStartNeighborhood: () => void;
   onStartLibrary: () => void;
@@ -875,162 +881,93 @@ function GamePicker({
   onStartIe: () => void;
   onStartBuild: () => void;
   onStartScience: () => void;
+  onStartNoorani: () => void;
 }) {
-  const choices: Array<{
-    label: string;
-    detail: string;
-    icon: ReactNode;
-    tone: "sun" | "mint" | "sky" | "berry";
-    action: () => void;
-  }> = [
-    {
-      label: "Math",
-      detail: "Numbers, tables & bowling",
-      icon: <Grid3X3 className="h-9 w-9" />,
-      tone: "mint",
-      action: () => onOpenCategory("multiplication"),
-    },
-    {
-      label: "Qur’an",
-      detail: "Listen & finish the ayah",
-      icon: <Moon className="h-9 w-9" />,
-      tone: "berry",
-      action: () => onOpenCategory("surah"),
-    },
-    {
-      label: "Geography",
-      detail: "Explore our world",
-      icon: <Globe2 className="h-9 w-9" />,
-      tone: "sky",
-      action: () => onOpenCategory("geo"),
-    },
-    {
-      label: "Arabic",
-      detail: "Letters, words & stories",
-      icon: (
-        <span lang="ar" className="font-arabic text-4xl leading-none">
-          أ ب
-        </span>
-      ),
-      tone: "sun",
-      action: () => onOpenCategory("arabic"),
-    },
-    {
-      label: "Human Biology Lab",
-      detail: "Anatomy, organs & how the body works",
-      icon: <span className="text-4xl leading-none">🫀</span>,
-      tone: "berry",
-      action: onStartHbl,
-    },
-    {
-      label: "Chess",
-      detail: "Play, learn & challenges",
-      icon: <span className="text-4xl leading-none">♟️</span>,
-      tone: "sky",
-      action: onStartChess,
-    },
-    {
-      label: "Wudu & Salah",
-      detail: "الوضوء والصلاة · learn to pray",
-      icon: <img src={mosqueIcon} alt="" className="h-12 w-auto drop-shadow" />,
-      tone: "mint",
-      action: onStartWs,
-    },
-    {
-      label: "Harakat & Tracing",
-      detail: "لعبة الحركات · spin & trace",
-      icon: (
-        <span lang="ar" className="font-arabic text-4xl leading-none">
-          كَتَبَ
-        </span>
-      ),
-      tone: "sun",
-      action: onStartPlay,
-    },
-    {
-      label: "Interactive Qur’an",
-      detail: "Explore, listen & discover",
-      icon: <Sparkles className="h-9 w-9" />,
-      tone: "berry",
-      action: onStartIq,
-    },
-    {
-      label: "More to Explore",
-      detail: "Mosque, home & stories",
-      icon: <span className="text-4xl leading-none">🕌</span>,
-      tone: "mint",
-      action: onStartIe,
-    },
-    {
-      label: "Building World",
-      detail: "Build, copy & create",
-      icon: <span className="text-4xl leading-none">🧱</span>,
-      tone: "sun",
-      action: onStartBuild,
-    },
-    {
-      label: "Science World",
-      detail: "عالم العلوم · test & discover",
-      icon: <span className="text-4xl leading-none">🔬</span>,
-      tone: "sky",
-      action: onStartScience,
-    },
-    {
-      label: "Palestinian Kitchen",
-      detail: "مطبخنا الفلسطيني · cook & taste",
-      icon: <span className="text-4xl leading-none">🍳</span>,
-      tone: "berry",
-      action: onStartKitchen,
-    },
-    {
-      label: "Library",
-      detail: "Our books & stories",
-      icon: <span className="text-4xl leading-none">📚</span>,
-      tone: "sun",
-      action: onStartLibrary,
-    },
-    {
-      label: "Neighborhood",
-      detail: "Explore our world",
-      icon: <span className="text-4xl leading-none">🏘️</span>,
-      tone: "mint",
-      action: onStartNeighborhood,
-    },
+  type Tone = "sun" | "mint" | "sky" | "berry";
+  type Choice = { label: string; detail: string; icon: ReactNode; tone: Tone; action: () => void; wide?: boolean };
+  const emoji = (e: string) => <span className="text-5xl leading-none">{e}</span>;
+  // Games: the white tiles on the polka-dot blue. Every adventure from the old picker is still here.
+  const games: Choice[] = [
+    { label: "Math", detail: "Numbers, tables & bowling", icon: <Grid3X3 className="h-14 w-14" />, tone: "sun", action: () => onOpenCategory("multiplication"), wide: true },
+    { label: "Qur’an", detail: "Listen & finish the ayah", icon: <Moon className="h-12 w-12" />, tone: "mint", action: () => onOpenCategory("surah") },
+    { label: "Arabic", detail: "Letters, words & stories", icon: <span lang="ar" className="font-arabic text-5xl leading-none">أ ب</span>, tone: "berry", action: () => onOpenCategory("arabic") },
+    { label: "Harakat & Tracing", detail: "لعبة الحركات · spin & trace", icon: <span lang="ar" className="font-arabic text-5xl leading-none">كَتَبَ</span>, tone: "sky", action: onStartPlay },
+    { label: "Geography", detail: "Explore our world", icon: <Globe2 className="h-12 w-12" />, tone: "mint", action: () => onOpenCategory("geo") },
+    { label: "Science World", detail: "عالم العلوم · test & discover", icon: emoji("🔬"), tone: "berry", action: onStartScience },
+    { label: "Chess", detail: "Play, learn & challenges", icon: emoji("♟️"), tone: "sky", action: onStartChess },
+    { label: "Human Biology Lab", detail: "Anatomy, organs & the body", icon: emoji("🫀"), tone: "sun", action: onStartHbl },
+    { label: "Building World", detail: "Build, copy & create", icon: emoji("🧱"), tone: "berry", action: onStartBuild },
+  ];
+  // Stories & worlds: the book cards on the red knit band.
+  const books: Choice[] = [
+    { label: "Palestinian Kitchen", detail: "مطبخنا الفلسطيني · cook & taste", icon: emoji("🍳"), tone: "berry", action: onStartKitchen },
+    { label: "Wudu & Salah", detail: "الوضوء والصلاة · learn to pray", icon: <img src={mosqueIcon} alt="" className="h-12 w-auto drop-shadow" />, tone: "mint", action: onStartWs },
+    { label: "Interactive Qur’an", detail: "Explore, listen & discover", icon: <Sparkles className="h-10 w-10" />, tone: "sky", action: onStartIq },
+    { label: "More to Explore", detail: "Mosque, home & stories", icon: emoji("🕌"), tone: "sun", action: onStartIe },
+    { label: "Library", detail: "Our books & stories", icon: emoji("📚"), tone: "sun", action: onStartLibrary },
+    { label: "Neighborhood", detail: "Explore our world", icon: emoji("🏘️"), tone: "mint", action: onStartNeighborhood },
   ];
   return (
-    <section className="mx-auto flex min-h-dvh w-full max-w-lg flex-col px-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[max(3.75rem,env(safe-area-inset-top))] sm:px-6 min-[960px]:max-w-6xl min-[960px]:justify-center min-[960px]:py-8">
-      <header className="text-center">
-        <p className="text-sm font-black uppercase text-muted-foreground">
-          Learn with Hamad &amp; Talal
-        </p>
-        <h1 className="mt-1 text-3xl font-black leading-tight sm:text-5xl">Choose an adventure</h1>
-        <FamilyStrip className="mt-4" />
-        {stats.stars > 0 && (
-          <p className="mt-2 inline-flex items-center gap-1 text-sm font-black text-muted-foreground">
-            <Star className="h-4 w-4 fill-primary text-primary" />
-            {stats.stars} stars collected
-          </p>
-        )}
+    <div className="mm-home">
+      <header className="mm-hero">
+        <div className="mm-wrap">
+          <p className="mm-kicker">Learn with Hamad &amp; Talal</p>
+          <h1 className="mm-wordmark">Choose an adventure</h1>
+          <FamilyStrip className="mm-family mt-3" />
+          <button type="button" className="mm-feature" onClick={onStartNoorani} aria-label="Play Garden of Light, Noorani Qaida">
+            <span className="mm-feature-art">
+              <img src={nooraniGarden} alt="" className="h-full w-full object-cover" />
+              <span className="mm-sticker">Featured</span>
+            </span>
+            <span className="mm-feature-meta">
+              <b>Garden of Light</b>
+              <span>
+                <span lang="ar" className="font-arabic">حديقة النور</span> · Noorani Qaida · Play now
+              </span>
+            </span>
+          </button>
+        </div>
       </header>
-      <div className="mt-5 grid grid-cols-2 gap-3 min-[960px]:mt-8 min-[960px]:grid-cols-4 min-[960px]:gap-4">
-        {choices.map((choice) => (
-          <GameButton
-            key={choice.label}
-            tone={choice.tone}
-            className="flex min-h-32 min-w-0 flex-col items-center justify-center gap-2 px-3 py-4 text-center min-[960px]:min-h-44"
-            onClick={choice.action}
-          >
-            {choice.icon}
-            <span className="text-lg font-black leading-tight min-[960px]:text-xl">
-              {choice.label}
-            </span>
-            <span className="text-xs font-bold leading-snug opacity-80 min-[960px]:text-sm">
-              {choice.detail}
-            </span>
-          </GameButton>
-        ))}
-      </div>
-    </section>
+
+      <section className="mm-dots" aria-labelledby="mm-games">
+        <div className="mm-wrap">
+          <h2 id="mm-games" className="mm-title">Let’s play!</h2>
+          <div className="mm-grid">
+            {games.map((g) => (
+              <button key={g.label} type="button" className={`mm-tile${g.wide ? " mm-wide" : ""}`} onClick={g.action}>
+                <span className={`mm-pic mm-${g.tone}`}>{g.icon}</span>
+                <span className="mm-name">{g.label}</span>
+                <span className="mm-sub">{g.detail}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mm-knit" aria-labelledby="mm-books">
+        <div className="mm-wrap">
+          <h2 id="mm-books" className="mm-title">Stories &amp; worlds</h2>
+          <div className="mm-books">
+            {books.map((b) => (
+              <button key={b.label} type="button" className={`mm-book mm-ink-${b.tone}`} onClick={b.action}>
+                <span className="mm-book-ic">{b.icon}</span>
+                <b>{b.label}</b>
+                <small>{b.detail}</small>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <footer className="mm-strip">
+        <div className="mm-wrap">
+          <p className="mm-stars">
+            <Star className="h-6 w-6 fill-primary text-primary" aria-hidden="true" />
+            {stats.stars > 0 ? `${stats.stars} stars collected` : "Play a game to earn your first star"}
+          </p>
+        </div>
+      </footer>
+    </div>
   );
 }
 
